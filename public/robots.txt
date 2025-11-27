@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://viraweb.online/sitemap.xml
+
+# If you have staging or admin paths to block, add Disallow lines here
+# Disallow: /admin/

@@ -129,14 +129,4 @@ export default function Portfolio() {
   )
 }
 
-import { buildMetadata } from "@/lib/seo"
-import type { Metadata } from "next"
 
-export async function generateMetadata(): Promise<Metadata> {
-  return buildMetadata({
-    title: "Portfólio — Vira Web",
-    description: "Veja projetos de design e web que geram resultados reais para nossos clientes.",
-    path: "/portfolio",
-    keywords: ["portfólio web", "design gráfico", "sites responsivos"],
-  })
-}

@@ -13,12 +13,7 @@ export const metadata: Metadata = {
   description:
     "Especialistas em tráfego pago, criação de sites, design e gestão de Google Meu Negócio. Transforme sua presença digital.",
   metadataBase: new URL(SITE_URL),
-  keywords: [
-    "tráfego pago",
-    "criação de sites",
-    "design",
-    "Google Meu Negócio",
-  ],
+  keywords: ["tráfego pago", "criação de sites", "design", "Google Meu Negócio"],
   openGraph: {
     title: "Vira Web - Criação de Sites",
     description:
@@ -27,10 +22,10 @@ export const metadata: Metadata = {
     siteName: "Vira Web",
     images: [
       {
-        url: `${SITE_URL}/viraweb6.ico`,
-        width: 512,
-        height: 512,
-        alt: "Vira Web logo",
+        url: `${SITE_URL}/og-criacao-sites.svg`,
+        alt: "Vira Web",
+        width: 1200,
+        height: 630,
       },
     ],
     locale: "pt_BR",
@@ -41,7 +36,17 @@ export const metadata: Metadata = {
     title: "Vira Web - Criação de Sites",
     description:
       "Especialistas em tráfego pago, criação de sites, design e gestão de Google Meu Negócio.",
+    images: [`${SITE_URL}/og-criacao-sites.svg`],
   },
+  icons: {
+    icon: [{ url: "/viraweb6.ico" }],
+    apple: [{ url: "/viraweb6.ico" }],
+    other: [
+      { rel: "mask-icon", url: "/viraweb6.ico", color: "#06b6d4" },
+      { rel: "icon", url: "/viraweb6.ico" },
+    ],
+  },
+  manifest: `${SITE_URL}/site.webmanifest`,
 }
 
 export default function RootLayout({
@@ -75,6 +80,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="bg-white selection:text-white selection:bg-secondary/50">
       <link rel="icon" href="/viraweb6.ico" sizes="any" />
+      <link rel="manifest" href="/site.webmanifest" />
       <link rel="canonical" href={SITE_URL} />
       <meta name="theme-color" content="#ffffff" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

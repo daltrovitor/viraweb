@@ -11,11 +11,11 @@ import type { Metadata } from "next"
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
-    title: "Vira Web — Marketing Digital, Criação de Sites e Design",
+    title: "Criação de Sites - Vira Web",
     description:
       "Transformamos ideias em presenças digitais poderosas: tráfego pago, criação de sites, design e gestão de Google Meu Negócio.",
     path: "/",
-    keywords: ["marketing digital", "criação de sites", "tráfego pago", "design gráfico"],
+    keywords: [ "criação de sites", "tráfego pago", "design gráfico"],
   })
 }
 

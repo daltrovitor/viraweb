@@ -44,7 +44,7 @@ export function Services() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-balance mb-4">Nossos Serviços</h2>
           <p className="text-lg text-muted-foreground text-balance">
-            Soluções completas de marketing digital e tecnologia para fazer seu negócio crescer
+            Soluções completas de sites e tráfego pago para fazer seu negócio crescer
           </p>
         </div>
 

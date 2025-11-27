@@ -16,7 +16,7 @@ export function Footer() {
               className="w-40 mb-4"
             />
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Transformando negócios através do marketing digital e tecnologia.
+              Transformando negócios através de sites e tráfego pago.
             </p>
           </div>
 

@@ -25,7 +25,7 @@ export function Hero() {
                 <span className="text-primary">Vira</span>
                 <span className="text-secondary">Web</span>
               </span>
-              , unimos estratégia, design e programação para fazer sua marca se
+              , unimos estratégia, criação de bots e programação para fazer sua marca se
               destacar no universo online. Construímos sites, campanhas e identidades
               digitais que conectam você ao seu público e impulsionam o crescimento
               do seu negócio.

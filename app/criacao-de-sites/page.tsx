@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Criação de Sites — Vira Web",
     description:
-      "Criação de sites profissionais e responsivos. Design, SEO e integração com ferramentas para aumentar suas vendas.",
+      "Criação de sites profissionais e responsivos. criação de bots, SEO e integração com ferramentas para aumentar suas vendas.",
     path: "/criacao-de-sites",
     keywords: ["criação de sites", "desenvolvimento de sites", "site responsivo"],
     image: `${SITE_URL}/og-criacao-sites.svg`,
@@ -52,7 +52,7 @@ export default function CriacaoDeSites() {
         <div>
           <h2 className="text-2xl font-semibold mb-3">O que entregamos</h2>
           <ul className="list-disc ml-5 space-y-2 text-pretty">
-            <li>Design responsivo e acessível</li>
+            <li>criação de bots responsivo e acessível</li>
             <li>Otimização inicial de SEO</li>
             <li>Integração com formulários e WhatsApp</li>
             <li>Performance e Core Web Vitals</li>

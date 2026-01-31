@@ -32,7 +32,7 @@ export default function Termos() {
                       <div className="mt-5">1. Sobre a ViraWeb</div>
                       <div className="mt-2">
                         A ViraWeb é uma empresa especializada em criação de
-                        sites, desenvolvimento de bots de automação, design
+                        sites, desenvolvimento de bots de automação, criação de bots
                         gráfico, gestão de tráfego pago e otimização de perfis
                         no Google Meu Negócio (GMN). Nosso objetivo é fornecer
                         soluções digitais personalizadas para impulsionar a
@@ -62,7 +62,7 @@ export default function Termos() {
                           </li>
 
                           <li>
-                            Design Gráfico e Identidade Visual (logotipos,
+                            criação de bots Gráfico e Identidade Visual (logotipos,
                             banners, cartões, posts, entre outros);
                           </li>
 

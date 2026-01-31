@@ -11,13 +11,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
 export const metadata: Metadata = {
   title: "Criação de Sites - Vira Web",
   description:
-    "Especialistas em tráfego pago, criação de sites, design e gestão de Google Meu Negócio. Transforme sua presença digital.",
+    "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio. Transforme sua presença digital.",
   metadataBase: new URL(SITE_URL),
-  keywords: ["tráfego pago", "criação de sites", "design", "Google Meu Negócio"],
+  keywords: ["tráfego pago", "criação de sites", "criação de bots", "Google Meu Negócio"],
   openGraph: {
     title: "Criação de Sites - Vira Web",
     description:
-      "Especialistas em tráfego pago, criação de sites, design e gestão de Google Meu Negócio.",
+      "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
     url: SITE_URL,
     siteName: "Vira Web",
     images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Criação de Sites - Vira Web",
     description:
-      "Especialistas em tráfego pago, criação de sites, design e gestão de Google Meu Negócio.",
+      "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
     images: [`${SITE_URL}/og-criacao-sites.svg`],
   },
   icons: {

@@ -13,9 +13,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Criação de Sites - Vira Web",
     description:
-      "Transformamos ideias em presenças digitais poderosas: tráfego pago, criação de sites, design e gestão de Google Meu Negócio.",
+      "Transformamos ideias em presenças digitais poderosas: tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
     path: "/",
-    keywords: [ "criação de sites", "tráfego pago", "design gráfico"],
+    keywords: [ "criação de sites", "tráfego pago", "criação de bots gráfico"],
   })
 }
 

@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     { url: `${SITE_URL}/portfolio`, lastModified: new Date() },
-    { url: `${SITE_URL}/design`, lastModified: new Date() },
+    { url: `${SITE_URL}/criação de bots`, lastModified: new Date() },
     { url: `${SITE_URL}/websites`, lastModified: new Date() },
     { url: `${SITE_URL}/termos`, lastModified: new Date() },
     { url: `${SITE_URL}/criacao-de-sites`, lastModified: new Date() },

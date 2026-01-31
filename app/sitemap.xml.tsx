@@ -6,7 +6,7 @@ export async function GET() {
   const pages = [
     { url: `${SITE_URL}/`, priority: 1.0, changefreq: "weekly" },
     { url: `${SITE_URL}/portfolio`, priority: 0.8, changefreq: "monthly" },
-    { url: `${SITE_URL}/design`, priority: 0.7, changefreq: "monthly" },
+    { url: `${SITE_URL}/criação de bots`, priority: 0.7, changefreq: "monthly" },
     { url: `${SITE_URL}/websites`, priority: 0.7, changefreq: "monthly" },
     { url: `${SITE_URL}/termos`, priority: 0.2, changefreq: "yearly" },
   ]

@@ -35,7 +35,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Design
+                  criação de bots
                 </a>
               </li>
               <li>

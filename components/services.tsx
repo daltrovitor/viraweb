@@ -9,7 +9,7 @@ const services = [
     title: "Criação de Sites",
     description:
       "Sites modernos, responsivos e otimizados para conversão. Do institucional ao e-commerce, criamos a solução perfeita.",
-    features: ["Design responsivo", "SEO otimizado", "Performance máxima", "Manutenção inclusa"],
+    features: ["criação de bots responsivo", "SEO otimizado", "Performance máxima", "Manutenção inclusa"],
     url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20criação%20de%20sites!%0A",
   },
   {

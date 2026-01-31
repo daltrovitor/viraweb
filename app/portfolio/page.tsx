@@ -1,109 +1,109 @@
 "use client"
 
-import { useState } from "react"
+
 import { ArrowRight, Sparkles, ArrowLeft } from "lucide-react"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
-import {  Palette, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 
 
 
+interface website {
+  id: number,
+  title: string,
+  description: string,
+  image: string,
+  url: string,
+}
 
-export default function Portfolio() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
+const sites: website[] = [
+  {
+    id: 1,
+    title: "Pinster Games",
+    image: "https://pinstergames.vercel.app/",
+    description: "Um site feito para uma empresa de jogos",
+    url: "https://pinstergames.vercel.app/",
+  },
+  {
+    id: 2,
+    title: "Site pra Dentista",
+    image: "https://marcelodaltro.com.br/",
+    description: "Site feito para um dentista famoso",
+    url: "https://marcelodaltro.com.br/",
+  },
+  {
+    id: 3,
+    title: "Site para uma empresa de lixas",
+    image: "https://www.libraslixas.com.br/",
+    description: "Site de uma empresa de lixas com mais de 40 anos de experiência",
+    url: "https://libraslixas.com.br",
+  },
+  {
+    id: 4,
+    title: "Site para uma agencia de marketing",
+    image: "https://flowstore.vercel.app/",
+    description: "Site para uma agencia de marketing com mais de 200 clientes",
+    url: "https://flowstore.vercel.app/",
+  },
+]; 
 
-  return (
-   <section className="relative bg-white py-16 ">
 
-      <div className="container mx-auto px-6 md:block hidden">
-        <Link href="/">
-          <Button variant="ghost" className="mb-8 border-2  hover:border-secondary border-transparent hover:bg-  text-muted-foreground cursor-pointer">
+export default function WebSites() {
+
+     return ( <>
+         <section id="websites" className="w-screen bg-white py-20 mt-24 relative left-1/2 right-1/2 -mx-[50vw]">
+         <div className="container mx-auto px-6 ">
+        <Link href="/portfolio">
+          <Button variant="ghost" className="mb-8 border-2 hover:border-secondary border-transparent hover:bg-  text-muted-foreground cursor-pointer">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar para a pagina inicial
+             Voltar para a pagina inicial Voltar para a pagina inicial
           </Button>
         </Link>
       </div>
-  {/* Header */}
-  <div className="container mx-auto px-4   text-center">
-    <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-foreground px-4 py-2 rounded-full text-sm font-medium mb-6">
-      <Sparkles className="w-4 h-4 text-primary" />
-      <span>Transformação Digital</span>
+  <div className="container mx-auto px-4">
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <h2 className="text-3xl md:text-5xl font-bold text-balance mb-4">
+        Web Sites
+      </h2>
+      <p className="text-muted-foreground text-lg">
+        Alguns dos projetos digitais que ajudaram nossos clientes a crescer
+      </p>
     </div>
-    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-      Portfólio <span className="text-primary">Vira</span>
-      <span className="text-secondary">Web</span>
-    </h1>
-    <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-      Designer Gráfico & Web Sites
-    </p>
-    <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-      Veja como transformamos negócios através de design profissional e sites com tecnologia de ponta
-    </p>
-  </div>
 
-{/* Services Anchor Section */}
-      <section className="container mx-auto px-4 pt-16 ">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">Escolha seu caminho</h2>
-          <p className="text-gray-600 text-lg text-pretty">
-            Explore nossos serviços e descubra como podemos ajudar seu negócio
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Design Card */}
-          <Card className="group relative overflow-hidden border-2 hover:border-blue-600 transition-all duration-300 hover:shadow-xl">
-            <Link href="/design" className="block p-8 md:p-10">
-              <div className="flex flex-col items-center text-center space-y-6">
-                <div className="w-20 h-20 rounded-2xl bg-blue-100 flex items-center justify-center group-hover:bg-blue-600 transition-colors duration-300">
-                  <Palette className="w-10 h-10 text-blue-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-bold text-gray-900">Design Gráfico</h3>
-                  <p className="text-gray-600 text-pretty">
-                    Identidade visual, branding, materiais gráficos e muito mais para destacar sua marca no mercado
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-4 transition-all duration-300">
-                  <span>Ver projetos de design</span>
-                  <ArrowRight className="w-5 h-5" />
-                </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sites.map((site) => (
+        <div
+          key={site.id}
+          className="transition-all duration-300 hover:scale-[1.02]"
+        >
+          <div className="bg-card rounded-lg overflow-hidden shadow-sm border border-border hover:shadow-md transition-shadow flex flex-col">
+              <div className="aspect-[12/16] bg-muted relative overflow-hidden">
+              <iframe src={site.image} title={site.title} loading="lazy" className=" bg-cover w-full h-full "></iframe>
+            </div>
+            <div className="p-4 md:p-6 flex flex-col justify-between flex-1">
+              <div>
+                <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+                  {site.title}
+                </h3>
+                <p className="text-sm text-muted-foreground text-pretty mb-4">
+                  {site.description}
+                </p>
               </div>
-            </Link>
-          </Card>
-
-          {/* Websites Card */}
-          <Card className="group relative overflow-hidden border-2 hover:border-yellow-400 transition-all duration-300 hover:shadow-xl">
-            <Link href="/websites" className="block p-8 md:p-10">
-              <div className="flex flex-col items-center text-center space-y-6">
-                <div className="w-20 h-20 rounded-2xl bg-yellow-100 flex items-center justify-center group-hover:bg-yellow-400 transition-colors duration-300">
-                  <Globe className="w-10 h-10 text-yellow-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-bold text-gray-900">Web Sites</h3>
-                  <p className="text-gray-600 text-pretty">
-                    Sites modernos, responsivos e otimizados com as melhores tecnologias para impulsionar seu negócio
-                    online
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2 text-yellow-600 font-semibold group-hover:gap-4 transition-all duration-300">
-                  <span>Ver projetos web</span>
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              </div>
-            </Link>
-          </Card>
+              <a
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-block text-center cursor-pointer hover:scale-105 duration-300 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                Visitar Site
+              </a>
+            </div>
+          </div>
         </div>
-      </section>
-
-
-    {/* CTA Section */}
+      ))}
+    </div>
+    </div>
+      {/* CTA Section */}
     <div className="mt-16 md:mt-24 text-center w-screen py-20 mt-24 relative left-1/2 right-1/2 -mx-[50vw]  bg-neutral-100">
       <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-balance">
         Pronto para transformar seu negócio?
@@ -124,9 +124,7 @@ export default function Portfolio() {
 
 
   <Footer />
-</section>
-
+  </section>
+  </>
   )
 }
-
-

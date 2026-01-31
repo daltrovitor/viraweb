@@ -21,12 +21,12 @@ const services = [
     url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20tráfego%20pago%20e%20anuncios!",
   },
   {
-    icon: Palette,
-    title: "Design Profissional",
+    icon: Bot,
+    title: "Assistente Virtual",
     description:
-      "Identidade visual completa, materiais gráficos e design que comunica a essência da sua marca de forma impactante.",
-    features: ["Identidade visual", "Material gráfico", "Social media", "Branding"],
-    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20design!",
+      "Automatize o atendimento ao cliente com nosso assistente virtual inteligente, disponível 24/7 para responder dúvidas e captar leads.",
+    features: ["Respostas automáticas", "Atendimento 24/7", "Captação de leads", "Integração com WhatsApp"],
+    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20para%20um%20Assistente%20Virtual!",
   },
   {
     icon: MapPin,

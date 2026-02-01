@@ -56,7 +56,7 @@ export default function WebSites() {
         <Link href="/portfolio">
           <Button variant="ghost" className="mb-8 border-2 hover:border-secondary border-transparent hover:bg-  text-muted-foreground cursor-pointer">
             <ArrowLeft className="mr-2 h-4 w-4" />
-             Voltar para a pagina inicial Voltar para a pagina inicial
+             Voltar para a pagina inicial
           </Button>
         </Link>
       </div>

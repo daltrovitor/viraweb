@@ -4,8 +4,6 @@ import { Services } from "@/components/services"
 import { Stats } from "@/components/stats"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
-import Video from "@/components/videosec"
-import { FaWhatsapp } from "react-icons/fa";
 import { buildMetadata } from "@/lib/seo"
 import type { Metadata } from "next"
 
@@ -28,12 +26,6 @@ export default function Home() {
       <Services />
       <CTA />
       <Footer />
-      <div className="text-white fixed flex items-end justify-end">
-        <div className="rounded-full w-20 bg-[#25d366]">
-          
-                <FaWhatsapp />
-        </div>
-      </div>
     </main>
   )
 }

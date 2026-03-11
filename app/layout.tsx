@@ -39,11 +39,11 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/og-criacao-sites.svg`],
   },
   icons: {
-    icon: [{ url: "/viraweb6.ico" }],
-    apple: [{ url: "/viraweb6.ico" }],
+    icon: [{ url: "/favicon.png" }],
+    apple: [{ url: "/favicon.png" }],
     other: [
-      { rel: "mask-icon", url: "/viraweb6.ico", color: "#06b6d4" },
-      { rel: "icon", url: "/viraweb6.ico" },
+      { rel: "mask-icon", url: "/favicon.png" },
+      { rel: "icon", url: "/favicon.png" },
     ],
   },
   manifest: `${SITE_URL}/site.webmanifest`,
@@ -78,7 +78,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="pt-BR" className="bg-white selection:text-white selection:bg-secondary/50">
+    <html lang="pt-BR" className="bg-[#0f1923] selection:text-white selection:bg-secondary/50">
       <link rel="icon" href="/viraweb6.ico" sizes="any" />
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="canonical" href={SITE_URL} />

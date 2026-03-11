@@ -1,103 +1,155 @@
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin } from "lucide-react"
+"use client"
+
+import { Mail, Phone, Instagram, Facebook, Linkedin, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+
+import { motion } from "framer-motion"
 
 export function Footer() {
   return (
-    <footer id="contato" className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          <div>
+    <footer id="contato" className="relative bg-[#0f1923] overflow-hidden">
+      {/* Textura dots sutil */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#3396d3 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      {/* Linha amarela no topo */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#ffd400] to-transparent" />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        {/* Grid principal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+          {/* Logo + descrição — ocupa mais espaço */}
+          <div className="lg:col-span-4">
             <Image
-              src="viraweb3.png"
+              src="/viraweb3.png"
               alt="Vira Web"
               width={1024}
               height={1024}
-              className="w-40 mb-4"
+              className="w-36 mb-6"
             />
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Transformando negócios através de sites e tráfego pago.
+            <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">
+              Transformando negócios através de sites profissionais, tráfego pago e soluções digitais completas.
             </p>
+            {/* Redes sociais */}
+            <div className="flex items-center gap-3">
+              {[
+                { icon: Instagram, href: "#", label: "Instagram" },
+                { icon: Facebook, href: "#", label: "Facebook" },
+                { icon: Linkedin, href: "#", label: "LinkedIn" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-500 hover:text-[#ffd400] hover:border-[#ffd400]/30 hover:bg-[#ffd400]/5 transition-all duration-300"
+                  aria-label={label}
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Serviços</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Tráfego Pago
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Criação de Sites
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  criação de bots
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Google Meu Negócio
-                </a>
-              </li>
+          {/* Serviços */}
+          <div className="lg:col-span-3">
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Serviços</h3>
+            <ul className="space-y-3">
+              {[
+                { label: "Criação de Sites", href: "#servicos" },
+                { label: "Tráfego Pago", href: "#servicos" },
+                { label: "Assistente Virtual", href: "#servicos" },
+                { label: "Google Meu Negócio", href: "#servicos" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="text-sm text-gray-500 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                  >
+                    {item.label}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Empresa</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Sobre Nós
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Portfólio
-                </a>
-              </li>
-              <li>
-                <Link href="/termos/#termos" className="hover:text-primary transition-colors">
-                  Termos de Serviço
-                </Link>
-              </li>
+          {/* Empresa */}
+          <div className="lg:col-span-2">
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Empresa</h3>
+            <ul className="space-y-3">
+              {[
+                { label: "G.D.C.", href: "https://gdc.viraweb.online/" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-500 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                  >
+                    {item.label}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Contato</h3>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-[#3396d3]" />
-                <a href="mailto:contato@viraweb.com.br" className="hover:text-primary transition-colors">
+          {/* Contato */}
+          <div className="lg:col-span-3">
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Contato</h3>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  href="mailto:suporte@viraweb.online"
+                  className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#3396d3]/10 flex items-center justify-center group-hover:bg-[#3396d3]/20 transition-colors">
+                    <Mail className="h-3.5 w-3.5 text-[#3396d3]" />
+                  </div>
                   suporte@viraweb.online
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-[#3396d3]" />
-                <a href="tel:+556299246-6109" className="hover:text-primary transition-colors">
+              <li>
+                <a
+                  href="tel:+556299246-6109"
+                  className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#3396d3]/10 flex items-center justify-center group-hover:bg-[#3396d3]/20 transition-colors">
+                    <Phone className="h-3.5 w-3.5 text-[#3396d3]" />
+                  </div>
                   (62) 9 9246-6109
                 </a>
               </li>
             </ul>
+
+            {/* Mini CTA no footer */}
+            <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="mt-6 cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-xs px-5 py-3 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/10 transition-all duration-300"
+              >
+                Falar no WhatsApp
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </motion.button>
+            </a>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">© 2025 Vira Web. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="text-muted-foreground hover:text-[#3396d3] transition-colors" aria-label="Instagram">
-              <Instagram className="h-5 w-5" />
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-[#3396d3] transition-colors" aria-label="Facebook">
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-[#3396d3] transition-colors" aria-label="LinkedIn">
-              <Linkedin className="h-5 w-5" />
-            </a>
+        {/* Barra inferior */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-600">
+            © {new Date().getFullYear()} Vira Web. Todos os direitos reservados.
+          </p>
+          <div className="flex items-center gap-1 text-xs text-gray-600">
+            <span>Feito com</span>
+            <span className="text-[#ffd400]">♦</span>
+            <span>pela equipe ViraWeb</span>
           </div>
         </div>
       </div>

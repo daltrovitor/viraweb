@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
+import { GDCFeatures } from "@/components/gdc-features"
 import { Services } from "@/components/services"
 import { Stats } from "@/components/stats"
 import { CTA } from "@/components/cta"
@@ -22,6 +23,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Header />
       <Hero />
+      <GDCFeatures />
       <Stats />
       <Services />
       <CTA />

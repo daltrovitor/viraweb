@@ -394,17 +394,16 @@ export function Hero() {
                 </h2>
 
                 <p className="text-base text-gray-400 mb-10 leading-relaxed max-w-md">
-                  O <strong className="text-white">Gerenciador de Conteúdo</strong> é o painel exclusivo
-                  que entregamos junto com cada site. Edite tudo sem código, sem complicação.
+                  Nosso <strong className="text-white">Gestor de Clientes (GDC)</strong> é muito mais do que um simples painel de controle. Ele é o verdadeiro motor central, criado com todas as 9 funcionalidades que você precisa para controlar processos manuais hoje.
                 </p>
 
                 {/* Features 2x2 */}
                 <div className="grid grid-cols-2 gap-4 mb-10">
                   {[
-                    { icon: "✏️", title: "Edite textos", desc: "Mude qualquer conteúdo" },
-                    { icon: "🖼️", title: "Troque imagens", desc: "Galeria integrada" },
-                    { icon: "📊", title: "Estatísticas", desc: "Dados em tempo real" },
-                    { icon: "💬", title: "Suporte direto", desc: "WhatsApp integrado" },
+                    { icon: "👥", title: "Gestão de Clientes", desc: "Histórico completo e prontuários" },
+                    { icon: "💰", title: "Financeiro Integrado", desc: "Fluxo de caixa automático" },
+                    { icon: "📊", title: "Relatórios e Visão", desc: "Dashboards analíticos" },
+                    { icon: "🤖", title: "ViraBot IA", desc: "Inteligência Artificial 24h" },
                   ].map((f, i) => (
                     <motion.div
                       key={i}

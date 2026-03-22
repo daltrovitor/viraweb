@@ -5,6 +5,7 @@ import Image from "next/image"
 import ScrollAnimate from "./scroll-animate"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { useTranslation } from "@/lib/i18n"
 
 /* GeoV removido conforme solicitação */
 
@@ -113,6 +114,7 @@ function SiteCard({
 }
 
 export function Hero() {
+  const { t } = useTranslation()
   return (
     <>
       <CursorGlow />
@@ -175,14 +177,14 @@ export function Hero() {
                 >
                   <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
                   <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#1a2e4a]/60">
-                    Criação de Sites
+                    {t("hero.badge")}
                   </span>
                 </motion.div>
 
                 <h1 className="text-[2.5rem] md:text-[3.2rem] lg:text-[3.8rem] font-black leading-[1.05] text-[#1a2e4a] mb-6">
-                  Seu negócio{" "}
+                  {t("hero.title1")}{" "}
                   <span className="relative inline-block">
-                    <span className="relative z-10">merece</span>
+                    <span className="relative z-10">{t("hero.title2")}</span>
                     <motion.span
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
@@ -191,14 +193,13 @@ export function Hero() {
                     />
                   </span>
                   <br />
-                  um site à
+                  {t("hero.title3")}
                   <br />
-                  <span className="text-[#3396d3]">sua altura.</span>
+                  <span className="text-[#3396d3]">{t("hero.title4")}</span>
                 </h1>
 
                 <p className="text-base md:text-lg text-[#4b5563] max-w-md mb-10 leading-relaxed">
-                  Criamos sites personalizados com design premium, painel de gerenciamento
-                  completo e estratégia digital — tudo para você se destacar.
+                  {t("hero.subtitle")}
                 </p>
 
                 {/* CTAs */}
@@ -210,18 +211,18 @@ export function Hero() {
                       className="relative cursor-pointer overflow-hidden bg-[#1a2e4a] text-white font-bold text-sm px-8 py-4 rounded-lg group transition-all duration-300"
                     >
                       <span className="relative z-10 flex items-center gap-2">
-                        Quero meu site
+                        {t("hero.cta")}
                         <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </span>
                       <span className="absolute inset-0 bg-[#ffd400] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                       <span className="absolute inset-0 z-10 flex items-center justify-center gap-2 text-[#1a2e4a] font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        Quero meu site
+                        {t("hero.cta")}
                         <ArrowUpRight className="h-4 w-4" />
                       </span>
                     </motion.button>
                   </a>
                   <a href="#servicos" className="text-[#3396d3] font-semibold text-sm hover:text-[#1a2e4a] transition-colors flex items-center gap-1 group">
-                    Ver serviços
+                    {t("hero.view_services")}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
@@ -229,9 +230,9 @@ export function Hero() {
                 {/* Stats inline */}
                 <div className="flex items-center gap-8 mt-12 pt-8 border-t border-[#1a2e4a]/10">
                   {[
-                    { num: "50+", label: "sites entregues" },
-                    { num: "98%", label: "satisfação" },
-                    { num: "7d", label: "prazo médio" },
+                    { num: "50+", label: t("hero.stats.sites") },
+                    { num: "98%", label: t("hero.stats.satisfaction") },
+                    { num: "7d", label: t("hero.stats.time") },
                   ].map((s, i) => (
                     <motion.div
                       key={i}
@@ -383,27 +384,25 @@ export function Hero() {
                 <div className="inline-flex items-center gap-2 mb-6">
                   <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
                   <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#ffd400]">
-                    Exclusivo
+                    {t("gdc.exclusive")}
                   </span>
                 </div>
 
                 <h2 className="text-3xl md:text-4xl lg:text-[2.8rem] font-black text-white leading-tight mb-6">
-                  Controle total com
-                  <br />
-                  o <span className="text-[#ffd400]">G.D.C.</span>
+                  {t("gdc.title")}
                 </h2>
 
                 <p className="text-base text-gray-400 mb-10 leading-relaxed max-w-md">
-                  Nosso <strong className="text-white">Gestor de Clientes (GDC)</strong> é muito mais do que um simples painel de controle. Ele é o verdadeiro motor central, criado com todas as 9 funcionalidades que você precisa para controlar processos manuais hoje.
+                  {t("gdc.description")}
                 </p>
 
                 {/* Features 2x2 */}
                 <div className="grid grid-cols-2 gap-4 mb-10">
                   {[
-                    { icon: "👥", title: "Gestão de Clientes", desc: "Histórico completo e prontuários" },
-                    { icon: "💰", title: "Financeiro Integrado", desc: "Fluxo de caixa automático" },
-                    { icon: "📊", title: "Relatórios e Visão", desc: "Dashboards analíticos" },
-                    { icon: "🤖", title: "ViraBot IA", desc: "Inteligência Artificial 24h" },
+                    { icon: "👥", title: t("gdc.feature1.title"), desc: t("gdc.feature1.desc") },
+                    { icon: "💰", title: t("gdc.feature2.title"), desc: t("gdc.feature2.desc") },
+                    { icon: "📊", title: t("gdc.feature3.title"), desc: t("gdc.feature3.desc") },
+                    { icon: "🤖", title: t("gdc.feature4.title"), desc: t("gdc.feature4.desc") },
                   ].map((f, i) => (
                     <motion.div
                       key={i}
@@ -426,7 +425,7 @@ export function Hero() {
                     whileTap={{ scale: 0.97 }}
                     className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-black text-sm px-8 py-4 rounded-lg inline-flex items-center gap-2 group hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300"
                   >
-                    Acessar o G.D.C.
+                    {t("gdc.cta")}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </motion.button>
                 </a>

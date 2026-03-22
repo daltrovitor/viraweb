@@ -3,47 +3,46 @@
 import { Target, Globe, Bot, MapPin, ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
-
-const services = [
-  {
-    icon: Globe,
-    title: "Criação de Sites",
-    description:
-      "Sites modernos, responsivos e otimizados para conversão. Do institucional ao e-commerce.",
-    features: ["Design responsivo", "SEO otimizado", "Performance máxima", "Manutenção inclusa"],
-    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20criação%20de%20sites!%0A",
-    accent: "#3396d3",
-  },
-  {
-    icon: Target,
-    title: "Tráfego Pago",
-    description:
-      "Campanhas estratégicas no Google e Meta Ads para maximizar seu ROI e alcançar o público certo.",
-    features: ["Google Ads", "Meta Ads", "Otimização de conversão", "Relatórios detalhados"],
-    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20tráfego%20pago%20e%20anuncios!",
-    accent: "#ffd400",
-  },
-  {
-    icon: Bot,
-    title: "Assistente Virtual",
-    description:
-      "Automatize o atendimento com IA disponível 24/7 para responder dúvidas e captar leads.",
-    features: ["Respostas automáticas", "Atendimento 24/7", "Captação de leads", "WhatsApp integrado"],
-    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20para%20um%20Assistente%20Virtual!",
-    accent: "#3396d3",
-  },
-  {
-    icon: MapPin,
-    title: "Google Meu Negócio",
-    description:
-      "Gestão completa do seu perfil no Google para aumentar visibilidade local e atrair clientes.",
-    features: ["Otimização de perfil", "Gestão de avaliações", "Posts regulares", "Análise de métricas"],
-    url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20da%20ferramenta%20google%20meu%20negócio!",
-    accent: "#ffd400",
-  },
-]
+import { useTranslation } from "@/lib/i18n"
 
 export function Services() {
+  const { t } = useTranslation()
+
+  const services = [
+    {
+      icon: Globe,
+      title: t("services.creation"),
+      description: t("services.creation.desc"),
+      features: [t("hero.stats.sites"), "SEO", "Performance", t("nav.services")], // Fallback/Generic
+      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20criação%20de%20sites!%0A",
+      accent: "#3396d3",
+    },
+    {
+      icon: Target,
+      title: t("services.traffic"),
+      description: t("services.traffic.desc"),
+      features: ["Google Ads", "Meta Ads", "ROI", "Analytics"],
+      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20tráfego%20pago%20e%20anuncios!",
+      accent: "#ffd400",
+    },
+    {
+      icon: Bot,
+      title: t("services.assistant"),
+      description: t("services.assistant.desc"),
+      features: ["AI", "24/7", "Leads", "WhatsApp"],
+      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20para%20um%20Assistente%20Virtual!",
+      accent: "#3396d3",
+    },
+    {
+      icon: MapPin,
+      title: t("services.gmn"),
+      description: t("services.gmn.desc"),
+      features: ["Local SEO", "Reviews", "Google Maps", "Metrics"],
+      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20da%20ferramenta%20google%20meu%20negócio!",
+      accent: "#ffd400",
+    },
+  ]
+
   return (
     <section id="servicos" className="relative bg-white overflow-hidden">
       {/* Background geométrico */}
@@ -73,21 +72,21 @@ export function Services() {
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
                 <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#1a2e4a]/60">
-                  O que fazemos
+                  {t("services.badge")}
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#1a2e4a] leading-tight">
-                Serviços que{" "}
+                {t("services.title1")}{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10">impulsionam</span>
+                  <span className="relative z-10">{t("services.title2")}</span>
                   <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#ffd400]/40 -z-0 rounded-sm" />
                 </span>
                 <br />
-                seu negócio.
+                {t("services.title3")}
               </h2>
             </div>
             <p className="text-base text-[#4b5563] max-w-sm leading-relaxed md:text-right">
-              Soluções completas para você crescer no digital — do site ao tráfego.
+              {t("services.subtitle")}
             </p>
           </div>
         </ScrollAnimate>
@@ -152,7 +151,7 @@ export function Services() {
                           className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors cursor-pointer"
                           style={{ color: service.accent === "#ffd400" ? "#b39600" : service.accent }}
                         >
-                          Solicitar orçamento
+                          {t("services.cta")}
                           <ArrowUpRight className="h-4 w-4" />
                         </motion.span>
                       </a>

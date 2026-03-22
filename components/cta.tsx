@@ -3,8 +3,10 @@
 import { ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
+import { useTranslation } from "@/lib/i18n"
 
 export function CTA() {
+  const { t } = useTranslation()
   return (
     <section className="relative overflow-hidden">
       {/* Fundo diagonal — navy com corte geométrico */}
@@ -42,16 +44,16 @@ export function CTA() {
               <div className="inline-flex items-center gap-2 mb-6">
                 <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
                 <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#ffd400]">
-                  Vamos conversar
+                  {t("cta.badge")}
                 </span>
               </div>
 
               <h2 className="text-3xl md:text-4xl lg:text-[3.2rem] font-black text-white leading-tight mb-6">
-                Pronto para ter um
+                {t("cta.title1")}
                 <br />
-                site{" "}
+                {t("cta.title2")}{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 text-[#ffd400]">profissional</span>
+                  <span className="relative z-10 text-[#ffd400]">{t("cta.title3")}</span>
                   <motion.span
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -64,8 +66,7 @@ export function CTA() {
               </h2>
 
               <p className="text-base md:text-lg text-gray-400 max-w-lg mb-10 leading-relaxed">
-                Entre em contato pelo WhatsApp e descubra como podemos 
-                transformar sua presença digital em resultados reais.
+                {t("cta.subtitle")}
               </p>
 
               <div className="flex flex-col sm:flex-row items-start gap-4">
@@ -76,13 +77,13 @@ export function CTA() {
                     className="relative cursor-pointer overflow-hidden bg-[#ffd400] text-[#1a2e4a] font-black text-sm px-10 py-5 rounded-xl group transition-all duration-300 shadow-lg shadow-[#ffd400]/20"
                   >
                     <span className="relative z-10 flex items-center gap-2">
-                      Falar no WhatsApp
+                      {t("cta.button")}
                       <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                   </motion.button>
                 </a>
                 <a href="#servicos" className="text-gray-400 hover:text-white font-semibold text-sm transition-colors flex items-center gap-1 py-5 group">
-                  Ou veja nossos serviços
+                  {t("cta.or_services")}
                   <ArrowUpRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -104,8 +105,8 @@ export function CTA() {
                   ))}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">+50 clientes satisfeitos</p>
-                  <p className="text-xs text-gray-500">Empresas que já cresceram com a ViraWeb</p>
+                  <p className="text-sm font-bold text-white">{t("cta.clients")}</p>
+                  <p className="text-xs text-gray-500">{t("cta.clients_desc")}</p>
                 </div>
               </div>
             </div>

@@ -2,15 +2,18 @@
 
 import { motion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
-
-const stats = [
-  { value: "300%", label: "Aumento em conversões", accent: "#3396d3" },
-  { value: "20%", label: "OFF no primeiro serviço", accent: "#ffd400" },
-  { value: "5 anos", label: "De experiência", accent: "#3396d3" },
-  { value: "98%", label: "Taxa de satisfação", accent: "#ffd400" },
-]
+import { useTranslation } from "@/lib/i18n"
 
 export function Stats() {
+  const { t, language } = useTranslation()
+
+  const stats = [
+    { value: "300%", label: t("stats.conversions"), accent: "#3396d3" },
+    { value: "20%", label: t("stats.off"), accent: "#ffd400" },
+    { value: "5", label: t("stats.exp"), accent: "#3396d3" },
+    { value: "98%", label: t("stats.satisfaction"), accent: "#ffd400" },
+  ]
+
   return (
     <section className="relative py-0 overflow-hidden">
       {/* Barra diagonal contínua — conecta com a hero */}
@@ -40,6 +43,9 @@ export function Stats() {
                     style={{ color: stat.accent }}
                   >
                     {stat.value}
+                    {i === 2 && language === "pt" ? " anos" : ""}
+                    {i === 2 && language === "en" ? " years" : ""}
+                    {i === 2 && language === "es" ? " años" : ""}
                   </motion.p>
 
                   {/* Linha acentuada */}

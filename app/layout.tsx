@@ -49,6 +49,8 @@ export const metadata: Metadata = {
   manifest: `${SITE_URL}/site.webmanifest`,
 }
 
+import { LanguageProvider } from "@/lib/i18n"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,10 +96,12 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Suspense fallback={null}>
-          {children}
-          <Analytics />
-        </Suspense>
+        <LanguageProvider>
+          <Suspense fallback={null}>
+            {children}
+            <Analytics />
+          </Suspense>
+        </LanguageProvider>
       </body>
     </html>
   )

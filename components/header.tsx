@@ -4,8 +4,11 @@ import { useState, useEffect } from "react"
 import { Menu, X, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { LanguageSwitcher } from "./language-switcher"
+import { useTranslation } from "@/lib/i18n"
 
 export function Header() {
+  const { t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState(true)
@@ -27,9 +30,9 @@ export function Header() {
   }, [])
 
   const navLinks = [
-    { label: "Serviços", href: "#servicos" },
-    { label: "G.D.C.", href: "https://gdc.viraweb.online/", external: true },
-    { label: "Contato", href: "#contato" },
+    { label: t("nav.services"), href: "#servicos" },
+    { label: t("nav.gdc"), href: "https://gdc.viraweb.online/", external: true },
+    { label: t("nav.contact"), href: "#contato" },
   ]
 
   return (
@@ -89,13 +92,15 @@ export function Header() {
                 </a>
               )
             )}
+            <LanguageSwitcher />
+
             <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300"
               >
-                Fale Conosco
+                {t("nav.button")}
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </motion.button>
             </a>
@@ -156,10 +161,14 @@ export function Header() {
                     </a>
                   )
                 )}
-                <div className="pt-3 px-4">
+                <div className="pt-3 px-4 flex flex-col gap-3">
+                  <div className="flex justify-between items-center">
+                    <span className={`text-xs font-bold uppercase ${scrolled ? "text-gray-500" : "text-[#1a2e4a]/50"}`}>Idioma</span>
+                    <LanguageSwitcher />
+                  </div>
                   <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
                     <button className="w-full cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-3 rounded-lg inline-flex items-center justify-center gap-1.5">
-                      Fale Conosco
+                      {t("nav.button")}
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </button>
                   </a>

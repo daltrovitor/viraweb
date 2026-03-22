@@ -4,8 +4,10 @@ import { Mail, Phone, Instagram, Facebook, Linkedin, ArrowUpRight } from "lucide
 import Image from "next/image"
 
 import { motion } from "framer-motion"
+import { useTranslation } from "@/lib/i18n"
 
 export function Footer() {
+  const { t } = useTranslation()
   return (
     <footer id="contato" className="relative bg-[#0f1923] overflow-hidden">
       {/* Textura dots sutil */}
@@ -33,7 +35,7 @@ export function Footer() {
               className="w-36 mb-6"
             />
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">
-              Transformando negócios através de sites profissionais, tráfego pago e soluções digitais completas.
+              {t("footer.description")}
             </p>
             {/* Redes sociais */}
             <div className="flex items-center gap-3">
@@ -56,13 +58,13 @@ export function Footer() {
 
           {/* Serviços */}
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Serviços</h3>
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">{t("footer.services")}</h3>
             <ul className="space-y-3">
               {[
-                { label: "Criação de Sites", href: "#servicos" },
-                { label: "Tráfego Pago", href: "#servicos" },
-                { label: "Assistente Virtual", href: "#servicos" },
-                { label: "Google Meu Negócio", href: "#servicos" },
+                { label: t("services.creation"), href: "#servicos" },
+                { label: t("services.traffic"), href: "#servicos" },
+                { label: t("services.assistant"), href: "#servicos" },
+                { label: t("services.gmn"), href: "#servicos" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -79,7 +81,7 @@ export function Footer() {
 
           {/* Empresa */}
           <div className="lg:col-span-2">
-            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Empresa</h3>
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">{t("footer.company")}</h3>
             <ul className="space-y-3">
               {[
                 { label: "G.D.C.", href: "https://gdc.viraweb.online/" },
@@ -101,7 +103,7 @@ export function Footer() {
 
           {/* Contato */}
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">Contato</h3>
+            <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white/40 mb-5">{t("footer.contact")}</h3>
             <ul className="space-y-4">
               <li>
                 <a
@@ -134,7 +136,7 @@ export function Footer() {
                 whileTap={{ scale: 0.97 }}
                 className="mt-6 cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-xs px-5 py-3 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/10 transition-all duration-300"
               >
-                Falar no WhatsApp
+                {t("footer.cta")}
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </motion.button>
             </a>
@@ -144,12 +146,12 @@ export function Footer() {
         {/* Barra inferior */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} Vira Web. Todos os direitos reservados.
+            © {new Date().getFullYear()} Vira Web. {t("footer.rights")}
           </p>
           <div className="flex items-center gap-1 text-xs text-gray-600">
-            <span>Feito com</span>
+            <span>{t("footer.made_with")}</span>
             <span className="text-[#ffd400]">♦</span>
-            <span>pela equipe ViraWeb</span>
+            <span>{t("footer.by")}</span>
           </div>
         </div>
       </div>

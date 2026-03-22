@@ -3,53 +3,50 @@
 import { motion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { Users, FileText, BarChart3, Upload, Bot, UserCog } from "lucide-react"
-
-const gdcFeatures = [
-  {
-    icon: Users,
-    title: "Gestão de Clientes",
-    description:
-      "Mantenha o histórico completo, prontuários precisos e o controle de todos os agendamentos amarrados individualmente na ficha de cada cliente do seu negócio.",
-    color: "#3396d3",
-  },
-  {
-    icon: FileText,
-    title: "Financeiro Integrado",
-    description:
-      "Controle as suas entradas a receber, pagamentos parcelados, descontos e acesse um fluxo de caixa detalhado gerado automaticamente com imensa precisão num piscar de olhos.",
-    color: "#3396d3",
-  },
-  {
-    icon: BarChart3,
-    title: "Relatórios e Visão",
-    description:
-      "Dashboards analíticos absurdamente elegantes que te dizem a verdade sobre a saúde da sua empresa: acompanhe faturamento real, ticket médio mensal e taxas de retenção.",
-    color: "#3396d3",
-  },
-  {
-    icon: Upload,
-    title: "Importação Mágica",
-    description:
-      "Esqueça perder dias passando dados antigos. Nossa IA lê PDFs massivos e planilhas esquecidas para preencher todo o seu sistema online num processo de menos de 2 segundos.",
-    color: "#3396d3",
-  },
-  {
-    icon: Bot,
-    title: "ViraBot IA",
-    description:
-      "Sua operação ganha uma Inteligência Artificial exclusiva que funciona 24h para extrair informações que passaram despercebidas, organizar registros complexos e te mostrar insights.",
-    color: "#3396d3",
-  },
-  {
-    icon: UserCog,
-    title: "Módulo Profissionais",
-    description:
-      "Alinhe diretamente as agendas da sua operação, configure permissões rigorosas de acessos por tela, e programe fluxos de pagamentos ou comissões individuais para sua equipe.",
-    color: "#3396d3",
-  },
-]
+import { useTranslation } from "@/lib/i18n"
 
 export function GDCFeatures() {
+  const { t } = useTranslation()
+
+  const gdcFeatures = [
+    {
+      icon: Users,
+      title: t("gdc.f1.title"),
+      description: t("gdc.f1.desc"),
+      color: "#3396d3",
+    },
+    {
+      icon: FileText,
+      title: t("gdc.f2.title"),
+      description: t("gdc.f2.desc"),
+      color: "#3396d3",
+    },
+    {
+      icon: BarChart3,
+      title: t("gdc.f3.title"),
+      description: t("gdc.f3.desc"),
+      color: "#3396d3",
+    },
+    {
+      icon: Upload,
+      title: t("gdc.f4.title"),
+      description: t("gdc.f4.desc"),
+      color: "#3396d3",
+    },
+    {
+      icon: Bot,
+      title: t("gdc.f5.title"),
+      description: t("gdc.f5.desc"),
+      color: "#3396d3",
+    },
+    {
+      icon: UserCog,
+      title: t("gdc.f6.title"),
+      description: t("gdc.f6.desc"),
+      color: "#3396d3",
+    },
+  ]
+
   return (
     <section id="gdc-features" className="relative bg-[#f7f9fc] overflow-hidden">
       {/* Background decorativo */}
@@ -83,21 +80,13 @@ export function GDCFeatures() {
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
               <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#1a2e4a]/60">
-                9 funcionalidades
+                {t("gdc.features.badge")}
               </span>
               <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
             </div>
 
             <p className="text-base md:text-lg text-[#4b5563] leading-relaxed">
-              Nosso{" "}
-              <strong className="text-[#1a2e4a] font-black underline decoration-[#ffd400] decoration-[3px] underline-offset-4">
-                Gestor de Clientes (GDC)
-              </strong>{" "}
-              é muito mais do que um simples painel de controle. Ele é o verdadeiro motor central,
-              criado com todas as 9 funcionalidades que você precisa para controlar processos manuais
-              hoje. O GDC abraça todo o seu ecossistema: desde o tratamento e agendamento contínuo, o
-              braço financeiro que garante tudo no fim do mês, até as métricas diárias essenciais, e
-              integra tudo isso em uma Inteligência Artificial avançada. Incrivelmente fácil de mexer.
+              {t("gdc.features.desc")}
             </p>
           </div>
         </ScrollAnimate>

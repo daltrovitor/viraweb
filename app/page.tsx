@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
+import { Header } from "@/components/header"
+import { Hero } from "@/components/hero"
 
-const Header = dynamic(() => import("@/components/header").then((mod) => mod.Header))
-const Hero = dynamic(() => import("@/components/hero").then((mod) => mod.Hero))
 const GDCFeatures = dynamic(() => import("@/components/gdc-features").then((mod) => mod.GDCFeatures))
 const Services = dynamic(() => import("@/components/services").then((mod) => mod.Services))
 const Stats = dynamic(() => import("@/components/stats").then((mod) => mod.Stats))

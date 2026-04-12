@@ -19,25 +19,18 @@ function ArrowPattern({ className }: { className?: string }) {
   )
 }
 
-/* ─────────────── Cursor Glow ─────────────── */
-function CursorGlow() {
+import dynamic from "next/dynamic"
+
+const CursorGlow = dynamic(() => import("./hero").then(mod => ({ default: () => {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [visible, setVisible] = useState(false)
-
   useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY })
-      setVisible(true)
-    }
+    const handleMove = (e: MouseEvent) => { setPos({ x: e.clientX, y: e.clientY }); setVisible(true) }
     const handleLeave = () => setVisible(false)
     window.addEventListener("mousemove", handleMove)
     window.addEventListener("mouseleave", handleLeave)
-    return () => {
-      window.removeEventListener("mousemove", handleMove)
-      window.removeEventListener("mouseleave", handleLeave)
-    }
+    return () => { window.removeEventListener("mousemove", handleMove); window.removeEventListener("mouseleave", handleLeave) }
   }, [])
-
   if (!visible) return null
   return (
     <div
@@ -50,7 +43,7 @@ function CursorGlow() {
       }}
     />
   )
-}
+}})), { ssr: false })
 
 /* ─────────────── Site Showcase Card ─────────────── */
 function SiteCard({
@@ -140,20 +133,16 @@ export function Hero() {
             style={{ transform: "rotate(-8deg)" }}
           />
           {/* Favicons flutuantes substituindo os vzinhos */}
-          <motion.div 
-            animate={{ y: [0, -15, 0] }} 
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          <div 
             className="absolute top-20 left-[8%] opacity-30 w-16 md:w-20"
           >
             <Image src="/favicon.png" alt="" width={100} height={100} className="w-full h-auto brightness-0" />
-          </motion.div>
-          <motion.div 
-            animate={{ y: [0, 20, 0] }} 
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          </div>
+          <div 
             className="absolute bottom-32 right-[15%] opacity-10 w-24 md:w-32"
           >
             <Image src="/favicon.png" alt="" width={100} height={100} className="w-full h-auto brightness-0 invert" />
-          </motion.div>
+          </div>
           <ArrowPattern className="absolute top-[15%] right-[20%] w-48 text-white" />
           <ArrowPattern className="absolute bottom-[20%] left-[5%] w-36 text-[#3396d3]" />
           {/* Dots grid */}
@@ -172,28 +161,20 @@ export function Hero() {
             {/* ▌ ESQUERDO — Texto */}
             <div className="lg:col-span-5 relative">
               <ScrollAnimate delay={0}>
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
+                <div
                   className="inline-flex items-center gap-2 mb-8"
                 >
                   <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
                   <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#1a2e4a]/60">
                     {t("hero.badge")}
                   </span>
-                </motion.div>
+                </div>
 
                 <h1 className="text-[2.5rem] md:text-[3.2rem] lg:text-[3.8rem] font-black leading-[1.05] text-[#1a2e4a] mb-6">
                   {t("hero.title1")}{" "}
                   <span className="relative inline-block">
                     <span className="relative z-10">{t("hero.title2")}</span>
-                    <motion.span
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.8, delay: 1 }}
-                      className="absolute bottom-1 left-0 h-[14px] bg-[#ffd400]/50 -z-0 rounded-sm"
-                    />
+                    <span className="absolute bottom-1 left-0 w-full h-[14px] bg-[#ffd400]/50 -z-0 rounded-sm" />
                   </span>
                   <br />
                   {t("hero.title3")}

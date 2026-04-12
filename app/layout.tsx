@@ -51,6 +51,8 @@ export const metadata: Metadata = {
 
 import { LanguageProvider } from "@/lib/i18n"
 
+import { LazyMotion, domAnimation } from "framer-motion"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,12 +96,14 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LanguageProvider>
-          <Suspense fallback={null}>
-            {children}
-            <Analytics />
-          </Suspense>
-        </LanguageProvider>
+        <LazyMotion features={domAnimation} strict>
+          <LanguageProvider>
+            <Suspense fallback={null}>
+              {children}
+              <Analytics />
+            </Suspense>
+          </LanguageProvider>
+        </LazyMotion>
       </body>
     </html>
   )

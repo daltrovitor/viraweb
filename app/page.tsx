@@ -9,7 +9,6 @@ const Services = dynamic(() => import("@/components/services").then((mod) => mod
   loading: () => <div className="h-[400px] w-full bg-[#1a2e4a]/5 animate-pulse" />
 })
 const Stats = dynamic(() => import("@/components/stats").then((mod) => mod.Stats), {
-  ssr: false,
   loading: () => <div className="h-32 w-full bg-[#1a2e4a]/5 animate-pulse" />
 })
 const CTA = dynamic(() => import("@/components/cta").then((mod) => mod.CTA), {

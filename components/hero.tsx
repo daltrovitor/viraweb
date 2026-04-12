@@ -92,7 +92,8 @@ function SiteCard({
           className="w-full h-auto block"
           priority={isLCP}
           fetchPriority={isLCP ? "high" : "auto"}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+          loading={isLCP ? "eager" : "lazy"}
         />
       </div>
       {/* Label */}
@@ -132,12 +133,12 @@ export function Hero() {
           <div 
             className="absolute top-20 left-[8%] opacity-30 w-16 md:w-20"
           >
-            <Image src="/favicon.png" alt="" width={100} height={100} className="w-full h-auto brightness-0" />
+            <Image src="/favicon.png" alt="" width={80} height={80} className="w-full h-auto brightness-0" sizes="80px" />
           </div>
           <div 
             className="absolute bottom-32 right-[15%] opacity-10 w-24 md:w-32"
           >
-            <Image src="/favicon.png" alt="" width={100} height={100} className="w-full h-auto brightness-0 invert" />
+            <Image src="/favicon.png" alt="" width={120} height={120} className="w-full h-auto brightness-0 invert" sizes="120px" />
           </div>
           <ArrowPattern className="absolute top-[15%] right-[20%] w-48 text-white" />
           <ArrowPattern className="absolute bottom-[20%] left-[5%] w-36 text-[#3396d3]" />

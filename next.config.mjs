@@ -23,8 +23,11 @@ const nextConfig = {
       },
     ]
   },
+  swcMinify: true,
+  reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react", "framer-motion", "clsx", "tailwind-merge"],
+    scrollRestoration: true,
   },
 }
 

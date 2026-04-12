@@ -106,7 +106,7 @@ export function CTA() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">{t("cta.clients")}</p>
-                  <p className="text-xs text-gray-500">{t("cta.clients_desc")}</p>
+                  <p className="text-xs text-gray-400">{t("cta.clients_desc")}</p>
                 </div>
               </div>
             </div>

@@ -47,7 +47,7 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
-                  className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-500 hover:text-[#ffd400] hover:border-[#ffd400]/30 hover:bg-[#ffd400]/5 transition-all duration-300"
+                  className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-[#ffd400] hover:border-[#ffd400]/30 hover:bg-[#ffd400]/5 transition-all duration-300"
                   aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
@@ -69,7 +69,7 @@ export function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="text-sm text-gray-500 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                    className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
                   >
                     {item.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -91,7 +91,7 @@ export function Footer() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-gray-500 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                    className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
                   >
                     {item.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -108,7 +108,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:suporte@viraweb.online"
-                  className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group"
+                  className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#3396d3]/10 flex items-center justify-center group-hover:bg-[#3396d3]/20 transition-colors">
                     <Mail className="h-3.5 w-3.5 text-[#3396d3]" />
@@ -119,7 +119,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+556299246-6109"
-                  className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group"
+                  className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#3396d3]/10 flex items-center justify-center group-hover:bg-[#3396d3]/20 transition-colors">
                     <Phone className="h-3.5 w-3.5 text-[#3396d3]" />
@@ -145,10 +145,10 @@ export function Footer() {
 
         {/* Barra inferior */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-400">
             © {new Date().getFullYear()} Vira Web. {t("footer.rights")}
           </p>
-          <div className="flex items-center gap-1 text-xs text-gray-600">
+          <div className="flex items-center gap-1 text-xs text-gray-400">
             <span>{t("footer.made_with")}</span>
             <span className="text-[#ffd400]">♦</span>
             <span>{t("footer.by")}</span>

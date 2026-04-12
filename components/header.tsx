@@ -71,8 +71,8 @@ export function Header() {
                   rel="noopener noreferrer"
                   className={`text-sm font-semibold transition-colors inline-flex items-center gap-1 ${
                     scrolled
-                      ? "text-gray-400 hover:text-white"
-                      : "text-[#1a2e4a]/70 hover:text-[#1a2e4a]"
+                      ? "text-gray-300 hover:text-white"
+                      : "text-[#1a2e4a] hover:text-[#1a2e4a]"
                   }`}
                 >
                   {link.label}
@@ -84,8 +84,8 @@ export function Header() {
                   href={link.href}
                   className={`text-sm font-semibold transition-colors ${
                     scrolled
-                      ? "text-gray-400 hover:text-white"
-                      : "text-[#1a2e4a]/70 hover:text-[#1a2e4a]"
+                      ? "text-gray-300 hover:text-white"
+                      : "text-[#1a2e4a] hover:text-[#1a2e4a]"
                   }`}
                 >
                   {link.label}
@@ -138,8 +138,8 @@ export function Header() {
                       rel="noopener noreferrer"
                       className={`block py-3 px-4 rounded-lg text-sm font-semibold transition-colors inline-flex items-center gap-1 ${
                         scrolled
-                          ? "text-gray-400 hover:text-white hover:bg-white/5"
-                          : "text-[#1a2e4a]/70 hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
+                          ? "text-gray-300 hover:text-white hover:bg-white/5"
+                          : "text-[#1a2e4a] hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -152,8 +152,8 @@ export function Header() {
                       href={link.href}
                       className={`block py-3 px-4 rounded-lg text-sm font-semibold transition-colors ${
                         scrolled
-                          ? "text-gray-400 hover:text-white hover:bg-white/5"
-                          : "text-[#1a2e4a]/70 hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
+                          ? "text-gray-300 hover:text-white hover:bg-white/5"
+                          : "text-[#1a2e4a] hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -163,7 +163,7 @@ export function Header() {
                 )}
                 <div className="pt-3 px-4 flex flex-col gap-3">
                   <div className="flex justify-between items-center">
-                    <span className={`text-xs font-bold uppercase ${scrolled ? "text-gray-500" : "text-[#1a2e4a]/50"}`}>Idioma</span>
+                    <span className={`text-xs font-bold uppercase ${scrolled ? "text-gray-400" : "text-[#1a2e4a]/80"}`}>Idioma</span>
                     <LanguageSwitcher />
                   </div>
                   <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">

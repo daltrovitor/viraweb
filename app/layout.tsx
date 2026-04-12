@@ -86,8 +86,6 @@ export default function RootLayout({
       <link rel="canonical" href={SITE_URL} />
       <meta name="theme-color" content="#ffffff" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <script
           key="ld-json"

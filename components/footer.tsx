@@ -35,7 +35,7 @@ export function Footer() {
               sizes="150px"
               className="w-36 mb-6"
             />
-            <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">
+            <p className="text-sm text-gray-400 leading-relaxed max-w-xs mb-6">
               {t("footer.description")}
             </p>
             {/* Redes sociais */}

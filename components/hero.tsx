@@ -66,11 +66,9 @@ function SiteCard({
   isLCP?: boolean
 }) {
   return (
-    <motion.div
-      initial={isLCP ? false : { opacity: 0, y: 40, rotate: rotate + 1 }}
-      animate={{ opacity: 1, y: 0, rotate }}
-      transition={{ duration: 0.8, delay: isLCP ? 0 : delay }}
+    <div
       className={`relative ${className}`}
+      style={isLCP ? { transform: `rotate(${rotate}deg)` } : {}}
     >
       <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/30 border border-white/10">
         {/* Browser chrome */}
@@ -97,15 +95,12 @@ function SiteCard({
         />
       </div>
       {/* Label */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: delay + 1 }}
+      <div
         className="absolute -bottom-3 -left-3 bg-[#ffd400] text-[#1a2e4a] font-black text-[11px] px-3 py-1.5 rounded-lg shadow-lg"
       >
         {label}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
 }
 

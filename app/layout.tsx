@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
+// Add display swap implicitly if geist doesn't do it, but usually next/font does.
+// We'll trust next/font here unless we see a specific flash issue.
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"

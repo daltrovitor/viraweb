@@ -9,9 +9,9 @@ export function Stats() {
 
   const stats = [
     { value: "300%", label: t("stats.conversions"), accent: "#3396d3" },
-    { value: "20%", label: t("stats.off"), accent: "#ffd400" },
+    { value: "20%", label: t("stats.off"), accent: "#b39600" },
     { value: "5", label: t("stats.exp"), accent: "#3396d3" },
-    { value: "98%", label: t("stats.satisfaction"), accent: "#ffd400" },
+    { value: "98%", label: t("stats.satisfaction"), accent: "#b39600" },
   ]
 
   return (

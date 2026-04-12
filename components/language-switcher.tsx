@@ -30,6 +30,7 @@ export function LanguageSwitcher() {
           variant="ghost"
           size="sm"
           className="h-9 px-3 flex items-center gap-2 text-sm font-medium transition-all hover:text-primary  cursor-pointer active:scale-95 text-white"
+          aria-label="Select language"
         >
           <Globe className="h-4 w-4 opacity-100" />
           <span className="uppercase">{language}</span>

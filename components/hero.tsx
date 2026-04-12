@@ -155,7 +155,7 @@ export function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
             {/* ▌ ESQUERDO — Texto */}
             <div className="lg:col-span-5 relative">
-              <ScrollAnimate delay={0}>
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
                 <div
                   className="inline-flex items-center gap-2 mb-8"
                 >
@@ -217,26 +217,26 @@ export function Hero() {
                       key={i}
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 1.2 + i * 0.15 }}
+                      transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
                     >
                       <p className="text-2xl font-black text-[#1a2e4a]">{s.num}</p>
                       <p className="text-xs text-[#4b5563] font-medium">{s.label}</p>
                     </motion.div>
                   ))}
                 </div>
-              </ScrollAnimate>
+              </div>
             </div>
 
             {/* ▌ DIREITO — Showcase de sites reais */}
             <div className="lg:col-span-7 relative">
-              <ScrollAnimate delay={0.15}>
+              <div className="animate-in fade-in zoom-in-95 duration-1000 fill-mode-both">
                 {/* Card principal — Marcelo Daltro */}
                 <SiteCard
                   src="/site-marcelo.png"
                   alt="Site Marcelo Daltro — criado pela ViraWeb"
                   url="marcelodaltro.com.br"
                   label="✦ Feito pela ViraWeb"
-                  delay={0.1}
+                  delay={0}
                   rotate={1}
                   isLCP={true}
                   className="z-20 ml-auto max-w-[540px]"
@@ -248,7 +248,7 @@ export function Hero() {
                   alt="Site Librás — criado pela ViraWeb"
                   url="libraslixas.com.br"
                   label="✦ Projeto ViraWeb"
-                  delay={0.7}
+                  delay={0.3}
                   rotate={-2}
                   className="z-10 -mt-16 mr-auto max-w-[420px]"
                 />
@@ -257,13 +257,13 @@ export function Hero() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.6 }}
+                  transition={{ delay: 1 }}
                   className="absolute top-[52%] right-[30%] flex flex-col items-center z-30"
                 >
                   <div className="w-px h-6 bg-[#ffd400]" />
                   <div className="w-2 h-2 rounded-full bg-[#ffd400]" />
                 </motion.div>
-              </ScrollAnimate>
+              </div>
             </div>
           </div>
         </div>

@@ -85,11 +85,21 @@ export default function RootLayout({
 
   return (
     <html lang="pt-BR" className="bg-[#0f1923] selection:text-white selection:bg-secondary/50">
-      <link rel="icon" href="/viraweb6.ico" sizes="any" />
-      <link rel="manifest" href="/site.webmanifest" />
-      <link rel="canonical" href={SITE_URL} />
-      <meta name="theme-color" content="#ffffff" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <head>
+        <link rel="icon" href="/viraweb6.ico" sizes="any" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="canonical" href={SITE_URL} />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Preload critical assets for LCP */}
+        <link rel="preload" href="/site-marcelo.png" as="image" />
+        <link rel="preload" href="/viraweb3.png" as="image" />
+        <link rel="preload" href="/favicon.png" as="image" />
+        
+        {/* Preconnect to critical domains */}
+        <link rel="preconnect" href="https://va.vercel-scripts.com" />
+      </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <script
           key="ld-json"

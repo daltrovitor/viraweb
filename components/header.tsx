@@ -54,6 +54,8 @@ export function Header() {
               alt="ViraWeb"
               width={1024}
               height={1024}
+              priority
+              sizes="(max-width: 768px) 150px, 200px"
               className={`h-9 md:h-11 w-auto transition-all duration-300 ${
                 scrolled ? "brightness-0 invert" : ""
               }`}

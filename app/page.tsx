@@ -1,10 +1,12 @@
-import { Header } from "@/components/header"
-import { Hero } from "@/components/hero"
-import { GDCFeatures } from "@/components/gdc-features"
-import { Services } from "@/components/services"
-import { Stats } from "@/components/stats"
-import { CTA } from "@/components/cta"
-import { Footer } from "@/components/footer"
+import dynamic from "next/dynamic"
+
+const Header = dynamic(() => import("@/components/header").then((mod) => mod.Header))
+const Hero = dynamic(() => import("@/components/hero").then((mod) => mod.Hero))
+const GDCFeatures = dynamic(() => import("@/components/gdc-features").then((mod) => mod.GDCFeatures))
+const Services = dynamic(() => import("@/components/services").then((mod) => mod.Services))
+const Stats = dynamic(() => import("@/components/stats").then((mod) => mod.Stats))
+const CTA = dynamic(() => import("@/components/cta").then((mod) => mod.CTA))
+const Footer = dynamic(() => import("@/components/footer").then((mod) => mod.Footer))
 import { buildMetadata } from "@/lib/seo"
 import type { Metadata } from "next"
 

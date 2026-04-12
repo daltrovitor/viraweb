@@ -61,6 +61,7 @@ function SiteCard({
   delay = 0,
   className = "",
   rotate = 0,
+  isLCP = false,
 }: {
   src: string
   alt: string
@@ -69,12 +70,13 @@ function SiteCard({
   delay?: number
   className?: string
   rotate?: number
+  isLCP?: boolean
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, rotate: rotate + 1 }}
+      initial={isLCP ? false : { opacity: 0, y: 40, rotate: rotate + 1 }}
       animate={{ opacity: 1, y: 0, rotate }}
-      transition={{ duration: 0.8, delay }}
+      transition={{ duration: 0.8, delay: isLCP ? 0 : delay }}
       className={`relative ${className}`}
     >
       <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/30 border border-white/10">
@@ -97,7 +99,8 @@ function SiteCard({
           width={1080}
           height={607}
           className="w-full h-auto block"
-          priority
+          priority={isLCP}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       {/* Label */}
@@ -257,8 +260,9 @@ export function Hero() {
                   alt="Site Marcelo Daltro — criado pela ViraWeb"
                   url="marcelodaltro.com.br"
                   label="✦ Feito pela ViraWeb"
-                  delay={0.4}
+                  delay={0.1}
                   rotate={1}
+                  isLCP={true}
                   className="z-20 ml-auto max-w-[540px]"
                 />
 
@@ -346,6 +350,7 @@ export function Hero() {
                     alt="Painel G.D.C. da ViraWeb em ação"
                     width={1200}
                     height={675}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="w-full h-auto block"
                   />
                 </motion.div>

@@ -32,6 +32,7 @@ export function Footer() {
               alt="Vira Web"
               width={1024}
               height={1024}
+              sizes="150px"
               className="w-36 mb-6"
             />
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">

@@ -68,7 +68,7 @@ function SiteCard({
   return (
     <div
       className={`relative ${className}`}
-      style={isLCP ? { transform: `rotate(${rotate}deg)` } : {}}
+      style={{ transform: `rotate(${rotate}deg)` }}
     >
       <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/30 border border-white/10">
         {/* Browser chrome */}
@@ -92,8 +92,9 @@ function SiteCard({
           className="w-full h-auto block"
           priority={isLCP}
           fetchPriority={isLCP ? "high" : "auto"}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1080px"
           loading={isLCP ? "eager" : "lazy"}
+          decoding="sync"
         />
       </div>
       {/* Label */}
@@ -157,7 +158,7 @@ export function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
             {/* ▌ ESQUERDO — Texto */}
             <div className="lg:col-span-5 relative">
-              <div className="duration-700 fill-mode-both">
+              <div className="relative">
                 <div
                   className="inline-flex items-center gap-2 mb-8"
                 >
@@ -202,14 +203,14 @@ export function Hero() {
                       </span>
                     </motion.button>
                   </a>
-                  <a href="#servicos" className="text-[#3396d3] font-semibold text-sm hover:text-[#1a2e4a] transition-colors flex items-center gap-1 group">
+                  <a href="#servicos" className="text-[#1a2e4a] font-semibold text-sm hover:text-[#1a2e4a] transition-colors flex items-center gap-1 group">
                     {t("hero.view_services")}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
 
                 {/* Stats inline */}
-                <div className="flex items-center gap-8 mt-12 pt-8 border-t border-[#1a2e4a]/10">
+                <div className="flex items-center text-black gap-8 mt-12 pt-8 border-t border-[#1a2e4a]/10">
                   {[
                     { num: "50+", label: t("hero.stats.sites") },
                     { num: "98%", label: t("hero.stats.satisfaction") },
@@ -231,7 +232,7 @@ export function Hero() {
 
             {/* ▌ DIREITO — Showcase de sites reais */}
             <div className="lg:col-span-7 relative">
-              <div className="duration-1000 fill-mode-both">
+              <div className="relative">
                 {/* Card principal — Marcelo Daltro */}
                 <SiteCard
                   src="/site-marcelo.png"

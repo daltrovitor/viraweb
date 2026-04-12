@@ -1,83 +1,27 @@
 "use client";
 import React from "react";
-import styled from "styled-components";
-import Image from "next/image";
+import Link from "next/link";
 
 export default function notFound() {
   return (
-    <>
-      <StyledComponent className=" selection:bg-secondary bg-white">
-        <h1>404</h1>
-        <h2>Ops! Parece que você está perdido!</h2>
-        <h3>Esta página não esta disponível...</h3>
-        <a href="/">Voltar ao Inicio</a>
-      </StyledComponent>
-    </>
+    <section className="flex flex-col items-center justify-center min-h-screen bg-white selection:bg-secondary bg-[url('https://pinstergames.vercel.app/_next/image?url=%2Fimages%2F404.gif&w=3840&q=75')] bg-no-repeat bg-[position:center_50%]">
+      <div className="text-center">
+        <h1 className="text-[#9ca3af] text-[7rem] mb-[320px] font-mono relative flex justify-center items-center w-full after:content-['Erro:_Página_Não_Encontrada'] after:bottom-0 after:absolute after:text-center after:block after:text-gray-500 after:text-2xl after:w-[80vw] max-[720px]:after:bottom-[-30%]">
+          404
+        </h1>
+        <h2 className="text-[#1a2e4a] text-[min(3rem,5vw)] mb-2.5">
+          Ops! Parece que você está perdido!
+        </h2>
+        <h3 className="text-gray-500 text-[min(2rem,4vw)] mb-5">
+          Esta página não esta disponível...
+        </h3>
+        <Link 
+          href="/" 
+          className="inline-block bg-[#3396d3]/10 px-5 py-2.5 text-[#3396d3] font-bold rounded-tl-xl rounded-br-xl hover:rounded-tr-xl hover:rounded-bl-xl hover:bg-[#3396d3] hover:text-white transition-all duration-300"
+        >
+          Voltar ao Inicio
+        </Link>
+      </div>
+    </section>
   );
 }
-
-const StyledComponent = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-  background-image: url("https://pinstergames.vercel.app/_next/image?url=%2Fimages%2F404.gif&w=3840&q=75");
-  background-repeat: no-repeat;
-  background-position: center 50%;
-
-  * {
-    text-align: center;
-  }
-
-  h1 {
-    color: var(--color-gray);
-    font-size: 7rem;
-    margin-bottom: 320px;
-    font-family: "Courier New", Courier, monospace;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-    &::after {
-      content: "Erro: Página Não Encontrada";
-      bottom: 0%;
-      position: absolute;
-      text-align: center;
-      display: block;
-      color: var(--color-text-soft);
-      font-size: 1.5rem;
-      width: 80dvw;
-      @media (max-width: 720px) {
-        bottom: -30%;
-      }
-    }
-  }
-
-  h2 {
-    color: var(--color-text);
-    font-size: min(3rem, 5vw);
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    color: var(--color-text-soft);
-    font-size: min(2rem, 4vw);
-    margin-bottom: 20px;
-  }
-
-  a {
-    display: block;
-    background: var(--color-primary-soft);
-    padding: 10px 20px;
-    color: var(--color-white);
-    font-weight: bold;
-    border-radius: 10px 0px;
-
-    &:hover {
-      border-radius: 0px 10px;
-    }
-  }
-`;

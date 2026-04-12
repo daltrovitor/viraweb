@@ -89,11 +89,16 @@ export default function RootLayout({
         <link rel="icon" href="/viraweb6.ico" sizes="any" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="canonical" href={SITE_URL} />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#0f1923" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         
         {/* Preconnect to critical domains */}
+        <link rel="preconnect" href="https://www.viraweb.online" />
+        <link rel="dns-prefetch" href="https://www.viraweb.online" />
         <link rel="preconnect" href="https://va.vercel-scripts.com" />
+        
+        {/* Resource Hints */}
+        <link rel="preload" href="/site-marcelo.png" as="image" fetchpriority="high" />
       </head>
       <body className={`font-sans ${GeistSans.className} ${GeistMono.className} antialiased`}>
         <script

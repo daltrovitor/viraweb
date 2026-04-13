@@ -107,10 +107,10 @@ export function Hero() {
 
           {/* Ornatos de Marca — Mais sutis e nítidos */}
           <div className="absolute top-16 left-[5%] opacity-[0.05] md:opacity-[0.08] w-20 md:w-40">
-            <Image src="/viraweb3.png" alt="" width={400} height={400} className="w-full h-auto brightness-0" />
+            <Image src="/viraweb3.png" alt="" width={160} height={160} sizes="160px" quality={30} loading="lazy" className="w-full h-auto brightness-0" />
           </div>
           <div className="absolute bottom-12 right-[5%] opacity-[0.03] md:opacity-[0.05] w-32 md:w-64">
-            <Image src="/viraweb3.png" alt="" width={600} height={600} className="w-full h-auto brightness-0 invert" />
+            <Image src="/viraweb3.png" alt="" width={256} height={256} sizes="256px" quality={30} loading="lazy" className="w-full h-auto brightness-0 invert" />
           </div>
 
           <ArrowPattern className="absolute top-[15%] right-[5%] md:right-[20%] w-32 md:w-48 text-white opacity-[0.08] md:opacity-20" />

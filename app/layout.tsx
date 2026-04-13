@@ -91,9 +91,7 @@ export default function RootLayout({
         <link rel="canonical" href={SITE_URL} />
         <meta name="theme-color" content="#0f1923" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        
-        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+
       </head>
       <body className={`font-sans ${GeistSans.className} ${GeistMono.className} antialiased`}>
         <script

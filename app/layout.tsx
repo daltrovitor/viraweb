@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 import { LanguageProvider } from "@/lib/i18n"
 
-import { LazyMotion, domAnimation } from "framer-motion"
+import { FramerProvider } from "@/components/framer-provider"
 
 export default function RootLayout({
   children,
@@ -92,13 +92,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#0f1923" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         
-        {/* Preconnect to critical domains */}
-        <link rel="preconnect" href="https://www.viraweb.online" />
-        <link rel="dns-prefetch" href="https://www.viraweb.online" />
-        <link rel="preconnect" href="https://va.vercel-scripts.com" />
-        
-        {/* Resource Hints */}
-        <link rel="preload" href="/site-marcelo.png" as="image" fetchPriority="high" />
+        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
       </head>
       <body className={`font-sans ${GeistSans.className} ${GeistMono.className} antialiased`}>
         <script
@@ -108,14 +103,14 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LazyMotion features={domAnimation} strict>
+        <FramerProvider>
           <LanguageProvider>
             <Suspense fallback={null}>
               {children}
               <Analytics />
             </Suspense>
           </LanguageProvider>
-        </LazyMotion>
+        </FramerProvider>
       </body>
     </html>
   )

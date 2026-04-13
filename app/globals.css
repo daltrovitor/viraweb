@@ -140,10 +140,7 @@
   }
 }
 
-/* Motion helpers for smoother scroll animations */
-.motion-smooth {
-  will-change: transform, opacity;
-}
+/* Motion helpers for smoother scroll animations disabled for better LCP */
 
 @media (prefers-reduced-motion: reduce) {
   .motion-smooth {

@@ -127,12 +127,12 @@ export function Services() {
                       <h3 className="text-xl font-black text-[#1a2e4a]">{service.title}</h3>
                     </div>
 
-                    <p className="text-sm text-[#374151] leading-relaxed mb-6 ml-16">
+                    <p className="text-sm text-[#374151] leading-relaxed mb-6 md:ml-16">
                       {service.description}
                     </p>
 
                     {/* Features como tags inline */}
-                    <div className="flex flex-wrap gap-2 mb-6 ml-16">
+                    <div className="flex flex-wrap gap-2 mb-6 md:ml-16">
                       {service.features.map((feature, idx) => (
                         <span
                           key={idx}
@@ -144,7 +144,7 @@ export function Services() {
                     </div>
 
                     {/* CTA */}
-                    <div className="ml-16">
+                    <div className="md:ml-16">
                       <a href={service.url} target="_blank" rel="noopener noreferrer">
                         <m.span
                           whileHover={{ x: 4 }}

@@ -18,12 +18,19 @@ export function Header() {
     let lastPos = 0
     const onScroll = () => {
       const current = window.scrollY
-      setScrolled(current > 20)
+      
+      // Update scrolled state only if it changes
+      const shouldBeScrolled = current > 20
+      setScrolled(prev => prev !== shouldBeScrolled ? shouldBeScrolled : prev)
+
+      // Update visibility only if it changes
       if (current > 80) {
-        setVisible(current < lastPos)
+        const isUp = current < lastPos
+        setVisible(prev => prev !== isUp ? isUp : prev)
       } else {
-        setVisible(true)
+        setVisible(prev => !prev ? true : prev)
       }
+      
       lastPos = current
     }
     window.addEventListener("scroll", onScroll, { passive: true })
@@ -38,12 +45,12 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 ${
         visible ? "translate-y-0" : "-translate-y-full"
       } ${
-        scrolled
-          ? "bg-[#0f1923]/95 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10"
-          : "bg-transparent"
+        scrolled || mobileMenuOpen
+          ? "bg-[#0f1923]/98 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10"
+          : "bg-transparent transition-colors duration-500"
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,13 +60,13 @@ export function Header() {
             <Image
               src="/viraweb3.png"
               alt="ViraWeb"
-              width={1024}
-              height={1024}
+              width={180}
+              height={50}
               priority
               fetchPriority="high"
-              sizes="(max-width: 768px) 140px, 180px"
-              className={`h-9 md:h-11 w-auto transition-all duration-300 ${
-                scrolled ? "brightness-0 invert" : ""
+              sizes="(max-width: 768px) 120px, 180px"
+              className={`h-7 md:h-9 w-auto object-contain ${
+                scrolled || mobileMenuOpen ? "brightness-0 invert" : ""
               }`}
             />
           </a>
@@ -99,21 +106,19 @@ export function Header() {
             <LanguageSwitcher />
 
             <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-              <m.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300"
+              <button
+                className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
               >
                 {t("nav.button")}
                 <ArrowUpRight className="h-3.5 w-3.5" />
-              </m.button>
+              </button>
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? "text-white" : "text-[#1a2e4a]"
+              scrolled || mobileMenuOpen ? "text-white" : "text-[#1a2e4a]"
             }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
@@ -127,53 +132,53 @@ export function Header() {
           {mobileMenuOpen && (
             <m.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
+              animate={{ height: "100vh", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              transition={{ type: "spring", damping: 30, stiffness: 200 }}
+              className="md:hidden fixed inset-0 top-0 left-0 w-full bg-[#0f1923] z-[40] flex flex-col pt-24 pb-12 px-6"
             >
-              <div className="py-6 space-y-1 border-t border-white/5">
-                {navLinks.map((link) =>
-                  link.external ? (
-                    <a
+              <div className="flex flex-col h-full">
+                <div className="flex-1 flex flex-col justify-center gap-2">
+                  {navLinks.map((link, i) => (
+                    <m.div
                       key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`block py-3 px-4 rounded-lg text-sm font-semibold transition-colors inline-flex items-center gap-1 ${
-                        scrolled
-                          ? "text-gray-300 hover:text-white hover:bg-white/5"
-                          : "text-[#1a2e4a] hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
                     >
-                      {link.label}
-                      <ArrowUpRight className="h-3 w-3 opacity-50" />
-                    </a>
-                  ) : (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      className={`block py-3 px-4 rounded-lg text-sm font-semibold transition-colors ${
-                        scrolled
-                          ? "text-gray-300 hover:text-white hover:bg-white/5"
-                          : "text-[#1a2e4a] hover:text-[#1a2e4a] hover:bg-[#1a2e4a]/5"
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {link.label}
-                    </a>
-                  )
-                )}
-                <div className="pt-3 px-4 flex flex-col gap-3">
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-5 text-3xl font-black text-white active:text-[#ffd400] transition-colors flex items-center justify-between group"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                          <ArrowUpRight className="h-8 w-8 text-[#ffd400]/40" />
+                        </a>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className="py-5 text-3xl font-black text-white active:text-[#ffd400] transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                        </a>
+                      )}
+                    </m.div>
+                  ))}
+                </div>
+
+                <div className="pt-8 border-t border-white/10 flex flex-col gap-8">
                   <div className="flex justify-between items-center">
-                    <span className={`text-xs font-bold uppercase ${scrolled ? "text-gray-400" : "text-[#1a2e4a]/80"}`}>Idioma</span>
+                    <span className="text-sm font-black uppercase text-gray-500 tracking-widest">Idioma</span>
                     <LanguageSwitcher />
                   </div>
                   <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-                    <button className="w-full cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-3 rounded-lg inline-flex items-center justify-center gap-1.5">
+                    <button className="w-full cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-black text-lg py-5 rounded-2xl inline-flex items-center justify-center gap-2 shadow-2xl shadow-[#ffd400]/20 active:scale-[0.98] transition-transform">
                       {t("nav.button")}
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+                      <ArrowUpRight className="h-5 w-5" />
                     </button>
                   </a>
                 </div>

@@ -30,10 +30,10 @@ export function Footer() {
             <Image
               src="/viraweb3.png"
               alt="Vira Web"
-              width={1024}
-              height={1024}
-              sizes="150px"
-              className="w-36 mb-6"
+              width={180}
+              height={50}
+              sizes="144px"
+              className="w-36 h-auto mb-6"
             />
             <p className="text-sm text-gray-200 leading-relaxed max-w-xs mb-6">
               {t("footer.description")}

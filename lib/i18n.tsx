@@ -276,27 +276,33 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    localStorage.setItem("language", lang)
-  }
-
-  const t = (key: string) => {
+  const t = React.useCallback((key: string) => {
     // Durante a hidratação, 'mounted' ainda é false, então usamos 'pt' (o padrão do servidor)
     // Isso evita o erro de mismatch caso o localStorage tenha 'en' ou 'es'
     const activeLang = mounted ? language : "pt"
     return translations[activeLang][key] || key
-  }
+  }, [mounted, language])
+
+  const setLanguage = React.useCallback((lang: Language) => {
+    setLanguageState(lang)
+    localStorage.setItem("language", lang)
+  }, [])
+
+  const contextValue = React.useMemo(() => ({
+    language: mounted ? language : "pt",
+    setLanguage,
+    t
+  }), [mounted, language, setLanguage, t])
 
   return (
-    <LanguageContext.Provider value={{ language: mounted ? language : "pt", setLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   )
 }
 
 export function useTranslation() {
-  const context = useContext(LanguageContext)
+  const context = React.useContext(LanguageContext)
   if (context === undefined) {
     throw new Error("useTranslation must be used within a LanguageProvider")
   }

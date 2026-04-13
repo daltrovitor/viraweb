@@ -19,34 +19,6 @@ function ArrowPattern({ className }: { className?: string }) {
   )
 }
 
-import dynamic from "next/dynamic"
-
-function CursorGlowComponent() {
-  const [pos, setPos] = useState({ x: 0, y: 0 })
-  const [visible, setVisible] = useState(false)
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => { setPos({ x: e.clientX, y: e.clientY }); setVisible(true) }
-    const handleLeave = () => setVisible(false)
-    window.addEventListener("mousemove", handleMove)
-    window.addEventListener("mouseleave", handleLeave)
-    return () => { window.removeEventListener("mousemove", handleMove); window.removeEventListener("mouseleave", handleLeave) }
-  }, [])
-  if (!visible) return null
-  return (
-    <div
-      className="pointer-events-none fixed z-0 w-[600px] h-[600px] rounded-full opacity-20 mix-blend-multiply"
-      style={{
-        background: "radial-gradient(circle, #3396d3 0%, transparent 70%)",
-        left: pos.x - 300,
-        top: pos.y - 300,
-        transition: "left 0.15s ease, top 0.15s ease",
-      }}
-    />
-  )
-}
-
-const CursorGlow = dynamic(() => Promise.resolve(CursorGlowComponent), { ssr: false })
-
 /* ─────────────── Site Showcase Card ─────────────── */
 function SiteCard({
   src,
@@ -57,6 +29,7 @@ function SiteCard({
   className = "",
   rotate = 0,
   isLCP = false,
+  quality = 75,
 }: {
   src: string
   alt: string
@@ -66,6 +39,7 @@ function SiteCard({
   className?: string
   rotate?: number
   isLCP?: boolean
+  quality?: number
 }) {
   return (
     <div
@@ -93,10 +67,10 @@ function SiteCard({
           height={607}
           className="w-full h-auto block"
           priority={isLCP}
+          quality={quality}
+          sizes="(max-width: 768px) 95vw, (max-width: 1200px) 60vw, 700px"
           fetchPriority={isLCP ? "high" : "auto"}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1080px"
-          loading={isLCP ? "eager" : "lazy"}
-          decoding="sync"
+          decoding={isLCP ? "sync" : "async"}
         />
       </div>
       {/* Label */}
@@ -113,38 +87,38 @@ export function Hero() {
   const { t } = useTranslation()
   return (
     <>
-      <CursorGlow />
-
       {/* ═══════════════ HERO PRINCIPAL ═══════════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-[#f7f9fc]">
         {/* ── Fundo geométrico inspirado na logo V ── */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Diagonal cortada */}
+          {/* Diagonal cortada — REFEITA: Oculta no mobile para não cortar o texto, ativa apenas em telas maiores */}
           <div
-            className="absolute top-0 right-0 w-[55%] h-full bg-[#1a2e4a] origin-top-right"
+            className="hidden md:block absolute top-0 right-0 w-[45%] lg:w-[55%] h-full bg-[#1a2e4a] origin-top-right transition-all duration-700"
             style={{ clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" }}
           />
-          {/* Linha amarela diagonal - static style to avoid hydration delay */}
+          {/* Linha amarela diagonal — Oculta no mobile */}
           <div
-            className="absolute top-0 right-[44%] w-[6px] h-full bg-gradient-to-b from-[#ffd400] via-[#ffd400] to-transparent origin-top"
+            className="hidden md:block absolute top-0 right-[38%] lg:right-[44%] w-[6px] h-full bg-gradient-to-b from-[#ffd400] via-[#ffd400] to-transparent origin-top transition-all duration-700"
             style={{ transform: "rotate(-8deg)" }}
           />
-          {/* Favicons flutuantes substituindo os vzinhos */}
-          <div 
-            className="absolute top-20 left-[8%] opacity-30 w-16 md:w-20"
-          >
-            <Image src="/favicon.png" alt="" width={80} height={80} className="w-full h-auto brightness-0" sizes="80px" />
+          
+          {/* Fundo sutil para mobile para manter o estilo premium sem prejudicar a leitura */}
+          <div className="md:hidden absolute bottom-0 left-0 right-0 h-1/3 bg-[#1a2e4a]" style={{ clipPath: "polygon(0 15%, 100% 0, 100% 100%, 0% 100%)" }} />
+
+          {/* Ornatos de Marca — Mais sutis e nítidos */}
+          <div className="absolute top-16 left-[5%] opacity-[0.05] md:opacity-[0.08] w-20 md:w-40">
+            <Image src="/viraweb3.png" alt="" width={400} height={400} className="w-full h-auto brightness-0" />
           </div>
-          <div 
-            className="absolute bottom-32 right-[15%] opacity-10 w-24 md:w-32"
-          >
-            <Image src="/favicon.png" alt="" width={120} height={120} className="w-full h-auto brightness-0 invert" sizes="120px" />
+          <div className="absolute bottom-12 right-[5%] opacity-[0.03] md:opacity-[0.05] w-32 md:w-64">
+            <Image src="/viraweb3.png" alt="" width={600} height={600} className="w-full h-auto brightness-0 invert" />
           </div>
-          <ArrowPattern className="absolute top-[15%] right-[20%] w-48 text-white" />
-          <ArrowPattern className="absolute bottom-[20%] left-[5%] w-36 text-[#3396d3]" />
+
+          <ArrowPattern className="absolute top-[15%] right-[5%] md:right-[20%] w-32 md:w-48 text-white opacity-[0.08] md:opacity-20" />
+          <ArrowPattern className="absolute bottom-[20%] left-[2%] md:left-[8%] w-24 md:w-40 text-[#3396d3] opacity-[0.08] md:opacity-20" />
+          
           {/* Dots grid */}
           <div
-            className="absolute top-0 left-0 w-[50%] h-full opacity-[0.03]"
+            className="absolute top-0 left-0 w-full md:w-[50%] h-full opacity-[0.03]"
             style={{
               backgroundImage: "radial-gradient(#1a2e4a 1px, transparent 1px)",
               backgroundSize: "24px 24px",
@@ -167,11 +141,11 @@ export function Hero() {
                   </span>
                 </div>
 
-                <h1 className="text-[2.5rem] md:text-[3.2rem] lg:text-[3.8rem] font-black leading-[1.05] text-[#1a2e4a] mb-6">
+                <h1 className="text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] lg:text-[3.8rem] font-black leading-[1.1] text-[#1a2e4a] mb-6">
                   {t("hero.title1")}{" "}
                   <span className="relative inline-block">
                     <span className="relative z-10">{t("hero.title2")}</span>
-                    <span className="absolute bottom-1 left-0 w-full h-[14px] bg-[#ffd400]/50 -z-0 rounded-sm" />
+                    <span className="absolute bottom-1 left-0 w-full h-[8px] md:h-[14px] bg-[#ffd400]/50 -z-0 rounded-sm" />
                   </span>
                   <br />
                   {t("hero.title3")}
@@ -184,25 +158,23 @@ export function Hero() {
                 </p>
 
                 {/* CTAs */}
-                <div className="flex items-center gap-4">
-                  <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-                    <m.button
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="relative cursor-pointer overflow-hidden bg-[#1a2e4a] text-white font-bold text-sm px-8 py-4 rounded-lg group transition-all duration-300"
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                  <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!" className="w-full sm:w-auto">
+                    <button
+                      className="relative w-full cursor-pointer overflow-hidden bg-[#1a2e4a] text-white font-bold text-sm px-8 py-4 rounded-lg group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
+                      <span className="relative z-10 flex items-center justify-center gap-2">
                         {t("hero.cta")}
-                        <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        <ArrowUpRight className="h-4 w-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </span>
                       <span className="absolute inset-0 bg-[#ffd400] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                       <span className="absolute inset-0 z-10 flex items-center justify-center gap-2 text-[#1a2e4a] font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         {t("hero.cta")}
                         <ArrowUpRight className="h-4 w-4" />
                       </span>
-                    </m.button>
+                    </button>
                   </a>
-                  <a href="#servicos" className="text-[#1a2e4a] font-semibold text-sm hover:text-[#1a2e4a] transition-colors flex items-center gap-1 group">
+                  <a href="#servicos" className="text-[#1a2e4a] font-bold text-sm hover:text-black transition-colors flex items-center gap-1.5 group py-2">
                     {t("hero.view_services")}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
@@ -234,8 +206,9 @@ export function Hero() {
                   url="marcelodaltro.com.br"
                   label="✦ Feito pela ViraWeb"
                   delay={0}
-                  rotate={1}
+                  rotate={0}
                   isLCP={true}
+                  quality={75}
                   className="z-20 ml-auto max-w-[540px]"
                 />
 
@@ -251,7 +224,7 @@ export function Hero() {
                 />
 
                 {/* Connector entre os cards - removed animation to prioritize LCP */}
-                <div className="absolute top-[52%] right-[30%] flex flex-col items-center z-30 opacity-60">
+                <div className="hidden sm:flex absolute top-[52%] right-[30%] flex-col items-center z-30 opacity-60">
                   <div className="w-px h-6 bg-[#ffd400]" />
                   <div className="w-2 h-2 rounded-full bg-[#ffd400]" />
                 </div>
@@ -272,20 +245,16 @@ export function Hero() {
               backgroundSize: "32px 32px",
             }}
           />
-          <m.div 
-            animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }} 
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          <div 
             className="absolute -top-10 -right-4 md:-right-10 opacity-10 w-40 md:w-64"
           >
             <Image src="/favicon.png" alt="" width={200} height={200} className="w-full h-auto brightness-0 invert" />
-          </m.div>
-          <m.div 
-            animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }} 
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          </div>
+          <div 
             className="absolute bottom-10 left-[8%] opacity-20 w-24 md:w-40"
           >
             <Image src="/favicon.png" alt="" width={150} height={150} className="w-full h-auto brightness-0" />
-          </m.div>
+          </div>
         </div>
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">

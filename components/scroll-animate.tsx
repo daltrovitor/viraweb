@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import React from "react"
 
 type Props = {
@@ -20,7 +20,7 @@ export default function ScrollAnimate({
   once = true,
 }: Props) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount: 0.15 }}
@@ -28,6 +28,6 @@ export default function ScrollAnimate({
       className={["motion-smooth", className].filter(Boolean).join(" ")}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

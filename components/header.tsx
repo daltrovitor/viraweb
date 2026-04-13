@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react"
 import { Menu, X, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence, motion } from "framer-motion"
 import { LanguageSwitcher } from "./language-switcher"
 import { useTranslation } from "@/lib/i18n"
+
 
 export function Header() {
   const { t } = useTranslation()
@@ -98,14 +99,14 @@ export function Header() {
             <LanguageSwitcher />
 
             <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-sm px-5 py-2.5 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300"
               >
                 {t("nav.button")}
                 <ArrowUpRight className="h-3.5 w-3.5" />
-              </motion.button>
+              </m.button>
             </a>
           </div>
 
@@ -124,7 +125,7 @@ export function Header() {
         {/* Mobile Navigation */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
+            <m.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -177,7 +178,7 @@ export function Header() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </nav>

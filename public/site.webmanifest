@@ -1,0 +1,16 @@
+{
+  "name": "ViraWeb",
+  "short_name": "ViraWeb",
+  "description": "Especialistas em criação de sites e tráfego pago.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1923",
+  "theme_color": "#0f1923",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

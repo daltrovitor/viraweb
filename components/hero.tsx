@@ -3,7 +3,7 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import ScrollAnimate from "./scroll-animate"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useTranslation } from "@/lib/i18n"
 
@@ -21,7 +21,7 @@ function ArrowPattern({ className }: { className?: string }) {
 
 import dynamic from "next/dynamic"
 
-const CursorGlow = dynamic(() => import("./hero").then(mod => ({ default: () => {
+function CursorGlowComponent() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [visible, setVisible] = useState(false)
   useEffect(() => {
@@ -43,7 +43,9 @@ const CursorGlow = dynamic(() => import("./hero").then(mod => ({ default: () => 
       }}
     />
   )
-}})), { ssr: false })
+}
+
+const CursorGlow = dynamic(() => Promise.resolve(CursorGlowComponent), { ssr: false })
 
 /* ─────────────── Site Showcase Card ─────────────── */
 function SiteCard({
@@ -122,11 +124,8 @@ export function Hero() {
             className="absolute top-0 right-0 w-[55%] h-full bg-[#1a2e4a] origin-top-right"
             style={{ clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" }}
           />
-          {/* Linha amarela diagonal */}
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          {/* Linha amarela diagonal - static style to avoid hydration delay */}
+          <div
             className="absolute top-0 right-[44%] w-[6px] h-full bg-gradient-to-b from-[#ffd400] via-[#ffd400] to-transparent origin-top"
             style={{ transform: "rotate(-8deg)" }}
           />
@@ -180,14 +179,14 @@ export function Hero() {
                   <span className="text-[#3396d3]">{t("hero.title4")}</span>
                 </h1>
 
-                <p className="text-base md:text-lg text-[#4b5563] max-w-md mb-10 leading-relaxed">
+                <p className="text-base md:text-lg text-[#374151] max-w-md mb-10 leading-relaxed">
                   {t("hero.subtitle")}
                 </p>
 
                 {/* CTAs */}
                 <div className="flex items-center gap-4">
                   <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-                    <motion.button
+                    <m.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.97 }}
                       className="relative cursor-pointer overflow-hidden bg-[#1a2e4a] text-white font-bold text-sm px-8 py-4 rounded-lg group transition-all duration-300"
@@ -201,7 +200,7 @@ export function Hero() {
                         {t("hero.cta")}
                         <ArrowUpRight className="h-4 w-4" />
                       </span>
-                    </motion.button>
+                    </m.button>
                   </a>
                   <a href="#servicos" className="text-[#1a2e4a] font-semibold text-sm hover:text-[#1a2e4a] transition-colors flex items-center gap-1 group">
                     {t("hero.view_services")}
@@ -216,15 +215,10 @@ export function Hero() {
                     { num: "98%", label: t("hero.stats.satisfaction") },
                     { num: "7d", label: t("hero.stats.time") },
                   ].map((s, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                    >
+                    <div key={i}>
                       <p className="text-2xl font-black text-[#1a2e4a]">{s.num}</p>
-                      <p className="text-xs text-[#4b5563] font-medium">{s.label}</p>
-                    </motion.div>
+                      <p className="text-xs text-[#374151] font-medium">{s.label}</p>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -256,16 +250,11 @@ export function Hero() {
                   className="z-10 -mt-16 mr-auto max-w-[420px]"
                 />
 
-                {/* Connector entre os cards */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                  className="absolute top-[52%] right-[30%] flex flex-col items-center z-30"
-                >
+                {/* Connector entre os cards - removed animation to prioritize LCP */}
+                <div className="absolute top-[52%] right-[30%] flex flex-col items-center z-30 opacity-60">
                   <div className="w-px h-6 bg-[#ffd400]" />
                   <div className="w-2 h-2 rounded-full bg-[#ffd400]" />
-                </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -283,20 +272,20 @@ export function Hero() {
               backgroundSize: "32px 32px",
             }}
           />
-          <motion.div 
+          <m.div 
             animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }} 
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-4 md:-right-10 opacity-10 w-40 md:w-64"
           >
             <Image src="/favicon.png" alt="" width={200} height={200} className="w-full h-auto brightness-0 invert" />
-          </motion.div>
-          <motion.div 
+          </m.div>
+          <m.div 
             animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }} 
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
             className="absolute bottom-10 left-[8%] opacity-20 w-24 md:w-40"
           >
             <Image src="/favicon.png" alt="" width={150} height={150} className="w-full h-auto brightness-0" />
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -305,7 +294,7 @@ export function Hero() {
             <ScrollAnimate delay={0.1}>
               <div className="relative">
                 <div className="absolute -inset-8 bg-[#3396d3]/10 rounded-3xl blur-3xl" />
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -332,10 +321,10 @@ export function Hero() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="w-full h-auto block"
                   />
-                </motion.div>
+                </m.div>
 
                 {/* Floating notification */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -353,13 +342,13 @@ export function Hero() {
                       <p className="text-[11px] text-gray-400">Publicado agora mesmo</p>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
             </ScrollAnimate>
 
             {/* Conteúdo texto */}
             <ScrollAnimate delay={0.2}>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -388,7 +377,7 @@ export function Hero() {
                     { icon: "📊", title: t("gdc.feature3.title"), desc: t("gdc.feature3.desc") },
                     { icon: "🤖", title: t("gdc.feature4.title"), desc: t("gdc.feature4.desc") },
                   ].map((f, i) => (
-                    <motion.div
+                    <m.div
                       key={i}
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -399,21 +388,21 @@ export function Hero() {
                       <span className="text-2xl block mb-2">{f.icon}</span>
                       <p className="text-sm font-bold text-white mb-0.5">{f.title}</p>
                       <p className="text-xs text-gray-500">{f.desc}</p>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
                 <a href="https://gdc.viraweb.online/" target="_blank" rel="noopener noreferrer">
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-black text-sm px-8 py-4 rounded-lg inline-flex items-center gap-2 group hover:shadow-lg hover:shadow-[#ffd400]/20 transition-all duration-300"
                   >
                     {t("gdc.cta")}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
+                  </m.button>
                 </a>
-              </motion.div>
+              </m.div>
             </ScrollAnimate>
           </div>
         </div>

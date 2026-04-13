@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Vira Web",
     images: [
       {
-        url: `${SITE_URL}/og-criacao-sites.svg`,
+        url: `${SITE_URL}/favicon.png`,
         alt: "Vira Web",
         width: 1200,
         height: 630,
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Criação de Sites - Vira Web",
     description:
       "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
-    images: [`${SITE_URL}/og-criacao-sites.svg`],
+    images: [`${SITE_URL}/favicon.png`],
   },
   icons: {
     icon: [{ url: "/favicon.png" }],
@@ -78,7 +78,7 @@ export default function RootLayout({
         "@type": "Organization",
         "name": "Vira Web",
         "url": SITE_URL,
-        "logo": `${SITE_URL}/viraweb6.ico`,
+        "logo": `${SITE_URL}/favicon.png`,
       },
     ],
   }
@@ -86,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="bg-[#0f1923] selection:text-white selection:bg-secondary/50">
       <head>
-        <link rel="icon" href="/viraweb6.ico" sizes="any" />
+        <link rel="icon" href="/favicon.png" sizes="any" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="canonical" href={SITE_URL} />
         <meta name="theme-color" content="#0f1923" />
@@ -98,7 +98,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://va.vercel-scripts.com" />
         
         {/* Resource Hints */}
-        <link rel="preload" href="/site-marcelo.png" as="image" fetchpriority="high" />
+        <link rel="preload" href="/site-marcelo.png" as="image" fetchPriority="high" />
       </head>
       <body className={`font-sans ${GeistSans.className} ${GeistMono.className} antialiased`}>
         <script

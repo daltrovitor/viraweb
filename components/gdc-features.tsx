@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { Users, FileText, BarChart3, Upload, Bot, UserCog } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
@@ -85,7 +85,7 @@ export function GDCFeatures() {
               <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
             </div>
 
-            <p className="text-base md:text-lg text-[#4b5563] leading-relaxed">
+            <p className="text-base md:text-lg text-[#374151] leading-relaxed">
               {t("gdc.features.desc")}
             </p>
           </div>
@@ -95,7 +95,7 @@ export function GDCFeatures() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {gdcFeatures.map((feature, i) => (
             <ScrollAnimate key={i} delay={i * 0.06}>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -119,11 +119,11 @@ export function GDCFeatures() {
                   </h3>
 
                   {/* Descrição */}
-                  <p className="relative z-10 text-sm text-[#4b5563] leading-relaxed flex-1">
+                  <p className="relative z-10 text-sm text-[#374151] leading-relaxed flex-1">
                     {feature.description}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             </ScrollAnimate>
           ))}
         </div>

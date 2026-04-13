@@ -3,7 +3,7 @@
 import { Mail, Phone, Instagram, Facebook, Linkedin, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { useTranslation } from "@/lib/i18n"
 
 export function Footer() {
@@ -35,7 +35,7 @@ export function Footer() {
               sizes="150px"
               className="w-36 mb-6"
             />
-            <p className="text-sm text-gray-400 leading-relaxed max-w-xs mb-6">
+            <p className="text-sm text-gray-200 leading-relaxed max-w-xs mb-6">
               {t("footer.description")}
             </p>
             {/* Redes sociais */}
@@ -48,7 +48,7 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
-                  className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-[#ffd400] hover:border-[#ffd400]/30 hover:bg-[#ffd400]/5 transition-all duration-300"
+                  className="w-9 h-9 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-200 hover:text-[#ffd400] hover:border-[#ffd400]/30 hover:bg-[#ffd400]/5 transition-all duration-300"
                   aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
@@ -132,24 +132,24 @@ export function Footer() {
 
             {/* Mini CTA no footer */}
             <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="mt-6 cursor-pointer bg-[#ffd400] text-[#1a2e4a] font-bold text-xs px-5 py-3 rounded-lg inline-flex items-center gap-1.5 hover:shadow-lg hover:shadow-[#ffd400]/10 transition-all duration-300"
               >
                 {t("footer.cta")}
                 <ArrowUpRight className="h-3.5 w-3.5" />
-              </motion.button>
+              </m.button>
             </a>
           </div>
         </div>
 
         {/* Barra inferior */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-300">
             © {new Date().getFullYear()} Vira Web. {t("footer.rights")}
           </p>
-          <div className="flex items-center gap-1 text-xs text-gray-400">
+          <div className="flex items-center gap-1 text-xs text-gray-300">
             <span>{t("footer.made_with")}</span>
             <span className="text-[#ffd400]">♦</span>
             <span>{t("footer.by")}</span>

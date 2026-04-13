@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowUpRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
 
@@ -29,7 +29,7 @@ export function CTA() {
         </svg>
 
         {/* Linha amarela vertical */}
-        <motion.div
+        <m.div
           initial={{ height: 0 }}
           whileInView={{ height: "60%" }}
           viewport={{ once: true }}
@@ -54,7 +54,7 @@ export function CTA() {
                 {t("cta.title2")}{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-[#ffd400]">{t("cta.title3")}</span>
-                  <motion.span
+                  <m.span
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     viewport={{ once: true }}
@@ -65,13 +65,13 @@ export function CTA() {
                 ?
               </h2>
 
-              <p className="text-base md:text-lg text-gray-400 max-w-lg mb-10 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-200 max-w-lg mb-10 leading-relaxed">
                 {t("cta.subtitle")}
               </p>
 
               <div className="flex flex-col sm:flex-row items-start gap-4">
                 <a href="https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento!">
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="relative cursor-pointer overflow-hidden bg-[#ffd400] text-[#1a2e4a] font-black text-sm px-10 py-5 rounded-xl group transition-all duration-300 shadow-lg shadow-[#ffd400]/20"
@@ -80,9 +80,9 @@ export function CTA() {
                       {t("cta.button")}
                       <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
-                  </motion.button>
+                  </m.button>
                 </a>
-                <a href="#servicos" className="text-gray-400 hover:text-white font-semibold text-sm transition-colors flex items-center gap-1 py-5 group">
+                <a href="#servicos" className="text-gray-300 hover:text-white font-semibold text-sm transition-colors flex items-center gap-1 py-5 group">
                   {t("cta.or_services")}
                   <ArrowUpRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -106,7 +106,7 @@ export function CTA() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">{t("cta.clients")}</p>
-                  <p className="text-xs text-gray-400">{t("cta.clients_desc")}</p>
+                  <p className="text-xs text-gray-300">{t("cta.clients_desc")}</p>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
 
@@ -25,7 +25,7 @@ export function Stats() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
             {stats.map((stat, i) => (
               <ScrollAnimate key={i} delay={i * 0.08}>
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -38,7 +38,7 @@ export function Stats() {
                   )}
 
                   {/* Número grande */}
-                  <motion.p
+                  <m.p
                     className="text-4xl md:text-5xl font-black mb-2"
                     style={{ color: stat.accent }}
                   >
@@ -46,7 +46,7 @@ export function Stats() {
                     {i === 2 && language === "pt" ? " anos" : ""}
                     {i === 2 && language === "en" ? " years" : ""}
                     {i === 2 && language === "es" ? " años" : ""}
-                  </motion.p>
+                  </m.p>
 
                   {/* Linha acentuada */}
                   <div
@@ -54,8 +54,8 @@ export function Stats() {
                     style={{ backgroundColor: stat.accent }}
                   />
 
-                  <p className="text-sm font-medium text-[#4b5563]">{stat.label}</p>
-                </motion.div>
+                  <p className="text-sm font-medium text-[#374151]">{stat.label}</p>
+                </m.div>
               </ScrollAnimate>
             ))}
           </div>

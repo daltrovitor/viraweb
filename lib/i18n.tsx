@@ -266,8 +266,10 @@ export const translations: Record<Language, Record<string, string>> = {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("pt")
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const saved = localStorage.getItem("language") as Language
     if (saved && (saved === "pt" || saved === "en" || saved === "es")) {
       setLanguageState(saved)
@@ -280,11 +282,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   const t = (key: string) => {
-    return translations[language][key] || key
+    // Durante a hidratação, 'mounted' ainda é false, então usamos 'pt' (o padrão do servidor)
+    // Isso evita o erro de mismatch caso o localStorage tenha 'en' ou 'es'
+    const activeLang = mounted ? language : "pt"
+    return translations[activeLang][key] || key
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language: mounted ? language : "pt", setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   )

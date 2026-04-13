@@ -1,7 +1,7 @@
 "use client"
 
 import { Target, Globe, Bot, MapPin, ArrowUpRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
 
@@ -85,7 +85,7 @@ export function Services() {
                 {t("services.title3")}
               </h2>
             </div>
-            <p className="text-base text-[#4b5563] max-w-sm leading-relaxed md:text-right">
+            <p className="text-base text-[#374151] max-w-sm leading-relaxed md:text-right">
               {t("services.subtitle")}
             </p>
           </div>
@@ -95,7 +95,7 @@ export function Services() {
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, i) => (
             <ScrollAnimate key={i} delay={i * 0.08}>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -127,7 +127,7 @@ export function Services() {
                       <h3 className="text-xl font-black text-[#1a2e4a]">{service.title}</h3>
                     </div>
 
-                    <p className="text-sm text-[#4b5563] leading-relaxed mb-6 ml-16">
+                    <p className="text-sm text-[#374151] leading-relaxed mb-6 ml-16">
                       {service.description}
                     </p>
 
@@ -136,7 +136,7 @@ export function Services() {
                       {service.features.map((feature, idx) => (
                         <span
                           key={idx}
-                          className="text-xs font-medium px-3 py-1.5 rounded-full bg-white text-[#4b5563] border border-[#1a2e4a]/8"
+                          className="text-xs font-medium px-3 py-1.5 rounded-full bg-white text-[#374151] border border-[#1a2e4a]/8"
                         >
                           {feature}
                         </span>
@@ -146,19 +146,19 @@ export function Services() {
                     {/* CTA */}
                     <div className="ml-16">
                       <a href={service.url} target="_blank" rel="noopener noreferrer">
-                        <motion.span
+                        <m.span
                           whileHover={{ x: 4 }}
                           className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors cursor-pointer"
                           style={{ color: service.accent === "#ffd400" ? "#b39600" : service.accent }}
                         >
                           {t("services.cta")}
                           <ArrowUpRight className="h-4 w-4" />
-                        </motion.span>
+                        </m.span>
                       </a>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </ScrollAnimate>
           ))}
         </div>

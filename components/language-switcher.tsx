@@ -10,10 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Globe } from "lucide-react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useTranslation()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const languages = [
     { code: "pt", label: "Português", flag: "🇧🇷" },
@@ -22,6 +27,20 @@ export function LanguageSwitcher() {
   ] as const
 
   const currentLang = languages.find((l) => l.code === language)
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="h-9 px-3 flex items-center gap-2 text-sm font-medium transition-all hover:text-primary cursor-pointer text-white"
+        aria-label="Select language"
+      >
+        <Globe className="h-4 w-4 opacity-100" />
+        <span className="uppercase">{language}</span>
+      </Button>
+    )
+  }
 
   return (
     <DropdownMenu>

@@ -5,6 +5,9 @@ import { Hero } from "@/components/hero"
 const GDCFeatures = dynamic(() => import("@/components/gdc-features").then((mod) => mod.GDCFeatures), {
   loading: () => <div className="h-[600px] w-full bg-[#1a2e4a]/5 animate-pulse rounded-3xl" />
 })
+const HeroGDC = dynamic(() => import("@/components/hero-gdc").then((mod) => mod.HeroGDC), {
+  loading: () => <div className="h-[600px] w-full bg-[#1a2e4a]/5 animate-pulse" />
+})
 const Services = dynamic(() => import("@/components/services").then((mod) => mod.Services), {
   loading: () => <div className="h-[400px] w-full bg-[#1a2e4a]/5 animate-pulse" />
 })
@@ -35,6 +38,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Header />
       <Hero />
+      <HeroGDC />
       <GDCFeatures />
       <Stats />
       <Services />

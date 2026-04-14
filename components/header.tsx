@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
-import { m, AnimatePresence, motion } from "framer-motion"
+import { m, AnimatePresence } from "framer-motion"
 import { LanguageSwitcher } from "./language-switcher"
 import { useTranslation } from "@/lib/i18n"
 

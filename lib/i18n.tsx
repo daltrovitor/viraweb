@@ -96,6 +96,22 @@ export const translations: Record<Language, Record<string, string>> = {
     "video.soon": "Em breve: Nossa história e visão",
     "video.button": "Orçamento",
   },
+  experimental: {
+    reactCompiler: true,
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "clsx",
+      "tailwind-merge",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-slot",
+      "@radix-ui/react-label",
+      "@radix-ui/react-select",
+      "@radix-ui/react-navigation-menu",
+      "@radix-ui/react-dialog"
+    ],
+    scrollRestoration: true,
+  },
   en: {
     "nav.services": "Services",
     "nav.gdc": "G.D.C.",
@@ -146,6 +162,12 @@ export const translations: Record<Language, Record<string, string>> = {
     "services.assistant.desc": "Automate service with AI available 24/7 to answer questions and capture leads.",
     "services.gmn.desc": "Complete management of your Google profile to increase local visibility and attract customers.",
     "services.cta": "Request budget",
+    "browserslist": [
+      "Chrome >= 120",
+      "Safari >= 17",
+      "Firefox >= 120",
+      "Edge >= 120"
+    ],
     "stats.conversions": "Increase in conversions",
     "stats.off": "OFF on first service",
     "stats.exp": "Of experience",
@@ -277,11 +299,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const t = React.useCallback((key: string) => {
-    // Durante a hidratação, 'mounted' ainda é false, então usamos 'pt' (o padrão do servidor)
-    // Isso evita o erro de mismatch caso o localStorage tenha 'en' ou 'es'
-    const activeLang = mounted ? language : "pt"
-    return translations[activeLang][key] || key
-  }, [mounted, language])
+    return translations[language][key] || key
+  }, [language])
 
   const setLanguage = React.useCallback((lang: Language) => {
     setLanguageState(lang)

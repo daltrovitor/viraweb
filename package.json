@@ -37,9 +37,9 @@
     "typescript": "^5"
   },
   "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Safari versions",
-    "last 2 Firefox versions",
-    "last 2 Edge versions"
+    "Chrome >= 120",
+    "Safari >= 17",
+    "Firefox >= 120",
+    "Edge >= 120"
   ]
 }

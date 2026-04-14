@@ -37,7 +37,6 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     reactCompiler: true,
-    optimizeCss: true,
     optimizePackageImports: [
       "lucide-react",
       "framer-motion",

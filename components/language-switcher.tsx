@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Globe } from "lucide-react"
-import { m } from "framer-motion"
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useTranslation()

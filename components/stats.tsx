@@ -1,8 +1,10 @@
 "use client"
 
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function Stats() {
   const { t, language } = useTranslation()
@@ -15,6 +17,7 @@ export function Stats() {
   ]
 
   return (
+    <LazyMotion features={loadFeatures}>
     <section className="relative py-0 overflow-hidden">
       {/* Barra diagonal contínua — conecta com a hero */}
       <div className="relative bg-[#f7f9fc]">
@@ -62,5 +65,6 @@ export function Stats() {
         </div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

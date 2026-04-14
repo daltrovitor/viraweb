@@ -45,7 +45,8 @@ const nextConfig = {
     ],
     scrollRestoration: true,
   },
-
+  cssChunking: 'strict',
 }
 
 export default nextConfig
+

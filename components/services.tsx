@@ -1,9 +1,11 @@
 "use client"
 
 import { Target, Globe, Bot, MapPin, ArrowUpRight } from "lucide-react"
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function Services() {
   const { t } = useTranslation()
@@ -44,6 +46,7 @@ export function Services() {
   ]
 
   return (
+    <LazyMotion features={loadFeatures}>
     <section id="servicos" className="relative bg-white overflow-hidden">
       {/* Background geométrico */}
       <div className="absolute inset-0 pointer-events-none">
@@ -164,5 +167,6 @@ export function Services() {
         </div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

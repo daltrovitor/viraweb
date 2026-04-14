@@ -1,6 +1,8 @@
 "use client"
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import React from "react"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 type Props = {
   children: React.ReactNode
@@ -20,14 +22,16 @@ export default function ScrollAnimate({
   once = true,
 }: Props) {
   return (
-    <m.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount: 0.15 }}
-      transition={{ duration, delay }}
-      className={["motion-smooth", className].filter(Boolean).join(" ")}
-    >
-      {children}
-    </m.div>
+    <LazyMotion features={loadFeatures}>
+      <m.div
+        initial={{ opacity: 0, y }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once, amount: 0.15 }}
+        transition={{ duration, delay }}
+        className={["motion-smooth", className].filter(Boolean).join(" ")}
+      >
+        {children}
+      </m.div>
+    </LazyMotion>
   )
 }

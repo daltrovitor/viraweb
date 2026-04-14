@@ -1,13 +1,16 @@
 "use client"
 
 import { ArrowUpRight } from "lucide-react"
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function CTA() {
   const { t } = useTranslation()
   return (
+    <LazyMotion features={loadFeatures}>
     <section className="relative overflow-hidden">
       {/* Fundo diagonal — navy com corte geométrico */}
       <div className="relative bg-[#1a2e4a]">
@@ -114,5 +117,6 @@ export function CTA() {
         </div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

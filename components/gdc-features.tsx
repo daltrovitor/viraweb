@@ -1,9 +1,11 @@
 "use client"
 
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import ScrollAnimate from "./scroll-animate"
 import { Users, FileText, BarChart3, Upload, Bot, UserCog } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function GDCFeatures() {
   const { t } = useTranslation()
@@ -48,6 +50,7 @@ export function GDCFeatures() {
   ]
 
   return (
+    <LazyMotion features={loadFeatures}>
     <section id="gdc-features" className="relative bg-[#f7f9fc] overflow-hidden">
       {/* Background decorativo */}
       <div className="absolute inset-0 pointer-events-none">
@@ -129,5 +132,6 @@ export function GDCFeatures() {
         </div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

@@ -1,8 +1,10 @@
 "use client"
 
-import { m, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence, LazyMotion } from "framer-motion"
 import { LanguageSwitcher } from "./language-switcher"
 import { ArrowUpRight } from "lucide-react"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function MobileMenu({ 
   mobileMenuOpen, 
@@ -16,6 +18,7 @@ export function MobileMenu({
   t: any 
 }) {
   return (
+    <LazyMotion features={loadFeatures}>
     <AnimatePresence>
       {mobileMenuOpen && (
         <m.div
@@ -74,5 +77,6 @@ export function MobileMenu({
         </m.div>
       )}
     </AnimatePresence>
+    </LazyMotion>
   )
 }

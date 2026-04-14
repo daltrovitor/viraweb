@@ -3,12 +3,15 @@
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import ScrollAnimate from "./scroll-animate"
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function HeroGDC() {
   const { t } = useTranslation()
   return (
+    <LazyMotion features={loadFeatures}>
     <section className="relative bg-[#1a2e4a] overflow-hidden">
       {/* Textura geométrica */}
       <div className="absolute inset-0 pointer-events-none">
@@ -150,5 +153,6 @@ export function HeroGDC() {
         </div>
       </div>
     </section>
+    </LazyMotion>
   )
 }

@@ -3,12 +3,15 @@
 import { Mail, Phone, Instagram, Facebook, Linkedin, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 
-import { m } from "framer-motion"
+import { m, LazyMotion } from "framer-motion"
 import { useTranslation } from "@/lib/i18n"
+
+const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
 
 export function Footer() {
   const { t } = useTranslation()
   return (
+    <LazyMotion features={loadFeatures}>
     <footer id="contato" className="relative bg-[#0f1923] overflow-hidden">
       {/* Textura dots sutil */}
       <div
@@ -157,5 +160,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </LazyMotion>
   )
 }

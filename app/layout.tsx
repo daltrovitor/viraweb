@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
 // Add display swap implicitly if geist doesn't do it, but usually next/font does.
 // We'll trust next/font here unless we see a specific flash issue.
 import { Analytics } from "@vercel/analytics/next"
@@ -53,8 +52,6 @@ export const metadata: Metadata = {
 
 import { LanguageProvider } from "@/lib/i18n"
 
-import { FramerProvider } from "@/components/framer-provider"
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -93,7 +90,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
       </head>
-      <body className={`font-sans ${GeistSans.className} ${GeistMono.className} antialiased`}>
+      <body className={`font-sans ${GeistSans.className} antialiased`}>
         <script
           key="ld-json"
           id="ld-json"
@@ -101,14 +98,12 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <FramerProvider>
-          <LanguageProvider>
-            <Suspense fallback={null}>
-              {children}
-              <Analytics />
-            </Suspense>
-          </LanguageProvider>
-        </FramerProvider>
+        <LanguageProvider>
+          <Suspense fallback={null}>
+            {children}
+            <Analytics />
+          </Suspense>
+        </LanguageProvider>
       </body>
     </html>
   )

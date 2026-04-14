@@ -15,6 +15,11 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     qualities: [75, 90],
   },
+  compiler: {
+    removeConsole: {
+      exclude: ['error'], // Remove logs and warnings, keep errors
+    },
+  },
   async redirects() {
     return [
       {

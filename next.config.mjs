@@ -35,8 +35,8 @@ const nextConfig = {
     ]
   },
   reactStrictMode: true,
+  reactCompiler: true,
   experimental: {
-    reactCompiler: true,
     optimizePackageImports: [
       "lucide-react",
       "framer-motion",
@@ -51,7 +51,6 @@ const nextConfig = {
     ],
     scrollRestoration: true,
   },
-  cssChunking: 'strict',
 }
 
 export default nextConfig

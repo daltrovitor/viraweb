@@ -1,0 +1,541 @@
+'use client';
+
+import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n';
+import { 
+  Plus, 
+  Search, 
+  FileText, 
+  DollarSign, 
+  TrendingUp, 
+  Percent, 
+  X, 
+  Check, 
+  ArrowRight,
+  User,
+  ShoppingBag,
+  CreditCard,
+  Briefcase
+} from 'lucide-react';
+
+interface Budget {
+  id: string;
+  client: string;
+  total: number;
+  status: 'Rascunho' | 'Enviado' | 'Aprovado' | 'Rejeitado' | 'Expirado' | 'Pago';
+  date: string;
+  items: string[];
+}
+
+export default function GdcSpotlight() {
+  const { t, language } = useTranslation();
+  
+  // Grid size configuration
+  const gridSquaresSize = '36px 36px'; // slightly larger squares as requested
+
+  // Budget List State
+  const [budgets, setBudgets] = useState<Budget[]>([
+    { id: '#ORC-2026-001', client: 'Carlos Eduardo (PME)', total: 4500, status: 'Aprovado', date: '29/06/2026', items: ['Landing Page Premium'] },
+    { id: '#ORC-2026-002', client: 'Fernanda Lima (E-commerce)', total: 9500, status: 'Enviado', date: '28/06/2026', items: ['Integração ViraBot IA', 'Setup CRM GDC'] }
+  ]);
+
+  const [activeTab, setActiveTab] = useState<string>('Todos');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Wizard state
+  const [showWizard, setShowWizard] = useState<boolean>(false);
+  const [wizardStep, setWizardStep] = useState<number>(1);
+  
+  // New budget form state
+  const [selectedClient, setSelectedClient] = useState<string>('');
+  const [selectedServices, setSelectedServices] = useState<{ name: string; price: number }[]>([]);
+  const [paymentMethod, setPaymentMethod] = useState<string>('Pix (À Vista)');
+  
+  // Available mock clients for search
+  const availableClients = [
+    'Carlos Eduardo',
+    'Fernanda Lima',
+    'Roberto Alves',
+    'Juliana Nogueira',
+    'TechStart Ltda',
+    'Sabor Digital'
+  ];
+
+  // Available mock services
+  const availableServices = [
+    { name: 'Landing Page de Alta Conversão', price: 4500 },
+    { name: 'Integração ViraBot IA (Atendimento)', price: 6000 },
+    { name: 'Setup Completo CRM & Funil GDC', price: 3500 },
+    { name: 'Campanha de Tráfego de Elite', price: 5000 }
+  ];
+
+  // Calculation for stats
+  const totalRevenue = budgets.reduce((acc, curr) => acc + curr.total, 0);
+  const netRevenue = totalRevenue * 0.85; // 85% net estimate
+  const approvedCount = budgets.filter(b => b.status === 'Aprovado' || b.status === 'Pago').length;
+  const conversionRate = budgets.length > 0 ? Math.round((approvedCount / budgets.length) * 100) : 0;
+
+  const handleAddService = (service: { name: string; price: number }) => {
+    if (selectedServices.find(s => s.name === service.name)) {
+      setSelectedServices(selectedServices.filter(s => s.name !== service.name));
+    } else {
+      setSelectedServices([...selectedServices, service]);
+    }
+  };
+
+  const handleCreateBudget = () => {
+    const total = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+    const newBudget: Budget = {
+      id: `#ORC-2026-00${budgets.length + 1}`,
+      client: selectedClient || 'Cliente Avulso',
+      total,
+      status: 'Enviado',
+      date: new Date().toLocaleDateString('pt-BR'),
+      items: selectedServices.map(s => s.name)
+    };
+
+    setBudgets([newBudget, ...budgets]);
+    
+    // Reset wizard
+    setShowWizard(false);
+    setWizardStep(1);
+    setSelectedClient('');
+    setSelectedServices([]);
+    setPaymentMethod('Pix (À Vista)');
+  };
+
+  const filteredBudgets = budgets.filter(b => {
+    const matchesSearch = b.client.toLowerCase().includes(searchQuery.toLowerCase()) || b.id.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTab = activeTab === 'Todos' || b.status === activeTab;
+    return matchesSearch && matchesTab;
+  });
+
+  return (
+    <section id="gdc" className="py-24 bg-white border-b border-[#E2E8F0] relative overflow-hidden">
+      
+      {/* Evident Blueprint Background Grid with Custom Square Size */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-45"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: gridSquaresSize
+        }}
+      />
+
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Product pitch (Exactly like Image 1 style but pointing to simulator) */}
+          <div className="lg:col-span-4 flex flex-col items-start text-left select-none">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-6 h-[1.5px] bg-[#2563EB]" />
+              <span className="text-[10px] font-mono font-bold tracking-widest text-[#475569] uppercase">
+                MÓDULO FINANCEIRO GDC
+              </span>
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0F172A] tracking-tighter leading-none mb-6">
+              Emissão de <br />
+              <span className="text-[#2563EB]">Orçamentos</span>
+            </h2>
+            
+            <p className="text-[#475569] text-sm md:text-base leading-relaxed mb-8 max-w-[45ch]">
+              Acelere o fechamento de propostas comerciais. Simule o fluxo completo de cadastro, seleção de serviços, condições e emissão automática.
+            </p>
+
+            <div className="space-y-4 w-full mb-8 font-sans text-xs text-slate-500">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                <span>Cadastro rápido de clientes B2B</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                <span>Cálculo automático de impostos e taxas</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                <span>Integração de pagamento imediato (Pix)</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowWizard(true)}
+              className="bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
+            >
+              Simular Novo Orçamento
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Right Column: Dynamic Budget Simulation Panel (Matching User Screenshots) */}
+          <div className="lg:col-span-8 w-full">
+            <div className="w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.08)] border border-[#E2E8F0] p-6 sm:p-8 relative min-h-[480px]">
+              
+              {!showWizard ? (
+                /* SCREEN 1: BUDGETS DASHBOARD (Image 1 reference) */
+                <div className="flex flex-col text-left">
+                  
+                  {/* Header Row */}
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-5 select-none">
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900 leading-none">Orçamentos</h3>
+                      <p className="text-xs text-slate-400 mt-1">Crie e gerencie orçamentos profissionais</p>
+                    </div>
+                    <button
+                      onClick={() => setShowWizard(true)}
+                      className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer rounded-none active:scale-95"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Novo Orçamento
+                    </button>
+                  </div>
+
+                  {/* Summary 4-Cards Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 select-none">
+                    {/* Card 1: Count */}
+                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
+                      <div className="p-2 bg-blue-50 border border-blue-100 text-blue-600">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">Orçamentos</div>
+                        <div className="text-lg font-black text-slate-900">{budgets.length}</div>
+                      </div>
+                    </div>
+
+                    {/* Card 2: Total Revenue */}
+                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
+                      <div className="p-2 bg-emerald-50 border border-emerald-100 text-emerald-600">
+                        <DollarSign className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">Receita Total</div>
+                        <div className="text-sm font-black text-slate-900">R$ {totalRevenue.toLocaleString('pt-BR')}</div>
+                      </div>
+                    </div>
+
+                    {/* Card 3: Net Revenue */}
+                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
+                      <div className="p-2 bg-cyan-50 border border-cyan-100 text-cyan-600">
+                        <TrendingUp className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">Receita Líquida</div>
+                        <div className="text-sm font-black text-slate-900">R$ {netRevenue.toLocaleString('pt-BR')}</div>
+                      </div>
+                    </div>
+
+                    {/* Card 4: Conversion */}
+                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
+                      <div className="p-2 bg-amber-50 border border-amber-100 text-amber-600">
+                        <Percent className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">Conversão</div>
+                        <div className="text-lg font-black text-slate-900">{conversionRate}%</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Search Bar & Tabs Grid */}
+                  <div className="flex flex-col gap-4 mb-4 select-none">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscar por cliente ou ID..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
+                      />
+                    </div>
+
+                    {/* Status Tabs marquee */}
+                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                      {['Todos', 'Rascunho', 'Enviado', 'Aprovado', 'Pago'].map(tab => (
+                        <button
+                          key={tab}
+                          onClick={() => setActiveTab(tab)}
+                          className={`px-4 py-1 text-[11px] font-bold border transition-colors cursor-pointer ${
+                            activeTab === tab 
+                              ? 'bg-[#2563EB] text-white border-[#2563EB]' 
+                              : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                          }`}
+                        >
+                          {tab}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* List Content */}
+                  <div className="border border-slate-100 divide-y divide-slate-100 min-h-[160px]">
+                    {filteredBudgets.length > 0 ? (
+                      filteredBudgets.map(b => (
+                        <div key={b.id} className="p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
+                          <div className="text-xs">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-slate-900">{b.id}</span>
+                              <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 font-mono">{b.date}</span>
+                            </div>
+                            <div className="text-slate-700 font-semibold mt-1">{b.client}</div>
+                            <div className="text-[10px] text-slate-400 mt-0.5">{b.items.join(', ')}</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-slate-900 text-xs">R$ {b.total.toLocaleString('pt-BR')}</div>
+                            <span className={`inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 mt-1 ${
+                              b.status === 'Aprovado' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
+                              b.status === 'Pago' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
+                              'bg-amber-50 text-amber-600 border border-amber-100'
+                            }`}>
+                              {b.status}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="flex flex-col items-center justify-center py-10 text-center select-none text-slate-400">
+                        <FileText className="w-10 h-10 stroke-1 mb-2" />
+                        <div className="font-bold text-xs text-slate-800">Nenhum orçamento encontrado</div>
+                        <div className="text-[10px] mt-1">Experimente mudar o filtro ou adicione um novo orçamento</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                /* SCREEN 2: MULTI-STEP CREATION WIZARD (Image 2 reference) */
+                <div className="flex flex-col text-left">
+                  
+                  {/* Wizard Header */}
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6 select-none">
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900 leading-none">Novo Orçamento</h3>
+                      <p className="text-[10px] text-slate-400 mt-1">Etapa {wizardStep} de 4</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setShowWizard(false);
+                        setWizardStep(1);
+                      }}
+                      className="text-slate-400 hover:text-slate-900 border border-slate-200 px-3 py-1 text-xs font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                      Cancelar
+                    </button>
+                  </div>
+
+                  {/* Wizard Steps indicator bar */}
+                  <div className="flex items-center justify-between gap-2 mb-8 select-none">
+                    {[
+                      { num: 1, label: 'Cliente', icon: <User className="w-3 h-3" /> },
+                      { num: 2, label: 'Produtos', icon: <ShoppingBag className="w-3 h-3" /> },
+                      { num: 3, label: 'Pagamento', icon: <CreditCard className="w-3 h-3" /> },
+                      { num: 4, label: 'Resumo', icon: <Check className="w-3 h-3" /> }
+                    ].map(step => (
+                      <div key={step.num} className="flex-1 flex items-center gap-2">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                          wizardStep >= step.num 
+                            ? 'bg-[#2563EB] text-white' 
+                            : 'bg-slate-100 text-slate-400'
+                        }`}>
+                          {step.num}
+                        </div>
+                        <span className={`text-[10px] font-bold hidden sm:inline ${
+                          wizardStep === step.num ? 'text-slate-900' : 'text-slate-400'
+                        }`}>
+                          {step.label}
+                        </span>
+                        {step.num < 4 && <div className="flex-1 h-[1.5px] bg-slate-100" />}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Wizard Body content */}
+                  <div className="min-h-[220px]">
+                    {wizardStep === 1 && (
+                      /* STEP 1: SELECT CLIENT */
+                      <div>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Selecione o cliente</h4>
+                        <div className="relative mb-4">
+                          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                          <input
+                            type="text"
+                            placeholder="Buscar cliente..."
+                            value={selectedClient}
+                            onChange={(e) => setSelectedClient(e.target.value)}
+                            className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
+                          />
+                        </div>
+                        
+                        {/* Suggest list */}
+                        <div className="space-y-1 font-semibold text-xs text-slate-600">
+                          {availableClients
+                            .filter(c => c.toLowerCase().includes(selectedClient.toLowerCase()))
+                            .map(c => (
+                              <div
+                                key={c}
+                                onClick={() => setSelectedClient(c)}
+                                className={`p-3 border cursor-pointer flex justify-between items-center transition-colors ${
+                                  selectedClient === c 
+                                    ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
+                                    : 'border-slate-100 hover:bg-slate-50'
+                                }`}
+                              >
+                                <span>{c}</span>
+                                {selectedClient === c && <Check className="w-3.5 h-3.5 text-blue-600" />}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {wizardStep === 2 && (
+                      /* STEP 2: PRODUCTS/SERVICES */
+                      <div>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Serviços & Produtos</h4>
+                        <div className="space-y-2">
+                          {availableServices.map(service => {
+                            const isAdded = selectedServices.some(s => s.name === service.name);
+                            return (
+                              <div
+                                key={service.name}
+                                onClick={() => handleAddService(service)}
+                                className={`p-3 border cursor-pointer flex justify-between items-center text-xs font-semibold transition-all ${
+                                  isAdded 
+                                    ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
+                                    : 'border-slate-100 hover:bg-slate-50 text-slate-700'
+                                }`}
+                              >
+                                <div>
+                                  <div>{service.name}</div>
+                                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">R$ {service.price.toLocaleString('pt-BR')}</div>
+                                </div>
+                                <div className={`w-5 h-5 border flex items-center justify-center ${
+                                  isAdded ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-300'
+                                }`}>
+                                  {isAdded && <Check className="w-3.5 h-3.5" />}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {wizardStep === 3 && (
+                      /* STEP 3: PAYMENT CONDITIONS */
+                      <div>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Condições de Pagamento</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
+                          {[
+                            'Pix (À Vista - 5% Desconto)',
+                            'Boleto Bancário (15 dias)',
+                            'Boleto Parcelado (3x)',
+                            'Cartão de Crédito (1x)',
+                            'Cartão de Crédito (Até 12x)'
+                          ].map(method => (
+                            <div
+                              key={method}
+                              onClick={() => setPaymentMethod(method)}
+                              className={`p-4 border cursor-pointer flex justify-between items-center transition-all ${
+                                paymentMethod === method 
+                                  ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
+                                  : 'border-slate-100 hover:bg-slate-50'
+                              }`}
+                            >
+                              <span>{method}</span>
+                              {paymentMethod === method && <Check className="w-3.5 h-3.5 text-blue-600" />}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {wizardStep === 4 && (
+                      /* STEP 4: SUMMARY/SUBMIT */
+                      <div className="bg-slate-50 border border-slate-100 p-5 rounded-none text-xs">
+                        <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2 mb-4">Resumo da Proposta</h4>
+                        
+                        <div className="space-y-3 font-semibold text-slate-700">
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Cliente</span>
+                            <span className="text-slate-900">{selectedClient || 'Não selecionado'}</span>
+                          </div>
+                          
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Condições</span>
+                            <span className="text-slate-900">{paymentMethod}</span>
+                          </div>
+
+                          <div className="border-t border-slate-200/60 pt-3">
+                            <span className="text-slate-400 block mb-2">Serviços Contratados</span>
+                            {selectedServices.map(s => (
+                              <div key={s.name} className="flex justify-between font-medium text-slate-800 py-1">
+                                <span>{s.name}</span>
+                                <span className="font-mono">R$ {s.price.toLocaleString('pt-BR')}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="border-t border-slate-200 pt-3 flex justify-between font-black text-sm text-[#2563EB]">
+                            <span>TOTAL PROPOSTA</span>
+                            <span className="font-mono">
+                              R$ {selectedServices.reduce((acc, curr) => acc + curr.price, 0).toLocaleString('pt-BR')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Wizard Navigation Actions */}
+                  <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100 select-none">
+                    <button
+                      onClick={() => setWizardStep(prev => Math.max(1, prev - 1))}
+                      disabled={wizardStep === 1}
+                      className="px-4 py-2 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer disabled:opacity-40"
+                    >
+                      Voltar
+                    </button>
+                    
+                    {wizardStep < 4 ? (
+                      <button
+                        onClick={() => setWizardStep(prev => prev + 1)}
+                        disabled={wizardStep === 1 ? !selectedClient : wizardStep === 2 ? selectedServices.length === 0 : false}
+                        className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-6 py-2 flex items-center gap-1.5 cursor-pointer disabled:opacity-40"
+                      >
+                        Avançar
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleCreateBudget}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-6 py-2 flex items-center gap-1.5 cursor-pointer"
+                      >
+                        Gerar Orçamento
+                        <Check className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+
+                </div>
+              )}
+
+              {/* Watermark Logo behind */}
+              <img
+                src="/favicon.png"
+                alt="Watermark"
+                className="absolute right-4 top-4 w-12 h-12 opacity-[0.03] select-none pointer-events-none"
+              />
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}

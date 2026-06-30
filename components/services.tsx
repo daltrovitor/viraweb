@@ -1,172 +1,136 @@
-"use client"
+'use client';
+import { useTranslation } from '@/lib/i18n';
+import { Code, Settings, MessageSquareCode, MapPin, ArrowUpRight } from 'lucide-react';
 
-import { Target, Globe, Bot, MapPin, ArrowUpRight } from "lucide-react"
-import { m, LazyMotion } from "framer-motion"
-import ScrollAnimate from "./scroll-animate"
-import { useTranslation } from "@/lib/i18n"
+export default function Services() {
+  const { t, language } = useTranslation();
 
-const loadFeatures = () => import("../lib/framer-features").then((res) => res.default)
-
-export function Services() {
-  const { t } = useTranslation()
+  const handleWhatsAppRedirect = (serviceName: string) => {
+    let text = '';
+    if (language === 'en') {
+      text = `Hello ViraWeb! I am interested in your ${serviceName} solutions and would like to talk to a software engineer.`;
+    } else if (language === 'es') {
+      text = `¡Hola ViraWeb! Estoy interesado en sus soluciones de ${serviceName} y me gustaría hablar con un ingeniero de software.`;
+    } else {
+      text = `Olá ViraWeb! Estou interessado na solução de ${serviceName} e gostaria de conversar com um engenheiro de software.`;
+    }
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/5562992466109?text=${encodedText}`, '_blank');
+  };
 
   const services = [
     {
-      icon: Globe,
-      title: t("services.creation"),
-      description: t("services.creation.desc"),
-      features: [t("hero.stats.sites"), "SEO", "Performance", t("nav.services")], // Fallback/Generic
-      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20criação%20de%20sites!%0A",
-      accent: "#3396d3",
+      key: 'creation',
+      title: t('services.creation'),
+      desc: t('services.creation.desc'),
+      icon: <Code className="w-8 h-8 text-[#2563EB]" />,
+      badge: 'SPEED & SEO',
+      features: ['Carregamento < 1.5s', 'SEO Técnico Nativo', 'CMS Próprio/Flexível', 'Design Responsivo Premium']
     },
     {
-      icon: Target,
-      title: t("services.traffic"),
-      description: t("services.traffic.desc"),
-      features: ["Google Ads", "Meta Ads", "ROI", "Analytics"],
-      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20de%20tráfego%20pago%20e%20anuncios!",
-      accent: "#ffd400",
+      key: 'systems',
+      title: t('services.traffic'),
+      desc: t('services.traffic.desc'),
+      icon: <Settings className="w-8 h-8 text-[#06B6D4]" />,
+      badge: 'ARCHITECTURE',
+      features: ['ERPs & CRMs sob medida', 'Integrações de APIs complexas', 'Bancos de dados otimizados', 'Segurança granular']
     },
     {
-      icon: Bot,
-      title: t("services.assistant"),
-      description: t("services.assistant.desc"),
-      features: ["AI", "24/7", "Leads", "WhatsApp"],
-      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20para%20um%20Assistente%20Virtual!",
-      accent: "#3396d3",
+      key: 'bot',
+      title: t('services.assistant'),
+      desc: t('services.assistant.desc'),
+      icon: <MessageSquareCode className="w-8 h-8 text-[#D97706]" />,
+      badge: 'INTELLIGENCE',
+      features: ['Funcionamento 24/7', 'Qualificação de leads', 'Triagem e agendamentos', 'Integração de CRM ativa']
     },
     {
-      icon: MapPin,
-      title: t("services.gmn"),
-      description: t("services.gmn.desc"),
-      features: ["Local SEO", "Reviews", "Google Maps", "Metrics"],
-      url: "https://wa.me/556292466109?text=olá%2C%20gostaria%20de%20fazer%20um%20orçamento%20da%20ferramenta%20google%20meu%20negócio!",
-      accent: "#ffd400",
-    },
-  ]
+      key: 'seo',
+      title: t('services.gmn'),
+      desc: t('services.gmn.desc'),
+      icon: <MapPin className="w-8 h-8 text-[#10B981]" />,
+      badge: 'CONVERSION',
+      features: ['Presença no Maps', 'Atração de leads locais', 'Revisões estruturadas', 'Otimização orgânica']
+    }
+  ];
 
   return (
-    <LazyMotion features={loadFeatures}>
-    <section id="servicos" className="relative bg-white overflow-hidden">
-      {/* Background geométrico */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Dots grid sutil */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: "radial-gradient(#1a2e4a 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* V geométrico decorativo */}
-        <svg className="absolute -bottom-20 -right-20 w-80 text-[#3396d3] opacity-[0.04]" viewBox="0 0 120 140" fill="none">
-          <path d="M60 140L10 40L35 40L60 95L85 40L110 40L60 140Z" fill="currentColor" />
-        </svg>
-        <svg className="absolute top-10 -left-10 w-48 text-[#ffd400] opacity-[0.05]" viewBox="0 0 120 140" fill="none">
-          <path d="M60 140L10 40L35 40L60 95L85 40L110 40L60 140Z" fill="currentColor" />
-        </svg>
-      </div>
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        {/* Header da seção — alinhado à esquerda, estilo diferente */}
-        <ScrollAnimate delay={0}>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-            <div>
-              <div className="inline-flex items-center gap-2 mb-4">
-                <span className="w-8 h-[3px] bg-[#ffd400] rounded-full" />
-                <span className="text-sm font-bold tracking-[0.2em] uppercase text-[#1a2e4a]/60">
-                  {t("services.badge")}
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#1a2e4a] leading-tight">
-                {t("services.title1")}{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10">{t("services.title2")}</span>
-                  <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#ffd400]/40 -z-0 rounded-sm" />
-                </span>
-                <br />
-                {t("services.title3")}
-              </h2>
-            </div>
-            <p className="text-base text-[#374151] max-w-sm leading-relaxed md:text-right">
-              {t("services.subtitle")}
-            </p>
+    <section id="services" className="py-24 bg-white border-b border-[#E2E8F0] relative">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+        {/* Section Header */}
+        <div className="max-w-4xl mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/10 text-[#2563EB] text-xs font-bold uppercase tracking-wider mb-4 border border-blue-500/10">
+            {t('services.badge')}
           </div>
-        </ScrollAnimate>
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0F172A] tracking-tighter leading-none mb-6">
+            {t('services.title1')} <br className="hidden sm:inline" />
+            <span className="text-[#2563EB]">{t('services.title2')}</span> {t('services.title3')}
+          </h2>
+          <p className="text-[#475569] text-base leading-relaxed max-w-[65ch]">
+            {t('services.subtitle')}
+          </p>
+        </div>
 
-        {/* Grid de serviços — layout assimétrico */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-          {services.map((service, i) => (
-            <ScrollAnimate key={i} delay={i * 0.08}>
-              <m.div
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group relative"
-              >
-                <div className="relative bg-[#f7f9fc] rounded-2xl p-8 border border-[#1a2e4a]/5 hover:border-[#1a2e4a]/15 transition-all duration-500 overflow-hidden h-full">
-                  {/* Barra lateral colorida */}
-                  <div
-                    className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl transition-all duration-500 group-hover:w-1.5"
-                    style={{ backgroundColor: service.accent }}
-                  />
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {services.map((service) => (
+            <div
+              key={service.key}
+              onClick={() => handleWhatsAppRedirect(service.title)}
+              className="group bg-white hover:bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#0F172A] p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between min-h-[320px] cursor-pointer shadow-sm relative overflow-hidden"
+            >
+              {/* Corner Accent Line */}
+              <div className="absolute top-0 right-0 w-24 h-[1px] bg-gradient-to-r from-transparent to-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 right-0 h-24 w-[1px] bg-gradient-to-b from-[#2563EB] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                  {/* Glow no hover */}
-                  <div
-                    className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"
-                    style={{ backgroundColor: service.accent + "15" }}
-                  />
-
-                  <div className="relative z-10">
-                    {/* Ícone + Título na mesma linha */}
-                    <div className="flex items-center gap-4 mb-4">
-                      <div
-                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: service.accent + "15" }}
-                      >
-                        <service.icon className="h-5 w-5" style={{ color: service.accent }} />
-                      </div>
-                      <h3 className="text-xl font-black text-[#1a2e4a]">{service.title}</h3>
-                    </div>
-
-                    <p className="text-sm text-[#374151] leading-relaxed mb-6 md:ml-16">
-                      {service.description}
-                    </p>
-
-                    {/* Features como tags inline */}
-                    <div className="flex flex-wrap gap-2 mb-6 md:ml-16">
-                      {service.features.map((feature, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs font-medium px-3 py-1.5 rounded-full bg-white text-[#374151] border border-[#1a2e4a]/8"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* CTA */}
-                    <div className="md:ml-16">
-                      <a href={service.url} target="_blank" rel="noopener noreferrer">
-                        <m.span
-                          whileHover={{ x: 4 }}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors cursor-pointer"
-                          style={{ color: service.accent === "#ffd400" ? "#b39600" : service.accent }}
-                        >
-                          {t("services.cta")}
-                          <ArrowUpRight className="h-4 w-4" />
-                        </m.span>
-                      </a>
+              <div>
+                {/* Header Icon + Action arrow */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="p-3 bg-[#F8FAFC] group-hover:bg-white border border-[#E2E8F0] rounded-xl transition-colors">
+                    {service.icon}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold tracking-widest text-[#64748B] uppercase border border-[#E2E8F0] px-2 py-1 rounded">
+                      {service.badge}
+                    </span>
+                    <div className="w-8 h-8 rounded-full border border-[#E2E8F0] group-hover:border-[#0F172A] group-hover:bg-[#0F172A] group-hover:text-white flex items-center justify-center transition-all">
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </div>
                   </div>
                 </div>
-              </m.div>
-            </ScrollAnimate>
+
+                {/* Title & Desc */}
+                <h3 className="text-xl font-bold text-[#0F172A] mb-3 group-hover:text-[#2563EB] transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-[#475569] leading-relaxed mb-6">
+                  {service.desc}
+                </p>
+              </div>
+
+              {/* Sub-features list */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 pt-4 border-t border-[#E2E8F0]/60">
+                {service.features.map((feat, idx) => (
+                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#475569]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                    {feat}
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
+        </div>
+
+        {/* Global CTA Section Bottom */}
+        <div className="mt-16 flex justify-center">
+          <button
+            onClick={() => handleWhatsAppRedirect('Falar com Engenheiro')}
+            className="group bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-base px-8 py-4 rounded-xl transition-all shadow-md active:scale-[0.98] flex items-center gap-3 cursor-pointer"
+          >
+            {t('services.cta')}
+            <ArrowUpRight className="w-5 h-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
     </section>
-    </LazyMotion>
-  )
+  );
 }

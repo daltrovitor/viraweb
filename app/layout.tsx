@@ -1,8 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
-// Add display swap implicitly if geist doesn't do it, but usually next/font does.
-// We'll trust next/font here unless we see a specific flash issue.
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
@@ -10,42 +8,31 @@ import "./globals.css"
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
 
 export const metadata: Metadata = {
-  title: "Criação de Sites - Vira Web",
+  title: "ViraWeb — Criação de Sites, Sistemas Personalizados & Automação",
   description:
-    "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio. Transforme sua presença digital.",
+    "Transformamos ideias em presença digital. Sites premium, sistemas personalizados, automação com IA e gestão de Google Meu Negócio.",
   metadataBase: new URL(SITE_URL),
-  keywords: ["tráfego pago", "criação de sites", "criação de bots", "Google Meu Negócio"],
+  keywords: ["criação de sites", "sistemas personalizados", "desenvolvimento de sistemas", "criação de bots", "Google Meu Negócio", "ViraWeb"],
   openGraph: {
-    title: "Criação de Sites - Vira Web",
+    title: "ViraWeb — Presença Digital que Transforma Negócios",
     description:
-      "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
+      "Da ideia ao digital. Sites, sistemas customizados, automação e inteligência artificial para o seu negócio crescer.",
     url: SITE_URL,
-    siteName: "Vira Web",
-    images: [
-      {
-        url: `${SITE_URL}/favicon.png`,
-        alt: "Vira Web",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    siteName: "ViraWeb",
+    images: [{ url: `${SITE_URL}/favicon.png`, alt: "ViraWeb", width: 1200, height: 630 }],
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Criação de Sites - Vira Web",
+    title: "ViraWeb — Presença Digital que Transforma Negócios",
     description:
-      "Especialistas em tráfego pago, criação de sites, criação de bots e gestão de Google Meu Negócio.",
+      "Da ideia ao digital. Sites, sistemas customizados, automação e inteligência artificial para o seu negócio crescer.",
     images: [`${SITE_URL}/favicon.png`],
   },
   icons: {
     icon: [{ url: "/favicon.png" }],
     apple: [{ url: "/favicon.png" }],
-    other: [
-      { rel: "mask-icon", url: "/favicon.png" },
-      { rel: "icon", url: "/favicon.png" },
-    ],
   },
   manifest: `${SITE_URL}/site.webmanifest`,
 }
@@ -63,39 +50,37 @@ export default function RootLayout({
       {
         "@type": "WebSite",
         "@id": SITE_URL,
-        "url": SITE_URL,
-        "name": "Vira Web",
-        "potentialAction": {
+        url: SITE_URL,
+        name: "ViraWeb",
+        potentialAction: {
           "@type": "SearchAction",
-          "target": `${SITE_URL}/?s={search_term_string}`,
+          target: `${SITE_URL}/?s={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
       },
       {
         "@type": "Organization",
-        "name": "Vira Web",
-        "url": SITE_URL,
-        "logo": `${SITE_URL}/favicon.png`,
+        name: "ViraWeb",
+        url: SITE_URL,
+        logo: `${SITE_URL}/favicon.png`,
       },
     ],
   }
 
   return (
-    <html lang="pt-BR" className="bg-[#0f1923] selection:text-white selection:bg-secondary/50">
+    <html lang="pt-BR" className="bg-white text-slate-900 selection:text-[#0B67FF] selection:bg-[#0B67FF]/10">
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="canonical" href={SITE_URL} />
-        <meta name="theme-color" content="#0f1923" />
+        <meta name="theme-color" content="#FFFFFF" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-
       </head>
-      <body className={`font-sans ${GeistSans.className} antialiased`}>
+      <body className={`font-sans ${GeistSans.className} antialiased bg-white text-foreground`}>
         <script
           key="ld-json"
           id="ld-json"
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <LanguageProvider>

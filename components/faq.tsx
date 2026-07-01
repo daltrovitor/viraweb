@@ -34,23 +34,23 @@ export default function Faq() {
       icon: <Wrench className="w-5 h-5" />
     },
     {
-      q: 'Como funciona a automação do WhatsApp no comercial?',
-      a: 'Integramos o fluxo de conversas do seu comercial diretamente com o seu CRM ou banco de dados. Isso automatiza lembretes, envio de orçamentos e qualificação de leads sem trabalho manual.',
+      q: t('faq.q5'),
+      a: t('faq.a5'),
       icon: <MessageSquare className="w-5 h-5" />
     },
     {
-      q: 'Vocês oferecem suporte pós-entrega?',
-      a: 'Sim, oferecemos suporte técnico ativo pós-entrega para garantir que os servidores estejam no ar, as APIs funcionem e que sua equipe saiba operar as ferramentas criadas.',
+      q: t('faq.q6'),
+      a: t('faq.a6'),
       icon: <ShieldCheck className="w-5 h-5" />
     },
     {
-      q: 'O design das páginas é personalizado?',
-      a: 'Sim, não utilizamos templates prontos. Cada layout é desenhado do zero para a sua marca, combinando estética premium com foco em conversão e experiência do usuário.',
+      q: t('faq.q7'),
+      a: t('faq.a7'),
       icon: <Sparkles className="w-5 h-5" />
     },
     {
-      q: 'Como é feita a integração com meus sistemas atuais?',
-      a: 'Desenvolvemos conectores de API sob medida para sincronizar seus dados em tempo real com plataformas externas (ERP, gateways de pagamento, CRMs e bancos de dados externos).',
+      q: t('faq.q8'),
+      a: t('faq.a8'),
       icon: <Share2 className="w-5 h-5" />
     }
   ];
@@ -125,10 +125,10 @@ export default function Faq() {
           <div className="flex flex-col text-left">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">FAQS</span>
             <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] tracking-tighter leading-none mb-4">
-              Perguntas <span className="text-[#2563EB]">Frequentes</span>
+              {t('faq.badge').split(" ")[0]} <span className="text-[#2563EB]">{t('faq.badge').split(" ").slice(1).join(" ")}</span>
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm font-semibold max-w-[50ch] leading-relaxed">
-              Clique em um card para pausar o carrossel e ler a resposta detalhada. Clique novamente para retomar o movimento.
+              {t('faq.tip')}
             </p>
           </div>
         </div>

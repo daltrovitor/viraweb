@@ -184,6 +184,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a3": "O GDC é nosso centro de comando proprietário. Em vez de contratar múltiplos softwares caros (CRM, financeiro, chatbot), nós integramos tudo em um único ecossistema personalizado para rodar sua empresa sem planilhas.",
     "faq.q4": "Qual o tempo médio de desenvolvimento de um site premium?",
     "faq.a4": "Depende da complexidade, mas landing pages de elite costumam ser entregues em 10 a 15 dias úteis, e portais mais complexos/institucionais entre 20 a 30 dias úteis, com acompanhamento ativo.",
+    "faq.q5": "Como funciona a automação do WhatsApp no comercial?",
+    "faq.a5": "Integramos o fluxo de conversas do seu comercial diretamente com o seu CRM ou banco de dados. Isso automatiza lembretes, envio de orçamentos e qualificação de leads sem trabalho manual.",
+    "faq.q6": "Vocês oferecem suporte pós-entrega?",
+    "faq.a6": "Sim, oferecemos suporte técnico ativo pós-entrega para garantir que os servidores estejam no ar, as APIs funcionem e que sua equipe saiba operar as ferramentas criadas.",
+    "faq.q7": "O design das páginas é personalizado?",
+    "faq.a7": "Sim, não utilizamos templates prontos. Cada layout é desenhado do zero para a sua marca, combinando estética premium com foco em conversão e experiência do usuário.",
+    "faq.q8": "Como é feita a integração com meus sistemas atuais?",
+    "faq.a8": "Desenvolvemos conectores de API sob medida para sincronizar seus dados em tempo real com plataformas externas (ERP, gateways de pagamento, CRMs e bancos de dados externos).",
+    "faq.tip": "Clique em um card para pausar o carrossel e ler a resposta detalhada. Clique novamente para retomar o movimento.",
 
     // Testimonials
     "testimonials.badge": "Depoimentos Reais",
@@ -361,6 +370,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a3": "GDC is our proprietary command center. Instead of hiring multiple expensive tools (CRM, billing, invoice importer, chatbot), we integrate everything into a single custom ecosystem to run your company without spreadsheets.",
     "faq.q4": "What is the average development time for a premium site?",
     "faq.a4": "It depends on complexity, but elite landing pages are usually delivered in 10 to 15 business days, and more complex corporate portals in 20 to 30 business days, with active support.",
+    "faq.q5": "How does WhatsApp automation work for sales?",
+    "faq.a5": "We integrate your sales chat flow directly with your CRM or database. This automates reminders, quote delivery, and lead qualification without manual labor.",
+    "faq.q6": "Do you offer post-delivery support?",
+    "faq.a6": "Yes, we offer active technical support post-delivery to ensure servers are up, APIs function, and your team knows how to operate the created tools.",
+    "faq.q7": "Is the page design custom?",
+    "faq.a7": "Yes, we do not use pre-made templates. Each layout is designed from scratch for your brand, combining premium aesthetics with a focus on conversion and user experience.",
+    "faq.q8": "How is integration with my current systems done?",
+    "faq.a8": "We build custom API connectors to sync your data in real-time with external platforms (ERP, payment gateways, CRMs, and external databases).",
+    "faq.tip": "Click on a card to pause the carousel and read the detailed answer. Click again to resume movement.",
 
     // Testimonials
     "testimonials.badge": "Real Testimonials",
@@ -538,6 +556,15 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a3": "GDC es nuestro centro de mando propietario. En lugar de contratar múltiples softwares costosos (CRM, facturación, importador fiscal, chatbot), integramos todo en un único ecosistema personalizado para manejar su empresa sin planillas.",
     "faq.q4": "¿Cuál es el tiempo medio de desarrollo de un sitio premium?",
     "faq.a4": "Depende de la complejidad, pero las landing pages de élite suelen entregarse en 10 a 15 días hábiles, y los portales corporativos más complejos entre 20 a 30 días hábiles, con seguimiento activo.",
+    "faq.q5": "¿Cómo funciona la automatización de WhatsApp en el área comercial?",
+    "faq.a5": "Integramos el flujo de chat de su equipo de ventas directamente con su CRM o base de datos. Esto automatiza recordatorios, envío de presupuestos y calificación de leads sin trabajo manual.",
+    "faq.q6": "¿Ofrecen soporte post-entrega?",
+    "faq.a6": "Sí, ofrecemos soporte técnico activo post-entrega para garantizar que los servidores estén en línea, las APIs funcionen y su equipo sepa utilizar las herramientas creadas.",
+    "faq.q7": "¿El diseño de las páginas es personalizado?",
+    "faq.a7": "Sí, no utilizaremos plantillas predeterminadas. Cada diseño se crea desde cero para su marca, combinando estética premium con un enfoque en conversión y experiencia de usuario.",
+    "faq.q8": "¿Cómo se realiza la integración con mis sistemas actuales?",
+    "faq.a8": "Desarrollamos conectores de API a la medida para sincronizar sus datos en tiempo real con plataformas externas (ERP, pasarelas de pago, CRMs y bases de datos externas).",
+    "faq.tip": "Haga clic en una tarjeta para pausar el carrusel y leer la respuesta detallada. Haga clic de nuevo para reanudar el movimiento.",
 
     // Testimonials
     "testimonials.badge": "Testimonios Reales",
@@ -547,17 +574,23 @@ export const translations: Record<Language, Record<string, string>> = {
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("lang") as Language) || "pt"
-    }
-    return "pt"
-  })
+  const [language, setLanguage] = useState<Language>("pt")
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem("lang", language)
-    document.documentElement.lang = language
-  }, [language])
+    const savedLang = localStorage.getItem("lang") as Language
+    if (savedLang && ["pt", "en", "es"].includes(savedLang)) {
+      setLanguage(savedLang)
+    }
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("lang", language)
+      document.documentElement.lang = language
+    }
+  }, [language, mounted])
 
   const t = useCallback((key: string): string => {
     return translations[language]?.[key] || translations.pt[key] || key

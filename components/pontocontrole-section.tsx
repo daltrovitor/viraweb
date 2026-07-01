@@ -66,33 +66,57 @@ export default function PontoControleSection() {
 
   const featureCards = [
     {
-      title: 'RECONHECIMENTO FACIAL',
-      desc: 'Sistema avançado de biometria facial que valida a identidade em cada registro de ponto com alta precisão.',
+      title: language === 'en' ? 'FACIAL RECOGNITION' : language === 'es' ? 'RECONOCIMIENTO FACIAL' : 'RECONHECIMENTO FACIAL',
+      desc: language === 'en' 
+        ? 'Advanced facial biometrics system that validates identity on every clock-in with high precision.' 
+        : language === 'es' 
+        ? 'Sistema avanzado de biometría facial que valida la identidad en cada registro con alta precisión.' 
+        : 'Sistema avançado de biometria facial que valida a identidade em cada registro de ponto com alta precisão.',
       icon: <Camera className="w-5 h-5 text-blue-600" />
     },
     {
-      title: 'GEOLOCALIZAÇÃO',
-      desc: 'Captura automática da localização GPS em cada batida de ponto para total transparência e controle.',
+      title: language === 'en' ? 'GEOLOCATION' : language === 'es' ? 'GEOLOCALIZACIÓN' : 'GEOLOCALIZAÇÃO',
+      desc: language === 'en' 
+        ? 'Automatic capture of GPS location with every clock-in for complete transparency and compliance.' 
+        : language === 'es' 
+        ? 'Captura automática de la ubicación GPS en cada registro para total transparencia.' 
+        : 'Captura automática da localização GPS em cada batida de ponto para total transparência e controle.',
       icon: <MapPin className="w-5 h-5 text-blue-600" />
     },
     {
-      title: 'SEGURANÇA TOTAL',
-      desc: 'Criptografia de dados, auditoria completa e conformidade com a LGPD para proteção máxima.',
+      title: language === 'en' ? 'TOTAL SECURITY' : language === 'es' ? 'SEGURIDAD TOTAL' : 'SEGURANÇA TOTAL',
+      desc: language === 'en' 
+        ? 'Data encryption, full logging, and compliance with data protection laws for maximum safety.' 
+        : language === 'es' 
+        ? 'Cifrado de datos, auditoría completa y cumplimiento de la ley de protección de datos.' 
+        : 'Criptografia de dados, auditoria completa e conformidade com a LGPD para proteção máxima.',
       icon: <ShieldCheck className="w-5 h-5 text-blue-600" />
     },
     {
-      title: 'GESTÃO PARA O LAR',
-      desc: 'Ideal para gerenciar funcionários domésticos, cuidadores e pequenas equipes com precisão.',
+      title: language === 'en' ? 'HOUSEHOLD MANAGEMENT' : language === 'es' ? 'GESTIÓN DEL HOGAR' : 'GESTÃO PARA O LAR',
+      desc: language === 'en' 
+        ? 'Ideal for managing domestic workers, caregivers, and small service teams accurately.' 
+        : language === 'es' 
+        ? 'Ideal para gestionar empleados domésticos, cuidadores y pequeños equipos.' 
+        : 'Ideal para gerenciar funcionários domésticos, cuidadores e pequenas equipes com precisão.',
       icon: <Home className="w-5 h-5 text-blue-600" />
     },
     {
-      title: 'RELATÓRIOS EM PDF',
-      desc: 'Gere relatórios detalhados de frequência, horas trabalhadas e atrasos exportáveis em PDF.',
+      title: language === 'en' ? 'PDF REPORTS' : language === 'es' ? 'REPORTES EN PDF' : 'RELATÓRIOS EM PDF',
+      desc: language === 'en' 
+        ? 'Generate detailed reports of attendance, hours worked, and overtime exportable to PDF.' 
+        : language === 'es' 
+        ? 'Genere informes detallados de asistencia, horas trabajadas y horas extras exportables en PDF.' 
+        : 'Gere relatórios detalhados de frequência, horas trabalhadas e atrasos exportáveis em PDF.',
       icon: <FileText className="w-5 h-5 text-blue-600" />
     },
     {
-      title: 'GESTÃO DE EQUIPE',
-      desc: 'Painel completo para acompanhar todos os funcionários, seus horários e status em tempo real.',
+      title: language === 'en' ? 'TEAM MANAGEMENT' : language === 'es' ? 'GESTIÓN DE EQUIPOS' : 'GESTÃO DE EQUIPE',
+      desc: language === 'en' 
+        ? 'Comprehensive panel to track all employees, their schedules, and status in real-time.' 
+        : language === 'es' 
+        ? 'Panel completo para monitorear a todos los empleados, sus horarios y estado en tiempo real.' 
+        : 'Painel completo para acompanhar todos os funcionários, seus horários e status em tempo real.',
       icon: <Users className="w-5 h-5 text-blue-600" />
     }
   ];
@@ -111,7 +135,7 @@ export default function PontoControleSection() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header Block with PontoControle Logo (Exactly what user requested: white and logo.png) */}
-        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center select-none">
+        <div className="pc-header text-center max-w-3xl mx-auto mb-16 flex flex-col items-center select-none">
           <img
             src="/logo.png"
             alt="PontoControle Logo"
@@ -119,15 +143,15 @@ export default function PontoControleSection() {
           />
           
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-4">
-            Tecnologia que <span className="text-[#2563EB]">simplifica</span>
+            {language === 'en' ? <>Technology that <span className="text-[#2563EB]">simplifies</span></> : language === 'es' ? <>Tecnología que <span className="text-[#2563EB]">simplifica</span></> : <>Tecnologia que <span className="text-[#2563EB]">simplifica</span></>}
           </h2>
           <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-[65ch]">
-            Nossa plataforma foi construída com o que há de mais moderno para garantir precisão e facilidade no dia a dia.
+            {language === 'en' ? 'Our platform was built with the most modern tools to guarantee accuracy and ease in daily routines.' : language === 'es' ? 'Nuestra plataforma fue construida con lo último en tecnología para garantizar precisión y facilidad en el día a día.' : 'Nossa plataforma foi construída com o que há de mais moderno para garantir precisão e facilidade no dia a dia.'}
           </p>
         </div>
 
         {/* Part 1: Interactive biometrics punching simulator combined with a GPS log list */}
-        <div className="w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.06)] border border-[#E2E8F0] p-6 sm:p-8 select-none mb-16 max-w-5xl mx-auto">
+        <div className="pc-simulator w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.06)] border border-[#E2E8F0] p-6 sm:p-8 select-none mb-16 max-w-5xl mx-auto">
           
           {/* Mock Browser Header Bar */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
@@ -245,7 +269,7 @@ export default function PontoControleSection() {
               key={idx}
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
-              className="bg-white p-8 rounded-none border border-[#E2E8F0] shadow-[0_5px_15px_rgba(0,0,0,0.02)] hover:shadow-xl transition-all duration-300 relative group text-left min-h-[220px] flex flex-col justify-between"
+              className="pc-feature-card bg-white p-8 rounded-none border border-[#E2E8F0] shadow-[0_5px_15px_rgba(0,0,0,0.02)] hover:shadow-xl transition-all duration-300 relative group text-left min-h-[220px] flex flex-col justify-between"
             >
               <div>
                 {/* Icon wrapper */}
@@ -276,14 +300,23 @@ export default function PontoControleSection() {
         </div>
 
         {/* Bottom CTA block */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 select-none">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 select-none w-full sm:w-auto">
           <button
             onClick={handleWhatsAppRedirect}
-            className="bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-95"
           >
-            Falar com Especialista
+            {language === 'en' ? 'Talk to Specialist' : language === 'es' ? 'Hablar con Especialista' : 'Falar com Especialista'}
             <ArrowRight className="w-4 h-4" />
           </button>
+          <a
+            href="https://pontocontrole.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-slate-200 hover:border-slate-400 bg-white text-slate-800 font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 text-center w-full sm:w-auto"
+          >
+            {language === 'en' ? 'Access PontoControle' : language === 'es' ? 'Acceder a PontoControle' : 'Acessar PontoControle'}
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
 
       </div>

@@ -107,11 +107,7 @@ export default function Testimonials() {
       />
 
       <div
-        className="flex flex-row items-start gap-4 origin-center justify-start w-[140%] -ml-16"
-        style={{
-          transform:
-            'translateX(-200px) translateY(-50px) translateZ(-100px) rotateX(10deg) rotateY(-5deg) rotateZ(8deg)',
-        }}
+        className="flex flex-row items-start gap-4 origin-center justify-center w-[160%] sm:w-[140%] -ml-28 sm:-ml-16 testimonials-perspective-container"
       >
         {/* Column 1 (downwards) */}
         <Marquee 
@@ -145,7 +141,7 @@ export default function Testimonials() {
           vertical 
           pauseOnHover 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden sm:block w-[260px] h-[900px]" 
           style={{ '--duration': '42s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col3.map((review) => (
@@ -159,7 +155,7 @@ export default function Testimonials() {
           pauseOnHover 
           reverse 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden md:block w-[260px] h-[900px]" 
           style={{ '--duration': '28s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col4.map((review) => (
@@ -172,7 +168,7 @@ export default function Testimonials() {
           vertical 
           pauseOnHover 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden lg:block w-[260px] h-[900px]" 
           style={{ '--duration': '45s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col5.map((review) => (
@@ -186,7 +182,7 @@ export default function Testimonials() {
           pauseOnHover 
           reverse 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden lg:block w-[260px] h-[900px]" 
           style={{ '--duration': '34s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col6.map((review) => (
@@ -199,7 +195,7 @@ export default function Testimonials() {
           vertical 
           pauseOnHover 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden xl:block w-[260px] h-[900px]" 
           style={{ '--duration': '40s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col7.map((review) => (
@@ -213,7 +209,7 @@ export default function Testimonials() {
           pauseOnHover 
           reverse 
           repeat={3} 
-          className="w-[260px] h-[900px]" 
+          className="hidden xl:block w-[260px] h-[900px]" 
           style={{ '--duration': '36s', '--gap': '1.25rem' } as React.CSSProperties}
         >
           {col8.map((review) => (

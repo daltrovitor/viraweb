@@ -1,16 +1,19 @@
 'use client';
+
+import { useState } from 'react';
 import { useTranslation } from '@/lib/i18n';
-import { Code, Settings, MessageSquareCode, MapPin, ArrowUpRight } from 'lucide-react';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 
 export default function Services() {
   const { t, language } = useTranslation();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleWhatsAppRedirect = (serviceName: string) => {
     let text = '';
     if (language === 'en') {
       text = `Hello ViraWeb! I am interested in your ${serviceName} solutions and would like to talk to a software engineer.`;
     } else if (language === 'es') {
-      text = `¡Hola ViraWeb! Estoy interesado en sus soluciones de ${serviceName} y me gustaría hablar con un ingeniero de software.`;
+      text = `¡Hola ViraWeb! Estoy interesado en sus soluções de ${serviceName} y me gustaría hablar con un ingeniero de software.`;
     } else {
       text = `Olá ViraWeb! Estou interessado na solução de ${serviceName} e gostaria de conversar com um engenheiro de software.`;
     }
@@ -22,114 +25,152 @@ export default function Services() {
     {
       key: 'creation',
       title: t('services.creation'),
-      desc: t('services.creation.desc'),
-      icon: <Code className="w-8 h-8 text-[#2563EB]" />,
-      badge: 'SPEED & SEO',
-      features: ['Carregamento < 1.5s', 'SEO Técnico Nativo', 'CMS Próprio/Flexível', 'Design Responsivo Premium']
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
     },
     {
       key: 'systems',
       title: t('services.traffic'),
-      desc: t('services.traffic.desc'),
-      icon: <Settings className="w-8 h-8 text-[#06B6D4]" />,
-      badge: 'ARCHITECTURE',
-      features: ['ERPs & CRMs sob medida', 'Integrações de APIs complexas', 'Bancos de dados otimizados', 'Segurança granular']
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
     },
     {
       key: 'bot',
       title: t('services.assistant'),
-      desc: t('services.assistant.desc'),
-      icon: <MessageSquareCode className="w-8 h-8 text-[#D97706]" />,
-      badge: 'INTELLIGENCE',
-      features: ['Funcionamento 24/7', 'Qualificação de leads', 'Triagem e agendamentos', 'Integração de CRM ativa']
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
     },
     {
       key: 'seo',
       title: t('services.gmn'),
-      desc: t('services.gmn.desc'),
-      icon: <MapPin className="w-8 h-8 text-[#10B981]" />,
-      badge: 'CONVERSION',
-      features: ['Presença no Maps', 'Atração de leads locais', 'Revisões estruturadas', 'Otimização orgânica']
-    }
+      image: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=600&q=80',
+    },
   ];
 
-  return (
-    <section id="services" className="py-24 bg-white border-b border-[#E2E8F0] relative">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        {/* Section Header */}
-        <div className="max-w-4xl mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/10 text-[#2563EB] text-xs font-bold uppercase tracking-wider mb-4 border border-blue-500/10">
-            {t('services.badge')}
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0F172A] tracking-tighter leading-none mb-6">
-            {t('services.title1')} <br className="hidden sm:inline" />
-            <span className="text-[#2563EB]">{t('services.title2')}</span> {t('services.title3')}
-          </h2>
-          <p className="text-[#475569] text-base leading-relaxed max-w-[65ch]">
-            {t('services.subtitle')}
-          </p>
-        </div>
+  // Coordinates and rotations for cursor-tracking image preview
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service) => (
+  // Smooth springs configuration for organic motion physics
+  const springConfig = { damping: 25, stiffness: 220, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  const smoothRotateX = useSpring(rotateX, springConfig);
+  const smoothRotateY = useSpring(rotateY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    mouseX.set(x);
+    mouseY.set(y);
+
+    // Compute relative mouse coordinates inside grid boundary (-0.5 to 0.5)
+    const relativeX = (x / rect.width) - 0.5;
+    const relativeY = (y / rect.height) - 0.5;
+
+    // Apply rotation based on mouse coordinate offset for the 3D perspective tilt
+    rotateX.set(relativeY * -12);
+    rotateY.set(relativeX * 12);
+  };
+
+  return (
+    <section 
+      id="services" 
+      className="py-12 bg-white border-b border-[#E2E8F0] relative overflow-hidden"
+    >
+      <div 
+        className="relative w-full border-t border-slate-200"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={() => {
+          setHoveredIndex(null);
+          rotateX.set(0);
+          rotateY.set(0);
+        }}
+      >
+        {/* Floating Preview Card */}
+        <AnimatePresence>
+          {hoveredIndex !== null && (
+            <motion.div
+              style={{
+                left: smoothX,
+                top: smoothY,
+                x: "-50%",
+                y: "-50%",
+                rotateX: smoothRotateX,
+                rotateY: smoothRotateY,
+                transformPerspective: 1000,
+              }}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="pointer-events-none absolute z-20 w-[300px] h-[190px] rounded-2xl overflow-hidden shadow-2xl border border-slate-200/50 bg-white"
+            >
+              {services.map((service, idx) => (
+                <motion.img
+                  key={service.key}
+                  src={service.image}
+                  alt={service.title}
+                  initial={{ opacity: 0, scale: 1.15 }}
+                  animate={{
+                    opacity: hoveredIndex === idx ? 1 : 0,
+                    scale: hoveredIndex === idx ? 1 : 1.15,
+                  }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ))}
+              
+              {/* Glow filter overlays */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_85%)] pointer-events-none" />
+              <div className="absolute w-full h-[2px] bg-amber-400/60 top-0 left-0 animate-scan" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Solutions Rows */}
+        {services.map((service, idx) => {
+          const isHovered = hoveredIndex === idx;
+          const isAnyHovered = hoveredIndex !== null;
+
+          return (
             <div
               key={service.key}
               onClick={() => handleWhatsAppRedirect(service.title)}
-              className="group bg-white hover:bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#0F172A] p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between min-h-[320px] cursor-pointer shadow-sm relative overflow-hidden"
+              onMouseEnter={() => setHoveredIndex(idx)}
+              className="service-row w-full border-b border-slate-200 py-16 md:py-20 flex justify-center items-center cursor-pointer transition-all duration-500 relative group overflow-hidden bg-white hover:bg-slate-50/50"
             >
-              {/* Corner Accent Line */}
-              <div className="absolute top-0 right-0 w-24 h-[1px] bg-gradient-to-r from-transparent to-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute top-0 right-0 h-24 w-[1px] bg-gradient-to-b from-[#2563EB] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Highlight background transition slide */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-100/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out" />
 
-              <div>
-                {/* Header Icon + Action arrow */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 bg-[#F8FAFC] group-hover:bg-white border border-[#E2E8F0] rounded-xl transition-colors">
-                    {service.icon}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold tracking-widest text-[#64748B] uppercase border border-[#E2E8F0] px-2 py-1 rounded">
-                      {service.badge}
-                    </span>
-                    <div className="w-8 h-8 rounded-full border border-[#E2E8F0] group-hover:border-[#0F172A] group-hover:bg-[#0F172A] group-hover:text-white flex items-center justify-center transition-all">
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </div>
-                  </div>
-                </div>
+              <motion.div
+                animate={{
+                  opacity: isAnyHovered && !isHovered ? 0.25 : 1,
+                  scale: isHovered ? 1.03 : 1,
+                }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-6 z-10 px-4"
+              >
+                {/* Step Index Number */}
+                <span className="font-mono text-xs md:text-sm text-slate-400 group-hover:text-amber-500 transition-colors duration-300">
+                  / 0{idx + 1}
+                </span>
 
-                {/* Title & Desc */}
-                <h3 className="text-xl font-bold text-[#0F172A] mb-3 group-hover:text-[#2563EB] transition-colors">
+                {/* Large Serif Title (styled dynamically based on hovered state) */}
+                <h3 
+                  className={`font-playfair text-3xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-medium text-slate-800 transition-all duration-500 tracking-tight leading-none ${
+                    isHovered 
+                      ? 'italic text-amber-600 dark:text-amber-500' 
+                      : 'normal-case'
+                  }`}
+                >
                   {service.title}
                 </h3>
-                <p className="text-sm text-[#475569] leading-relaxed mb-6">
-                  {service.desc}
-                </p>
-              </div>
-
-              {/* Sub-features list */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 pt-4 border-t border-[#E2E8F0]/60">
-                {service.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#475569]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                    {feat}
-                  </div>
-                ))}
-              </div>
+              </motion.div>
             </div>
-          ))}
-        </div>
-
-        {/* Global CTA Section Bottom */}
-        <div className="mt-16 flex justify-center">
-          <button
-            onClick={() => handleWhatsAppRedirect('Falar com Engenheiro')}
-            className="group bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-base px-8 py-4 rounded-xl transition-all shadow-md active:scale-[0.98] flex items-center gap-3 cursor-pointer"
-          >
-            {t('services.cta')}
-            <ArrowUpRight className="w-5 h-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </button>
-        </div>
+          );
+        })}
       </div>
     </section>
   );

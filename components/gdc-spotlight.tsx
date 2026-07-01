@@ -128,50 +128,97 @@ export default function GdcSpotlight() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Product pitch (Exactly like Image 1 style but pointing to simulator) */}
-          <div className="lg:col-span-4 flex flex-col items-start text-left select-none">
+          {/* Left Column: Product pitch (Explaining the entire GDC Platform with simulator callout) */}
+          <div className="gdc-left-col lg:col-span-4 flex flex-col items-start text-left select-none animate-fadeIn">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-6 h-[1.5px] bg-[#2563EB]" />
               <span className="text-[10px] font-mono font-bold tracking-widest text-[#475569] uppercase">
-                MÓDULO FINANCEIRO GDC
+                {language === 'en' ? 'Proprietary Tech — 1 of 14 Modules' : language === 'es' ? 'Tecnología Propietaria — 1 de 14 Módulos' : 'Tecnologia Proprietária — 1 de 14 Módulos'}
               </span>
             </div>
             
             <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0F172A] tracking-tighter leading-none mb-6">
-              Emissão de <br />
-              <span className="text-[#2563EB]">Orçamentos</span>
+              {language === 'en' ? (
+                <>
+                  GDC <br />
+                  <span className="text-[#2563EB]">Platform</span>
+                </>
+              ) : language === 'es' ? (
+                <>
+                  Plataforma <br />
+                  <span className="text-[#2563EB]">GDC</span>
+                </>
+              ) : (
+                <>
+                  Plataforma <br />
+                  <span className="text-[#2563EB]">GDC</span>
+                </>
+              )}
             </h2>
             
-            <p className="text-[#475569] text-sm md:text-base leading-relaxed mb-8 max-w-[45ch]">
-              Acelere o fechamento de propostas comerciais. Simule o fluxo completo de cadastro, seleção de serviços, condições e emissão automática.
+            <p className="text-[#475569] text-sm md:text-base leading-relaxed mb-6 max-w-[45ch]">
+              {language === 'en' 
+                ? 'The GDC is our proprietary control center that integrates CRM, automated billing, metrics dashboards, and AI agents into a single ecosystem to run your business without spreadsheets.'
+                : language === 'es'
+                ? 'El GDC es nuestro centro de mando propietario que integra CRM, facturación automatizada, paneles de métricas y agentes de IA en un único ecosistema para dirigir su empresa sin hojas de cálculo.'
+                : 'O GDC é a nossa central de comando proprietária que integra CRM, faturamento automatizado, painéis de métricas e agentes de IA em um único ecossistema para rodar sua empresa de ponta a ponta sem planilhas.'
+              }
             </p>
 
-            <div className="space-y-4 w-full mb-8 font-sans text-xs text-slate-500">
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                <span>Cadastro rápido de clientes B2B</span>
+            {/* Informational Callout clarifying the example */}
+            <div className="p-4 bg-blue-50/50 border border-blue-100 rounded-xl mb-6 w-full max-w-[45ch]">
+              <p className="text-xs text-blue-700 leading-relaxed font-medium">
+                {language === 'en'
+                  ? '👉 The simulator on the right demonstrates our Invoicing & Budgeting Module, which is just 1 of the 14 operational modules integrated within the GDC Platform.'
+                  : language === 'es'
+                  ? '👉 El simulador de la derecha muestra nuestro Módulo de Invoicing y Presupuestos, que es solo 1 de los 14 módulos operativos integrados dentro de la Plataforma GDC.'
+                  : '👉 O simulador ao lado demonstra o nosso Módulo de Orçamentos e Faturamento, que é apenas 1 dos 14 módulos operacionais integrados na Plataforma GDC.'
+                }
+              </p>
+            </div>
+
+            {/* Key Modules List */}
+            <div className="space-y-3.5 w-full mb-8 font-sans text-xs text-slate-500">
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 shrink-0" />
+                <span><strong>{language === 'en' ? 'CRM & Operational' : 'CRM & Operacional'}:</strong> {language === 'en' ? 'Client history, scheduling, and service logs.' : 'Histórico de clientes, escalas e prontuários vinculados.'}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                <span>Cálculo automático de impostos e taxas</span>
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 shrink-0" />
+                <span><strong>{language === 'en' ? 'Financial Automation' : 'Automação Financeira'}:</strong> {language === 'en' ? 'Split sales, commissions, cashflow, and invoicing.' : 'Controle de caixa, parcelamentos de vendas e comissões automáticas.'}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                <span>Integração de pagamento imediato (Pix)</span>
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 shrink-0" />
+                <span><strong>{language === 'en' ? 'Business Intelligence' : 'BI & Dashboards'}:</strong> {language === 'en' ? 'Real-time MRR, CAC, LTV, and sales volume metrics.' : 'MRR, faturamento líquido, LTV e métricas de conversão em tempo real.'}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 shrink-0" />
+                <span><strong>{language === 'en' ? 'Integrated AI Agent' : 'ViraBot IA Integrado'}:</strong> {language === 'en' ? 'Operational analysis and automated actions 24/7.' : 'Assistente cognitivo para análise de faturamento e funil integrado.'}</span>
               </div>
             </div>
 
-            <button
-              onClick={() => setShowWizard(true)}
-              className="bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
-            >
-              Simular Novo Orçamento
-              <Plus className="w-4 h-4" />
-            </button>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
+              <button
+                onClick={() => setShowWizard(true)}
+                className="bg-[#0F172A] hover:bg-[#2563EB] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-95 hover:scale-[1.02] shrink-0"
+              >
+                {language === 'en' ? 'Simulate Invoicing' : language === 'es' ? 'Simular Presupuesto' : 'Simular Módulo de Orçamentos'}
+                <Plus className="w-4 h-4" />
+              </button>
+              <a
+                href="https://gdc.viraweb.online"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-slate-200 hover:border-slate-400 bg-white text-slate-800 font-bold text-sm px-8 py-4 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 text-center w-full sm:w-auto"
+              >
+                {language === 'en' ? 'Access GDC' : language === 'es' ? 'Acceder a GDC' : 'Acessar GDC'}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
           {/* Right Column: Dynamic Budget Simulation Panel (Matching User Screenshots) */}
-          <div className="lg:col-span-8 w-full">
+          <div className="gdc-right-col lg:col-span-8 w-full">
             <div className="w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.08)] border border-[#E2E8F0] p-6 sm:p-8 relative min-h-[480px]">
               
               {!showWizard ? (

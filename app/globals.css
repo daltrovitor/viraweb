@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -49,6 +51,32 @@
   --radius-2xl: calc(var(--radius) + 16px);
   --animate-marquee: marquee var(--duration, 30s) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
+  --animate-scan: scan 3s ease-in-out infinite;
+  --animate-cut: cut 3s ease-in-out infinite;
+
+  @keyframes scan {
+    0%, 100% {
+      top: 0px;
+    }
+    25%, 75% {
+      top: 54px;
+    }
+    50% {
+      top: 0px;
+    }
+  }
+
+  @keyframes cut {
+    0%, 50%, 100% {
+      clip-path: inset(0 0 0 0);
+    }
+    25% {
+      clip-path: inset(100% 0 0 0);
+    }
+    75% {
+      clip-path: inset(0 0 100% 0);
+    }
+  }
 }
 
 @layer base {
@@ -127,5 +155,55 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0s !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================
+   ANIMATED SCAN LOADER KEYFRAMES & UTILITIES
+   ========================================== */
+
+@keyframes scan {
+  0%, 100% {
+    top: 0px;
+  }
+  25%, 75% {
+    top: 54px;
+  }
+  50% {
+    top: 0px;
+  }
+}
+
+@keyframes cut {
+  0%, 50%, 100% {
+    clip-path: inset(0 0 0 0);
+  }
+  25% {
+    clip-path: inset(100% 0 0 0);
+  }
+  75% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+.animate-scan {
+  animation: scan 3s ease-in-out infinite !important;
+}
+
+.animate-cut {
+  animation: cut 3s ease-in-out infinite !important;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.testimonials-perspective-container {
+  transform: translateX(-40px) translateY(-10px) translateZ(-40px) rotateX(6deg) rotateY(-2deg) rotateZ(4deg);
+}
+
+@media (min-width: 768px) {
+  .testimonials-perspective-container {
+    transform: translateX(-200px) translateY(-50px) translateZ(-100px) rotateX(10deg) rotateY(-5deg) rotateZ(8deg);
   }
 }

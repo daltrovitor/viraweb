@@ -23,8 +23,8 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { label: 'Soluções', href: '#services' },
-    { label: 'Plataforma GDC', href: '#gdc' },
+    { label: t('nav.services'), href: '#services' },
+    { label: t('nav.gdc'), href: '#gdc' },
     { label: 'PontoControle', href: '#pontocontrole' },
     { label: 'LeadScrap', href: '#leadscrap' },
     { label: 'FAQ', href: '#faq' }

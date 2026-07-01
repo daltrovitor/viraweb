@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { MessageSquare, ArrowUpRight } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -193,17 +194,21 @@ const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
 );
 MagneticButton.displayName = "MagneticButton";
 
-const MarqueeItem = () => (
-  <div className="flex items-center space-x-12 px-6">
-    <span>Escala Sustentável</span> <span className="text-blue-600/60">✦</span>
-    <span>Previsibilidade de Receita</span> <span className="text-cyan-600/60">✦</span>
-    <span>Arquitetura Digital de Elite</span> <span className="text-blue-600/60">✦</span>
-    <span>Tecnologia de Alta Performance</span> <span className="text-cyan-600/60">✦</span>
-    <span>Segurança e Conformidade MTE</span> <span className="text-blue-600/60">✦</span>
-  </div>
-);
+const MarqueeItem = () => {
+  const { language } = useTranslation();
+  return (
+    <div className="flex items-center space-x-12 px-6">
+      <span>{language === 'en' ? 'Sustainable Scale' : language === 'es' ? 'Escala Sostenible' : 'Escala Sustentável'}</span> <span className="text-blue-600/60">✦</span>
+      <span>{language === 'en' ? 'Revenue Predictability' : language === 'es' ? 'Previsibilidad de Ingresos' : 'Previsibilidade de Receita'}</span> <span className="text-cyan-600/60">✦</span>
+      <span>{language === 'en' ? 'Elite Digital Architecture' : language === 'es' ? 'Arquitectura Digital de Élite' : 'Arquitetura Digital de Elite'}</span> <span className="text-blue-600/60">✦</span>
+      <span>{language === 'en' ? 'High Performance Technology' : language === 'es' ? 'Tecnología de Alto Rendimiento' : 'Tecnologia de Alta Performance'}</span> <span className="text-cyan-600/60">✦</span>
+      <span>{language === 'en' ? 'Security & MTE Compliance' : language === 'es' ? 'Seguridad y Cumplimiento MTE' : 'Segurança e Conformidade MTE'}</span> <span className="text-blue-600/60">✦</span>
+    </div>
+  );
+};
 
 export function CinematicFooter() {
+  const { t, language } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const giantTextRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -257,7 +262,11 @@ export function CinematicFooter() {
   };
 
   const handleWhatsAppRedirect = (subject: string) => {
-    const text = `Olá ViraWeb! Gostaria de falar sobre ${subject} e escala digital.`;
+    const text = language === 'en'
+      ? `Hello ViraWeb! I would like to talk about ${subject} and digital scaling.`
+      : language === 'es'
+      ? `¡Hola ViraWeb! Me gustaría hablar sobre ${subject} y escala digital.`
+      : `Olá ViraWeb! Gostaria de falar sobre ${subject} e escala digital.`;
     window.open(`https://wa.me/5562992466109?text=${encodeURIComponent(text)}`, '_blank');
   };
 
@@ -274,14 +283,14 @@ export function CinematicFooter() {
           
           <div className="footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0" />
           <div className="footer-bg-grid absolute inset-0 z-0 pointer-events-none" />
-
+ 
           <div
             ref={giantTextRef}
             className="footer-giant-bg-text absolute -bottom-[2vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none uppercase"
           >
             VIRAWEB
           </div>
-
+ 
           {/* Marquee */}
           <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-slate-200/60 bg-white/60 backdrop-blur-md py-4 z-10 -rotate-1 scale-105 shadow-sm">
             <div className="flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.2em] text-slate-400 uppercase">
@@ -289,42 +298,42 @@ export function CinematicFooter() {
               <MarqueeItem />
             </div>
           </div>
-
+ 
           {/* Center content */}
           <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-20 w-full max-w-5xl mx-auto text-center">
             <h2
               ref={headingRef}
               className="text-4xl md:text-7xl font-extrabold footer-text-glow tracking-tighter mb-10 text-center"
             >
-              Pronto para Escalar?
+              {language === 'en' ? 'Ready to Scale?' : language === 'es' ? '¿Listo para Escalar?' : 'Pronto para Escalar?'}
             </h2>
-
+ 
             <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
               <div className="flex flex-wrap justify-center gap-4 w-full">
                 <MagneticButton 
-                  onClick={() => handleWhatsAppRedirect('Escala Digital & Vendas')}
+                  onClick={() => handleWhatsAppRedirect(language === 'en' ? 'Digital Scale & Sales' : language === 'es' ? 'Escala Digital y Ventas' : 'Escala Digital & Vendas')}
                   className="footer-glass-pill px-8 py-4 rounded-full text-slate-900 font-bold text-sm md:text-base flex items-center gap-3 group border-slate-200/50"
                 >
                   <MessageSquare className="w-5 h-5 text-blue-600" />
-                  Falar no WhatsApp
+                  {language === 'en' ? 'Talk on WhatsApp' : language === 'es' ? 'Hablar por WhatsApp' : 'Falar no WhatsApp'}
                 </MagneticButton>
                 
                 <MagneticButton 
-                  onClick={() => handleWhatsAppRedirect('Demonstração GDC/PontoControle')}
+                  onClick={() => handleWhatsAppRedirect(language === 'en' ? 'GDC/PontoControle Demo' : language === 'es' ? 'Demostración GDC/PontoControle' : 'Demonstração GDC/PontoControle')}
                   className="footer-glass-pill px-8 py-4 rounded-full text-slate-900 font-bold text-sm md:text-base flex items-center gap-3 group border-slate-200/50"
                 >
-                  Agendar Demonstração
-                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-slate-900 transition-colors" />
+                  {language === 'en' ? 'Schedule Demo' : language === 'es' ? 'Agendar Demostración' : 'Agendar Demonstração'}
+                  <ArrowUpRight className="w-4 h-4 text-slate-900 transition-colors" />
                 </MagneticButton>
               </div>
-
+ 
               {/* Text Links */}
               <div className="flex flex-wrap justify-center gap-3 md:gap-6 w-full mt-2 font-semibold">
                 <a href="#services" className="footer-glass-pill px-5 py-2.5 rounded-full text-slate-500 font-bold text-xs md:text-sm hover:text-slate-950 hover:border-slate-300 transition-all">
-                  Soluções
+                  {t('nav.services')}
                 </a>
                 <a href="#gdc" className="footer-glass-pill px-5 py-2.5 rounded-full text-slate-500 font-bold text-xs md:text-sm hover:text-slate-950 hover:border-slate-300 transition-all">
-                  Plataforma GDC
+                  {t('nav.gdc')}
                 </a>
                 <a href="#pontocontrole" className="footer-glass-pill px-5 py-2.5 rounded-full text-slate-500 font-bold text-xs md:text-sm hover:text-slate-950 hover:border-slate-300 transition-all">
                   PontoControle
@@ -335,20 +344,15 @@ export function CinematicFooter() {
               </div>
             </div>
           </div>
-
+ 
           {/* Footer Bottom Bar */}
           <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
             
             <div className="text-slate-400 text-[10px] md:text-xs font-semibold tracking-widest uppercase order-2 md:order-1">
-              © 2026 ViraWeb. Todos os direitos reservados.
+              {language === 'en' ? '© 2026 ViraWeb. All rights reserved.' : language === 'es' ? '© 2026 ViraWeb. Todos los derechos reservados.' : '© 2026 ViraWeb. Todos os direitos reservados.'}
             </div>
 
-            <div className="footer-glass-pill px-5 py-2.5 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default border-slate-200/50">
-              <span className="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-widest">Construído com</span>
-              <span className="animate-footer-heartbeat text-sm md:text-base text-red-600">❤</span>
-              <span className="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-widest">pela</span>
-              <span className="text-slate-900 font-black text-xs md:text-sm ml-0.5">Engenharia ViraWeb</span>
-            </div>
+
 
             <MagneticButton
               onClick={scrollToTop}

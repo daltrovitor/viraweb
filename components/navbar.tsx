@@ -70,24 +70,22 @@ export default function Navbar() {
 
         {/* Action Controls */}
         <div className="hidden md:flex items-center gap-6">
-          {/* Language Selector */}
-          <div className="relative group flex items-center gap-1.5 cursor-pointer text-sm text-[#475569] hover:text-[#0F172A] py-2 transition-colors">
-            <Globe className="w-4 h-4 text-[#475569]" />
-            <span className="uppercase font-medium">{language}</span>
-            <div className="absolute right-0 top-full mt-1 bg-white border border-[#E2E8F0] rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 py-1.5 w-24 z-50">
-              {(['pt', 'en', 'es'] as const).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => setLanguage(lang)}
-                  className={cn(
-                    'w-full px-3 py-1.5 text-left text-xs uppercase font-medium hover:bg-[#F8FAFC]',
-                    language === lang ? 'text-[#2563EB]' : 'text-[#475569]'
-                  )}
-                >
-                  {lang === 'pt' ? 'PT-BR' : lang === 'en' ? 'EN-US' : 'ES-ES'}
-                </button>
-              ))}
-            </div>
+          {/* Premium Language Selector Pill */}
+          <div className="flex items-center bg-slate-100 border border-slate-200/60 p-0.5 rounded-full select-none gap-0.5">
+            {(['pt', 'en', 'es'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className={cn(
+                  'px-3 py-1 text-[10px] md:text-xs font-black uppercase tracking-wider rounded-full transition-all duration-300 cursor-pointer',
+                  language === lang 
+                    ? 'bg-[#2563EB] text-white shadow-sm scale-100' 
+                    : 'text-slate-500 hover:text-slate-800 hover:bg-slate-200/40 scale-95'
+                )}
+              >
+                {lang}
+              </button>
+            ))}
           </div>
 
           {/* Scale CTA */}
@@ -100,15 +98,24 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="flex items-center gap-4 md:hidden">
-          {/* Mobile Language Selector Toggle */}
-          <button
-            onClick={() => setLanguage(language === 'pt' ? 'en' : language === 'en' ? 'es' : 'pt')}
-            className="flex items-center gap-1 text-[#475569] hover:text-[#0F172A] text-xs font-semibold uppercase border border-[#E2E8F0] px-2 py-1 rounded-md"
-          >
-            <Globe className="w-3.5 h-3.5" />
-            {language}
-          </button>
+        <div className="flex items-center gap-3 md:hidden">
+          {/* Mobile Language Selector Pill */}
+          <div className="flex items-center bg-slate-100 border border-slate-200/60 p-0.5 rounded-full select-none gap-0.5">
+            {(['pt', 'en', 'es'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => setLanguage(lang)}
+                className={cn(
+                  'px-2 py-0.5 text-[9px] font-black uppercase rounded-full transition-all duration-200 cursor-pointer',
+                  language === lang 
+                    ? 'bg-[#2563EB] text-white shadow-xs' 
+                    : 'text-slate-500 hover:text-slate-800'
+                )}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

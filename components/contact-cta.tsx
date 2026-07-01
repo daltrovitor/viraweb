@@ -21,30 +21,30 @@ export default function ContactCta() {
         <div className="w-full flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10 text-center select-none py-6">
           <FlipLink 
             href="https://wa.me/5562992466109" 
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900 hover:text-blue-600 transition-colors uppercase leading-[0.75]"
+            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900  transition-colors uppercase leading-[0.75]"
           >
             WhatsApp
           </FlipLink>
           
           <FlipLink 
             href="mailto:suporte@viraweb.online" 
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900 hover:text-cyan-600 transition-colors uppercase leading-[0.75]"
+            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900 transition-colors uppercase leading-[0.75]"
           >
             E-mail
           </FlipLink>
           
           <FlipLink 
             href="https://instagram.com/viraweb.online" 
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900 hover:text-amber-600 transition-colors uppercase leading-[0.75]"
+            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900  transition-colors uppercase leading-[0.75]"
           >
             Instagram
           </FlipLink>
           
           <FlipLink 
             href="https://wa.me/5562992466109" 
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-[#2563EB] hover:text-[#1D4ED8] transition-colors uppercase leading-[0.75]"
+            className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-black transition-colors uppercase leading-[0.75]"
           >
-            {language === 'en' ? 'Start Now!' : language === 'es' ? '¡Comience Ahora!' : 'Comece Agora!'}
+            {language === 'en' ? 'Start Now!' : language === 'es' ? '¡Comience Ahora!' : 'Começar Agora!'}
           </FlipLink>
         </div>
       </div>

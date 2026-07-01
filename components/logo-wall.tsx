@@ -1,6 +1,9 @@
 'use client';
 
+import { useTranslation } from '@/lib/i18n';
+
 export default function LogoWall() {
+  const { language } = useTranslation();
   const logos = [
     {
       name: 'Next.js',
@@ -65,7 +68,7 @@ export default function LogoWall() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between gap-8 flex-col sm:flex-row">
         {/* Caption */}
         <div className="text-xs font-semibold uppercase tracking-wider text-[#64748B] text-center sm:text-left whitespace-nowrap">
-          TECNOLOGIAS DE ALTA PERFORMANCE:
+          {language === 'en' ? 'HIGH PERFORMANCE TECHNOLOGIES:' : language === 'es' ? 'TECNOLOGÍAS DE ALTO RENDIMIENTO:' : 'TECNOLOGIAS DE ALTA PERFORMANCE:'}
         </div>
 
         {/* Marquee Track */}

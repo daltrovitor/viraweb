@@ -18,6 +18,46 @@ export default function PontoControleSection() {
   const [newEmpRole, setNewEmpRole] = useState('Doméstica');
   const [scanStatus, setScanStatus] = useState<'idle' | 'scanning' | 'success'>('idle');
 
+  const translateRole = (r: string) => {
+    if (language === 'en') {
+      if (r === 'Doméstica') return 'Housekeeper';
+      if (r === 'Motorista') return 'Driver';
+      if (r === 'Cuidadora') return 'Caregiver';
+      if (r === 'PME Equipe') return 'SMB Team';
+    }
+    if (language === 'es') {
+      if (r === 'Doméstica') return 'Doméstica';
+      if (r === 'Motorista') return 'Chofer';
+      if (r === 'Cuidadora') return 'Cuidadora';
+      if (r === 'PME Equipe') return 'Equipo PyME';
+    }
+    return r;
+  };
+
+  const translatePunch = (p: string) => {
+    if (language === 'en') {
+      return p.replace('Entrada', 'Check-in').replace('Almoço', 'Lunch').replace('Saída', 'Check-out');
+    }
+    if (language === 'es') {
+      return p.replace('Almoço', 'Almuerzo').replace('Saída', 'Salida');
+    }
+    return p;
+  };
+
+  const translateStatus = (s: string) => {
+    if (language === 'en') {
+      if (s === 'Presente') return 'PRESENT';
+      if (s === 'Intervalo') return 'BREAK';
+      if (s === 'Pendente') return 'PENDING';
+    }
+    if (language === 'es') {
+      if (s === 'Presente') return 'PRESENTE';
+      if (s === 'Intervalo') return 'RECESO';
+      if (s === 'Pendente') return 'PENDIENTE';
+    }
+    return s;
+  };
+
   const handleWhatsAppRedirect = () => {
     const text = language === 'en'
       ? 'Hello ViraWeb! I am interested in PontoControle for employee attendance.'
@@ -171,14 +211,16 @@ export default function PontoControleSection() {
             {/* Left Box: Biometrics Face Scanner Simulator */}
             <div className="md:col-span-5 bg-[#F8FAFC] border border-[#E2E8F0] p-6 flex flex-col justify-between items-center relative overflow-hidden">
               <div className="w-full flex items-center justify-between border-b border-slate-200 pb-2 mb-4">
-                <span className="text-[10px] font-bold text-slate-900 uppercase">Scanner Facial</span>
+                <span className="text-[10px] font-bold text-slate-900 uppercase">
+                  {language === 'en' ? 'Facial Scanner' : language === 'es' ? 'Escáner Facial' : 'Scanner Facial'}
+                </span>
                 <span className={cn(
                   'text-[9px] font-bold px-1.5 py-0.5 rounded font-mono',
                   scanStatus === 'scanning' ? 'bg-amber-50 text-amber-500 border border-amber-100 animate-pulse' :
                   scanStatus === 'success' ? 'bg-emerald-50 text-emerald-500 border border-emerald-100' :
                   'bg-slate-100 text-slate-500'
                 )}>
-                  {scanStatus === 'scanning' ? 'GEOLOCATING...' : scanStatus === 'success' ? 'SUCCESS' : 'ONLINE'}
+                  {scanStatus === 'scanning' ? (language === 'en' ? 'GEOLOCATING...' : 'GEOLOCALIZANDO...') : scanStatus === 'success' ? (language === 'en' ? 'SUCCESS' : language === 'es' ? 'ÉXITO' : 'SUCESSO') : 'ONLINE'}
                 </span>
               </div>
 
@@ -207,7 +249,11 @@ export default function PontoControleSection() {
                 disabled={scanStatus !== 'idle'}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-none transition-colors cursor-pointer disabled:opacity-50"
               >
-                {scanStatus === 'scanning' ? 'Registrando...' : scanStatus === 'success' ? 'Ponto Confirmado!' : 'Simular Batida de Ponto'}
+                {scanStatus === 'scanning' 
+                  ? (language === 'en' ? 'Punching...' : 'Registrando...') 
+                  : scanStatus === 'success' 
+                  ? (language === 'en' ? 'Punch Confirmed!' : language === 'es' ? '¡Registro Confirmado!' : 'Ponto Confirmado!') 
+                  : (language === 'en' ? 'Simulate Clock-In' : language === 'es' ? 'Simular Registro de Punto' : 'Simular Batida de Ponto')}
               </button>
             </div>
 
@@ -217,9 +263,9 @@ export default function PontoControleSection() {
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr className="border-b border-[#E2E8F0] text-slate-500 font-bold">
-                      <th className="pb-3 pr-4">Funcionário</th>
-                      <th className="pb-3 px-4">Função</th>
-                      <th className="pb-3 px-4">Último Registro</th>
+                      <th className="pb-3 pr-4">{language === 'en' ? 'Employee' : language === 'es' ? 'Empleado' : 'Funcionário'}</th>
+                      <th className="pb-3 px-4">{language === 'en' ? 'Role' : language === 'es' ? 'Puesto' : 'Função'}</th>
+                      <th className="pb-3 px-4">{language === 'en' ? 'Last Punch' : language === 'es' ? 'Último Registro' : 'Último Registro'}</th>
                       <th className="pb-3 px-4">GPS</th>
                       <th className="pb-3 pl-4 text-right">Status</th>
                     </tr>
@@ -228,8 +274,8 @@ export default function PontoControleSection() {
                     {employees.map((emp, index) => (
                       <tr key={index} className="hover:bg-[#F8FAFC]/50 transition-colors">
                         <td className="py-3 pr-4 font-bold text-slate-900">{emp.name}</td>
-                        <td className="py-3 px-4 text-slate-500">{emp.role}</td>
-                        <td className="py-3 px-4 font-mono">{emp.lastPunch}</td>
+                        <td className="py-3 px-4 text-slate-500">{translateRole(emp.role)}</td>
+                        <td className="py-3 px-4 font-mono">{translatePunch(emp.lastPunch)}</td>
                         <td className="py-3 px-4 text-blue-600 font-semibold">{emp.gps}</td>
                         <td className="py-3 pl-4 text-right">
                           <span className={cn(
@@ -238,7 +284,7 @@ export default function PontoControleSection() {
                             emp.status === 'Intervalo' && 'bg-amber-50 text-amber-600 border border-amber-100',
                             emp.status === 'Pendente' && 'bg-slate-50 text-slate-500 border border-slate-200'
                           )}>
-                            {emp.status}
+                            {translateStatus(emp.status)}
                           </span>
                         </td>
                       </tr>
@@ -251,7 +297,9 @@ export default function PontoControleSection() {
               <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between text-[10px] text-slate-400 font-mono">
                 <div className="flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Conformidade com a Portaria 671 MTE</span>
+                  <span>
+                    {language === 'en' ? 'Compliance with Decree 671 MTE' : language === 'es' ? 'Cumplimiento con la Ordenanza 671 MTE' : 'Conformidade com a Portaria 671 MTE'}
+                  </span>
                 </div>
                 <button className="text-blue-600 hover:underline flex items-center gap-1 font-bold">
                   <Download className="w-3 h-3" /> AFD / AFDT

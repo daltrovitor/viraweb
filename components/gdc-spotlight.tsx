@@ -29,6 +29,70 @@ interface Budget {
 
 export default function GdcSpotlight() {
   const { t, language } = useTranslation();
+
+  const getTabLabel = (tab: string) => {
+    if (language === 'en') {
+      switch (tab) {
+        case 'Todos': return 'All';
+        case 'Rascunho': return 'Draft';
+        case 'Enviado': return 'Sent';
+        case 'Aprovado': return 'Approved';
+        case 'Pago': return 'Paid';
+      }
+    }
+    if (language === 'es') {
+      switch (tab) {
+        case 'Todos': return 'Todos';
+        case 'Rascunho': return 'Borrador';
+        case 'Enviado': return 'Enviado';
+        case 'Aprovado': return 'Aprobado';
+        case 'Pago': return 'Pagado';
+      }
+    }
+    return tab;
+  };
+
+  const getStatusLabel = (status: string) => {
+    if (language === 'en') {
+      switch (status) {
+        case 'Rascunho': return 'Draft';
+        case 'Enviado': return 'Sent';
+        case 'Aprovado': return 'Approved';
+        case 'Pago': return 'Paid';
+      }
+    }
+    if (language === 'es') {
+      switch (status) {
+        case 'Rascunho': return 'Borrador';
+        case 'Enviado': return 'Enviado';
+        case 'Aprovado': return 'Aprobado';
+        case 'Pago': return 'Pagado';
+      }
+    }
+    return status;
+  };
+
+  const translateItem = (item: string) => {
+    if (language === 'en') {
+      if (item === 'Landing Page Premium') return 'Premium Landing Page';
+      if (item === 'Integração ViraBot IA') return 'ViraBot IA Integration';
+      if (item === 'Setup CRM GDC') return 'GDC CRM Setup';
+      if (item === 'Landing Page de Alta Conversão') return 'High-Converting Landing Page';
+      if (item === 'Integração ViraBot IA (Atendimento)') return 'ViraBot IA Integration (Support)';
+      if (item === 'Setup Completo CRM & Funil GDC') return 'Full CRM & Funnel GDC Setup';
+      if (item === 'Campanha de Tráfego de Elite') return 'Elite Traffic Campaign';
+    }
+    if (language === 'es') {
+      if (item === 'Landing Page Premium') return 'Landing Page Premium';
+      if (item === 'Integração ViraBot IA') return 'Integración ViraBot IA';
+      if (item === 'Setup CRM GDC') return 'Configuración CRM GDC';
+      if (item === 'Landing Page de Alta Conversão') return 'Landing Page de Alta Conversión';
+      if (item === 'Integração ViraBot IA (Atendimento)') return 'Integración ViraBot IA (Soporte)';
+      if (item === 'Setup Completo CRM & Funil GDC') return 'Configuración Completa CRM & Embudo GDC';
+      if (item === 'Campanha de Tráfego de Elite') return 'Campaña de Tráfico de Élite';
+    }
+    return item;
+  };
   
   // Grid size configuration
   const gridSquaresSize = '36px 36px'; // slightly larger squares as requested
@@ -228,15 +292,19 @@ export default function GdcSpotlight() {
                   {/* Header Row */}
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-5 select-none">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900 leading-none">Orçamentos</h3>
-                      <p className="text-xs text-slate-400 mt-1">Crie e gerencie orçamentos profissionais</p>
+                      <h3 className="text-xl font-bold text-slate-900 leading-none">
+                        {language === 'en' ? 'Budgets' : language === 'es' ? 'Presupuestos' : 'Orçamentos'}
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        {language === 'en' ? 'Create and manage professional budgets' : language === 'es' ? 'Cree y gestione presupuestos profesionales' : 'Crie e gerencie orçamentos profissionais'}
+                      </p>
                     </div>
                     <button
                       onClick={() => setShowWizard(true)}
                       className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer rounded-none active:scale-95"
                     >
                       <Plus className="w-4 h-4" />
-                      Novo Orçamento
+                      {language === 'en' ? 'New Budget' : language === 'es' ? 'Nuevo Presupuesto' : 'Novo Orçamento'}
                     </button>
                   </div>
 
@@ -248,7 +316,9 @@ export default function GdcSpotlight() {
                         <FileText className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">Orçamentos</div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                          {language === 'en' ? 'Budgets' : language === 'es' ? 'Presupuestos' : 'Orçamentos'}
+                        </div>
                         <div className="text-lg font-black text-slate-900">{budgets.length}</div>
                       </div>
                     </div>
@@ -259,7 +329,9 @@ export default function GdcSpotlight() {
                         <DollarSign className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">Receita Total</div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                          {language === 'en' ? 'Total Revenue' : language === 'es' ? 'Ingreso Total' : 'Receita Total'}
+                        </div>
                         <div className="text-sm font-black text-slate-900">R$ {totalRevenue.toLocaleString('pt-BR')}</div>
                       </div>
                     </div>
@@ -270,7 +342,9 @@ export default function GdcSpotlight() {
                         <TrendingUp className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">Receita Líquida</div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                          {language === 'en' ? 'Net Revenue' : language === 'es' ? 'Ingreso Neto' : 'Receita Líquida'}
+                        </div>
                         <div className="text-sm font-black text-slate-900">R$ {netRevenue.toLocaleString('pt-BR')}</div>
                       </div>
                     </div>
@@ -281,7 +355,9 @@ export default function GdcSpotlight() {
                         <Percent className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">Conversão</div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                          {language === 'en' ? 'Conversion' : language === 'es' ? 'Conversión' : 'Conversão'}
+                        </div>
                         <div className="text-lg font-black text-slate-900">{conversionRate}%</div>
                       </div>
                     </div>
@@ -293,7 +369,7 @@ export default function GdcSpotlight() {
                       <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
                       <input
                         type="text"
-                        placeholder="Buscar por cliente ou ID..."
+                        placeholder={language === 'en' ? 'Search by client or ID...' : language === 'es' ? 'Buscar por cliente o ID...' : 'Buscar por cliente ou ID...'}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
@@ -312,7 +388,7 @@ export default function GdcSpotlight() {
                               : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                           }`}
                         >
-                          {tab}
+                          {getTabLabel(tab)}
                         </button>
                       ))}
                     </div>
@@ -329,7 +405,7 @@ export default function GdcSpotlight() {
                               <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 font-mono">{b.date}</span>
                             </div>
                             <div className="text-slate-700 font-semibold mt-1">{b.client}</div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">{b.items.join(', ')}</div>
+                            <div className="text-[10px] text-slate-400 mt-0.5">{b.items.map(item => translateItem(item)).join(', ')}</div>
                           </div>
                           <div className="text-right">
                             <div className="font-bold text-slate-900 text-xs">R$ {b.total.toLocaleString('pt-BR')}</div>
@@ -338,7 +414,7 @@ export default function GdcSpotlight() {
                               b.status === 'Pago' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
                               'bg-amber-50 text-amber-600 border border-amber-100'
                             }`}>
-                              {b.status}
+                              {getStatusLabel(b.status)}
                             </span>
                           </div>
                         </div>
@@ -346,8 +422,12 @@ export default function GdcSpotlight() {
                     ) : (
                       <div className="flex flex-col items-center justify-center py-10 text-center select-none text-slate-400">
                         <FileText className="w-10 h-10 stroke-1 mb-2" />
-                        <div className="font-bold text-xs text-slate-800">Nenhum orçamento encontrado</div>
-                        <div className="text-[10px] mt-1">Experimente mudar o filtro ou adicione um novo orçamento</div>
+                        <div className="font-bold text-xs text-slate-800">
+                          {language === 'en' ? 'No budget found' : language === 'es' ? 'Ningún presupuesto encontrado' : 'Nenhum orçamento encontrado'}
+                        </div>
+                        <div className="text-[10px] mt-1">
+                          {language === 'en' ? 'Try changing the filter or add a new budget' : language === 'es' ? 'Intente cambiar el filtro o agregue un nuevo presupuesto' : 'Experimente mudar o filtro ou adicione um novo orçamento'}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -359,8 +439,12 @@ export default function GdcSpotlight() {
                   {/* Wizard Header */}
                   <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6 select-none">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900 leading-none">Novo Orçamento</h3>
-                      <p className="text-[10px] text-slate-400 mt-1">Etapa {wizardStep} de 4</p>
+                      <h3 className="text-lg font-bold text-slate-900 leading-none">
+                        {language === 'en' ? 'New Budget' : language === 'es' ? 'Nuevo Presupuesto' : 'Novo Orçamento'}
+                      </h3>
+                      <p className="text-[10px] text-slate-400 mt-1">
+                        {language === 'en' ? `Step ${wizardStep} of 4` : language === 'es' ? `Etapa ${wizardStep} de 4` : `Etapa ${wizardStep} de 4`}
+                      </p>
                     </div>
                     <button
                       onClick={() => {
@@ -370,17 +454,17 @@ export default function GdcSpotlight() {
                       className="text-slate-400 hover:text-slate-900 border border-slate-200 px-3 py-1 text-xs font-bold flex items-center gap-1 cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
-                      Cancelar
+                      {language === 'en' ? 'Cancel' : language === 'es' ? 'Cancelar' : 'Cancelar'}
                     </button>
                   </div>
 
                   {/* Wizard Steps indicator bar */}
                   <div className="flex items-center justify-between gap-2 mb-8 select-none">
                     {[
-                      { num: 1, label: 'Cliente', icon: <User className="w-3 h-3" /> },
-                      { num: 2, label: 'Produtos', icon: <ShoppingBag className="w-3 h-3" /> },
-                      { num: 3, label: 'Pagamento', icon: <CreditCard className="w-3 h-3" /> },
-                      { num: 4, label: 'Resumo', icon: <Check className="w-3 h-3" /> }
+                      { num: 1, label: language === 'en' ? 'Client' : language === 'es' ? 'Cliente' : 'Cliente', icon: <User className="w-3 h-3" /> },
+                      { num: 2, label: language === 'en' ? 'Products' : language === 'es' ? 'Productos' : 'Produtos', icon: <ShoppingBag className="w-3 h-3" /> },
+                      { num: 3, label: language === 'en' ? 'Payment' : language === 'es' ? 'Pago' : 'Pagamento', icon: <CreditCard className="w-3 h-3" /> },
+                      { num: 4, label: language === 'en' ? 'Summary' : language === 'es' ? 'Resumen' : 'Resumo', icon: <Check className="w-3 h-3" /> }
                     ].map(step => (
                       <div key={step.num} className="flex-1 flex items-center gap-2">
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
@@ -405,12 +489,14 @@ export default function GdcSpotlight() {
                     {wizardStep === 1 && (
                       /* STEP 1: SELECT CLIENT */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Selecione o cliente</h4>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                          {language === 'en' ? 'Select client' : language === 'es' ? 'Seleccione el cliente' : 'Selecione o cliente'}
+                        </h4>
                         <div className="relative mb-4">
                           <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
                           <input
                             type="text"
-                            placeholder="Buscar cliente..."
+                            placeholder={language === 'en' ? 'Search client...' : language === 'es' ? 'Buscar cliente...' : 'Buscar cliente...'}
                             value={selectedClient}
                             onChange={(e) => setSelectedClient(e.target.value)}
                             className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
@@ -442,7 +528,9 @@ export default function GdcSpotlight() {
                     {wizardStep === 2 && (
                       /* STEP 2: PRODUCTS/SERVICES */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Serviços & Produtos</h4>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                          {language === 'en' ? 'Services & Products' : language === 'es' ? 'Servicios y Productos' : 'Serviços & Produtos'}
+                        </h4>
                         <div className="space-y-2">
                           {availableServices.map(service => {
                             const isAdded = selectedServices.some(s => s.name === service.name);
@@ -457,7 +545,7 @@ export default function GdcSpotlight() {
                                 }`}
                               >
                                 <div>
-                                  <div>{service.name}</div>
+                                  <div>{translateItem(service.name)}</div>
                                   <div className="text-[10px] text-slate-400 font-mono mt-0.5">R$ {service.price.toLocaleString('pt-BR')}</div>
                                 </div>
                                 <div className={`w-5 h-5 border flex items-center justify-center ${
@@ -475,7 +563,9 @@ export default function GdcSpotlight() {
                     {wizardStep === 3 && (
                       /* STEP 3: PAYMENT CONDITIONS */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">Condições de Pagamento</h4>
+                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                          {language === 'en' ? 'Payment Conditions' : language === 'es' ? 'Condiciones de Pago' : 'Condições de Pagamento'}
+                        </h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
                           {[
                             'Pix (À Vista - 5% Desconto)',
@@ -483,20 +573,39 @@ export default function GdcSpotlight() {
                             'Boleto Parcelado (3x)',
                             'Cartão de Crédito (1x)',
                             'Cartão de Crédito (Até 12x)'
-                          ].map(method => (
-                            <div
-                              key={method}
-                              onClick={() => setPaymentMethod(method)}
-                              className={`p-4 border cursor-pointer flex justify-between items-center transition-all ${
-                                paymentMethod === method 
-                                  ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
-                                  : 'border-slate-100 hover:bg-slate-50'
-                              }`}
-                            >
-                              <span>{method}</span>
-                              {paymentMethod === method && <Check className="w-3.5 h-3.5 text-blue-600" />}
-                            </div>
-                          ))}
+                          ].map(method => {
+                            const translatePaymentMethod = (m: string) => {
+                              if (language === 'en') {
+                                if (m.startsWith('Pix')) return 'Pix (Cash - 5% Discount)';
+                                if (m.includes('15 dias')) return 'Bank Slip (15 days)';
+                                if (m.includes('3x')) return 'Split Slip (3x)';
+                                if (m.includes('1x')) return 'Credit Card (1x)';
+                                if (m.includes('12x')) return 'Credit Card (Up to 12x)';
+                              }
+                              if (language === 'es') {
+                                if (m.startsWith('Pix')) return 'Pix (Al contado - 5% Descuento)';
+                                if (m.includes('15 dias')) return 'Factura bancaria (15 días)';
+                                if (m.includes('3x')) return 'Factura a plazos (3x)';
+                                if (m.includes('1x')) return 'Tarjeta de crédito (1x)';
+                                if (m.includes('12x')) return 'Tarjeta de crédito (Hasta 12x)';
+                              }
+                              return m;
+                            };
+                            return (
+                              <div
+                                key={method}
+                                onClick={() => setPaymentMethod(method)}
+                                className={`p-4 border cursor-pointer flex justify-between items-center transition-all ${
+                                  paymentMethod === method 
+                                    ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
+                                    : 'border-slate-100 hover:bg-slate-50'
+                                }`}
+                              >
+                                <span>{translatePaymentMethod(method)}</span>
+                                {paymentMethod === method && <Check className="w-3.5 h-3.5 text-blue-600" />}
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
@@ -504,31 +613,58 @@ export default function GdcSpotlight() {
                     {wizardStep === 4 && (
                       /* STEP 4: SUMMARY/SUBMIT */
                       <div className="bg-slate-50 border border-slate-100 p-5 rounded-none text-xs">
-                        <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2 mb-4">Resumo da Proposta</h4>
+                        <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2 mb-4">
+                          {language === 'en' ? 'Proposal Summary' : language === 'es' ? 'Resumen de la Propuesta' : 'Resumo da Proposta'}
+                        </h4>
                         
                         <div className="space-y-3 font-semibold text-slate-700">
                           <div className="flex justify-between">
-                            <span className="text-slate-400">Cliente</span>
-                            <span className="text-slate-900">{selectedClient || 'Não selecionado'}</span>
+                            <span className="text-slate-400">
+                              {language === 'en' ? 'Client' : language === 'es' ? 'Cliente' : 'Cliente'}
+                            </span>
+                            <span className="text-slate-900">{selectedClient || (language === 'en' ? 'Not selected' : language === 'es' ? 'No seleccionado' : 'Não selecionado')}</span>
                           </div>
                           
                           <div className="flex justify-between">
-                            <span className="text-slate-400">Condições</span>
-                            <span className="text-slate-900">{paymentMethod}</span>
+                            <span className="text-slate-400">
+                              {language === 'en' ? 'Conditions' : language === 'es' ? 'Condiciones' : 'Condições'}
+                            </span>
+                            <span className="text-slate-900">
+                              {(() => {
+                                const m = paymentMethod;
+                                if (language === 'en') {
+                                  if (m.startsWith('Pix')) return 'Pix (Cash - 5% Discount)';
+                                  if (m.includes('15 dias')) return 'Bank Slip (15 days)';
+                                  if (m.includes('3x')) return 'Split Slip (3x)';
+                                  if (m.includes('1x')) return 'Credit Card (1x)';
+                                  if (m.includes('12x')) return 'Credit Card (Up to 12x)';
+                                }
+                                if (language === 'es') {
+                                  if (m.startsWith('Pix')) return 'Pix (Al contado - 5% Descuento)';
+                                  if (m.includes('15 dias')) return 'Factura bancaria (15 días)';
+                                  if (m.includes('3x')) return 'Factura a plazos (3x)';
+                                  if (m.includes('1x')) return 'Tarjeta de crédito (1x)';
+                                  if (m.includes('12x')) return 'Tarjeta de crédito (Hasta 12x)';
+                                }
+                                return m;
+                              })()}
+                            </span>
                           </div>
 
                           <div className="border-t border-slate-200/60 pt-3">
-                            <span className="text-slate-400 block mb-2">Serviços Contratados</span>
+                            <span className="text-slate-400 block mb-2">
+                              {language === 'en' ? 'Contracted Services' : language === 'es' ? 'Servicios Contratados' : 'Serviços Contratados'}
+                            </span>
                             {selectedServices.map(s => (
                               <div key={s.name} className="flex justify-between font-medium text-slate-800 py-1">
-                                <span>{s.name}</span>
+                                <span>{translateItem(s.name)}</span>
                                 <span className="font-mono">R$ {s.price.toLocaleString('pt-BR')}</span>
                               </div>
                             ))}
                           </div>
 
                           <div className="border-t border-slate-200 pt-3 flex justify-between font-black text-sm text-[#2563EB]">
-                            <span>TOTAL PROPOSTA</span>
+                            <span>{language === 'en' ? 'TOTAL PROPOSAL' : language === 'es' ? 'TOTAL PROPUESTA' : 'TOTAL PROPOSTA'}</span>
                             <span className="font-mono">
                               R$ {selectedServices.reduce((acc, curr) => acc + curr.price, 0).toLocaleString('pt-BR')}
                             </span>
@@ -545,7 +681,7 @@ export default function GdcSpotlight() {
                       disabled={wizardStep === 1}
                       className="px-4 py-2 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer disabled:opacity-40"
                     >
-                      Voltar
+                      {language === 'en' ? 'Back' : language === 'es' ? 'Volver' : 'Voltar'}
                     </button>
                     
                     {wizardStep < 4 ? (
@@ -554,7 +690,7 @@ export default function GdcSpotlight() {
                         disabled={wizardStep === 1 ? !selectedClient : wizardStep === 2 ? selectedServices.length === 0 : false}
                         className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-6 py-2 flex items-center gap-1.5 cursor-pointer disabled:opacity-40"
                       >
-                        Avançar
+                        {language === 'en' ? 'Next' : language === 'es' ? 'Avanzar' : 'Avançar'}
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     ) : (
@@ -562,7 +698,7 @@ export default function GdcSpotlight() {
                         onClick={handleCreateBudget}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-6 py-2 flex items-center gap-1.5 cursor-pointer"
                       >
-                        Gerar Orçamento
+                        {language === 'en' ? 'Generate Budget' : language === 'es' ? 'Generar Presupuesto' : 'Gerar Orçamento'}
                         <Check className="w-4 h-4" />
                       </button>
                     )}

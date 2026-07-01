@@ -64,7 +64,7 @@ export default function LogoWall() {
   const doubledLogos = [...logos, ...logos, ...logos, ...logos];
 
   return (
-    <div className="w-full bg-[#F8FAFC] py-6 border-y border-[#E2E8F0] overflow-hidden select-none">
+    <div id="logo-wall" className="w-full bg-[#F8FAFC] py-6 border-y border-[#E2E8F0] overflow-hidden select-none">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between gap-8 flex-col sm:flex-row">
         {/* Caption */}
         <div className="text-xs font-semibold uppercase tracking-wider text-[#64748B] text-center sm:text-left whitespace-nowrap">

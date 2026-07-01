@@ -15,7 +15,36 @@ export default function ScrollStorytelling() {
     // Create a gsap context so that we can easily revert/clean up all scroll animations
     const ctx = gsap.context(() => {
       
-      // 1. Services section rows animation (global)
+      // 1. Hero exit parallax scroll (emotional storytelling transition)
+      gsap.to('#hero .hero-badge, #hero .hero-title, #hero .hero-subtext, #hero .hero-ctas', {
+        y: -100,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom 20%',
+          scrub: true,
+        }
+      });
+
+      // 2. LogoWall entry scale and fade
+      gsap.fromTo('#logo-wall', 
+        { opacity: 0, scale: 0.95 },
+        { 
+          opacity: 1, 
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#logo-wall',
+            start: 'top 95%',
+            end: 'top 75%',
+            scrub: true,
+          }
+        }
+      );
+
+      // 3. Services section rows animation (global)
       gsap.fromTo(
         '#services .service-row',
         { opacity: 0, y: 60 },
@@ -105,7 +134,7 @@ export default function ScrollStorytelling() {
               duration: 1.0,
               ease: 'power3.out',
               scrollTrigger: {
-                trigger: '#pontocontrole',
+                trigger: '#pontocontrole .pc-simulator',
                 containerAnimation: horizontalScroll,
                 start: 'left 80%',
                 toggleActions: 'play none none none',
@@ -200,6 +229,37 @@ export default function ScrollStorytelling() {
                 start: 'left 80%',
                 toggleActions: 'play none none none',
               },
+            }
+          );
+
+          // LeadScrap 3D Parallax depth effect for floating cards
+          gsap.fromTo('#leadscrap .ls-float-msg', 
+            { x: -50 }, 
+            {
+              x: 50,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#leadscrap',
+                containerAnimation: horizontalScroll,
+                start: 'left 100%',
+                end: 'right 0%',
+                scrub: true
+              }
+            }
+          );
+
+          gsap.fromTo('#leadscrap .ls-float-leads', 
+            { x: 50 }, 
+            {
+              x: -50,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#leadscrap',
+                containerAnimation: horizontalScroll,
+                start: 'left 100%',
+                end: 'right 0%',
+                scrub: true
+              }
             }
           );
         }
@@ -347,7 +407,7 @@ export default function ScrollStorytelling() {
         );
       });
 
-      // 5. Testimonials section animations (global)
+      // 4. Testimonials section animations (global)
       gsap.fromTo(
         '#testimonials .testimonials-perspective-container',
         { opacity: 0, y: 80 },
@@ -364,7 +424,7 @@ export default function ScrollStorytelling() {
         }
       );
 
-      // 6. FAQ section animations (global)
+      // 5. FAQ section animations (global)
       gsap.fromTo(
         '#faq',
         { opacity: 0, y: 40 },
@@ -381,7 +441,7 @@ export default function ScrollStorytelling() {
         }
       );
 
-      // 7. Contact/Links section animations (global)
+      // 6. Contact/Links section animations (global)
       gsap.fromTo(
         '#contact-cta a',
         { opacity: 0, y: 50 },

@@ -77,7 +77,7 @@ export default function Home() {
 
           {/* Pinned Horizontal Storytelling Scroll for SaaS sections on Desktop, Vertical Stack on Mobile */}
           <div className="saas-scroll-container bg-white lg:border-b lg:border-[#E2E8F0] overflow-hidden">
-            <div className="saas-scroll-track flex flex-col lg:flex-row flex-nowrap lg:h-screen lg:w-[300vw] lg:items-center">
+            <div className="saas-scroll-track flex flex-col lg:flex-row flex-nowrap lg:h-screen lg:w-[400vw] lg:items-center">
               {/* Slide 1: GDC Spotlight */}
               <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-[#F8FAFC]">
                 <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
@@ -85,14 +85,21 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Slide 2: PontoControle */}
+              {/* Slide 2: PontoControle Simulator */}
               <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-white">
-                <div className="w-full lg:scale-[0.82] xl:scale-[0.88] 2xl:scale-100 origin-center">
-                  <PontoControleSection />
+                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+                  <PontoControleSection showOnly="simulator" />
                 </div>
               </div>
 
-              {/* Slide 3: LeadScrap */}
+              {/* Slide 3: PontoControle Features */}
+              <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-[#F8FAFC]/30">
+                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+                  <PontoControleSection showOnly="cards" />
+                </div>
+              </div>
+
+              {/* Slide 4: LeadScrap */}
               <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-white">
                 <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <LeadScrapSection />

@@ -151,7 +151,7 @@ export default function LeadScrapSection() {
               </div>
 
               {/* Floating Card 1: DISPARO Ativo (Top Left) */}
-              <div className="absolute top-8 left-0 sm:left-4 bg-white/95 backdrop-blur border border-[#E2E8F0] px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-[bounce_5s_infinite_ease-in-out]">
+              <div className="ls-float-msg absolute top-8 left-0 sm:left-4 bg-white/95 backdrop-blur border border-[#E2E8F0] px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-[bounce_5s_infinite_ease-in-out]">
                 <div className="p-2 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-600">
                   <MessageSquare className="w-5 h-5" />
                 </div>
@@ -162,7 +162,7 @@ export default function LeadScrapSection() {
               </div>
 
               {/* Floating Card 2: LEADS +4.582 (Bottom Right) */}
-              <div className="absolute bottom-8 right-0 sm:right-4 bg-white/95 backdrop-blur border border-[#E2E8F0] px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-[bounce_6s_infinite_ease-in-out_alternate]">
+              <div className="ls-float-leads absolute bottom-8 right-0 sm:right-4 bg-white/95 backdrop-blur border border-[#E2E8F0] px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-[bounce_6s_infinite_ease-in-out_alternate]">
                 <div className="p-2 bg-amber-50 border border-amber-100 rounded-lg text-amber-600">
                   <Search className="w-5 h-5" />
                 </div>

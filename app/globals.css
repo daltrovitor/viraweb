@@ -207,3 +207,18 @@
     transform: translateX(-200px) translateY(-50px) translateZ(-100px) rotateX(10deg) rotateY(-5deg) rotateZ(8deg);
   }
 }
+
+/* SaaS Horizontal Scroll Layout Overrides */
+@media (min-width: 1024px) {
+  .saas-scroll-slide section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    border-bottom: none !important;
+    min-height: 0 !important;
+    background: transparent !important;
+  }
+  .saas-scroll-slide section > div {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}

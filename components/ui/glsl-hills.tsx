@@ -199,12 +199,24 @@ export function GLSLHills({
     };
 
     let animationFrameId: number;
+    let isVisible = true;
 
     const renderLoop = () => {
+      if (!isVisible) return;
       plane.render(clock.getDelta());
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(renderLoop);
     };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        clock.getDelta();
+        renderLoop();
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    }, { threshold: 0.01 });
 
     const init = () => {
       const widthVal = containerRef.current?.clientWidth || window.innerWidth;
@@ -216,12 +228,15 @@ export function GLSLHills({
       scene.add(plane.mesh);
       window.addEventListener('resize', resize);
       resize();
-      renderLoop();
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
+      }
     };
 
     init();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
       scene.remove(plane.mesh);

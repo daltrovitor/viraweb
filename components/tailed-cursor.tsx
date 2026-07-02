@@ -35,6 +35,10 @@ export default function TailedCursor({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    // Detect touch-only mobile devices and disable WebGL cursor renderer early
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    if (isTouch) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -184,8 +188,28 @@ export default function TailedCursor({
     resize();
 
     const mouse = new Vec3();
+    let isMoving = true;
+    let idleTimeout: NodeJS.Timeout;
+
+    const startLoop = () => {
+      if (isMoving) return;
+      isMoving = true;
+      lastTime = performance.now();
+      update();
+    };
+
+    const stopLoop = () => {
+      isMoving = false;
+      cancelAnimationFrame(frameId);
+    };
     
     function updateMouse(e: MouseEvent | TouchEvent) {
+      if (!isMoving) {
+        startLoop();
+      }
+      clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(stopLoop, 2000);
+
       let clientX = 0;
       let clientY = 0;
       
@@ -211,6 +235,7 @@ export default function TailedCursor({
     let lastTime = performance.now();
 
     function update() {
+      if (!isMoving) return;
       frameId = requestAnimationFrame(update);
       const currentTime = performance.now();
       const dt = currentTime - lastTime;
@@ -238,9 +263,13 @@ export default function TailedCursor({
 
       renderer.render({ scene });
     }
+    
+    // Start initial timer countdown to auto-pause
+    idleTimeout = setTimeout(stopLoop, 2000);
     update();
 
     return () => {
+      clearTimeout(idleTimeout);
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', updateMouse);
       window.removeEventListener('touchstart', updateMouse);

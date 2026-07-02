@@ -95,33 +95,33 @@ export default function Home() {
           {/* Services Bento Grid */}
           <Services />
 
-          {/* Pinned Horizontal Storytelling Scroll for SaaS sections on Desktop, Vertical Stack on Mobile */}
-          <div className="saas-scroll-container bg-white lg:border-b lg:border-[#E2E8F0] overflow-hidden">
-            <div className="saas-scroll-track flex flex-col lg:flex-row flex-nowrap lg:h-screen lg:w-[400vw] lg:items-center">
+          {/* Pinned Horizontal Storytelling Scroll for SaaS sections on both Mobile and Desktop */}
+          <div className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-hidden">
+            <div className="saas-scroll-track flex flex-row flex-nowrap h-screen w-[400vw] items-center">
               {/* Slide 1: GDC Spotlight */}
-              <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-[#F8FAFC]">
-                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <GdcSpotlight />
                 </div>
               </div>
 
               {/* Slide 2: PontoControle Simulator */}
-              <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-white">
-                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <PontoControleSection showOnly="simulator" />
                 </div>
               </div>
 
               {/* Slide 3: PontoControle Features */}
-              <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-[#F8FAFC]/30">
-                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]/30">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <PontoControleSection showOnly="cards" />
                 </div>
               </div>
 
               {/* Slide 4: LeadScrap */}
-              <div className="saas-scroll-slide w-full lg:w-screen lg:h-full lg:flex-shrink-0 flex items-center justify-center overflow-visible lg:overflow-hidden bg-white">
-                <div className="w-full lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <LeadScrapSection />
                 </div>
               </div>

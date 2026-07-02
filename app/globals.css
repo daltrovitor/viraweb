@@ -221,37 +221,104 @@
   padding-bottom: 0 !important;
 }
 @media (max-width: 1023px) {
-  /* 1. Global Slide Container sizing - Expand heights naturally on mobile viewports */
+  /* 1. Global Slide Container sizing - Top-align and pad on mobile for vertical fit */
   .saas-scroll-slide {
-    padding: 3.5rem 1rem !important;
-    display: block !important;
-    height: auto !important;
-    min-height: 100dvh !important;
-    overflow-y: visible !important;
+    padding: 5.5rem 1rem 1.5rem !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
   }
   
-  /* Reset scaling container to fill the screen width and height natively */
+  /* Scale the inner container on mobile from top center */
   .saas-scroll-slide .origin-center {
-    transform: none !important;
+    transform: scale(0.82) !important;
+    transform-origin: top center !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
   }
+  
+  /* Height-based scaling for small mobile phones */
+  @media (max-height: 680px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.72) !important;
+    }
+  }
+  @media (min-height: 740px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.86) !important;
+    }
+  }
+  @media (min-height: 820px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.90) !important;
+    }
+  }
 
-
-
-  /* 3. Optimize PontoControle Grid cards (Slide 3) */
-  .saas-scroll-slide #pontocontrole .grid-cols-1 {
-    grid-template-cols: repeat(2, minmax(0, 1fr)) !important;
+  /* 2. Compact text layout on mobile inside horizontal scroll slides */
+  .saas-scroll-slide h2 {
+    font-size: 1.7rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .saas-scroll-slide p {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.6rem !important;
+  }
+  .saas-scroll-slide .mb-16,
+  .saas-scroll-slide .mb-8,
+  .saas-scroll-slide .mb-6,
+  .saas-scroll-slide .my-6 {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+  }
+  
+  /* 3. GDC and PontoControle Simulators layout adjustment on mobile */
+  .saas-scroll-slide #gdc .grid-cols-1,
+  .saas-scroll-slide #pontocontrole .grid-cols-1,
+  .saas-scroll-slide #leadscrap .grid-cols-1 {
+    gap: 0.75rem !important;
+  }
+  .saas-scroll-slide .gdc-right-col > div,
+  .saas-scroll-slide .pc-simulator {
+    padding: 1rem !important;
+    min-height: 0 !important;
+  }
+  .saas-scroll-slide .gdc-right-col,
+  .saas-scroll-slide .pc-simulator .grid {
     gap: 0.5rem !important;
   }
+  .saas-scroll-slide .pc-simulator .my-6 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .saas-scroll-slide .pc-simulator .w-36 {
+    width: 7.5rem !important;
+    height: 7.5rem !important;
+  }
+  .saas-scroll-slide .pc-simulator table {
+    font-size: 9.5px !important;
+  }
+  .saas-scroll-slide .pc-simulator th,
+  .saas-scroll-slide .pc-simulator td {
+    padding: 0.25rem 0.45rem !important;
+  }
+  
+  /* Compact bento cards in PontoControle */
+  .saas-scroll-slide #pontocontrole .grid-cols-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.4rem !important;
+  }
   .saas-scroll-slide .pc-feature-card {
-    padding: 0.75rem !important;
+    padding: 0.6rem !important;
     min-height: 0 !important;
     height: auto !important;
   }
   .saas-scroll-slide .pc-feature-card h4 {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     margin-bottom: 0px !important;
     line-height: 1.2 !important;
   }
@@ -259,61 +326,33 @@
     display: none !important;
   }
   .saas-scroll-slide .pc-feature-card .w-10 {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    margin-bottom: 0.25rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    margin-bottom: 0.2rem !important;
   }
   .saas-scroll-slide .pc-feature-card svg {
-    width: 1rem !important;
-    height: 1rem !important;
+    width: 0.9rem !important;
+    height: 0.9rem !important;
   }
 
-  /* 4. Reduce margin and padding of headings and layout spacing inside slides */
-  .saas-scroll-slide h2 {
-    font-size: 1.85rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 0.5rem !important;
+  /* Compact LeadScrap layout */
+  .saas-scroll-slide .ls-right-col {
+    min-height: 240px !important;
   }
-  .saas-scroll-slide p {
-    font-size: 0.8rem !important;
-    line-height: 1.4 !important;
-    margin-bottom: 0.75rem !important;
+  .saas-scroll-slide .ls-right-col .w-72 {
+    width: 14rem !important;
+    height: 14rem !important;
   }
-  .saas-scroll-slide .mb-16,
-  .saas-scroll-slide .mb-8,
-  .saas-scroll-slide .mb-6,
-  .saas-scroll-slide .my-6 {
-    margin-bottom: 0.75rem !important;
-    margin-top: 0.5rem !important;
-  }
-  
-  /* 5. GDC and PontoControle Simulators layout adjustment on mobile */
-  .saas-scroll-slide #gdc .grid-cols-1 {
-    gap: 1rem !important;
-  }
-  .saas-scroll-slide .gdc-right-col > div,
-  .saas-scroll-slide .pc-simulator {
-    padding: 1.25rem !important;
-    min-height: 0 !important;
-  }
-  .saas-scroll-slide .gdc-right-col,
-  .saas-scroll-slide .pc-simulator .grid {
-    gap: 0.75rem !important;
-  }
-  .saas-scroll-slide .pc-simulator .my-6 {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  .saas-scroll-slide .pc-simulator .w-36 {
+  .saas-scroll-slide .ls-right-col .w-40 {
     width: 8rem !important;
     height: 8rem !important;
   }
-  .saas-scroll-slide .pc-simulator table {
-    font-size: 10px !important;
+  .saas-scroll-slide .ls-float-msg {
+    padding: 0.5rem 0.75rem !important;
   }
-  .saas-scroll-slide .pc-simulator th,
-  .saas-scroll-slide .pc-simulator td {
-    padding: 0.35rem 0.6rem !important;
+  .saas-scroll-slide .ls-float-msg svg {
+    width: 1rem !important;
+    height: 1rem !important;
   }
 }
 

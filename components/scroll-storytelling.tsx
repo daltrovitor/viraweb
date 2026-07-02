@@ -78,7 +78,7 @@ export default function ScrollStorytelling() {
             pin: true,
             scrub: 1,
             start: 'top top',
-            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+            end: () => `+=${(track.scrollWidth - window.innerWidth) * 1.8}`,
             invalidateOnRefresh: true,
           }
         });

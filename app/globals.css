@@ -244,7 +244,9 @@
   .saas-scroll-slide ul, /* lists */
   .saas-scroll-slide .bg-blue-50\/50, /* GDC simulator callout banner */
   .saas-scroll-slide .ls-right-col, /* LeadScrap wireframe globe and floats */
-  .saas-scroll-slide .gdc-left-col p:not(.text-2xl) /* description paragraphs in GDC */
+  .saas-scroll-slide .gdc-left-col p:not(.text-2xl), /* description paragraphs in GDC */
+  .saas-scroll-slide .gdc-search-tabs, /* GDC mockup search bar and tabs */
+  .saas-scroll-slide .gdc-list-content /* GDC mockup client invoice rows list */
   {
     display: none !important;
   }
@@ -297,6 +299,9 @@
   }
   
   /* 5. GDC and PontoControle Simulators layout adjustment on mobile */
+  .saas-scroll-slide #gdc .grid-cols-1 {
+    gap: 1rem !important;
+  }
   .saas-scroll-slide .gdc-right-col > div,
   .saas-scroll-slide .pc-simulator {
     padding: 1.25rem !important;

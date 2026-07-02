@@ -364,12 +364,12 @@ export default function GdcSpotlight() {
                   </div>
 
                   {/* Search Bar & Tabs Grid */}
-                  <div className="flex flex-col gap-4 mb-4 select-none">
+                  <div className="gdc-search-tabs flex flex-col gap-4 mb-4 select-none">
                     <div className="relative">
-                      <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                       <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
                       <input
                         type="text"
-                        placeholder={language === 'en' ? 'Search by client or ID...' : language === 'es' ? 'Buscar por cliente o ID...' : 'Buscar por cliente ou ID...'}
+                        placeholder={language === 'en' ? 'Search by client or ID...' : language === 'es' ? 'Buscar por client o ID...' : 'Buscar por cliente ou ID...'}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
@@ -395,7 +395,7 @@ export default function GdcSpotlight() {
                   </div>
 
                   {/* List Content */}
-                  <div className="border border-slate-100 divide-y divide-slate-100 min-h-[160px]">
+                  <div className="gdc-list-content border border-slate-100 divide-y divide-slate-100 min-h-[160px]">
                     {filteredBudgets.length > 0 ? (
                       filteredBudgets.map(b => (
                         <div key={b.id} className="p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">

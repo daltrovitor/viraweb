@@ -96,7 +96,7 @@ export default function Home() {
           <Services />
 
           {/* Pinned Horizontal Scroll on Desktop, Touch Horizontal Swipe Carousel on Mobile (No Cuts, 100% Testable) */}
-          <div className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-x-auto lg:overflow-hidden snap-x snap-mandatory lg:snap-none scrollbar-none flex flex-row lg:block w-screen h-auto">
+          <div data-lenis-prevent className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-x-auto lg:overflow-hidden snap-x snap-mandatory lg:snap-none scrollbar-none flex flex-row lg:block w-screen h-auto">
             <div className="saas-scroll-track flex flex-row flex-nowrap h-auto lg:h-screen w-[400vw] items-stretch lg:items-center">
               {/* Slide 1: GDC Spotlight */}
               <div className="saas-scroll-slide w-screen h-auto lg:h-full flex-shrink-0 flex items-start lg:items-center justify-center overflow-visible lg:overflow-hidden snap-start bg-[#F8FAFC] py-12 lg:py-0">

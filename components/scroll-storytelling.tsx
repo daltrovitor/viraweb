@@ -71,24 +71,32 @@ export default function ScrollStorytelling() {
       let horizontalScroll: any = null;
 
       if (container && track) {
-        // Horizontal translation tween for the pinned container (slowed down by 1.8x)
-        horizontalScroll = gsap.to(track, {
-          x: () => -(track.scrollWidth - window.innerWidth),
-          ease: 'none',
+        // Create a GSAP Timeline driven by ScrollTrigger
+        horizontalScroll = gsap.timeline({
           scrollTrigger: {
             trigger: container,
             pin: true,
             scrub: 1,
             start: 'top top',
-            end: () => `+=${(track.scrollWidth - window.innerWidth) * 1.8}`,
+            end: () => `+=${(track.scrollWidth - window.innerWidth) * 2.2}`,
             invalidateOnRefresh: true,
           }
+        });
+
+        // 1. Hold first slide (GDC Pitch) on screen for a short scroll distance (pauses scroll movement)
+        horizontalScroll.to({}, { duration: 0.6 });
+
+        // 2. Animate the horizontal slide transition to the left
+        horizontalScroll.to(track, {
+          x: () => -(track.scrollWidth - window.innerWidth),
+          ease: 'none',
+          duration: 2.0
         });
       }
 
       // GDC Spotlight animations inside horizontal track
       gsap.fromTo(
-        '#gdc .gdc-left-col > *',
+        '#gdc-pitch .gdc-left-col > *',
         { opacity: 0, x: -50 },
         {
           opacity: 1,
@@ -97,7 +105,7 @@ export default function ScrollStorytelling() {
           stagger: 0.15,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '#gdc',
+            trigger: '#gdc-pitch',
             containerAnimation: horizontalScroll,
             start: 'left 80%',
             toggleActions: 'play none none none',
@@ -106,7 +114,7 @@ export default function ScrollStorytelling() {
       );
 
       gsap.fromTo(
-        '#gdc .gdc-right-col',
+        '#gdc-simulator .gdc-right-col',
         { opacity: 0, x: 80, scale: 0.98 },
         {
           opacity: 1,
@@ -115,7 +123,7 @@ export default function ScrollStorytelling() {
           duration: 1.2,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '#gdc',
+            trigger: '#gdc-simulator',
             containerAnimation: horizontalScroll,
             start: 'left 80%',
             toggleActions: 'play none none none',

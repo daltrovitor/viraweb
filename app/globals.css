@@ -296,43 +296,47 @@
     margin-bottom: 0.25rem !important;
   }
   .saas-scroll-slide .pc-simulator .w-36 {
-    width: 7.5rem !important;
-    height: 7.5rem !important;
+    width: 8.5rem !important;
+    height: 8.5rem !important;
   }
   .saas-scroll-slide .pc-simulator table {
-    font-size: 9.5px !important;
+    font-size: 10px !important;
   }
   .saas-scroll-slide .pc-simulator th,
   .saas-scroll-slide .pc-simulator td {
-    padding: 0.25rem 0.45rem !important;
+    padding: 0.3rem 0.5rem !important;
   }
   
   /* Compact bento cards in PontoControle */
   .saas-scroll-slide #pontocontrole .grid-cols-1 {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 0.4rem !important;
+    gap: 0.75rem !important;
   }
   .saas-scroll-slide .pc-feature-card {
-    padding: 0.6rem !important;
+    padding: 0.85rem !important;
     min-height: 0 !important;
     height: auto !important;
   }
   .saas-scroll-slide .pc-feature-card h4 {
-    font-size: 0.75rem !important;
-    margin-bottom: 0px !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.15rem !important;
     line-height: 1.2 !important;
   }
   .saas-scroll-slide .pc-feature-card p {
-    display: none !important;
+    display: block !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    opacity: 0.8;
+    margin-top: 0.15rem !important;
   }
   .saas-scroll-slide .pc-feature-card .w-10 {
-    width: 1.5rem !important;
-    height: 1.5rem !important;
-    margin-bottom: 0.2rem !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    margin-bottom: 0.25rem !important;
   }
   .saas-scroll-slide .pc-feature-card svg {
-    width: 0.9rem !important;
-    height: 0.9rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
   }
 
   /* Compact LeadScrap layout */

@@ -27,7 +27,11 @@ interface Budget {
   items: string[];
 }
 
-export default function GdcSpotlight() {
+interface GdcSpotlightProps {
+  showOnly?: 'pitch' | 'simulator' | 'all';
+}
+
+export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
   const { t, language } = useTranslation();
 
   const getTabLabel = (tab: string) => {
@@ -185,7 +189,10 @@ export default function GdcSpotlight() {
   });
 
   return (
-    <section id="gdc" className="py-24 bg-white border-b border-[#E2E8F0] relative overflow-hidden">
+    <section 
+      id={showOnly === 'pitch' ? 'gdc-pitch' : showOnly === 'simulator' ? 'gdc-simulator' : 'gdc'} 
+      className="py-24 bg-white border-b border-[#E2E8F0] relative overflow-hidden"
+    >
       
       {/* Evident Blueprint Background Grid with Custom Square Size */}
       <div 
@@ -203,7 +210,12 @@ export default function GdcSpotlight() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Product pitch (Explaining the entire GDC Platform with simulator callout) */}
-          <div className="gdc-left-col lg:col-span-4 flex flex-col items-start text-left select-none animate-fadeIn">
+          {(showOnly === 'all' || showOnly === 'pitch') && (
+            <div className={`gdc-left-col flex flex-col select-none animate-fadeIn ${
+              showOnly === 'pitch' 
+                ? 'lg:col-span-8 lg:col-start-3 items-center lg:items-start text-center lg:text-left w-full' 
+                : 'lg:col-span-4 items-start text-left'
+            }`}>
             <div className="flex items-center gap-2 mb-4">
               <span className="w-6 h-[1.5px] bg-[#2563EB]" />
               <span className="text-[10px] font-mono font-bold tracking-widest text-[#475569] uppercase">
@@ -290,10 +302,18 @@ export default function GdcSpotlight() {
               </a>
             </div>
           </div>
+          )}
 
           {/* Right Column: Dynamic Budget Simulation Panel (Matching User Screenshots) */}
-          <div className="gdc-right-col lg:col-span-8 w-full">
-            <div className="w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.08)] border border-[#E2E8F0] p-6 sm:p-8 relative min-h-[480px]">
+          {(showOnly === 'all' || showOnly === 'simulator') && (
+            <div className={`gdc-right-col w-full ${
+              showOnly === 'simulator' 
+                ? 'lg:col-span-10 lg:col-start-2 mx-auto' 
+                : 'lg:col-span-8'
+            }`}>
+              <div className={`w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.08)] border border-[#E2E8F0] p-6 sm:p-8 relative min-h-[480px] ${
+                showOnly === 'simulator' ? 'max-w-[1000px] mx-auto' : ''
+              }`}>
               
               {!showWizard ? (
                 /* SCREEN 1: BUDGETS DASHBOARD (Image 1 reference) */
@@ -726,6 +746,7 @@ export default function GdcSpotlight() {
 
             </div>
           </div>
+          )}
 
         </div>
       </div>

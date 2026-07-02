@@ -221,56 +221,24 @@
   padding-bottom: 0 !important;
 }
 @media (max-width: 1023px) {
-  /* 1. Global Slide Container sizing - Keep locked to screen size for horizontal ScrollTrigger */
+  /* 1. Global Slide Container sizing - Expand heights naturally on mobile viewports */
   .saas-scroll-slide {
-    padding: 1rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
+    padding: 3.5rem 1rem !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow-y: visible !important;
   }
   
-  /* Scale the inner container on mobile to fit the viewport height */
+  /* Reset scaling container to fill the screen width and height natively */
   .saas-scroll-slide .origin-center {
-    transform: scale(0.72) !important;
-    transform-origin: center center !important;
+    transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
   }
-  
-  /* Height-based scaling for small mobile phones */
-  @media (max-height: 680px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.62) !important;
-    }
-  }
-  @media (min-height: 740px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.78) !important;
-    }
-  }
-  @media (min-height: 820px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.82) !important;
-    }
-  }
 
-  /* 2. Hide descriptions and extra lists on mobile inside slides to save height */
-  .saas-scroll-slide .space-y-3\.5, /* GDC Platform module list */
-  .saas-scroll-slide ul, /* lists */
-  .saas-scroll-slide .bg-blue-50\/50, /* GDC simulator callout banner */
-  .saas-scroll-slide .ls-right-col, /* LeadScrap wireframe globe and floats */
-  .saas-scroll-slide .gdc-left-col p, /* Hide GDC paragraph */
-  .saas-scroll-slide .gdc-search-tabs, /* GDC mockup search bar and tabs */
-  .saas-scroll-slide .gdc-list-content, /* GDC mockup client invoice rows list */
-  .saas-scroll-slide .gdc-new-budget-btn, /* Hide 'Novo Orçamento' button on mobile to save height */
-  .saas-scroll-slide .pc-table-box, /* Hide PontoControle employee status list box on mobile */
-  .saas-scroll-slide #leadscrap p /* Hide LeadScrap description paragraph on mobile */
-  {
-    display: none !important;
-  }
+
 
   /* 3. Optimize PontoControle Grid cards (Slide 3) */
   .saas-scroll-slide #pontocontrole .grid-cols-1 {

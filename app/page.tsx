@@ -95,33 +95,33 @@ export default function Home() {
           {/* Services Bento Grid */}
           <Services />
 
-          {/* Pinned Horizontal Scroll on Desktop, Touch Horizontal Swipe Carousel on Mobile (No Cuts, 100% Testable) */}
-          <div data-lenis-prevent className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-x-auto lg:overflow-hidden snap-x snap-mandatory lg:snap-none scrollbar-none flex flex-row lg:block w-screen h-auto">
-            <div className="saas-scroll-track flex flex-row flex-nowrap h-auto lg:h-screen w-[400vw] items-stretch lg:items-center">
+          {/* Pinned Horizontal Storytelling Scroll for SaaS sections on Mobile and Desktop */}
+          <div className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-hidden">
+            <div className="saas-scroll-track flex flex-row flex-nowrap h-screen w-[400vw] items-center">
               {/* Slide 1: GDC Spotlight */}
-              <div className="saas-scroll-slide w-screen h-auto lg:h-full flex-shrink-0 flex items-start lg:items-center justify-center overflow-visible lg:overflow-hidden snap-start bg-[#F8FAFC] py-12 lg:py-0">
-                <div className="w-full scale-100 lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <GdcSpotlight />
                 </div>
               </div>
 
               {/* Slide 2: PontoControle Simulator */}
-              <div className="saas-scroll-slide w-screen h-auto lg:h-full flex-shrink-0 flex items-start lg:items-center justify-center overflow-visible lg:overflow-hidden snap-start bg-white py-12 lg:py-0">
-                <div className="w-full scale-100 lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <PontoControleSection showOnly="simulator" />
                 </div>
               </div>
 
               {/* Slide 3: PontoControle Features */}
-              <div className="saas-scroll-slide w-screen h-auto lg:h-full flex-shrink-0 flex items-start lg:items-center justify-center overflow-visible lg:overflow-hidden snap-start bg-[#F8FAFC]/30 py-12 lg:py-0">
-                <div className="w-full scale-100 lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]/30">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <PontoControleSection showOnly="cards" />
                 </div>
               </div>
 
               {/* Slide 4: LeadScrap */}
-              <div className="saas-scroll-slide w-screen h-auto lg:h-full flex-shrink-0 flex items-start lg:items-center justify-center overflow-visible lg:overflow-hidden snap-start bg-white py-12 lg:py-0">
-                <div className="w-full scale-100 lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
+              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
+                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
                   <LeadScrapSection />
                 </div>
               </div>

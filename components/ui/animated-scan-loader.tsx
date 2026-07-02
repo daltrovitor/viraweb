@@ -10,13 +10,39 @@ import { useEffect, useState } from 'react';
  */
 const Loader = () => {
   return (
-    <div className="relative max-w-fit h-[54px] text-[50px] italic font-semibold font-[Mine] select-none leading-[54px] drop-shadow-[0_0_12px_rgba(245,158,11,0.5)]">
-      <span className="text-white">Vira</span>
-      <span className="text-[#F59E0B]">Web</span>
+    <div className="relative max-w-fit h-[54px] text-[50px] italic font-semibold font-[Mine] select-none leading-[54px]">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes scan-laser {
+          0%, 100% { top: 0px; }
+          25%, 75% { top: 54px; }
+          50% { top: 0px; }
+        }
+        @keyframes cut-text {
+          0%, 50%, 100% { clip-path: inset(0% 0 0 0); }
+          25%, 75% { clip-path: inset(100% 0 0 0); }
+        }
+        .animate-scan-laser {
+          animation: scan-laser 3s ease-in-out infinite !important;
+        }
+        .animate-cut-text {
+          animation: cut-text 3s ease-in-out infinite !important;
+        }
+      `}} />
+
+      {/* Invisible Base Layer to preserve text layout width and height */}
+      <span className="opacity-0 select-none">
+        ViraWeb
+      </span>
+
+      {/* Illuminated Layer: Superimposed on top, clipped by the keyframe inset */}
+      <span className="absolute left-0 top-0 animate-cut-text drop-shadow-[0_0_12px_rgba(245,158,11,0.5)]">
+        <span className="text-white">Vira</span>
+        <span className="text-[#F59E0B]">Web</span>
+      </span>
 
       {/* Laser scan lines */}
-      <div className="absolute w-full h-[6px] rounded bg-[#F59E0B91] top-0 left-0 z-10 blur-[8px] animate-scan"></div>
-      <div className="absolute w-full h-[4px] rounded bg-[#F59E0B] top-0 left-0 z-20 opacity-95 animate-scan"></div>
+      <div className="absolute w-full h-[6px] rounded bg-[#F59E0B91] top-0 left-0 z-10 blur-[8px] animate-scan-laser"></div>
+      <div className="absolute w-full h-[4px] rounded bg-[#F59E0B] top-0 left-0 z-20 opacity-95 animate-scan-laser"></div>
     </div>
   );
 };

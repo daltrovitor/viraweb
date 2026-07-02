@@ -285,10 +285,10 @@ export default function TailedCursor({
     <>
       <style dangerouslySetInnerHTML={{ __html: `
         html, body {
-          cursor: default !important;
+          cursor: url('/cursor-normal.png'), default !important;
         }
-        a, button, select, input, [role="button"], .cursor-pointer {
-          cursor: pointer !important;
+        a, button, select, input, [role="button"], .cursor-pointer, .cursor-pointer * {
+          cursor: url('/cursor-pointer.png'), pointer !important;
         }
       `}} />
       <div

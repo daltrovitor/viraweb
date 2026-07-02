@@ -78,13 +78,13 @@ export default function ScrollStorytelling() {
             pin: true,
             scrub: 1,
             start: 'top top',
-            end: () => `+=${(track.scrollWidth - window.innerWidth) * 2.2}`,
+            end: () => `+=${(track.scrollWidth - window.innerWidth) * 1.6}`,
             invalidateOnRefresh: true,
           }
         });
 
-        // 1. Hold first slide (GDC Pitch) on screen for a short scroll distance (pauses scroll movement)
-        horizontalScroll.to({}, { duration: 0.6 });
+        // 1. Hold first slide (GDC Pitch) on screen for a short scroll distance (pauses scroll movement) - Cut in half
+        horizontalScroll.to({}, { duration: 0.3 });
 
         // 2. Animate the horizontal slide transition to the left
         horizontalScroll.to(track, {

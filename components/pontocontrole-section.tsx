@@ -202,7 +202,7 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
                 <div className="w-2.5 h-2.5 rounded-full bg-[#E2E8F0]" />
               </div>
               <div className="text-[10px] font-mono font-bold text-slate-500 bg-slate-50 border border-[#E2E8F0] px-4 py-0.5 rounded shadow-sm">
-                app.pontocontrole.com.br/pontos
+                pontocontrole.com.br/pontos
               </div>
               <div className="w-10" />
             </div>

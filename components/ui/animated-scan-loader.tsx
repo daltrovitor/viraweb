@@ -10,17 +10,9 @@ import { useEffect, useState } from 'react';
  */
 const Loader = () => {
   return (
-    <div className="relative max-w-fit h-[54px] text-[50px] italic font-semibold font-[Mine] select-none leading-[54px]">
-      {/* Invisible Base Layer to preserve text layout width and height */}
-      <span className="opacity-0 select-none">
-        ViraWeb
-      </span>
-
-      {/* Illuminated Layer: Superimposed on top, clipped by the keyframe inset */}
-      <span className="absolute left-0 top-0 animate-cut drop-shadow-[0_0_12px_rgba(245,158,11,0.5)]">
-        <span className="text-white">Vira</span>
-        <span className="text-[#F59E0B]">Web</span>
-      </span>
+    <div className="relative max-w-fit h-[54px] text-[50px] italic font-semibold font-[Mine] select-none leading-[54px] drop-shadow-[0_0_12px_rgba(245,158,11,0.5)]">
+      <span className="text-white">Vira</span>
+      <span className="text-[#F59E0B]">Web</span>
 
       {/* Laser scan lines */}
       <div className="absolute w-full h-[6px] rounded bg-[#F59E0B91] top-0 left-0 z-10 blur-[8px] animate-scan"></div>

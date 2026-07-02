@@ -222,20 +222,119 @@
 }
 
 @media (max-width: 1023px) {
+  /* 1. Global Slide Container sizing */
   .saas-scroll-slide {
-    padding: 1.5rem 1rem !important;
+    padding: 0.75rem 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
+  
+  /* Scale down the inner container to fit on mobile */
   .saas-scroll-slide .origin-center {
-    transform: scale(0.65);
+    transform: scale(0.6) !important;
+    transform-origin: center center !important;
+    width: 100% !important;
+    max-width: 480px !important;
   }
-  @media (min-height: 700px) {
+  
+  /* Adjust scale on very small screen heights */
+  @media (max-height: 680px) {
     .saas-scroll-slide .origin-center {
-      transform: scale(0.72);
+      transform: scale(0.52) !important;
     }
   }
-  @media (min-height: 800px) {
+  @media (min-height: 740px) {
     .saas-scroll-slide .origin-center {
-      transform: scale(0.8);
+      transform: scale(0.68) !important;
     }
+  }
+  @media (min-height: 820px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.78) !important;
+    }
+  }
+
+  /* 2. Hide descriptions and extra lists on mobile inside slides to save height */
+  .saas-scroll-slide .space-y-3\.5, /* GDC Platform module list */
+  .saas-scroll-slide ul, /* lists */
+  .saas-scroll-slide .bg-blue-50\/50, /* GDC simulator callout banner */
+  .saas-scroll-slide .ls-right-col, /* LeadScrap wireframe globe and floats */
+  .saas-scroll-slide .gdc-left-col p:not(.text-2xl) /* description paragraphs in GDC */
+  {
+    display: none !important;
+  }
+
+  /* 3. Optimize PontoControle Grid cards (Slide 3) */
+  .saas-scroll-slide #pontocontrole .grid-cols-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+  .saas-scroll-slide .pc-feature-card {
+    padding: 0.5rem !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .saas-scroll-slide .pc-feature-card h4 {
+    font-size: 0.7rem !important;
+    margin-bottom: 0px !important;
+    line-height: 1.1 !important;
+  }
+  .saas-scroll-slide .pc-feature-card p {
+    display: none !important; /* Hide card body text on mobile */
+  }
+  .saas-scroll-slide .pc-feature-card .w-10 {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .saas-scroll-slide .pc-feature-card svg {
+    width: 0.85rem !important;
+    height: 0.85rem !important;
+  }
+
+  /* 4. Reduce margin and padding of headings and layout spacing inside slides */
+  .saas-scroll-slide h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .saas-scroll-slide p {
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .saas-scroll-slide .mb-16,
+  .saas-scroll-slide .mb-8,
+  .saas-scroll-slide .mb-6,
+  .saas-scroll-slide .my-6 {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+  }
+  
+  /* 5. GDC and PontoControle Simulators layout adjustment on mobile */
+  .saas-scroll-slide .gdc-right-col > div,
+  .saas-scroll-slide .pc-simulator {
+    padding: 1rem !important;
+    min-height: 0 !important;
+  }
+  .saas-scroll-slide .gdc-right-col,
+  .saas-scroll-slide .pc-simulator .grid {
+    gap: 0.5rem !important;
+  }
+  .saas-scroll-slide .pc-simulator .my-6 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .saas-scroll-slide .pc-simulator .w-36 {
+    width: 6.5rem !important;
+    height: 6.5rem !important;
+  }
+  .saas-scroll-slide .pc-simulator table {
+    font-size: 9px !important;
+  }
+  .saas-scroll-slide .pc-simulator th,
+  .saas-scroll-slide .pc-simulator td {
+    padding: 0.25rem 0.5rem !important;
   }
 }

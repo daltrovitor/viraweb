@@ -66,10 +66,12 @@ export const AnimatedScanLoader = ({ onStartExit, onComplete }: AnimatedScanLoad
     const timer = setTimeout(() => {
       setIsExiting(true);
       onStartExit?.();
+      
+      // Dispatch event immediately when exit starts to avoid 1s lag in Hero text intro
+      window.dispatchEvent(new CustomEvent('loader-complete'));
+      
       const exitTimer = setTimeout(() => {
         onComplete?.();
-        // Dispatch event that loader transition is complete
-        window.dispatchEvent(new CustomEvent('loader-complete'));
       }, 700); // 700ms exit transition
       return () => clearTimeout(exitTimer);
     }, 3500);

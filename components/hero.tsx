@@ -35,7 +35,7 @@ export default function Hero() {
       tl.fromTo(
         '.hero-badge',
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, delay: 0.3 }
+        { opacity: 1, y: 0, delay: 0.1 }
       )
         .fromTo(
           '.hero-title span',

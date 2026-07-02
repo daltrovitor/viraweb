@@ -222,37 +222,21 @@
 }
 
 @media (max-width: 1023px) {
-  /* 1. Global Slide Container sizing */
+  /* 1. Global Slide Container sizing - Fill full screen and allow internal vertical scroll if needed */
   .saas-scroll-slide {
-    padding: 0.75rem 0.5rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    padding: 3rem 1.5rem 2rem !important;
+    display: block !important;
+    overflow-y: auto !important;
+    height: 100dvh !important;
+    -webkit-overflow-scrolling: touch;
   }
   
-  /* Scale down the inner container to fit on mobile */
+  /* Render at full size scale(1) to fill the screen */
   .saas-scroll-slide .origin-center {
-    transform: scale(0.6) !important;
-    transform-origin: center center !important;
+    transform: none !important;
     width: 100% !important;
-    max-width: 480px !important;
-  }
-  
-  /* Adjust scale on very small screen heights */
-  @media (max-height: 680px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.52) !important;
-    }
-  }
-  @media (min-height: 740px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.68) !important;
-    }
-  }
-  @media (min-height: 820px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.78) !important;
-    }
+    max-width: 100% !important;
+    height: auto !important;
   }
 
   /* 2. Hide descriptions and extra lists on mobile inside slides to save height */
@@ -271,70 +255,70 @@
     gap: 0.5rem !important;
   }
   .saas-scroll-slide .pc-feature-card {
-    padding: 0.5rem !important;
+    padding: 0.75rem !important;
     min-height: 0 !important;
     height: auto !important;
   }
   .saas-scroll-slide .pc-feature-card h4 {
-    font-size: 0.7rem !important;
+    font-size: 0.8rem !important;
     margin-bottom: 0px !important;
-    line-height: 1.1 !important;
+    line-height: 1.2 !important;
   }
   .saas-scroll-slide .pc-feature-card p {
     display: none !important; /* Hide card body text on mobile */
   }
   .saas-scroll-slide .pc-feature-card .w-10 {
-    width: 1.5rem !important;
-    height: 1.5rem !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
     margin-bottom: 0.25rem !important;
   }
   .saas-scroll-slide .pc-feature-card svg {
-    width: 0.85rem !important;
-    height: 0.85rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
   }
 
   /* 4. Reduce margin and padding of headings and layout spacing inside slides */
   .saas-scroll-slide h2 {
-    font-size: 1.5rem !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.25rem !important;
+    font-size: 1.85rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
   }
   .saas-scroll-slide p {
-    font-size: 0.7rem !important;
-    line-height: 1.3 !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.75rem !important;
   }
   .saas-scroll-slide .mb-16,
   .saas-scroll-slide .mb-8,
   .saas-scroll-slide .mb-6,
   .saas-scroll-slide .my-6 {
-    margin-bottom: 0.5rem !important;
-    margin-top: 0.25rem !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
   }
   
   /* 5. GDC and PontoControle Simulators layout adjustment on mobile */
   .saas-scroll-slide .gdc-right-col > div,
   .saas-scroll-slide .pc-simulator {
-    padding: 1rem !important;
+    padding: 1.25rem !important;
     min-height: 0 !important;
   }
   .saas-scroll-slide .gdc-right-col,
   .saas-scroll-slide .pc-simulator .grid {
-    gap: 0.5rem !important;
+    gap: 0.75rem !important;
   }
   .saas-scroll-slide .pc-simulator .my-6 {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.25rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
   }
   .saas-scroll-slide .pc-simulator .w-36 {
-    width: 6.5rem !important;
-    height: 6.5rem !important;
+    width: 8rem !important;
+    height: 8rem !important;
   }
   .saas-scroll-slide .pc-simulator table {
-    font-size: 9px !important;
+    font-size: 10px !important;
   }
   .saas-scroll-slide .pc-simulator th,
   .saas-scroll-slide .pc-simulator td {
-    padding: 0.25rem 0.5rem !important;
+    padding: 0.35rem 0.6rem !important;
   }
 }

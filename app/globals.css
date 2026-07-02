@@ -231,40 +231,46 @@
     overflow: hidden !important;
   }
   
-  /* Scale the inner container on mobile from top center */
+  /* Remove side margins/paddings for LeadScrap slide on mobile to stretch it pros lados */
+  .saas-scroll-slide:has(#leadscrap) {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  /* Scale the inner container on mobile from top center - Bumped up to fill the viewport */
   .saas-scroll-slide .origin-center {
-    transform: scale(0.82) !important;
+    transform: scale(0.85) !important;
     transform-origin: top center !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
   }
   
-  /* Height-based scaling for small mobile phones */
+  /* Height-based scaling for small mobile phones - Bumped up to fit snugly */
   @media (max-height: 680px) {
     .saas-scroll-slide .origin-center {
-      transform: scale(0.72) !important;
+      transform: scale(0.76) !important;
     }
   }
   @media (min-height: 740px) {
     .saas-scroll-slide .origin-center {
-      transform: scale(0.86) !important;
+      transform: scale(0.88) !important;
     }
   }
   @media (min-height: 820px) {
     .saas-scroll-slide .origin-center {
-      transform: scale(0.90) !important;
+      transform: scale(0.93) !important;
     }
   }
 
-  /* 2. Compact text layout on mobile inside horizontal scroll slides */
+  /* 2. Compact text layout on mobile inside horizontal scroll slides - Increased sizes for readability */
   .saas-scroll-slide h2 {
-    font-size: 1.7rem !important;
+    font-size: 1.95rem !important;
     line-height: 1.15 !important;
     margin-bottom: 0.4rem !important;
   }
   .saas-scroll-slide p {
-    font-size: 0.75rem !important;
+    font-size: 0.82rem !important;
     line-height: 1.35 !important;
     margin-bottom: 0.6rem !important;
   }
@@ -340,21 +346,30 @@
   }
 
   /* Compact LeadScrap layout */
+  .saas-scroll-slide .ls-mockup-card {
+    gap: 1.5rem !important; /* reduced gap to shorten vertically */
+    padding: 1.25rem 1rem !important;
+  }
   .saas-scroll-slide .ls-right-col {
-    min-height: 240px !important;
+    min-height: 170px !important; /* shortened from 240px */
   }
   .saas-scroll-slide .ls-right-col .w-72 {
-    width: 14rem !important;
-    height: 14rem !important;
+    width: 11rem !important;
+    height: 11rem !important;
   }
   .saas-scroll-slide .ls-right-col .w-40 {
-    width: 8rem !important;
-    height: 8rem !important;
+    width: 6.5rem !important;
+    height: 6.5rem !important;
   }
   .saas-scroll-slide .ls-float-msg {
-    padding: 0.5rem 0.75rem !important;
+    padding: 0.4rem 0.65rem !important;
+    top: 0.5rem !important;
   }
-  .saas-scroll-slide .ls-float-msg svg {
+  .saas-scroll-slide .ls-float-leads {
+    bottom: 0.5rem !important;
+  }
+  .saas-scroll-slide .ls-float-msg svg,
+  .saas-scroll-slide .ls-float-leads svg {
     width: 1rem !important;
     height: 1rem !important;
   }

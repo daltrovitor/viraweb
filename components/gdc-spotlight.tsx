@@ -311,6 +311,20 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                 ? 'lg:col-span-10 lg:col-start-2 mx-auto' 
                 : 'lg:col-span-8'
             }`}>
+              {showOnly === 'simulator' && (
+                <div className="text-center mb-6 select-none max-w-[800px] mx-auto">
+                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#2563EB] uppercase block mb-1">
+                    {language === 'en' ? 'INTERACTIVE SIMULATOR' : language === 'es' ? 'SIMULADOR INTERACTIVO' : 'SIMULADOR INTERATIVO'}
+                  </span>
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#0F172A] tracking-tight">
+                    {language === 'en' ? 'GDC Invoicing Simulator' : language === 'es' ? 'Simulador de Presupuestos GDC' : 'Simulador de Orçamentos GDC'}
+                  </h3>
+                  <p className="text-slate-500 text-xs mt-1">
+                    {language === 'en' ? 'Create a complete service budget in 4 quick steps.' : language === 'es' ? 'Crea un presupuesto de servicio completo en 4 pasos rápidos.' : 'Crie um orçamento de serviço completo em 4 etapas rápidas.'}
+                  </p>
+                </div>
+              )}
+
               <div className={`w-full bg-white rounded-none shadow-[0_15px_40px_rgba(15,23,42,0.08)] border border-[#E2E8F0] p-6 sm:p-8 relative min-h-[480px] ${
                 showOnly === 'simulator' ? 'max-w-[1000px] mx-auto' : ''
               }`}>

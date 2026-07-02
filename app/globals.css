@@ -222,21 +222,40 @@
 }
 
 @media (max-width: 1023px) {
-  /* 1. Global Slide Container sizing - Fill full screen and allow internal vertical scroll if needed */
+  /* 1. Global Slide Container sizing - Align to top to prevent bottom cuts on mobile */
   .saas-scroll-slide {
-    padding: 3rem 1.5rem 2rem !important;
-    display: block !important;
-    overflow-y: auto !important;
+    padding: 1.5rem 1rem !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
     height: 100dvh !important;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden !important;
   }
   
-  /* Render at full size scale(1) to fill the screen */
+  /* Scale the inner container on mobile to fill screen width but fit screen height */
   .saas-scroll-slide .origin-center {
-    transform: none !important;
+    transform: scale(0.8) !important;
+    transform-origin: top center !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+  }
+  
+  /* Dynamic scale reduction based on small mobile screen heights */
+  @media (max-height: 680px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.7) !important;
+    }
+  }
+  @media (min-height: 740px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.84) !important;
+    }
+  }
+  @media (min-height: 820px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.88) !important;
+    }
   }
 
   /* 2. Hide descriptions and extra lists on mobile inside slides to save height */
@@ -244,16 +263,19 @@
   .saas-scroll-slide ul, /* lists */
   .saas-scroll-slide .bg-blue-50\/50, /* GDC simulator callout banner */
   .saas-scroll-slide .ls-right-col, /* LeadScrap wireframe globe and floats */
-  .saas-scroll-slide .gdc-left-col p:not(.text-2xl), /* description paragraphs in GDC */
+  .saas-scroll-slide .gdc-left-col p, /* Hide GDC paragraph */
   .saas-scroll-slide .gdc-search-tabs, /* GDC mockup search bar and tabs */
-  .saas-scroll-slide .gdc-list-content /* GDC mockup client invoice rows list */
+  .saas-scroll-slide .gdc-list-content, /* GDC mockup client invoice rows list */
+  .saas-scroll-slide .gdc-new-budget-btn, /* Hide 'Novo Orçamento' button on mobile to save height */
+  .saas-scroll-slide .pc-table-box, /* Hide PontoControle employee status list box on mobile */
+  .saas-scroll-slide #leadscrap p /* Hide LeadScrap description paragraph on mobile */
   {
     display: none !important;
   }
 
   /* 3. Optimize PontoControle Grid cards (Slide 3) */
   .saas-scroll-slide #pontocontrole .grid-cols-1 {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-cols: repeat(2, minmax(0, 1fr)) !important;
     gap: 0.5rem !important;
   }
   .saas-scroll-slide .pc-feature-card {
@@ -267,7 +289,7 @@
     line-height: 1.2 !important;
   }
   .saas-scroll-slide .pc-feature-card p {
-    display: none !important; /* Hide card body text on mobile */
+    display: none !important;
   }
   .saas-scroll-slide .pc-feature-card .w-10 {
     width: 1.75rem !important;
@@ -325,5 +347,24 @@
   .saas-scroll-slide .pc-simulator th,
   .saas-scroll-slide .pc-simulator td {
     padding: 0.35rem 0.6rem !important;
+  }
+}
+
+/* 6. Desktop Height-based scaling to avoid simulator cut-off on small laptop screens */
+@media (min-width: 1024px) {
+  @media (max-height: 850px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.8) !important;
+    }
+  }
+  @media (max-height: 760px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.72) !important;
+    }
+  }
+  @media (max-height: 680px) {
+    .saas-scroll-slide .origin-center {
+      transform: scale(0.64) !important;
+    }
   }
 }

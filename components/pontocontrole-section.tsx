@@ -259,7 +259,7 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
               </div>
 
               {/* Right Box: Real-time Employee List */}
-              <div className="md:col-span-7 flex flex-col justify-between">
+              <div className="pc-table-box md:col-span-7 flex flex-col justify-between">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>

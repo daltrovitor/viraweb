@@ -301,7 +301,7 @@ export default function GdcSpotlight() {
                     </div>
                     <button
                       onClick={() => setShowWizard(true)}
-                      className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer rounded-none active:scale-95"
+                      className="gdc-new-budget-btn bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer rounded-none active:scale-95"
                     >
                       <Plus className="w-4 h-4" />
                       {language === 'en' ? 'New Budget' : language === 'es' ? 'Nuevo Presupuesto' : 'Novo Orçamento'}
@@ -309,7 +309,7 @@ export default function GdcSpotlight() {
                   </div>
 
                   {/* Summary 4-Cards Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 select-none">
+                  <div className="gdc-stats-grid grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 select-none">
                     {/* Card 1: Count */}
                     <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
                       <div className="p-2 bg-blue-50 border border-blue-100 text-blue-600">

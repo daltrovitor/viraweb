@@ -24,8 +24,13 @@ export default function Hero() {
   useEffect(() => {
     if (!contentRef.current) return;
     
+    let tl: gsap.core.Timeline;
+    const playIntro = () => {
+      if (tl) tl.play();
+    };
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.4 } });
+      tl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out', duration: 1.4 } });
 
       tl.fromTo(
         '.hero-badge',
@@ -50,9 +55,19 @@ export default function Hero() {
           { opacity: 1, y: 0 },
           '-=0.8'
         );
+
+      const loaderActive = document.querySelector('.fixed.inset-0.z-\\[99999\\]');
+      if (!loaderActive) {
+        tl.play();
+      } else {
+        window.addEventListener('loader-complete', playIntro);
+      }
     }, contentRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      window.removeEventListener('loader-complete', playIntro);
+    };
   }, []);
 
   return (

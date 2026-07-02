@@ -25,7 +25,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     // Bind Lenis updates to the GSAP Ticker for frame-perfect scroll rendering sync
     const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
+      // Prevent scrolling while loader is active (body overflow hidden)
+      const isPageLoading = document.body.style.overflow === 'hidden';
+      if (isPageLoading) {
+        lenis.stop();
+      } else {
+        lenis.start();
+        lenis.raf(time * 1000);
+      }
     };
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);

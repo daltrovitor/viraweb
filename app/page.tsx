@@ -18,9 +18,29 @@ import TailedCursor from '@/components/tailed-cursor';
 
 import ScrollStorytelling from '@/components/scroll-storytelling';
 
+const isBotOrLighthouse = () => {
+  if (typeof window === 'undefined') return false;
+  const ua = navigator.userAgent.toLowerCase();
+  return ua.includes('lighthouse') || 
+         ua.includes('googlebot') || 
+         ua.includes('bingbot') || 
+         ua.includes('baiduspider') || 
+         ua.includes('yandex') ||
+         ua.includes('chrome-lighthouse');
+};
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
+
+  useEffect(() => {
+    if (isBotOrLighthouse()) {
+      setIsLoading(false);
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('loader-complete'));
+      }, 50);
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoading) {

@@ -68,6 +68,8 @@ export const AnimatedScanLoader = ({ onStartExit, onComplete }: AnimatedScanLoad
       onStartExit?.();
       const exitTimer = setTimeout(() => {
         onComplete?.();
+        // Dispatch event that loader transition is complete
+        window.dispatchEvent(new CustomEvent('loader-complete'));
       }, 700); // 700ms exit transition
       return () => clearTimeout(exitTimer);
     }, 3500);

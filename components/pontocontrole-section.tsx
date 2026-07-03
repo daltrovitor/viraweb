@@ -184,8 +184,8 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter leading-tight mb-2">
               {language === 'en' ? 'Why choose PontoControle?' : language === 'es' ? '¿Por qué elegir PontoControle?' : 'Por que escolher o PontoControle?'}
             </h2>
-            <p className="text-slate-500 text-xs md:text-sm leading-relaxed max-w-[65ch]">
-              {language === 'en' ? 'Core features that optimize your domestic or team management.' : language === 'es' ? 'Características clave que optimizan la gestión de sus empleados.' : 'Recursos essenciais que otimizam a gestão de seus funcionários.'}
+            <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-[65ch]">
+              {language === 'en' ? 'Core features that optimize your domestic or team management.' : language === 'es' ? 'Características key que optimizan la gestión de sus empleados.' : 'Recursos essenciais que otimizam a gestão de seus funcionários.'}
             </p>
           </div>
         )}
@@ -212,11 +212,11 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
               {/* Left Box: Biometrics Face Scanner Simulator */}
               <div className="md:col-span-5 bg-[#F8FAFC] border border-[#E2E8F0] p-6 flex flex-col justify-between items-center relative overflow-hidden">
                 <div className="w-full flex items-center justify-between border-b border-slate-200 pb-2 mb-4">
-                  <span className="text-[10px] font-bold text-slate-900 uppercase">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 uppercase">
                     {language === 'en' ? 'Facial Scanner' : language === 'es' ? 'Escáner Facial' : 'Scanner Facial'}
                   </span>
                   <span className={cn(
-                    'text-[9px] font-bold px-1.5 py-0.5 rounded font-mono',
+                    'text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded font-mono',
                     scanStatus === 'scanning' ? 'bg-amber-50 text-amber-500 border border-amber-100 animate-pulse' :
                     scanStatus === 'success' ? 'bg-emerald-50 text-emerald-500 border border-emerald-100' :
                     'bg-slate-100 text-slate-500'
@@ -259,15 +259,15 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
               </div>
 
               {/* Right Box: Real-time Employee List */}
-              <div className="pc-table-box md:col-span-7 flex flex-col justify-between">
+              <div className="pc-table-box md:col-span-7 flex flex-col justify-between min-w-0">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse text-xs">
+                  <table className="w-full text-left border-collapse text-sm">
                     <thead>
                       <tr className="border-b border-[#E2E8F0] text-slate-500 font-bold">
                         <th className="pb-3 pr-4">{language === 'en' ? 'Employee' : language === 'es' ? 'Empleado' : 'Funcionário'}</th>
-                        <th className="pb-3 px-4">{language === 'en' ? 'Role' : language === 'es' ? 'Puesto' : 'Função'}</th>
+                        <th className="pb-3 px-4 hidden sm:table-cell">{language === 'en' ? 'Role' : language === 'es' ? 'Puesto' : 'Função'}</th>
                         <th className="pb-3 px-4">{language === 'en' ? 'Last Punch' : language === 'es' ? 'Último Registro' : 'Último Registro'}</th>
-                        <th className="pb-3 px-4">GPS</th>
+                        <th className="pb-3 px-4 hidden sm:table-cell">GPS</th>
                         <th className="pb-3 pl-4 text-right">Status</th>
                       </tr>
                     </thead>
@@ -275,9 +275,9 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
                       {employees.map((emp, index) => (
                         <tr key={index} className="hover:bg-[#F8FAFC]/50 transition-colors">
                           <td className="py-3 pr-4 font-bold text-slate-900">{emp.name}</td>
-                          <td className="py-3 px-4 text-slate-500">{translateRole(emp.role)}</td>
+                          <td className="py-3 px-4 text-slate-500 hidden sm:table-cell">{translateRole(emp.role)}</td>
                           <td className="py-3 px-4 font-mono">{translatePunch(emp.lastPunch)}</td>
-                          <td className="py-3 px-4 text-blue-600 font-semibold">{emp.gps}</td>
+                          <td className="py-3 px-4 text-blue-600 font-semibold hidden sm:table-cell">{emp.gps}</td>
                           <td className="py-3 pl-4 text-right">
                             <span className={cn(
                               'px-2 py-0.5 rounded-full text-[9px] font-bold uppercase',
@@ -295,14 +295,14 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
                 </div>
 
                 {/* Status bar */}
-                <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between text-[10px] text-slate-400 font-mono">
-                  <div className="flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>
+                <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex flex-col sm:flex-row gap-3 sm:gap-0 items-center justify-between text-[11px] sm:text-xs text-slate-400 font-mono">
+                  <div className="flex items-center gap-1.5 justify-center text-center">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span className="break-words">
                       {language === 'en' ? 'Compliance with Decree 671 MTE' : language === 'es' ? 'Cumplimiento con la Ordenanza 671 MTE' : 'Conformidade com a Portaria 671 MTE'}
                     </span>
                   </div>
-                  <button className="text-blue-600 hover:underline flex items-center gap-1 font-bold">
+                  <button className="text-blue-600 hover:underline flex items-center gap-1 font-bold shrink-0">
                     <Download className="w-3.5 h-3.5" /> AFD / AFDT
                   </button>
                 </div>
@@ -314,7 +314,7 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
 
         {/* Part 2: 3x2 Square Grid Cards (Exactly like Image 4) */}
         {(!showOnly || showOnly === 'cards') && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 select-none mb-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 select-none mb-16 max-w-5xl mx-auto pc-feature-grid">
             {featureCards.map((card, idx) => (
               <div
                 key={idx}

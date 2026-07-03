@@ -223,7 +223,7 @@
 @media (max-width: 1023px) {
   /* 1. Global Slide Container sizing - Top-align and pad on mobile for vertical fit */
   .saas-scroll-slide {
-    padding: 5.5rem 1rem 1.5rem !important;
+    padding: 5.5rem 1.5rem 1.5rem !important;
     display: flex !important;
     align-items: flex-start !important;
     justify-content: center !important;
@@ -306,15 +306,15 @@
     height: 8.5rem !important;
   }
   .saas-scroll-slide .pc-simulator table {
-    font-size: 10px !important;
+    font-size: 13px !important;
   }
   .saas-scroll-slide .pc-simulator th,
   .saas-scroll-slide .pc-simulator td {
-    padding: 0.3rem 0.5rem !important;
+    padding: 0.5rem 0.4rem !important;
   }
   
   /* Compact bento cards in PontoControle */
-  .saas-scroll-slide #pontocontrole .grid-cols-1 {
+  .saas-scroll-slide #pontocontrole .pc-feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 0.75rem !important;
   }
@@ -324,16 +324,20 @@
     height: auto !important;
   }
   .saas-scroll-slide .pc-feature-card h4 {
-    font-size: 0.85rem !important;
-    margin-bottom: 0.15rem !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0.25rem !important;
     line-height: 1.2 !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .saas-scroll-slide .pc-feature-card p {
     display: block !important;
-    font-size: 10px !important;
-    line-height: 1.25 !important;
-    opacity: 0.8;
-    margin-top: 0.15rem !important;
+    font-size: 0.825rem !important;
+    line-height: 1.35 !important;
+    opacity: 0.9;
+    margin-top: 0.25rem !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .saas-scroll-slide .pc-feature-card .w-10 {
     width: 1.75rem !important;

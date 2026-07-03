@@ -253,7 +253,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
 
             {/* Informational Callout clarifying the example */}
             <div className="p-4 bg-blue-50/50 border border-blue-100 rounded-xl mb-6 w-full max-w-[45ch]">
-              <p className="text-xs text-blue-700 leading-relaxed font-medium">
+              <p className="text-sm text-blue-700 leading-relaxed font-medium">
                 {language === 'en'
                   ? '👉 The simulator on the right demonstrates our Invoicing & Budgeting Module, which is just 1 of the 14 operational modules integrated within the GDC Platform.'
                   : language === 'es'
@@ -264,7 +264,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
             </div>
 
             {/* Key Modules List */}
-            <div className="space-y-3.5 w-full mb-8 font-sans text-xs text-slate-500">
+            <div className="space-y-3.5 w-full mb-8 font-sans text-sm text-slate-500">
               <div className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 shrink-0" />
                 <span><strong>{language === 'en' ? 'CRM & Operational' : 'CRM & Operacional'}:</strong> {language === 'en' ? 'Client history, scheduling, and service logs.' : 'Histórico de clientes, escalas e prontuários vinculados.'}</span>
@@ -319,7 +319,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                   <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#0F172A] tracking-tight">
                     {language === 'en' ? 'GDC Invoicing Simulator' : language === 'es' ? 'Simulador de Presupuestos GDC' : 'Simulador de Orçamentos GDC'}
                   </h3>
-                  <p className="text-slate-500 text-xs mt-1">
+                  <p className="text-slate-500 text-xs sm:text-sm mt-1">
                     {language === 'en' ? 'Create a complete service budget in 4 quick steps.' : language === 'es' ? 'Crea un presupuesto de servicio completo en 4 pasos rápidos.' : 'Crie um orçamento de serviço completo em 4 etapas rápidas.'}
                   </p>
                 </div>
@@ -353,56 +353,56 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                   </div>
 
                   {/* Summary 4-Cards Grid */}
-                  <div className="gdc-stats-grid grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 select-none">
+                  <div className="gdc-stats-grid grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 select-none">
                     {/* Card 1: Count */}
-                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
-                      <div className="p-2 bg-blue-50 border border-blue-100 text-blue-600">
+                    <div className="bg-white border border-[#E2E8F0] p-3 sm:p-4 flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+                      <div className="p-2 bg-blue-50 border border-blue-100 text-blue-600 shrink-0">
                         <FileText className="w-5 h-5" />
                       </div>
-                      <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                      <div className="min-w-0 w-full">
+                        <div className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase break-words">
                           {language === 'en' ? 'Budgets' : language === 'es' ? 'Presupuestos' : 'Orçamentos'}
                         </div>
-                        <div className="text-lg font-black text-slate-900">{budgets.length}</div>
+                        <div className="text-base sm:text-lg font-black text-slate-900 truncate">{budgets.length}</div>
                       </div>
                     </div>
 
                     {/* Card 2: Total Revenue */}
-                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
-                      <div className="p-2 bg-emerald-50 border border-emerald-100 text-emerald-600">
+                    <div className="bg-white border border-[#E2E8F0] p-3 sm:p-4 flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+                      <div className="p-2 bg-emerald-50 border border-emerald-100 text-emerald-600 shrink-0">
                         <DollarSign className="w-5 h-5" />
                       </div>
-                      <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                      <div className="min-w-0 w-full">
+                        <div className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase break-words">
                           {language === 'en' ? 'Total Revenue' : language === 'es' ? 'Ingreso Total' : 'Receita Total'}
                         </div>
-                        <div className="text-sm font-black text-slate-900">R$ {totalRevenue.toLocaleString('pt-BR')}</div>
+                        <div className="text-sm sm:text-base font-black text-slate-900 truncate">R$ {totalRevenue.toLocaleString('pt-BR')}</div>
                       </div>
                     </div>
 
                     {/* Card 3: Net Revenue */}
-                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
-                      <div className="p-2 bg-cyan-50 border border-cyan-100 text-cyan-600">
+                    <div className="bg-white border border-[#E2E8F0] p-3 sm:p-4 flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+                      <div className="p-2 bg-cyan-50 border border-cyan-100 text-cyan-600 shrink-0">
                         <TrendingUp className="w-5 h-5" />
                       </div>
-                      <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                      <div className="min-w-0 w-full">
+                        <div className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase break-words">
                           {language === 'en' ? 'Net Revenue' : language === 'es' ? 'Ingreso Neto' : 'Receita Líquida'}
                         </div>
-                        <div className="text-sm font-black text-slate-900">R$ {netRevenue.toLocaleString('pt-BR')}</div>
+                        <div className="text-sm sm:text-base font-black text-slate-900 truncate">R$ {netRevenue.toLocaleString('pt-BR')}</div>
                       </div>
                     </div>
 
                     {/* Card 4: Conversion */}
-                    <div className="bg-white border border-[#E2E8F0] p-4 flex items-center gap-3">
-                      <div className="p-2 bg-amber-50 border border-amber-100 text-amber-600">
+                    <div className="bg-white border border-[#E2E8F0] p-3 sm:p-4 flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left">
+                      <div className="p-2 bg-amber-50 border border-amber-100 text-amber-600 shrink-0">
                         <Percent className="w-5 h-5" />
                       </div>
-                      <div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">
+                      <div className="min-w-0 w-full">
+                        <div className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase break-words">
                           {language === 'en' ? 'Conversion' : language === 'es' ? 'Conversión' : 'Conversão'}
                         </div>
-                        <div className="text-lg font-black text-slate-900">{conversionRate}%</div>
+                        <div className="text-base sm:text-lg font-black text-slate-900 truncate">{conversionRate}%</div>
                       </div>
                     </div>
                   </div>
@@ -442,17 +442,17 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                   <div className="gdc-list-content border border-slate-100 divide-y divide-slate-100 min-h-[160px]">
                     {filteredBudgets.length > 0 ? (
                       filteredBudgets.map(b => (
-                        <div key={b.id} className="p-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
-                          <div className="text-xs">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-slate-900">{b.id}</span>
+                        <div key={b.id} className="p-4 flex justify-between items-center hover:bg-slate-50 transition-colors gap-3">
+                          <div className="text-sm min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-bold text-slate-900 text-xs sm:text-sm">{b.id}</span>
                               <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 font-mono">{b.date}</span>
                             </div>
-                            <div className="text-slate-700 font-semibold mt-1">{b.client}</div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">{b.items.map(item => translateItem(item)).join(', ')}</div>
+                            <div className="text-slate-700 font-semibold mt-1 truncate text-sm sm:text-base">{b.client}</div>
+                            <div className="text-xs text-slate-400 mt-0.5 truncate">{b.items.map(item => translateItem(item)).join(', ')}</div>
                           </div>
-                          <div className="text-right">
-                            <div className="font-bold text-slate-900 text-xs">R$ {b.total.toLocaleString('pt-BR')}</div>
+                          <div className="text-right shrink-0">
+                            <div className="font-bold text-slate-900 text-sm sm:text-base">R$ {b.total.toLocaleString('pt-BR')}</div>
                             <span className={`inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 mt-1 ${
                               b.status === 'Aprovado' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
                               b.status === 'Pago' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
@@ -533,7 +533,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                     {wizardStep === 1 && (
                       /* STEP 1: SELECT CLIENT */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                        <h4 className="font-bold text-sm text-slate-700 uppercase mb-3">
                           {language === 'en' ? 'Select client' : language === 'es' ? 'Seleccione el cliente' : 'Selecione o cliente'}
                         </h4>
                         <div className="relative mb-4">
@@ -543,12 +543,12 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                             placeholder={language === 'en' ? 'Search client...' : language === 'es' ? 'Buscar cliente...' : 'Buscar cliente...'}
                             value={selectedClient}
                             onChange={(e) => setSelectedClient(e.target.value)}
-                            className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-blue-500 font-medium"
+                            className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 font-medium"
                           />
                         </div>
                         
                         {/* Suggest list */}
-                        <div className="space-y-1 font-semibold text-xs text-slate-600">
+                        <div className="space-y-1 font-semibold text-sm text-slate-600">
                           {availableClients
                             .filter(c => c.toLowerCase().includes(selectedClient.toLowerCase()))
                             .map(c => (
@@ -572,7 +572,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                     {wizardStep === 2 && (
                       /* STEP 2: PRODUCTS/SERVICES */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                        <h4 className="font-bold text-sm text-slate-700 uppercase mb-3">
                           {language === 'en' ? 'Services & Products' : language === 'es' ? 'Servicios y Productos' : 'Serviços & Produtos'}
                         </h4>
                         <div className="space-y-2">
@@ -582,7 +582,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                               <div
                                 key={service.name}
                                 onClick={() => handleAddService(service)}
-                                className={`p-3 border cursor-pointer flex justify-between items-center text-xs font-semibold transition-all ${
+                                className={`p-3 border cursor-pointer flex justify-between items-center text-sm font-semibold transition-all ${
                                   isAdded 
                                     ? 'border-blue-500 bg-blue-50/20 text-blue-700 font-bold' 
                                     : 'border-slate-100 hover:bg-slate-50 text-slate-700'
@@ -590,7 +590,7 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                               >
                                 <div>
                                   <div>{translateItem(service.name)}</div>
-                                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">R$ {service.price.toLocaleString('pt-BR')}</div>
+                                  <div className="text-xs text-slate-400 font-mono mt-0.5">R$ {service.price.toLocaleString('pt-BR')}</div>
                                 </div>
                                 <div className={`w-5 h-5 border flex items-center justify-center ${
                                   isAdded ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-300'
@@ -607,10 +607,10 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                     {wizardStep === 3 && (
                       /* STEP 3: PAYMENT CONDITIONS */
                       <div>
-                        <h4 className="font-bold text-xs text-slate-700 uppercase mb-3">
+                        <h4 className="font-bold text-sm text-slate-700 uppercase mb-3">
                           {language === 'en' ? 'Payment Conditions' : language === 'es' ? 'Condiciones de Pago' : 'Condições de Pagamento'}
                         </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-slate-700">
                           {[
                             'Pix (À Vista - 5% Desconto)',
                             'Boleto Bancário (15 dias)',
@@ -656,24 +656,24 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
 
                     {wizardStep === 4 && (
                       /* STEP 4: SUMMARY/SUBMIT */
-                      <div className="bg-slate-50 border border-slate-100 p-5 rounded-none text-xs">
+                      <div className="bg-slate-50 border border-slate-100 p-5 rounded-none text-sm">
                         <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2 mb-4">
                           {language === 'en' ? 'Proposal Summary' : language === 'es' ? 'Resumen de la Propuesta' : 'Resumo da Proposta'}
                         </h4>
                         
                         <div className="space-y-3 font-semibold text-slate-700">
-                          <div className="flex justify-between">
+                          <div className="flex justify-between items-start gap-4">
                             <span className="text-slate-400">
                               {language === 'en' ? 'Client' : language === 'es' ? 'Cliente' : 'Cliente'}
                             </span>
-                            <span className="text-slate-900">{selectedClient || (language === 'en' ? 'Not selected' : language === 'es' ? 'No seleccionado' : 'Não selecionado')}</span>
+                            <span className="text-slate-900 break-words text-right max-w-[65%]">{selectedClient || (language === 'en' ? 'Not selected' : language === 'es' ? 'No seleccionado' : 'Não selecionado')}</span>
                           </div>
                           
-                          <div className="flex justify-between">
+                          <div className="flex justify-between items-start gap-4">
                             <span className="text-slate-400">
                               {language === 'en' ? 'Conditions' : language === 'es' ? 'Condiciones' : 'Condições'}
                             </span>
-                            <span className="text-slate-900">
+                            <span className="text-slate-900 break-words text-right max-w-[65%]">
                               {(() => {
                                 const m = paymentMethod;
                                 if (language === 'en') {
@@ -700,14 +700,14 @@ export default function GdcSpotlight({ showOnly = 'all' }: GdcSpotlightProps) {
                               {language === 'en' ? 'Contracted Services' : language === 'es' ? 'Servicios Contratados' : 'Serviços Contratados'}
                             </span>
                             {selectedServices.map(s => (
-                              <div key={s.name} className="flex justify-between font-medium text-slate-800 py-1">
-                                <span>{translateItem(s.name)}</span>
-                                <span className="font-mono">R$ {s.price.toLocaleString('pt-BR')}</span>
+                              <div key={s.name} className="flex justify-between items-start gap-4 font-medium text-slate-800 py-1">
+                                <span className="break-words">{translateItem(s.name)}</span>
+                                <span className="font-mono shrink-0">R$ {s.price.toLocaleString('pt-BR')}</span>
                               </div>
                             ))}
                           </div>
 
-                          <div className="border-t border-slate-200 pt-3 flex justify-between font-black text-sm text-[#2563EB]">
+                          <div className="border-t border-slate-200 pt-3 flex justify-between items-center font-black text-sm sm:text-base text-[#2563EB]">
                             <span>{language === 'en' ? 'TOTAL PROPOSAL' : language === 'es' ? 'TOTAL PROPUESTA' : 'TOTAL PROPOSTA'}</span>
                             <span className="font-mono">
                               R$ {selectedServices.reduce((acc, curr) => acc + curr.price, 0).toLocaleString('pt-BR')}

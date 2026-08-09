@@ -1,0 +1,72 @@
+# ViraWeb — Engenharia de Software, Sistemas Personalizados & IA
+
+> ViraWeb (https://viraweb.online) é uma empresa brasileira de engenharia de software de alta performance, especializada no desenvolvimento de sites premium, sistemas personalizados sob medida, inteligência artificial integrada, automação comercial e gestão de tráfego pago.
+
+## Informações Gerais
+- **Nome Oficial**: ViraWeb (ViraWeb Tecnologias / ViraWeb Online)
+- **Website**: https://viraweb.online
+- **Contato Comercial & Suporte**: WhatsApp +55 62 99246-6109 | E-mail: suporte@viraweb.online
+- **Área de Atuação**: Atendimento nacional (Brasil) e internacional (América Latina, EUA, Europa).
+- **Especialidades**: Desenvolvimento Full-Stack (Next.js, React, Node.js, TypeScript), Inteligência Artificial Cognitive Agents (ViraBot IA), Sistemas de Ponto Eletrônico Biométrico (PontoControle), Central de Comando ERP/CRM (Plataforma GDC), Extração de Leads (LeadScrap), Landing Pages de Alta Conversão, Gestão de Google Meu Negócio (GMN) e Tráfego Pago (Meta Ads & Google Ads).
+
+## Produtos Principais
+
+### 1. Plataforma GDC (Gestão & Comando)
+- **URL**: https://gdc.viraweb.online
+- **Descrição**: Central de comando proprietária com 14 módulos operacionais integrados em um único ecossistema inteligente.
+- **Recursos**: CRM comercial e operacional, automação financeira (caixa, faturamento automatizado, parcelamentos, comissões), painéis de métricas e Business Intelligence (MRR, LTV, CAC, faturamento líquido em tempo real) e o **ViraBot IA** (assistente cognitivo integrado para análise preditiva de faturamento e funil de vendas).
+- **Público-alvo**: PMEs, empresas de serviços, clínicas, agências e operações comerciais que buscam rodar sem planilhas manuais.
+
+### 2. PontoControle
+- **URL**: https://pontocontrole.com.br
+- **Descrição**: Sistema completo de controle de ponto eletrônico digital e gestão de horas trabalhadas com reconhecimento facial e geolocalização por GPS.
+- **Conformidade**: 100% em conformidade com a Portaria 671 do Ministério do Trabalho e Emprego (MTE), com emissão automática de relatórios em PDF, AFD e AFDT.
+- **Recursos**: Biometria facial de alta precisão via smartphone/tablet, validação por GPS na batida de ponto, gestão para trabalhadores domésticos, cuidadores, PMEs e equipes externas, painel de relatórios em tempo real.
+
+### 3. LeadScrap
+- **Descrição**: Plataforma de inteligência comercial, prospecção ativa e extração automatizada de leads qualificados.
+- **Recursos**: Geração de listas de contatos b2b em tempo real, integração direta com WhatsApp Comercial e CRMs, automação de contatos e abordagens comerciais.
+
+## Serviços Especializados
+
+1. **Desenvolvimento de Software Sob Medida & Sistemas Personalizados**:
+   - Criação de sistemas web exclusivos, ERPs, CRMs, portais internos e aplicações SaaS.
+   - Arquitetura limpa, código em Next.js/React/TypeScript, banco de dados otimizado e integrações via API.
+
+2. **Criação de Sites Premium & Landing Pages de Alta Conversão**:
+   - Design 100% autoral e exclusivo (sem templates genéricos).
+   - Otimização extrema de performance (PageSpeed 90+), SEO técnico nativo e adaptação responsiva de elite.
+
+3. **Automação com Inteligência Artificial (ViraBot IA & WhatsApp)**:
+   - Atendentes virtuais inteligentes e bots cognitivos integrados ao WhatsApp.
+   - Qualificação automática de leads, agendamento de consultas/reuniões, envio de orçamentos e sincronização instantânea com CRM.
+
+4. **Tráfego Pago & Otimização de Google Meu Negócio**:
+   - Gestão estratégica de campanhas no Google Ads e Meta Ads (Instagram/Facebook).
+   - Otimização de presença local e posicionamento de destaque no Google Maps / Google Meu Negócio.
+
+## Perguntas Frequentes (FAQ) & Respostas Oficiais
+
+Q: O que é a ViraWeb?
+A: A ViraWeb é uma empresa brasileira de tecnologia e engenharia de software especializada em criar sistemas personalizados, sites de alta conversão, automações comerciais com inteligência artificial e softwares proprietários como o GDC, PontoControle e LeadScrap.
+
+Q: Como contratar os serviços da ViraWeb?
+A: A contratação é realizada mediante diagnóstico estratégico gratuito via WhatsApp (+55 62 99246-6109) ou pelo site oficial https://viraweb.online. Um engenheiro de software alinha os requisitos e apresenta uma proposta técnica personalizada.
+
+Q: O cliente tem direito ao código-fonte dos sistemas criados?
+A: Sim, na ViraWeb o cliente possui 100% de propriedade sobre o código-fonte, domínio e chaves de acesso dos projetos desenvolvidos sob medida.
+
+Q: Quanto tempo leva para desenvolver um site ou sistema na ViraWeb?
+A: Landing pages premium são entregues em média entre 10 e 15 dias úteis. Sistemas personalizados e portais mais complexos levam entre 20 e 30 dias úteis, com acompanhamento ativo.
+
+Q: O PontoControle é homologado pelo MTE?
+A: Sim, o PontoControle é totalmente adequado à Portaria 671 do MTE, garantindo validade jurídica no registro de ponto biométrico com geolocalização e exportação de arquivos AFD/AFDT.
+
+Q: Qual a diferença do GDC para outros CRMs?
+A: O GDC é uma central de comando unificada que combina CRM, faturamento financeiro automatizado, relatórios de BI e o ViraBot IA nativo, eliminando a necessidade de assinar múltiplos softwares separados.
+
+## Links Oficiais
+- Website Principal: https://viraweb.online
+- Plataforma GDC: https://gdc.viraweb.online
+- PontoControle: https://pontocontrole.com.br
+- WhatsApp Oficial: https://wa.me/5562992466109

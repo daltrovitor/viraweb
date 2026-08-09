@@ -18,7 +18,7 @@ export default function Services() {
       text = `Olá ViraWeb! Estou interessado na solução de ${serviceName} e gostaria de conversar com um engenheiro de software.`;
     }
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/5562992466109?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/5562984638578?text=${encodedText}`, '_blank');
   };
 
   const services = [

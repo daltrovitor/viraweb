@@ -65,7 +65,7 @@ export default function PontoControleSection({ showOnly }: { showOnly?: 'simulat
       ? '¡Hola ViraWeb! Estou interesado en la herramienta PontoControle.'
       : 'Olá ViraWeb! Estou interessado no PontoControle para controle de ponto e banco de horas.';
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/5562992466109?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/5562984638578?text=${encodedText}`, '_blank');
   };
 
   const handleSimulateScan = () => {

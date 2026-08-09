@@ -14,7 +14,7 @@ export default function LeadScrapSection() {
       ? '¡Hola ViraWeb! Estou interesado en la herramienta de prospección LeadScrap (LS).'
       : 'Olá ViraWeb! Estou interessado no LeadScrap (LS) para automação de prospecção e disparos.';
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/5562992466109?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/5562984638578?text=${encodedText}`, '_blank');
   };
 
   return (

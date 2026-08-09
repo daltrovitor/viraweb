@@ -18,7 +18,7 @@ export default function Hero() {
       ? '¡Hola ViraWeb! Quiero agendar un diagnóstico estratégico gratuito.'
       : 'Olá ViraWeb! Quero agendar um diagnóstico estratégico gratuito para minha empresa.';
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/5562992466109?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/5562984638578?text=${encodedText}`, '_blank');
   };
 
   useEffect(() => {

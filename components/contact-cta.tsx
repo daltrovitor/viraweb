@@ -20,7 +20,7 @@ export default function ContactCta() {
         {/* Centered list of large FlipLinks occupying full width */}
         <div className="w-full flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10 text-center select-none py-6">
           <FlipLink 
-            href="https://wa.me/5562992466109" 
+            href="https://wa.me/5562984638578" 
             className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-slate-900  transition-colors uppercase leading-[0.75]"
           >
             WhatsApp
@@ -41,7 +41,7 @@ export default function ContactCta() {
           </FlipLink>
           
           <FlipLink 
-            href="https://wa.me/5562992466109" 
+            href="https://wa.me/5562984638578" 
             className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-black transition-colors uppercase leading-[0.75]"
           >
             {language === 'en' ? 'Start Now!' : language === 'es' ? '¡Comience Ahora!' : 'Começar Agora!'}

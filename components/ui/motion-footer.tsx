@@ -267,7 +267,7 @@ export function CinematicFooter() {
       : language === 'es'
       ? `¡Hola ViraWeb! Me gustaría hablar sobre ${subject} y escala digital.`
       : `Olá ViraWeb! Gostaria de falar sobre ${subject} e escala digital.`;
-    window.open(`https://wa.me/5562992466109?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/5562984638578?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (

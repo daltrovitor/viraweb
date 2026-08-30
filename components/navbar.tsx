@@ -23,6 +23,7 @@ export default function Navbar() {
   };
 
   const navLinks = [
+    { label: t('nav.package'), href: '/propostas' },
     { label: t('nav.services'), href: '#services' },
     { label: t('nav.gdc'), href: '#gdc' },
     { label: 'PontoControle', href: '#pontocontrole' },

@@ -16,9 +16,16 @@ export const translations: Record<Language, Record<string, string>> = {
   pt: {
     // Navigation
     "nav.services": "Soluções",
+    "nav.package": "Pacote ViraWeb",
     "nav.gdc": "Plataforma GDC",
     "nav.contact": "Fale Conosco",
     "nav.button": "Acelerar Negócio",
+
+    // Home Package Spotlight
+    "home.package.badge": "✦ Pacote Turn-Key Pré-Configurado",
+    "home.package.title": "Quer acelerar rápido? Conheça o Pacote ViraWeb.",
+    "home.package.subtitle": "Website em Next.js + Domínio no Google Maps + Gestão de Tráfego Pago + ViraBot 24/7 no WhatsApp com até 25% de economia.",
+    "home.package.cta": "Ver Pacote Completo & Simular Proposta",
 
     // Hero Section
     "hero.badge": "✦ Infraestrutura Digital de Elite",
@@ -202,9 +209,16 @@ export const translations: Record<Language, Record<string, string>> = {
   en: {
     // Navigation
     "nav.services": "Solutions",
+    "nav.package": "ViraWeb Package",
     "nav.gdc": "GDC Platform",
     "nav.contact": "Contact Us",
     "nav.button": "Accelerate Business",
+
+    // Home Package Spotlight
+    "home.package.badge": "✦ Turn-Key Pre-Configured Package",
+    "home.package.title": "Looking for fast growth? Explore the ViraWeb Package.",
+    "home.package.subtitle": "Next.js Website + Google Maps Dominance + Paid Ads Management + 24/7 WhatsApp ViraBot with up to 25% savings.",
+    "home.package.cta": "View Complete Package & Customize Proposal",
 
     // Hero Section
     "hero.badge": "✦ Elite Digital Infrastructure",
@@ -388,9 +402,16 @@ export const translations: Record<Language, Record<string, string>> = {
   es: {
     // Navigation
     "nav.services": "Soluciones",
+    "nav.package": "Paquete ViraWeb",
     "nav.gdc": "Plataforma GDC",
     "nav.contact": "Contacto",
     "nav.button": "Acelerar Negocio",
+
+    // Home Package Spotlight
+    "home.package.badge": "✦ Paquete Turn-Key Preconfigurado",
+    "home.package.title": "¿Busca acelerar rápido? Conozca el Paquete ViraWeb.",
+    "home.package.subtitle": "Sitio Web en Next.js + Dominio en Google Maps + Gestión de Tráfico Pago + ViraBot 24/7 en WhatsApp con hasta 25% de ahorro.",
+    "home.package.cta": "Ver Paquete Completo y Simular Propuesta",
 
     // Hero Section
     "hero.badge": "✦ Infraestrutura Digital de Élite",

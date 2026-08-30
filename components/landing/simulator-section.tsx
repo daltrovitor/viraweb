@@ -1,21 +1,20 @@
 "use client"
 
 import { useState } from "react"
-import { Check, Sliders, Sparkles, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react"
-import { motion, useReducedMotion } from "framer-motion"
+import { Check, AlertCircle, ArrowRight } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 import {
-  SERVICES,
+  getServices,
   ServiceId,
   PACKAGE_IDS,
   quoteTotals,
-  brl,
   waLink,
   planMessage,
 } from "@/lib/pricing"
 import { cn } from "@/lib/utils"
 
 export function LandingSimulator() {
-  const reduce = useReducedMotion()
+  const { language } = useTranslation()
   const [selected, setSelected] = useState<ServiceId[]>(PACKAGE_IDS)
 
   const toggleService = (id: ServiceId) => {
@@ -28,99 +27,93 @@ export function LandingSimulator() {
     setSelected(PACKAGE_IDS)
   }
 
-  const totals = quoteTotals(selected)
+  const services = getServices(language)
+  const totals = quoteTotals(selected, language)
 
   return (
-    <section id="simulador" className="relative isolate overflow-hidden bg-[#F8FAFC] border-b border-[#E2E8F0] px-4 py-20 md:px-8 md:py-28 text-slate-900 select-none">
-      <div className="mx-auto max-w-[1200px] relative z-10">
+    <section id="simulador" className="relative bg-slate-50/70 border-b border-slate-200 py-20 lg:py-28 text-slate-900">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
         {/* Section Header */}
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-bold text-[#2563EB] mb-3">
-            <Sliders className="h-3.5 w-3.5 text-[#2563EB]" />
-            <span>Calculadora em Tempo Real</span>
-          </div>
-          <h2 className="text-3xl font-black tracking-tight text-[#0F172A] sm:text-4xl md:text-5xl leading-tight">
-            Simulador de Plano Personalizado
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg font-medium">
-            Marque ou desmarque os serviços em tempo real para visualizar o valor exato do Setup Único e da Recorrência Mensal.
+        <div className="max-w-3xl">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-blue-600 mb-3">
+            {language === "en" ? "SCOPE & INVESTMENT CALCULATOR" : language === "es" ? "CALCULADORA DE ALCANCE E INVERSIÓN" : "CALCULADORA DE ESCOPO"}
           </p>
-        </motion.div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-950">
+            {language === "en" ? "Custom Plan Simulator" : language === "es" ? "Simulador de Plan Personalizado" : "Simulador de Plano Personalizado"}
+          </h2>
+          <p className="mt-4 text-base text-slate-600 leading-relaxed font-normal">
+            {language === "en"
+              ? "Select the necessary modules for your company. Setup and monthly recurring costs are calculated in real time with progressive discounts."
+              : language === "es"
+              ? "Seleccione los módulos requeridos para su empresa. Los valores de Setup y Recurrencia mensual se calculan en tiempo real."
+              : "Selecione os módulos necessários para a operação da sua empresa. Os valores de Setup e Recorrência são calculados em tempo real."}
+          </p>
+        </div>
 
-        {/* Discount Progress Rule Banner */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-blue-100 bg-white p-4 text-center text-xs font-semibold text-slate-700 shadow-xs">
-          <div className="flex items-center gap-1.5 text-[#2563EB]">
-            <Sparkles className="h-4 w-4" />
-            <span>Regras de Desconto Progressivo:</span>
-          </div>
-          <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">
-            2 a 3 serviços: <strong className="text-[#2563EB]">10% OFF no Setup</strong>
+        {/* Discount Rules Notice */}
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-l-2 border-blue-600 bg-white py-3 px-4 text-xs text-slate-600">
+          <span className="font-semibold text-slate-900">
+            {language === "en" ? "Progressive discount policy:" : language === "es" ? "Política de descuento progresivo:" : "Regras de desconto progressivo:"}
           </span>
-          <span className="rounded-full bg-blue-50 px-3 py-1 text-[#2563EB] font-bold border border-blue-200">
-            4 serviços (Pacote ViraWeb): <strong>20% OFF no Setup + 15% OFF na Mensalidade</strong>
-          </span>
+          <span>&bull; {language === "en" ? "2 to 3 services:" : language === "es" ? "2 a 3 servicios:" : "2 a 3 serviços:"} <strong className="font-semibold text-slate-900">{language === "en" ? "10% off on Setup" : language === "es" ? "10% de descuento en Setup" : "10% de desconto no Setup"}</strong></span>
+          <span>&bull; {language === "en" ? "4 services (Full Package):" : language === "es" ? "4 servicios (Paquete Completo):" : "4 serviços (Pacote Completo):"} <strong className="font-semibold text-blue-600">{language === "en" ? "20% on Setup + 15% Monthly" : language === "es" ? "20% en Setup + 15% Mensual" : "20% no Setup + 15% na Mensalidade"}</strong></span>
         </div>
 
         {/* Simulator Grid */}
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Services Selection Column */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Selecione os módulos desejados:
+          <div className="lg:col-span-7 flex flex-col gap-3">
+            <div className="flex items-center justify-between pb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-500">
+                {language === "en" ? `Available modules (${selected.length}/${services.length})` : language === "es" ? `Módulos disponibles (${selected.length}/${services.length})` : `Módulos disponíveis (${selected.length}/${services.length})`}
               </span>
               {!totals.fullPackage && (
                 <button
                   type="button"
                   onClick={selectAll}
-                  className="text-xs font-bold text-[#2563EB] underline-offset-4 hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-blue-600 hover:text-blue-800 cursor-pointer"
                 >
-                  Marcar todos (Liberar 20% OFF Setup + 15% OFF Mensal)
+                  {language === "en" ? "Select all (Unlock 20% + 15% OFF)" : language === "es" ? "Seleccionar todos (Liberar 20% + 15% OFF)" : "Selecionar todos (Liberar 20% + 15% OFF)"}
                 </button>
               )}
             </div>
 
-            {SERVICES.map((service) => {
+            {services.map((service) => {
               const isChecked = selected.includes(service.id)
               return (
                 <div
                   key={service.id}
                   onClick={() => toggleService(service.id)}
                   className={cn(
-                    "group relative flex cursor-pointer items-start gap-4 rounded-2xl border p-5 transition-all duration-300 select-none shadow-xs",
+                    "group relative flex cursor-pointer items-start gap-4 border p-5 rounded-sm transition-all select-none",
                     isChecked
-                      ? "border-[#2563EB] bg-white ring-2 ring-[#2563EB]/20 shadow-md"
-                      : "border-[#E2E8F0] bg-white/70 hover:border-slate-300 hover:bg-white"
+                      ? "border-slate-900 bg-white shadow-xs"
+                      : "border-slate-200 bg-white/70 hover:border-slate-400"
                   )}
                 >
                   <div
                     className={cn(
-                      "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border transition-all duration-300",
+                      "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-xs border transition-colors",
                       isChecked
-                        ? "border-[#2563EB] bg-[#2563EB] text-white"
-                        : "border-slate-300 bg-transparent text-transparent group-hover:border-slate-400"
+                        ? "border-slate-900 bg-slate-900 text-white"
+                        : "border-slate-300 bg-white text-transparent group-hover:border-slate-400"
                     )}
                   >
-                    <Check className="h-4 w-4 stroke-[2.5]" />
+                    <Check className="h-3 w-3 stroke-[3]" />
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h4 className="text-base font-bold tracking-tight text-[#0F172A]">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <h3 className="text-sm font-bold text-slate-950">
                         {service.name}
-                      </h4>
-                      <div className="flex flex-wrap items-center gap-3 font-mono text-xs font-semibold">
-                        <span className="text-slate-500">Setup: <strong className="text-slate-900">{brl(service.setup)}</strong></span>
-                        <span className="text-[#2563EB]">Recorrência: <strong>{brl(service.monthly)}/mês</strong></span>
+                      </h3>
+                      <div className="flex items-baseline gap-3 font-mono text-xs">
+                        <span className="text-slate-500">Setup: <strong className="font-semibold text-slate-900">{service.setupFormatted}</strong></span>
+                        <span className="text-slate-400">|</span>
+                        <span className="text-slate-700">{language === "en" ? "Monthly:" : language === "es" ? "Mensual:" : "Mensal:"} <strong className="font-semibold text-slate-900">{service.monthlyFormatted}{language === "en" ? "/mo" : language === "es" ? "/mes" : "/mês"}</strong></span>
                       </div>
                     </div>
-                    <p className="mt-1.5 text-xs leading-relaxed text-slate-500 font-medium">
+                    <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -129,72 +122,94 @@ export function LandingSimulator() {
             })}
           </div>
 
-          {/* Real-time Order Summary Card */}
-          <div className="sticky top-24 rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-xl md:p-8">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <h3 className="text-lg font-bold tracking-tight text-[#0F172A]">
-                Resumo do Seu Plano
+          {/* Real-time Order Summary Column */}
+          <div className="lg:col-span-5 sticky top-24 border border-slate-200 bg-white p-6 sm:p-7 rounded-sm shadow-xs">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+              <h3 className="text-sm font-mono font-semibold uppercase tracking-wider text-slate-900">
+                {language === "en" ? "Proposal Summary" : language === "es" ? "Resumen de la Propuesta" : "Resumo da Proposta"}
               </h3>
               {totals.fullPackage ? (
-                <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#2563EB] border border-blue-200">
-                  20% OFF Setup + 15% OFF Mensal
+                <span className="text-[11px] font-mono font-semibold text-blue-700">
+                  20% + 15% OFF ACTIVE
                 </span>
               ) : totals.discounted ? (
-                <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#2563EB] border border-blue-200">
-                  10% OFF Setup
+                <span className="text-[11px] font-mono font-semibold text-blue-700">
+                  10% OFF SETUP
                 </span>
               ) : null}
             </div>
 
             {/* Selected Items List */}
-            <div className="mt-4 min-h-[100px] space-y-2">
+            <div className="mt-4 min-h-[90px] divide-y divide-slate-100">
               {totals.items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-6 text-center text-slate-400">
-                  <AlertCircle className="h-8 w-8 stroke-1" />
-                  <p className="mt-2 text-xs font-medium">Marque os serviços ao lado para simular o valor final.</p>
+                  <AlertCircle className="h-6 w-6 stroke-1 mb-1.5" />
+                  <p className="text-xs">
+                    {language === "en"
+                      ? "Select at least one module to compute the proposal."
+                      : language === "es"
+                      ? "Seleccione al menos un módulo para calcular la propuesta."
+                      : "Selecione ao menos um serviço para calcular a proposta."}
+                  </p>
                 </div>
               ) : (
                 totals.items.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between text-xs font-semibold text-slate-700">
-                    <span>{item.name}</span>
-                    <span className="font-mono text-slate-500">{brl(item.setup)} + {brl(item.monthly)}/mês</span>
+                  <div key={item.id} className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between text-xs">
+                    <span className="text-slate-700 font-medium truncate max-w-[200px]">{item.name}</span>
+                    <span className="font-mono text-slate-500 shrink-0">{item.setupFormatted} + {item.monthlyFormatted}{language === "en" ? "/m" : language === "es" ? "/m" : "/m"}</span>
                   </div>
                 ))
               )}
             </div>
 
-            {/* Totals */}
-            <div className="mt-6 border-t border-slate-100 pt-5">
-              {totals.fullPackage ? (
-                <div className="mb-3 rounded-xl bg-emerald-50 p-2.5 text-center text-xs font-bold text-emerald-600 border border-emerald-200">
-                  Economia do Pacote Completo: {brl(totals.setupSaved)} no setup + {brl(totals.monthlySaved)}/mês!
-                </div>
-              ) : totals.discounted ? (
-                <div className="mb-3 rounded-xl bg-blue-50 p-2.5 text-center text-xs font-bold text-[#2563EB] border border-blue-200">
-                  Desconto de 10% no Setup aplicado! ({brl(totals.setupSaved)} de economia)
-                </div>
-              ) : null}
-
-              <div className="flex items-center justify-between text-sm text-slate-600 font-medium">
-                <span>Setup Único (Taxa única):</span>
-                <div className="text-right">
-                  {totals.setupSaved > 0 && (
-                    <span className="mr-2 text-xs text-slate-400 line-through font-mono">{brl(totals.setupGross)}</span>
+            {/* Financial Totals */}
+            <div className="mt-6 border-t border-slate-200 pt-5 space-y-3">
+              {totals.discounted && (
+                <div className="bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-700">
+                  {totals.fullPackage ? (
+                    <span>
+                      {language === "en" ? (
+                        <>Package discount applied: <strong className="font-semibold text-blue-700">{totals.setupSavedFormatted}</strong> on setup and <strong className="font-semibold text-blue-700">{totals.monthlySavedFormatted}/mo</strong>.</>
+                      ) : language === "es" ? (
+                        <>Descuento de paquete aplicado: <strong className="font-semibold text-blue-700">{totals.setupSavedFormatted}</strong> en setup y <strong className="font-semibold text-blue-700">{totals.monthlySavedFormatted}/mes</strong>.</>
+                      ) : (
+                        <>Desconto de pacote aplicado: <strong className="font-semibold text-blue-700">{totals.setupSavedFormatted}</strong> no setup e <strong className="font-semibold text-blue-700">{totals.monthlySavedFormatted}/mês</strong>.</>
+                      )}
+                    </span>
+                  ) : (
+                    <span>
+                      {language === "en" ? (
+                        <>10% Setup discount applied: <strong className="font-semibold text-slate-900">{totals.setupSavedFormatted} savings</strong>.</>
+                      ) : language === "es" ? (
+                        <>10% de descuento en Setup aplicado: <strong className="font-semibold text-slate-900">{totals.setupSavedFormatted} de ahorro</strong>.</>
+                      ) : (
+                        <>Desconto de 10% aplicado no Setup: <strong className="font-semibold text-slate-900">{totals.setupSavedFormatted} de economia</strong>.</>
+                      )}
+                    </span>
                   )}
-                  <span className="font-mono text-base font-black text-[#0F172A]">
-                    {brl(totals.setup)}
+                </div>
+              )}
+
+              <div className="flex items-baseline justify-between text-xs text-slate-600">
+                <span>{language === "en" ? "One-time Setup (Implementation Fee):" : language === "es" ? "Setup Único (Tasa de Implementación):" : "Setup Único (Taxa de Implementação):"}</span>
+                <div className="text-right font-mono">
+                  {totals.setupSaved > 0 && (
+                    <span className="mr-2 text-xs text-slate-400 line-through">{totals.setupGrossFormatted}</span>
+                  )}
+                  <span className="text-base font-bold text-slate-950">
+                    {totals.setupFormatted}
                   </span>
                 </div>
               </div>
 
-              <div className="mt-3 flex items-center justify-between text-sm text-slate-600 font-medium">
-                <span>Recorrência Mensal:</span>
-                <div className="text-right">
+              <div className="flex items-baseline justify-between text-xs text-slate-600 border-t border-slate-100 pt-2.5">
+                <span>{language === "en" ? "Monthly Recurrence (Hosting & Support):" : language === "es" ? "Mensualidad Recurrente (Hosting y Soporte):" : "Recorrência Mensal (Hospedagem & Gestão):"}</span>
+                <div className="text-right font-mono">
                   {totals.monthlySaved > 0 && (
-                    <span className="mr-2 text-xs text-slate-400 line-through font-mono">{brl(totals.monthlyGross)}/mês</span>
+                    <span className="mr-2 text-xs text-slate-400 line-through">{totals.monthlyGrossFormatted}{language === "en" ? "/mo" : language === "es" ? "/mes" : "/mês"}</span>
                   )}
-                  <span className="font-mono text-lg font-black text-[#2563EB]">
-                    {brl(totals.monthly)}<span className="text-xs font-normal text-slate-500">/mês</span>
+                  <span className="text-lg font-bold text-blue-600">
+                    {totals.monthlyFormatted}<span className="text-xs text-slate-500 font-normal">{language === "en" ? "/mo" : language === "es" ? "/mes" : "/mês"}</span>
                   </span>
                 </div>
               </div>
@@ -203,18 +218,22 @@ export function LandingSimulator() {
             {/* Action CTA */}
             <div className="mt-6">
               <a
-                href={waLink(planMessage(selected, false))}
+                href={waLink(planMessage(selected, false, language))}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm px-6 py-4 rounded-xl transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-center"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-sm bg-[#2563EB] px-5 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8] cursor-pointer text-center"
               >
-                <span>Contratar Meu Plano Personalizado</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>{language === "en" ? "Contract My Custom Plan" : language === "es" ? "Contratar Mi Plan Personalizado" : "Contratar Meu Plano Personalizado"}</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
 
-            <p className="mt-3 text-center text-[11px] text-slate-400 font-medium">
-              Envio pré-formatado via WhatsApp. Transparência total e suporte técnico ativo.
+            <p className="mt-3 text-center text-[11px] text-slate-500 font-normal">
+              {language === "en"
+                ? "The proposal above will be sent pre-formatted to our technical WhatsApp."
+                : language === "es"
+                ? "La propuesta será enviada preformateada a nuestro WhatsApp técnico."
+                : "A proposta acima será enviada pré-formatada para o nosso WhatsApp técnico."}
             </p>
           </div>
         </div>

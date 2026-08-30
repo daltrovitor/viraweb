@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar';
 import Hero from '@/components/hero';
 import LogoWall from '@/components/logo-wall';
 import Services from '@/components/services';
+import HomePackageSpotlight from '@/components/home-package-spotlight';
 import GdcSpotlight from '@/components/gdc-spotlight';
 import PontoControleSection from '@/components/pontocontrole-section';
 import LeadScrapSection from '@/components/leadscrap-section';
@@ -94,6 +95,9 @@ export default function Home() {
 
           {/* Services Bento Grid */}
           <Services />
+
+          {/* Pacote ViraWeb Conversion Spotlight Banner */}
+          <HomePackageSpotlight />
 
           {/* Pinned Horizontal Storytelling Scroll for SaaS sections on Mobile and Desktop */}
           <div className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-hidden">

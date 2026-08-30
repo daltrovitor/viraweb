@@ -1,177 +1,191 @@
 "use client"
 
-import { Check, Sparkles, Globe, MapPin, Target, Bot, ArrowRight } from "lucide-react"
-import { motion, useReducedMotion } from "framer-motion"
-import { SERVICES, PACKAGE_IDS, quoteTotals, brl, waLink, packageMessage } from "@/lib/pricing"
-
-const deliverables = [
-  {
-    id: "website",
-    title: "1. Landing Page / Website Ultra-Rápido",
-    tag: "Next.js + Tailwind",
-    desc: "Site institucional ou landing page moderna de alta conversão, 100% responsiva, SEO técnico e carregamento instantâneo.",
-    icon: Globe,
-  },
-  {
-    id: "gmn",
-    title: "2. Otimização & Domínio do Google Meu Negócio",
-    tag: "SEO Local & Mapa",
-    desc: "Configuração completa da ficha, catálogo de produtos/serviços, estratégia de avaliações 5 estrelas e topo das pesquisas locais.",
-    icon: MapPin,
-  },
-  {
-    id: "ads",
-    title: "3. Gestão de Tráfego Pago",
-    tag: "Google Ads & Meta Ads",
-    desc: "Criação de campanhas, criativos de anúncios, direcionamento para públicos qualificados e otimização contínua de ROI.",
-    icon: Target,
-  },
-  {
-    id: "virabot",
-    title: "4. ViraBot WhatsApp",
-    tag: "Atendimento & Agendamento 24/7",
-    desc: "Chatbot de IA inteligente ativo no seu WhatsApp para triagem, tira-dúvidas de clientes e agendamento de atendimentos.",
-    icon: Bot,
-  },
-]
+import { ArrowRight, Check } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
+import { PACKAGE_IDS, quoteTotals, waLink, packageMessage } from "@/lib/pricing"
 
 export function LandingPackage() {
-  const reduce = useReducedMotion()
-  const totals = quoteTotals(PACKAGE_IDS)
+  const { language } = useTranslation()
+  const totals = quoteTotals(PACKAGE_IDS, language)
+
+  const deliverables = [
+    {
+      num: "01",
+      title: language === "en" ? "Website / Landing Page" : language === "es" ? "Sitio Web / Landing Page" : "Website / Landing Page",
+      category: "Next.js + Tailwind",
+      desc: language === "en"
+        ? "Modern high-converting institutional website or landing page, 100% responsive, native technical SEO, and instant load times."
+        : language === "es"
+        ? "Sitio web o landing page moderna de alta conversión, 100% responsiva, SEO técnico nativo y carga instantánea."
+        : "Site institucional ou landing page moderna de alta conversão, 100% responsiva, SEO técnico nativo e carregamento instantâneo.",
+    },
+    {
+      num: "02",
+      title: language === "en" ? "Google Business Profile" : language === "es" ? "Google Mi Negocio" : "Google Meu Negócio",
+      category: "SEO Local & Maps",
+      desc: language === "en"
+        ? "Complete profile optimization, services catalog, review strategy, and top ranking in local searches."
+        : language === "es"
+        ? "Optimización completa de la ficha, catálogo de servicios, estrategia de reseñas y posicionamiento top en búsquedas locales."
+        : "Otimização completa da ficha, catálogo de serviços, estratégia de avaliações e posicionamento no topo das pesquisas locais.",
+    },
+    {
+      num: "03",
+      title: language === "en" ? "Paid Media Management" : language === "es" ? "Gestión de Tráfico Pago" : "Gestão de Tráfego Pago",
+      category: "Google Ads & Meta Ads",
+      desc: language === "en"
+        ? "Campaign creation, ad creatives, audience testing, and ongoing optimization focused on qualified lead generation."
+        : language === "es"
+        ? "Creación de campañas, creatividades, pruebas de audiencia y optimización continua orientada a leads calificados."
+        : "Criação de campanhas, criativos, testes de públicos e otimização contínua com foco em geração de leads qualificados.",
+    },
+    {
+      num: "04",
+      title: "ViraBot WhatsApp",
+      category: language === "en" ? "24/7 Automation" : language === "es" ? "Automatización 24/7" : "Automação 24/7",
+      desc: language === "en"
+        ? "Instant 24/7 response on company WhatsApp, customer qualification, answering frequent questions, and automated booking."
+        : language === "es"
+        ? "Atención inmediata 24/7 en WhatsApp, calificación de clientes, respuesta a preguntas frecuentes y agendamiento automático."
+        : "Atendimento imediato no WhatsApp da empresa, triagem de clientes, resposta a dúvidas frequentes e agendamento automático.",
+    },
+  ]
 
   return (
-    <section id="pacote" className="relative isolate overflow-hidden bg-white border-b border-[#E2E8F0] px-4 py-20 md:px-8 md:py-28 text-slate-900 select-none">
-      {/* Blueprint grid lines overlay */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-[25%] left-0 w-full h-[1px] bg-[#E2E8F0]" />
-        <div className="absolute top-[75%] left-0 w-full h-[1px] bg-[#E2E8F0]" />
-        <div className="absolute left-[25%] top-0 h-full w-[1px] bg-[#E2E8F0]" />
-        <div className="absolute left-[75%] top-0 h-full w-[1px] bg-[#E2E8F0]" />
-      </div>
-
-      <div className="mx-auto max-w-[1200px] relative z-10">
+    <section id="pacote" className="relative bg-white border-b border-slate-200 py-20 lg:py-28 text-slate-900">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
         {/* Section Header */}
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-bold text-[#2563EB] mb-3">
-            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
-            <span>Solução Turn-Key Pré-Configurada</span>
-          </div>
-          <h2 className="text-3xl font-black tracking-tight text-[#0F172A] sm:text-4xl md:text-5xl leading-tight">
-            Pacote ViraWeb <span className="block text-[#2563EB] text-2xl sm:text-3xl font-bold mt-1">(Atraia, Posicione e Converta no Automático)</span>
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#475569] md:text-lg font-medium">
-            A solução completa para PMEs que querem acelerar rápido com infraestrutura digital de ponta a ponta.
+        <div className="max-w-3xl">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-blue-600 mb-3">
+            {language === "en" ? "INTEGRATED TURN-KEY SOLUTION" : language === "es" ? "SOLUCIÓN TURN-KEY INTEGRADA" : "SOLUÇÃO TURN-KEY INTEGRADA"}
           </p>
-        </motion.div>
-
-        {/* Deliverables Grid */}
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {deliverables.map((item, index) => {
-            const Icon = item.icon
-            return (
-              <motion.div
-                key={item.id}
-                className="group relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-6 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-blue-300 hover:bg-white"
-                initial={reduce ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div>
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-5 text-base font-bold tracking-tight text-[#0F172A]">
-                    {item.title}
-                  </h3>
-                  <span className="mt-2 inline-block rounded-full bg-blue-100/70 px-2.5 py-0.5 text-[10px] font-bold text-[#2563EB]">
-                    {item.tag}
-                  </span>
-                  <p className="mt-3 text-xs leading-relaxed text-slate-500 font-medium">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
-            )
-          })}
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-950">
+            {language === "en"
+              ? "ViraWeb Package: Attract, Rank, and Convert on Autopilot."
+              : language === "es"
+              ? "Paquete ViraWeb: Atraiga, Posicione y Convierta en Automático."
+              : "Pacote ViraWeb: Atraia, Posicione e Converta no Automático."}
+          </h2>
+          <p className="mt-4 text-base text-slate-600 leading-relaxed font-normal">
+            {language === "en"
+              ? "The complete digital infrastructure for companies seeking fast commercial growth with professional engineering execution."
+              : language === "es"
+              ? "La infraestructura digital completa para empresas que buscan aceleración comercial con ejecución técnica profesional."
+              : "A infraestrutura digital completa para empresas que buscam aceleração comercial com execução técnica profissional."}
+          </p>
         </div>
 
-        {/* Pricing Summary Box */}
-        <motion.div
-          className="relative mt-12 overflow-hidden rounded-3xl border border-blue-200 bg-gradient-to-br from-blue-50/60 via-white to-slate-50 p-8 shadow-xl md:p-10"
-          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] px-3.5 py-1 text-xs font-bold text-white shadow-sm">
-                Economia Especial de Pacote Fechado
+        {/* Deliverables Editorial Grid with Fine Divider Rules */}
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+          {deliverables.map((item) => (
+            <div key={item.num} className="py-8 md:py-10 px-0 md:px-6 lg:px-7 first:pl-0 last:pr-0 flex flex-col justify-between">
+              <div>
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-mono text-sm font-bold text-slate-400">
+                    {item.num}
+                  </span>
+                  <span className="font-mono text-[11px] text-slate-500 uppercase tracking-wider">
+                    {item.category}
+                  </span>
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-xs text-slate-600 leading-relaxed font-normal">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="mt-3 text-2xl font-bold tracking-tight text-[#0F172A] sm:text-3xl">
-                Economize contratando o Pacote ViraWeb completo
+            </div>
+          ))}
+        </div>
+
+        {/* Pricing Breakdown & Contract Summary */}
+        <div className="mt-12 border border-slate-200 bg-slate-50/70 p-7 lg:p-10 rounded-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Value Proposition */}
+            <div className="lg:col-span-7">
+              <span className="font-mono text-xs font-semibold text-blue-700 uppercase tracking-wider">
+                {language === "en" ? "FULL PACKAGE SPECIAL OFFER" : language === "es" ? "CONDICIÓN ESPECIAL DE PAQUETE COMPLETO" : "CONDIÇÃO ESPECIAL DE PACOTE COMPLETO"}
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-950 mt-2">
+                {language === "en"
+                  ? "Save by contracting the unified ViraWeb Package"
+                  : language === "es"
+                  ? "Ahorre contratando el Paquete ViraWeb unificado"
+                  : "Economize contratando o Pacote ViraWeb unificado"}
               </h3>
-              <p className="mt-2 text-sm text-slate-600 font-medium">
-                Garantimos <strong className="text-[#2563EB]">20% de desconto no Setup</strong> + <strong className="text-[#2563EB]">15% na mensalidade</strong> ao contratar a solução unificada.
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                {language === "en" ? (
+                  <>By contracting all 4 modules together, you guarantee <strong className="font-semibold text-slate-900">20% off on Setup</strong> and <strong className="font-semibold text-slate-900">15% off on the monthly fee</strong>.</>
+                ) : language === "es" ? (
+                  <>Al contratar los 4 módulos juntos, usted obtiene <strong className="font-semibold text-slate-900">20% de descuento en el Setup</strong> y <strong className="font-semibold text-slate-900">15% en la mensualidad</strong>.</>
+                ) : (
+                  <>Ao contratar os 4 módulos juntos, você garante <strong className="font-semibold text-slate-900">20% de desconto no Setup</strong> e <strong className="font-semibold text-slate-900">15% na mensalidade</strong>.</>
+                )}
               </p>
-              <ul className="mt-5 grid gap-2.5 sm:grid-cols-2 text-xs font-semibold text-slate-700">
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-[#2563EB]" />
-                  <span>Site de Alta Conversão em Next.js</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-[#2563EB]" />
-                  <span>Domínio no topo do Google Meu Negócio</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-[#2563EB]" />
-                  <span>Gestão contínua de Google Ads & Meta Ads</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-[#2563EB]" />
-                  <span>ViraBot rodando no WhatsApp 24h por dia</span>
-                </li>
-              </ul>
+
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700 font-medium">
+                <div className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                  <span>{language === "en" ? "Next.js Website with native SEO" : language === "es" ? "Sitio Web en Next.js con SEO Nativo" : "Website em Next.js com SEO Nativo"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                  <span>{language === "en" ? "Google Business optimized on Maps" : language === "es" ? "Google Mi Negocio configurado en el mapa" : "Google Meu Negócio configurado no mapa"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                  <span>{language === "en" ? "Continuous Google & Meta Ads management" : language === "es" ? "Gestión continua de Google y Meta Ads" : "Gestão contínua de Google & Meta Ads"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                  <span>{language === "en" ? "ViraBot active on WhatsApp 24/7" : language === "es" ? "ViraBot activo en WhatsApp 24h al día" : "ViraBot ativo no WhatsApp 24h por dia"}</span>
+                </div>
+              </div>
             </div>
 
-            <div className="flex w-full flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-6 text-center lg:w-auto lg:min-w-[340px] shadow-md">
-              <div className="text-xs text-slate-500 font-semibold uppercase">Setup Único com 20% OFF</div>
-              <div className="mt-1 flex items-baseline justify-center gap-2">
-                <span className="text-sm font-medium text-slate-400 line-through">{brl(totals.setupGross)}</span>
-                <span className="text-2xl font-black font-mono text-[#0F172A]">{brl(totals.setup)}</span>
+            {/* Financial Overview & Direct CTA */}
+            <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-slate-200 pt-6 lg:pt-0 lg:pl-10 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs text-slate-500">{language === "en" ? "One-time Setup (20% OFF):" : language === "es" ? "Setup Único (20% OFF):" : "Setup Único (20% OFF):"}</span>
+                  <div className="text-right">
+                    <span className="font-mono text-xs text-slate-400 line-through mr-2">{totals.setupGrossFormatted}</span>
+                    <span className="font-mono text-lg font-bold text-slate-900">{totals.setupFormatted}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-baseline justify-between border-t border-slate-200 pt-3">
+                  <span className="text-xs text-slate-500">{language === "en" ? "Monthly Recurrence (15% OFF):" : language === "es" ? "Mensualidad Unificada (15% OFF):" : "Recorrência Mensal (15% OFF):"}</span>
+                  <div className="text-right">
+                    <span className="font-mono text-xs text-slate-400 line-through mr-2">{totals.monthlyGrossFormatted}{language === "en" ? "/mo" : language === "es" ? "/mes" : "/mês"}</span>
+                    <span className="font-mono text-xl font-bold text-blue-600">{totals.monthlyFormatted}<span className="text-xs text-slate-500 font-normal">{language === "en" ? "/mo" : language === "es" ? "/mes" : "/mês"}</span></span>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-emerald-700 font-medium pt-1">
+                  {language === "en"
+                    ? `Save ${totals.setupSavedFormatted} on setup + ${totals.monthlySavedFormatted}/mo.`
+                    : language === "es"
+                    ? `Ahorro de ${totals.setupSavedFormatted} en setup + ${totals.monthlySavedFormatted}/mes.`
+                    : `Economia de ${totals.setupSavedFormatted} no setup + ${totals.monthlySavedFormatted}/mês.`}
+                </p>
               </div>
 
-              <div className="mt-4 text-xs text-slate-500 font-semibold uppercase">Mensalidade Unificada com 15% OFF</div>
-              <div className="mt-1 flex items-baseline justify-center gap-2">
-                <span className="text-sm font-medium text-slate-400 line-through">{brl(totals.monthlyGross)}/mês</span>
-                <span className="text-3xl font-black font-mono text-[#2563EB]">{brl(totals.monthly)}<span className="text-xs font-medium text-slate-500">/mês</span></span>
-              </div>
-
-              <div className="mt-3 rounded-full bg-emerald-50 px-3 py-1 text-center text-xs font-bold text-emerald-600 border border-emerald-200">
-                Você economiza {brl(totals.setupSaved)} no setup + {brl(totals.monthlySaved)}/mês!
-              </div>
-
-              <div className="mt-6 w-full">
+              <div className="mt-6">
                 <a
-                  href={waLink(packageMessage())}
+                  href={waLink(packageMessage(language))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm px-6 py-4 rounded-xl transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-center"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-sm bg-[#2563EB] px-5 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8] cursor-pointer text-center"
                 >
-                  <span>Garantir Pacote Completo no WhatsApp</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>{language === "en" ? "Secure Full Package on WhatsApp" : language === "es" ? "Garantizar Paquete Completo en WhatsApp" : "Garantir Pacote Completo no WhatsApp"}</span>
+                  <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

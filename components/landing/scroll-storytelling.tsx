@@ -4,7 +4,6 @@ import { useEffect } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-// Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger)
 
 export function LandingScrollStorytelling() {
@@ -12,88 +11,55 @@ export function LandingScrollStorytelling() {
     if (typeof window === "undefined") return
 
     const ctx = gsap.context(() => {
-      // 1. Hero text & CTA parallax entrance
+      // 1. Pacote deliverables entrance
       gsap.fromTo(
-        "#hero h1, #hero p, #hero a",
-        { opacity: 0, y: 35 },
+        "#pacote .border-t > div",
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.2,
-          stagger: 0.15,
-          ease: "power3.out",
-        }
-      )
-
-      // 2. Pacote ViraWeb deliverables stagger animation
-      gsap.fromTo(
-        "#pacote .group",
-        { opacity: 0, y: 40, scale: 0.96 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: "#pacote",
-            start: "top 75%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
       )
 
-      // 3. Simulador card reveal
+      // 2. Sistemas Sob Medida rows entrance
       gsap.fromTo(
-        "#simulador .sticky",
-        { opacity: 0, x: 40, scale: 0.96 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 1.0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: "#simulador",
-            start: "top 70%",
-            toggleActions: "play none none none",
-          },
-        }
-      )
-
-      // 4. Sistemas Sob Medida cards stagger
-      gsap.fromTo(
-        "#sistemas .group",
-        { opacity: 0, y: 45, scale: 0.95 },
+        "#sistemas .divide-y > div",
+        { opacity: 0, y: 15 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: "#sistemas",
-            start: "top 75%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
       )
 
-      // 5. Cases & ROI metrics stagger
+      // 3. Metrics numbers entrance
       gsap.fromTo(
-        "#cases .group",
-        { opacity: 0, y: 40 },
+        "#cases .font-mono.text-4xl",
+        { opacity: 0, y: 15 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: "#cases",
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none none",
           },
         }

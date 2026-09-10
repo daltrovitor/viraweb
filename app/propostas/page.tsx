@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import SmoothScroll from "@/components/smooth-scroll"
+import TailedCursor from "@/components/tailed-cursor"
 import {
   LandingNav,
   LandingHero,
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
 export default function PropostasPage() {
   return (
     <div className="relative min-h-screen bg-white text-slate-900 selection:bg-blue-500/10 selection:text-[#2563EB]">
+      {/* Custom Ribbon-Tailed Cursor & Global Pointer */}
+      <TailedCursor />
       <SmoothScroll>
         <LandingScrollStorytelling />
         <LandingNav />

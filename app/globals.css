@@ -405,3 +405,13 @@
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+/* ViraWeb Custom Cursor */
+@media (pointer: fine) {
+  html, body {
+    cursor: url('/cursor-normal.png') 0 0, default !important;
+  }
+  a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], select, label[for], summary, .cursor-pointer, .cursor-pointer * {
+    cursor: url('/cursor-pointer.png') 10 2, pointer !important;
+  }
+}

@@ -75,11 +75,7 @@ export default function Home() {
         {/* Custom Ribbon-Tailed WebGL Cursor */}
         <TailedCursor
           colors={['#2563EB', '#06B6D4']}
-          baseThickness={30}
-          speedMultiplier={0.5}
-          maxAge={500}
-          enableFade={false}
-          enableShaderEffect={false}
+          baseThickness={36}
         />
 
         {/* Global Navigation */}

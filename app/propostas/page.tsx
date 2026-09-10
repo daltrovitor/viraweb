@@ -22,8 +22,15 @@ export const metadata: Metadata = {
 export default function PropostasPage() {
   return (
     <div className="relative min-h-screen bg-white text-slate-900 selection:bg-blue-500/10 selection:text-[#2563EB]">
-      {/* Custom Ribbon-Tailed Cursor & Global Pointer */}
-      <TailedCursor />
+      {/* Custom Ribbon-Tailed WebGL Cursor & Pointer */}
+      <TailedCursor
+        colors={['#2563EB', '#06B6D4']}
+        baseThickness={30}
+        speedMultiplier={0.5}
+        maxAge={500}
+        enableFade={false}
+        enableShaderEffect={false}
+      />
       <SmoothScroll>
         <LandingScrollStorytelling />
         <LandingNav />

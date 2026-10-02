@@ -1,82 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+/* Hello World */
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+/* Desktop viewports tall enough for the fixed "curtain" footer reveal */
+@custom-variant reveal (@media (min-width: 1024px) and (min-height: 780px));
 
+/* ==========================================================================
+   ViraWeb design tokens — white canvas, single cobalt accent, crisp radii
+   ========================================================================== */
 :root {
-  /* ViraWeb Brand Palette — Light Mode Locked */
-  --vw-primary: #0F172A;
-  --vw-secondary: #475569;
-  --vw-royal: #2563EB;
-  --vw-cyan: #06B6D4;
-  --vw-amber: #D97706;
+  --background: #ffffff;
+  --surface: #f6f7f9;
+  --surface-2: #eef0f3;
+  --ink: #0f1f33;
+  --ink-soft: #33415a;
+  --mute: #5a6577;
+  --line: #e4e7ec;
+  --line-strong: #cfd4dc;
 
-  --background: #FFFFFF;
-  --background-alt: #F8FAFC;
-  --foreground: #0F172A;
-  --foreground-muted: #475569;
+  /* Brand accent — the arrow blue of the ViraWeb mark */
+  --brand: #1958a5;
+  --brand-strong: #134785;
+  --brand-tint: #eaf1fa;
 
-  --surface-1: #FFFFFF;
-  --surface-2: #F8FAFC;
-  --surface-3: #E2E8F0;
+  /* Product accent — Vira Web Odonto */
+  --odonto: #0369a1;
+  --odonto-strong: #075985;
+  --odonto-tint: #e8f3fa;
 
-  --border: #E2E8F0;
-  --ring: #2563EB;
-  --radius: 0.75rem;
+  /* Legacy aliases still consumed by /propostas and /termos */
+  --foreground: var(--ink);
+  --border: var(--line);
+  --ring: var(--brand);
+  --radius: 0.25rem;
 
-  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --nav-h: 4.5rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-brand: var(--font-montserrat), var(--font-geist-sans), ui-sans-serif, sans-serif;
+
   --color-background: var(--background);
-  --color-background-alt: var(--background-alt);
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-card: #FFFFFF;
-  --color-card-foreground: #0F172A;
-  --color-muted: #F1F5F9;
-  --color-muted-foreground: #64748B;
-  --color-secondary-foreground: #475569;
-  --color-surface-1: var(--surface-1);
+  --color-foreground: var(--ink);
+  --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
-  --color-surface-3: var(--surface-3);
-  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-tint: var(--brand-tint);
+  --color-odonto: var(--odonto);
+  --color-odonto-strong: var(--odonto-strong);
+  --color-odonto-tint: var(--odonto-tint);
+
+  --color-card: #ffffff;
+  --color-card-foreground: var(--ink);
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #5a6577;
+  --color-border: var(--line);
   --color-ring: var(--ring);
+
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
   --radius-xl: calc(var(--radius) + 8px);
   --radius-2xl: calc(var(--radius) + 16px);
-  --animate-marquee: marquee var(--duration, 30s) infinite linear;
-  --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
-  --animate-scan: scan 3s ease-in-out infinite;
-  --animate-cut: cut 3s ease-in-out infinite;
 
-  @keyframes scan {
-    0%, 100% {
-      top: 0px;
-    }
-    25%, 75% {
-      top: 54px;
-    }
-    50% {
-      top: 0px;
-    }
-  }
-
-  @keyframes cut {
-    0%, 50%, 100% {
-      clip-path: inset(0 0 0 0);
-    }
-    25% {
-      clip-path: inset(100% 0 0 0);
-    }
-    75% {
-      clip-path: inset(0 0 100% 0);
-    }
-  }
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
@@ -85,323 +84,273 @@
   }
 
   html {
-    scroll-behavior: smooth;
     background-color: var(--background);
-    color: var(--foreground);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-hidden antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: var(--background);
+    color: var(--ink);
+    overflow-x: clip;
+    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  a {
-    color: var(--foreground);
+  ::selection {
+    background-color: var(--brand);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  a,
+  button,
+  [role="button"],
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
     background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(26, 45, 78, 0.1);
-    border-radius: 99px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--vw-royal);
+    background: var(--line-strong);
+    border-radius: 2px;
   }
 }
 
-/* Logo Wall Animation Override */
-.animate-marquee {
-  animation: marquee-scroll 30s linear infinite !important;
+/* ==========================================================================
+   Lenis (lenis/react root) — recommended base styles
+   ========================================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* ==========================================================================
+   Intro sequence — CSS driven so the first paint never waits for hydration.
+   A tiny inline script in the root layout sets html[data-intro="play"] on the
+   first visit of a session; every other case renders the page directly.
+   ========================================================================== */
+:root {
+  --intro-delay: 0.1s;
+}
+html[data-intro="play"] {
+  --intro-delay: 1.15s;
+}
+html.intro-lock {
+  overflow: hidden;
 }
 
-/* Testimonials Animation Keyframes */
-.animate-marquee-scroll-row {
-  animation: marquee-scroll-animation 28s linear infinite !important;
+.intro {
+  display: none;
+}
+html[data-intro="play"] .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--background);
+  animation: intro-out 0.8s var(--ease-in-out-quart) 1s forwards;
+}
+.intro-poly {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.4);
+  animation: poly-in 0.95s var(--ease-out-expo) forwards;
+  animation-delay: var(--delay);
+}
+.intro-progress {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: intro-progress 0.95s var(--ease-in-out-quart) 0.05s forwards;
+}
+.intro-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: line-up 0.8s var(--ease-out-expo) forwards;
+  animation-delay: calc(0.35s + var(--i, 0) * 45ms);
 }
 
-.animate-reverse {
-  animation-direction: reverse !important;
-}
-
-@keyframes marquee-scroll-animation {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* Marquee vertical scroll */
-@keyframes marquee-vertical {
-  from { transform: translateY(0); }
-  to   { transform: translateY(calc(-100% - var(--gap, 1rem))); }
-}
-
-
-/* prefers-reduced-motion fallback */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-delay: 0s !important;
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-    scroll-behavior: auto !important;
+@keyframes poly-in {
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
-
-/* ==========================================
-   ANIMATED SCAN LOADER KEYFRAMES & UTILITIES
-   ========================================== */
-
-@keyframes scan {
-  0%, 100% {
-    top: 0px;
-  }
-  25%, 75% {
-    top: 54px;
-  }
-  50% {
-    top: 0px;
+@keyframes intro-progress {
+  to {
+    transform: scaleX(1);
   }
 }
-
-@keyframes cut {
-  0%, 50%, 100% {
-    clip-path: inset(0 0 0 0);
-  }
-  25% {
-    clip-path: inset(100% 0 0 0);
-  }
-  75% {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
-.animate-scan {
-  animation: scan 3s ease-in-out infinite !important;
-}
-
-.animate-cut {
-  animation: cut 3s ease-in-out infinite !important;
-}
-
-.font-playfair {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.testimonials-perspective-container {
-  transform: translateX(-40px) translateY(-10px) translateZ(-40px) rotateX(6deg) rotateY(-2deg) rotateZ(4deg);
-}
-
-@media (min-width: 768px) {
-  .testimonials-perspective-container {
-    transform: translateX(-200px) translateY(-50px) translateZ(-100px) rotateX(10deg) rotateY(-5deg) rotateZ(8deg);
+@keyframes intro-out {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
   }
 }
 
-/* SaaS Horizontal Scroll Layout Overrides */
-.saas-scroll-slide section {
-  padding-top: 1rem !important;
-  padding-bottom: 1rem !important;
-  border-bottom: none !important;
-  min-height: 0 !important;
-  background: transparent !important;
+/* Hero headline: masked line rise, keyed to the intro timing.
+   Lines start partly risen so the headline (the LCP element) is painted in
+   the very first frame — under the intro curtain when it plays — and finish
+   rising as the curtain lifts. */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
-.saas-scroll-slide section > div {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+.mask-line > .mask-inner {
+  display: block;
+  transform: translateY(42%);
+  animation: line-up 1.1s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--intro-delay) + var(--i, 0) * 70ms);
 }
-@media (max-width: 1023px) {
-  /* 1. Global Slide Container sizing - Top-align and pad on mobile for vertical fit */
-  .saas-scroll-slide {
-    padding: 5.5rem 1.5rem 1.5rem !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    height: 100dvh !important;
-    overflow: hidden !important;
-  }
-  
-  /* Remove side margins/paddings for LeadScrap slide on mobile to stretch it pros lados */
-  .saas-scroll-slide:has(#leadscrap) {
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-  }
-  
-  /* Scale the inner container on mobile from top center - Bumped up to fill the viewport */
-  .saas-scroll-slide .origin-center {
-    transform: scale(0.85) !important;
-    transform-origin: top center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-  }
-  
-  /* Height-based scaling for small mobile phones - Bumped up to fit snugly */
-  @media (max-height: 680px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.76) !important;
-    }
-  }
-  @media (min-height: 740px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.88) !important;
-    }
-  }
-  @media (min-height: 820px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.93) !important;
-    }
-  }
+.fade-up {
+  transform: translateY(14px);
+  animation: fade-up 1s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--intro-delay) + var(--i, 0) * 80ms + 0.2s);
+}
+html[data-intro="play"] .fade-up {
+  opacity: 0;
+}
+.mark-enter {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.6);
+  animation: poly-in 1.3s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--intro-delay) + var(--delay, 0s));
+}
 
-  /* 2. Compact text layout on mobile inside horizontal scroll slides - Increased sizes for readability */
-  .saas-scroll-slide h2 {
-    font-size: 1.95rem !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.4rem !important;
+@keyframes line-up {
+  to {
+    transform: translateY(0);
   }
-  .saas-scroll-slide p {
-    font-size: 0.82rem !important;
-    line-height: 1.35 !important;
-    margin-bottom: 0.6rem !important;
-  }
-  .saas-scroll-slide .mb-16,
-  .saas-scroll-slide .mb-8,
-  .saas-scroll-slide .mb-6,
-  .saas-scroll-slide .my-6 {
-    margin-bottom: 0.5rem !important;
-    margin-top: 0.25rem !important;
-  }
-  
-  /* 3. GDC and PontoControle Simulators layout adjustment on mobile */
-  .saas-scroll-slide #gdc .grid-cols-1,
-  .saas-scroll-slide #pontocontrole .grid-cols-1,
-  .saas-scroll-slide #leadscrap .grid-cols-1 {
-    gap: 0.75rem !important;
-  }
-  .saas-scroll-slide .gdc-right-col > div,
-  .saas-scroll-slide .pc-simulator {
-    padding: 1rem !important;
-    min-height: 0 !important;
-  }
-  .saas-scroll-slide .gdc-right-col,
-  .saas-scroll-slide .pc-simulator .grid {
-    gap: 0.5rem !important;
-  }
-  .saas-scroll-slide .pc-simulator .my-6 {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.25rem !important;
-  }
-  .saas-scroll-slide .pc-simulator .w-36 {
-    width: 8.5rem !important;
-    height: 8.5rem !important;
-  }
-  .saas-scroll-slide .pc-simulator table {
-    font-size: 13px !important;
-  }
-  .saas-scroll-slide .pc-simulator th,
-  .saas-scroll-slide .pc-simulator td {
-    padding: 0.5rem 0.4rem !important;
-  }
-  
-  /* Compact bento cards in PontoControle */
-  .saas-scroll-slide #pontocontrole .pc-feature-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 0.75rem !important;
-  }
-  .saas-scroll-slide .pc-feature-card {
-    padding: 0.85rem !important;
-    min-height: 0 !important;
-    height: auto !important;
-  }
-  .saas-scroll-slide .pc-feature-card h4 {
-    font-size: 0.95rem !important;
-    margin-bottom: 0.25rem !important;
-    line-height: 1.2 !important;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .saas-scroll-slide .pc-feature-card p {
-    display: block !important;
-    font-size: 0.825rem !important;
-    line-height: 1.35 !important;
-    opacity: 0.9;
-    margin-top: 0.25rem !important;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .saas-scroll-slide .pc-feature-card .w-10 {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    margin-bottom: 0.25rem !important;
-  }
-  .saas-scroll-slide .pc-feature-card svg {
-    width: 1rem !important;
-    height: 1rem !important;
-  }
-
-  /* Compact LeadScrap layout */
-  .saas-scroll-slide .ls-mockup-card {
-    gap: 1.5rem !important; /* reduced gap to shorten vertically */
-    padding: 1.25rem 1rem !important;
-  }
-  .saas-scroll-slide .ls-right-col {
-    min-height: 170px !important; /* shortened from 240px */
-  }
-  .saas-scroll-slide .ls-right-col .w-72 {
-    width: 11rem !important;
-    height: 11rem !important;
-  }
-  .saas-scroll-slide .ls-right-col .w-40 {
-    width: 6.5rem !important;
-    height: 6.5rem !important;
-  }
-  .saas-scroll-slide .ls-float-msg {
-    padding: 0.4rem 0.65rem !important;
-    top: 0.5rem !important;
-  }
-  .saas-scroll-slide .ls-float-leads {
-    bottom: 0.5rem !important;
-  }
-  .saas-scroll-slide .ls-float-msg svg,
-  .saas-scroll-slide .ls-float-leads svg {
-    width: 1rem !important;
-    height: 1rem !important;
+}
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-/* 6. Desktop Height-based scaling to avoid simulator cut-off on small laptop screens */
-@media (min-width: 1024px) {
-  @media (max-height: 850px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.8) !important;
-    }
+/* ==========================================================================
+   Roll text — letters roll vertically on hover (pointer devices only)
+   ========================================================================== */
+.roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: top;
+}
+.roll-a,
+.roll-b {
+  display: inline-flex;
+  white-space: pre;
+}
+.roll-b {
+  position: absolute;
+  inset: 0;
+}
+.roll-char {
+  display: inline-block;
+  transition: transform 0.55s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 16ms);
+}
+.roll-b .roll-char {
+  transform: translateY(105%);
+}
+@media (hover: hover) {
+  .roll-trigger:hover .roll-a .roll-char,
+  .roll-trigger:focus-visible .roll-a .roll-char {
+    transform: translateY(-105%);
   }
-  @media (max-height: 760px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.72) !important;
-    }
+  .roll-trigger:hover .roll-b .roll-char,
+  .roll-trigger:focus-visible .roll-b .roll-char {
+    transform: translateY(0);
   }
-  @media (max-height: 680px) {
-    .saas-scroll-slide .origin-center {
-      transform: scale(0.64) !important;
-    }
+}
+
+/* ==========================================================================
+   Marquee (testimonials) — CSS loop, paused on hover
+   ========================================================================== */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+.marquee-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Odonto scanning line (PontoControle face scan) */
+@keyframes scan-sweep {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(var(--scan-distance, 160px));
   }
 }
 
 .scrollbar-none::-webkit-scrollbar {
-  display: none !important;
+  display: none;
 }
 .scrollbar-none {
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   Reduced motion — everything settles instantly
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-delay: 0s !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html[data-intro="play"] .intro {
+    display: none;
+  }
 }

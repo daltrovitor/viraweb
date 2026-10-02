@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react"
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from "react"
 
 export type Language = "pt" | "en" | "es"
 
@@ -8,6 +8,8 @@ interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
   t: (key: string) => string
+  /** Applies the visitor's saved language; see <LanguageSync />. */
+  syncSavedLanguage: () => void
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -17,7 +19,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Soluções",
     "nav.package": "Pacote ViraWeb",
-    "nav.gdc": "Plataforma GDC",
+    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Fale Conosco",
     "nav.button": "Acelerar Negócio",
 
@@ -41,33 +43,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.stats.satisfaction": "taxa de retenção de marcas",
     "hero.stats.time": "tempo de carregamento médio",
 
-    // GDC Section (Proprietary Platform)
-    "gdc.exclusive": "Tecnologia Proprietária",
-    "gdc.title": "GDC. A central de comando inteligente da sua empresa.",
-    "gdc.description": "Nossa plataforma exclusiva integra gestão de clientes, controle financeiro automatizado, dashboards em tempo real e inteligência artificial — tudo sob o mesmo ecossistema robusto.",
-    "gdc.cta": "Conhecer o Ecossistema GDC",
-    "gdc.feature1.title": "CRM & Operação Centralizada",
-    "gdc.feature1.desc": "Histórico completo e agendamentos.",
-    "gdc.feature2.title": "Financeiro Automatizado",
-    "gdc.feature2.desc": "Contas a pagar/receber e comissões.",
-    "gdc.feature3.title": "Business Intelligence",
-    "gdc.feature3.desc": "Métricas de faturamento e ticket médio.",
-    "gdc.feature4.title": "ViraBot IA Integrado",
-    "gdc.feature4.desc": "Análise operacional ativa 24/7.",
-    "gdc.f1.title": "CRM Operacional",
-    "gdc.f1.desc": "Cadastre clientes, vincule prontuários, registre o histórico de atendimentos e coordene a escala de sua equipe de maneira integrada.",
-    "gdc.f2.title": "Automação Financeira",
-    "gdc.f2.desc": "Monitore fluxo de caixa, parcelamentos de vendas, recorrências e distribuições de comissões sem planilhas ou erros manuais.",
-    "gdc.f3.title": "Dashboards de Métricas",
-    "gdc.f3.desc": "Visualizações analíticas em tempo real de receita recorrente (MRR), faturamento líquido, taxa de retenção (LTV) e ticket médio.",
-    "gdc.f4.title": "Importação Inteligente",
-    "gdc.f4.desc": "Nossa IA exclusiva importa PDFs de notas fiscais e planilhas antigas estruturando os dados no novo banco em segundos.",
-    "gdc.f5.title": "Assistente ViraBot IA",
-    "gdc.f5.desc": "Um agente cognitivo integrado ao painel para rodar análises de comportamento de vendas, estimar faturamento e sugerir melhorias.",
-    "gdc.f6.title": "Módulo de Permissões",
-    "gdc.f6.desc": "Controle granular de acesso por tela. Cada colaborador visualiza apenas o necessário para sua rotina, garantindo total segurança.",
-    "gdc.features.badge": "Infraestrutura Integrada",
-    "gdc.features.desc": "O GDC não é apenas um painel administrativo — é a espinha dorsal de sua operação de negócios, unindo o digital às finanças em tempo real.",
 
     // Services Section
     "services.creation": "Desenvolvimento Premium",
@@ -127,7 +102,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "industry.i3.title": "Empresas de Serviços B2B",
     "industry.i3.desc": "Posicionamento premium de autoridade, qualificação automática de leads e canais de prospecção integrados.",
     "industry.i4.title": "Negócios Locais & PMEs",
-    "industry.i4.desc": "Dominância nas buscas locais, automações de atendimento no WhatsApp e gestão centralizada no GDC.",
+    "industry.i4.desc": "Dominância nas buscas locais, automações de atendimento no WhatsApp e gestão centralizada em software próprio.",
 
     // Footer
     "footer.description": "Infraestrutura de tecnologia e marketing focada na escala sustentável e previsibilidade de receitas para empresas modernas.",
@@ -187,8 +162,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Sim, 100% seu. Após o desenvolvimento, você tem propriedade total sobre o domínio, o código-fonte e as chaves de acesso. ",
     "faq.q2": "Como funciona o desenvolvimento de sistemas personalizados?",
     "faq.a2": "Mapeamos os processos manuais da sua empresa e criamos um software sob medida (como ERP, CRM ou ferramenta interna) totalmente integrado às APIs e bancos de dados que você já utiliza, eliminando erros operacionais.",
-    "faq.q3": "O que é a plataforma GDC exclusiva?",
-    "faq.a3": "O GDC é nosso centro de comando proprietário. Em vez de contratar múltiplos softwares caros (CRM, financeiro, chatbot), nós integramos tudo em um único ecossistema personalizado para rodar sua empresa sem planilhas.",
+    "faq.q3": "O que é o Vira Web Odonto?",
+    "faq.a3": "É o nosso software odontológico para clínicas e consultórios. Agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo — com financeiro, conciliação bancária e assistente com IA. Você testa grátis por 14 dias e cancela quando quiser.",
     "faq.q4": "Qual o tempo médio de desenvolvimento de um site premium?",
     "faq.a4": "Depende da complexidade, mas landing pages de elite costumam ser entregues em 10 a 15 dias úteis, e portais mais complexos/institucionais entre 20 a 30 dias úteis, com acompanhamento ativo.",
     "faq.q5": "Como funciona a automação do WhatsApp no comercial?",
@@ -210,7 +185,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Solutions",
     "nav.package": "ViraWeb Package",
-    "nav.gdc": "GDC Platform",
+    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Contact Us",
     "nav.button": "Accelerate Business",
 
@@ -234,33 +209,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.stats.satisfaction": "brand retention rate",
     "hero.stats.time": "average loading speed",
 
-    // GDC Section
-    "gdc.exclusive": "Proprietary Tech",
-    "gdc.title": "GDC. The intelligent command center for your business.",
-    "gdc.description": "Our exclusive platform integrates lead management, automated financial control, real-time dashboards, and AI agents under a single robust ecosystem.",
-    "gdc.cta": "Explore GDC Ecosystem",
-    "gdc.feature1.title": "Sleek CRM & Operations",
-    "gdc.feature1.desc": "Complete customer log and scheduling.",
-    "gdc.feature2.title": "Automated Billing",
-    "gdc.feature2.desc": "Invoices, accounts, and commissions.",
-    "gdc.feature3.title": "Business Intelligence",
-    "gdc.feature3.desc": "Revenue metrics and average tickets.",
-    "gdc.feature4.title": "ViraBot AI Embedded",
-    "gdc.feature4.desc": "24/7 active operational analysis.",
-    "gdc.f1.title": "Operational CRM",
-    "gdc.f1.desc": "Register clients, link technical logs, track full customer interactions, and schedule team assignments in a unified workspace.",
-    "gdc.f2.title": "Financial Automation",
-    "gdc.f2.desc": "Monitor cash flow, handle invoice installments, process subscriptions, and distribute sales commissions automatically without spreadsheets.",
-    "gdc.f3.title": "Metrics Dashboard",
-    "gdc.f3.desc": "Real-time analytics for monthly recurring revenue (MRR), net billing, lifetime value (LTV), and average sales ticket.",
-    "gdc.f4.title": "Smart AI Import",
-    "gdc.f4.desc": "Our exclusive AI scans and structures data from complex PDFs, old tables, and invoices into your new database in seconds.",
-    "gdc.f5.title": "ViraBot AI Assistant",
-    "gdc.f5.desc": "A cognitive agent embedded in your dashboard that parses sales trends, forecasts revenue, and suggests business optimizations.",
-    "gdc.f6.title": "Permission Levels",
-    "gdc.f6.desc": "Granular dashboard access settings. Team members only view data relevant to their specific role, ensuring top security.",
-    "gdc.features.badge": "Integrated Infrastructure",
-    "gdc.features.desc": "GDC is not just an administrative dashboard — it is the operational spine of your business, connecting technology to finance in real time.",
 
     // Services Section
     "services.creation": "Premium Development",
@@ -320,7 +268,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "industry.i3.title": "B2B Service Providers",
     "industry.i3.desc": "Premium authority portfolio, automatic lead qualification, and cold lead pipelines.",
     "industry.i4.title": "Local Businesses & SMBs",
-    "industry.i4.desc": "Google Maps optimization, automated WhatsApp funnels, and centralized operations on GDC.",
+    "industry.i4.desc": "Google Maps optimization, automated WhatsApp funnels, and centralized operations on proprietary software.",
 
     // Footer
     "footer.description": "Modern software engineering and marketing infrastructure designed to generate sustainable growth and predictable revenue.",
@@ -380,8 +328,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Yes, 100% yours. After development, you have full ownership of the domain, source code, and access keys. Plus, we create intuitive CMS panels so you can edit text without relying on us.",
     "faq.q2": "How does custom systems development work?",
     "faq.a2": "We map your business's manual processes and create tailor-made software (such as an ERP, CRM, or internal tool) fully integrated with the APIs and databases you already use, eliminating operational errors.",
-    "faq.q3": "What is the exclusive GDC platform?",
-    "faq.a3": "GDC is our proprietary command center. Instead of hiring multiple expensive tools (CRM, billing, invoice importer, chatbot), we integrate everything into a single custom ecosystem to run your company without spreadsheets.",
+    "faq.q3": "What is Vira Web Odonto?",
+    "faq.a3": "It is our dental practice software for clinics and offices. Scheduling, patient records, odontogram-based quotes and payment plans in one flow — with finance, bank reconciliation and an AI assistant. Try it free for 14 days and cancel anytime.",
     "faq.q4": "What is the average development time for a premium site?",
     "faq.a4": "It depends on complexity, but elite landing pages are usually delivered in 10 to 15 business days, and more complex corporate portals in 20 to 30 business days, with active support.",
     "faq.q5": "How does WhatsApp automation work for sales?",
@@ -403,7 +351,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Soluciones",
     "nav.package": "Paquete ViraWeb",
-    "nav.gdc": "Plataforma GDC",
+    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Contacto",
     "nav.button": "Acelerar Negocio",
 
@@ -427,33 +375,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.stats.satisfaction": "tasa de retención de marcas",
     "hero.stats.time": "tiempo medio de carga",
 
-    // GDC Section
-    "gdc.exclusive": "Tecnología Propietaria",
-    "gdc.title": "GDC. El centro de mando inteligente de su empresa.",
-    "gdc.description": "Nuestra plataforma exclusiva integra gestión de clientes, control financiero automatizado, dashboards en tempo real e inteligencia artificial — todo bajo el mismo ecosistema robusto.",
-    "gdc.cta": "Conocer el Ecosistema GDC",
-    "gdc.feature1.title": "CRM y Operación Centralizada",
-    "gdc.feature1.desc": "Historial de clientes y agendamientos en vivo.",
-    "gdc.feature2.title": "Facturación Automática",
-    "gdc.feature2.desc": "Cuentas, flujos y comisiones sin errores.",
-    "gdc.feature3.title": "Business Intelligence",
-    "gdc.feature3.desc": "Métricas de facturación y ticket medio.",
-    "gdc.feature4.title": "ViraBot IA Integrado",
-    "gdc.feature4.desc": "Análisis operativo activo 24/7.",
-    "gdc.f1.title": "CRM Operacional",
-    "gdc.f1.desc": "Registre clientes, vincule historiales técnicos, realice el seguimiento completo de interacciones y coordine la agenda de su equipo en un panel unificado.",
-    "gdc.f2.title": "Automatización Financiera",
-    "gdc.f2.desc": "Monitoree flujos de caja, parcelamiento de ventas, pagos recurrentes y comisiones sin necesidad de planillas complejas o propensas a errores.",
-    "gdc.f3.title": "Dashboard de Métricas",
-    "gdc.f3.desc": "Visualizaciones analíticas en tiempo real de ingresos recurrentes (MRR), facturación neta, tasa de retención (LTV) y ticket promedio por venta.",
-    "gdc.f4.title": "Importação Inteligente",
-    "gdc.f4.desc": "Nuestra inteligencia artificial importa archivos complejos de facturas y planillas estructurando los datos en segundos.",
-    "gdc.f5.title": "Asistente ViraBot IA",
-    "gdc.f5.desc": "Un agente cognitivo integrado en el panel que analiza tendencias de ventas, pronostica cobros y sugiere mejoras operativas.",
-    "gdc.f6.title": "Niveles de Permisos",
-    "gdc.f6.desc": "Control granular de acceso por pantalla. Cada colaborador visualiza únicamente los datos necesarios para su rol diario.",
-    "gdc.features.badge": "Infraestructura Integrada",
-    "gdc.features.desc": "El GDC no es solo un panel administrativo — es la columna vertebral de su operación comercial, uniendo la tecnología con las finanzas en tiempo real.",
 
     // Services Section
     "services.creation": "Desarrollo Premium",
@@ -513,7 +434,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "industry.i3.title": "Proveedores de Servicios B2B",
     "industry.i3.desc": "Posicionamiento premium de autoridad, calificación automática de leads y canales de prospección.",
     "industry.i4.title": "Negócios Locales y Pymes",
-    "industry.i4.desc": "Optimización de Google Maps, embudos de WhatsApp automatizados y gestión en GDC.",
+    "industry.i4.desc": "Optimización de Google Maps, embudos de WhatsApp automatizados y gestión en software propio.",
 
     // Footer
     "footer.description": "Infraestructura de tecnología y marketing enfocada en el crecimiento sostenible y previsibilidad de ingresos para empresas modernas.",
@@ -573,8 +494,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Sí, 100% suyo. Tras el desarrollo, tiene propiedad total sobre el dominio, el código fuente y las claves de acceso. Además, creamos paneles CMS intuitivos para que modifique textos sin depender de nosotros.",
     "faq.q2": "¿Cómo funciona el desarrollo de sistemas personalizados?",
     "faq.a2": "Mapeamos los processos manuales de su empresa y creamos un software a la medida (como ERP, CRM o herramienta interna) totalmente integrado con las APIs y bases de dados que ya utiliza, eliminando errores operativos.",
-    "faq.q3": "¿Qué es la plataforma GDC exclusiva?",
-    "faq.a3": "GDC es nuestro centro de mando propietario. En lugar de contratar múltiples softwares costosos (CRM, facturación, importador fiscal, chatbot), integramos todo en un único ecosistema personalizado para manejar su empresa sin planillas.",
+    "faq.q3": "¿Qué es Vira Web Odonto?",
+    "faq.a3": "Es nuestro software odontológico para clínicas y consultorios. Agenda, ficha del paciente, presupuesto en el odontograma y plan de pago en el mismo flujo — con finanzas, conciliación bancaria y asistente con IA. Pruébelo gratis durante 14 días y cancele cuando quiera.",
     "faq.q4": "¿Cuál es el tiempo medio de desarrollo de un sitio premium?",
     "faq.a4": "Depende de la complejidad, pero las landing pages de élite suelen entregarse en 10 a 15 días hábiles, y los portales corporativos más complejos entre 20 a 30 días hábiles, con seguimiento activo.",
     "faq.q5": "¿Cómo funciona la automatización de WhatsApp en el área comercial?",
@@ -594,34 +515,52 @@ export const translations: Record<Language, Record<string, string>> = {
   }
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("pt")
-  const [mounted, setMounted] = useState(false)
+const STORAGE_KEY = "lang"
+const HTML_LANG: Record<Language, string> = { pt: "pt-BR", en: "en", es: "es" }
+const isLanguage = (value: unknown): value is Language => value === "pt" || value === "en" || value === "es"
 
-  useEffect(() => {
-    const savedLang = localStorage.getItem("lang") as Language
-    if (savedLang && ["pt", "en", "es"].includes(savedLang)) {
-      setLanguage(savedLang)
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  // Always "pt" during SSR and hydration so server and client markup match.
+  // The saved preference is applied afterwards by <LanguageSync />.
+  const [language, setLanguageState] = useState<Language>("pt")
+  const synced = useRef(false)
+
+  const setLanguage = useCallback((lang: Language) => {
+    synced.current = true
+    setLanguageState(lang)
+    try {
+      localStorage.setItem(STORAGE_KEY, lang)
+    } catch {
+      // Storage unavailable (private mode, blocked cookies): keep the in-memory choice.
     }
-    setMounted(true)
+  }, [])
+
+  const syncSavedLanguage = useCallback(() => {
+    if (synced.current) return
+    synced.current = true
+    let saved: string | null = null
+    try {
+      saved = localStorage.getItem(STORAGE_KEY)
+    } catch {
+      saved = null
+    }
+    if (isLanguage(saved)) setLanguageState(saved)
   }, [])
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("lang", language)
-      document.documentElement.lang = language
-    }
-  }, [language, mounted])
+    document.documentElement.lang = HTML_LANG[language]
+  }, [language])
 
   const t = useCallback((key: string): string => {
     return translations[language]?.[key] || translations.pt[key] || key
   }, [language])
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+  const value = useMemo(
+    () => ({ language, setLanguage, t, syncSavedLanguage }),
+    [language, setLanguage, t, syncSavedLanguage],
   )
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
 }
 
 export function useTranslation() {
@@ -631,7 +570,21 @@ export function useTranslation() {
       language: "pt" as Language,
       setLanguage: () => {},
       t: (key: string) => key,
+      syncSavedLanguage: () => {},
     }
   }
   return context
+}
+
+/**
+ * Render as the last element of a page tree. Its effect only fires once that
+ * tree has hydrated, so switching to the saved language can never race
+ * hydration (which would otherwise mismatch the "pt" server HTML).
+ */
+export function LanguageSync() {
+  const { syncSavedLanguage } = useTranslation()
+  useEffect(() => {
+    syncSavedLanguage()
+  }, [syncSavedLanguage])
+  return null
 }

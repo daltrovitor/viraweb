@@ -1,159 +1,43 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { AnimatedScanLoader } from '@/components/ui/animated-scan-loader';
-import { useTranslation } from '@/lib/i18n';
+// Hello World
 import SmoothScroll from '@/components/smooth-scroll';
 import Navbar from '@/components/navbar';
-import Hero from '@/components/hero';
-import LogoWall from '@/components/logo-wall';
-import Services from '@/components/services';
-import HomePackageSpotlight from '@/components/home-package-spotlight';
-import GdcSpotlight from '@/components/gdc-spotlight';
-import PontoControleSection from '@/components/pontocontrole-section';
-import LeadScrapSection from '@/components/leadscrap-section';
-import Testimonials from '@/components/testimonials';
-import Faq from '@/components/faq';
-import ContactCta from '@/components/contact-cta';
 import Footer from '@/components/footer';
-import TailedCursor from '@/components/tailed-cursor';
-
-import ScrollStorytelling from '@/components/scroll-storytelling';
-
-const isBotOrLighthouse = () => {
-  if (typeof window === 'undefined') return false;
-  const ua = navigator.userAgent.toLowerCase();
-  return ua.includes('lighthouse') || 
-         ua.includes('googlebot') || 
-         ua.includes('bingbot') || 
-         ua.includes('baiduspider') || 
-         ua.includes('yandex') ||
-         ua.includes('chrome-lighthouse');
-};
+import { IntroOverlay } from '@/components/home/intro-overlay';
+import { Hero } from '@/components/home/hero';
+import { VelocityMarquee } from '@/components/home/velocity-marquee';
+import { Manifesto } from '@/components/home/manifesto';
+import { ServicesStack } from '@/components/home/services-stack';
+import { PackageStrip } from '@/components/home/package-strip';
+import { ProductsChapter } from '@/components/home/products-chapter';
+import { OdontoSection } from '@/components/odonto/odonto-section';
+import { PontoControle } from '@/components/home/pontocontrole';
+import { LeadScrap } from '@/components/home/leadscrap';
+import { Process } from '@/components/home/process';
+import { Testimonials } from '@/components/home/testimonials';
+import { Faq } from '@/components/home/faq';
+import { Contact } from '@/components/home/contact';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isExiting, setIsExiting] = useState(false);
-
-  useEffect(() => {
-    if (isBotOrLighthouse()) {
-      setIsLoading(false);
-      setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('loader-complete'));
-      }, 50);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100dvh';
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.height = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.height = '';
-    };
-  }, [isLoading]);
-
   return (
-    <>
-      {isLoading && (
-        <AnimatedScanLoader 
-          onStartExit={() => setIsExiting(true)}
-          onComplete={() => {
-            setIsLoading(false);
-            setIsExiting(false);
-          }} 
-        />
-      )}
-      <div className={`transition-opacity duration-1000 ${isExiting || !isLoading ? 'opacity-100' : 'opacity-0 h-screen overflow-hidden'}`}>
-        <SmoothScroll>
-          <ScrollStorytelling />
-          <div className="relative min-h-screen bg-white text-slate-900 selection:bg-blue-500/10 selection:text-blue-600">
-        {/* Custom Ribbon-Tailed WebGL Cursor */}
-        <TailedCursor
-          colors={['#2563EB', '#06B6D4']}
-          baseThickness={30}
-          speedMultiplier={0.5}
-          maxAge={500}
-          enableFade={false}
-          enableShaderEffect={false}
-        />
-
-        {/* Global Navigation */}
-        <Navbar />
-
-        {/* Main Content Layout */}
-        <main>
-          {/* Hero Section */}
-          <Hero />
-
-          {/* Scrolling Tech Logo Wall */}
-          <LogoWall />
-
-          {/* Services Bento Grid */}
-          <Services />
-
-          {/* Pacote ViraWeb Conversion Spotlight Banner */}
-          <HomePackageSpotlight />
-
-          {/* Pinned Horizontal Storytelling Scroll for SaaS sections on Mobile and Desktop */}
-          <div className="saas-scroll-container bg-white border-b border-[#E2E8F0] overflow-hidden">
-            <div className="saas-scroll-track flex flex-row flex-nowrap h-screen w-[500vw] items-center">
-              {/* Slide 1: GDC Spotlight Pitch */}
-              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]">
-                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
-                  <GdcSpotlight showOnly="pitch" />
-                </div>
-              </div>
-
-              {/* Slide 2: GDC Invoicing Simulator */}
-              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]/50">
-                <div className="w-full scale-[0.85] lg:scale-[0.85] xl:scale-[0.9] 2xl:scale-100 origin-center">
-                  <GdcSpotlight showOnly="simulator" />
-                </div>
-              </div>
-
-              {/* Slide 3: PontoControle Simulator */}
-              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
-                <div className="w-full scale-[0.9] lg:scale-[0.9] xl:scale-[0.92] 2xl:scale-100 origin-center">
-                  <PontoControleSection showOnly="simulator" />
-                </div>
-              </div>
-
-              {/* Slide 4: PontoControle Features */}
-              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-[#F8FAFC]/30">
-                <div className="w-full scale-[0.9] lg:scale-[0.9] xl:scale-[0.92] 2xl:scale-100 origin-center">
-                  <PontoControleSection showOnly="cards" />
-                </div>
-              </div>
-
-              {/* Slide 5: LeadScrap */}
-              <div className="saas-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center overflow-hidden bg-white">
-                <div className="w-full scale-[0.95] lg:scale-[0.95] xl:scale-[0.98] 2xl:scale-100 origin-center">
-                  <LeadScrapSection />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Client Testimonials */}
-          <Testimonials />
-
-          {/* FAQ Accordion */}
-          <Faq />
-
-          {/* Contact and Strategy Call CTA */}
-          <ContactCta />
-        </main>
-
-        {/* Footer */}
-        <Footer />
-      </div>
+    <SmoothScroll>
+      <IntroOverlay />
+      <Navbar />
+      <main id="conteudo" className="relative z-10 bg-white">
+        <Hero />
+        <VelocityMarquee />
+        <Manifesto />
+        <ServicesStack />
+        <PackageStrip />
+        <ProductsChapter />
+        <OdontoSection />
+        <PontoControle />
+        <LeadScrap />
+        <Process />
+        <Testimonials />
+        <Faq />
+        <Contact />
+      </main>
+      <Footer />
     </SmoothScroll>
-      </div>
-    </>
   );
 }

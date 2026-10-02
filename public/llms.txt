@@ -7,15 +7,16 @@
 - **Website**: https://viraweb.online
 - **Contato Comercial & Suporte**: WhatsApp +55 62 99246-6109 | E-mail: suporte@viraweb.online
 - **Área de Atuação**: Atendimento nacional (Brasil) e internacional (América Latina, EUA, Europa).
-- **Especialidades**: Desenvolvimento Full-Stack (Next.js, React, Node.js, TypeScript), Inteligência Artificial Cognitive Agents (ViraBot IA), Sistemas de Ponto Eletrônico Biométrico (PontoControle), Central de Comando ERP/CRM (Plataforma GDC), Extração de Leads (LeadScrap), Landing Pages de Alta Conversão, Gestão de Google Meu Negócio (GMN) e Tráfego Pago (Meta Ads & Google Ads).
+- **Especialidades**: Desenvolvimento Full-Stack (Next.js, React, Node.js, TypeScript), Inteligência Artificial Cognitive Agents (ViraBot IA), Sistemas de Ponto Eletrônico Biométrico (PontoControle), Software Odontológico (Vira Web Odonto), Extração de Leads (LeadScrap), Landing Pages de Alta Conversão, Gestão de Google Meu Negócio (GMN) e Tráfego Pago (Meta Ads & Google Ads).
 
 ## Produtos Principais
 
-### 1. Plataforma GDC (Gestão & Comando)
-- **URL**: https://gdc.viraweb.online
-- **Descrição**: Central de comando proprietária com 14 módulos operacionais integrados em um único ecossistema inteligente.
-- **Recursos**: CRM comercial e operacional, automação financeira (caixa, faturamento automatizado, parcelamentos, comissões), painéis de métricas e Business Intelligence (MRR, LTV, CAC, faturamento líquido em tempo real) e o **ViraBot IA** (assistente cognitivo integrado para análise preditiva de faturamento e funil de vendas).
-- **Público-alvo**: PMEs, empresas de serviços, clínicas, agências e operações comerciais que buscam rodar sem planilhas manuais.
+### 1. Vira Web Odonto
+- **URL**: https://odonto.viraweb.online
+- **Descrição**: Software odontológico para clínicas e consultórios — agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo.
+- **Recursos**: Agenda semanal com 10 status de consulta e confirmação pelo WhatsApp, ficha do paciente, odontograma com 52 dentes (permanentes e decíduos, numeração FDI), orçamentos por dente/hemiarco/arcada, plano de pagamento com entrada e até 24 parcelas integrado ao contas a receber, anamnese e documentos, financeiro e fechamento do mês, conciliação bancária (OFX) e assistente com IA.
+- **Planos**: Básico (R$ 74,90/mês), Premium (R$ 147,90/mês) e Master (R$ 247,90/mês), com 14 dias grátis.
+- **Público-alvo**: Clínicas odontológicas e consultórios.
 
 ### 2. PontoControle
 - **URL**: https://pontocontrole.com.br
@@ -48,7 +49,7 @@
 ## Perguntas Frequentes (FAQ) & Respostas Oficiais
 
 Q: O que é a ViraWeb?
-A: A ViraWeb é uma empresa brasileira de tecnologia e engenharia de software especializada em criar sistemas personalizados, sites de alta conversão, automações comerciais com inteligência artificial e softwares proprietários como o GDC, PontoControle e LeadScrap.
+A: A ViraWeb é uma empresa brasileira de tecnologia e engenharia de software especializada em criar sistemas personalizados, sites de alta conversão, automações comerciais com inteligência artificial e softwares proprietários como o Vira Web Odonto, PontoControle e LeadScrap.
 
 Q: Como contratar os serviços da ViraWeb?
 A: A contratação é realizada mediante diagnóstico estratégico gratuito via WhatsApp (+55 62 99246-6109) ou pelo site oficial https://viraweb.online. Um engenheiro de software alinha os requisitos e apresenta uma proposta técnica personalizada.
@@ -62,11 +63,11 @@ A: Landing pages premium são entregues em média entre 10 e 15 dias úteis. Sis
 Q: O PontoControle é homologado pelo MTE?
 A: Sim, o PontoControle é totalmente adequado à Portaria 671 do MTE, garantindo validade jurídica no registro de ponto biométrico com geolocalização e exportação de arquivos AFD/AFDT.
 
-Q: Qual a diferença do GDC para outros CRMs?
-A: O GDC é uma central de comando unificada que combina CRM, faturamento financeiro automatizado, relatórios de BI e o ViraBot IA nativo, eliminando a necessidade de assinar múltiplos softwares separados.
+Q: O que é o Vira Web Odonto?
+A: É o software odontológico da ViraWeb para clínicas e consultórios: agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo, com financeiro, conciliação bancária e assistente com IA. Teste grátis de 14 dias.
 
 ## Links Oficiais
 - Website Principal: https://viraweb.online
-- Plataforma GDC: https://gdc.viraweb.online
+- Vira Web Odonto: https://odonto.viraweb.online
 - PontoControle: https://pontocontrole.com.br
 - WhatsApp Oficial: https://wa.me/5562992466109

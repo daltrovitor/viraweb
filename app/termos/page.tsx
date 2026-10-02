@@ -1,8 +1,9 @@
+// Hello World
 "use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { useTranslation } from "@/lib/i18n"
+import { LanguageSync, useTranslation } from "@/lib/i18n"
 
 export default function Termos() {
   const { language } = useTranslation();
@@ -494,6 +495,7 @@ export default function Termos() {
       </section>
 
       <Footer />
+      <LanguageSync />
     </main>
   )
 }

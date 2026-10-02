@@ -1,52 +1,77 @@
+// Hello World
 'use client';
-import { useEffect, useRef } from 'react';
-import Lenis from 'lenis';
+
+import { useEffect, useRef, type ReactNode } from 'react';
+import { ReactLenis, useLenis, type LenisRef } from 'lenis/react';
+import { MotionConfig } from 'motion/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LanguageSync } from '@/lib/i18n';
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+/** Keeps ScrollTrigger in lockstep with Lenis and honours the CSS intro lock. */
+function LenisGsapBridge() {
+  const lenis = useLenis(ScrollTrigger.update);
+
   useEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
-    });
+    if (!lenis) return;
+    const root = document.documentElement;
+    if (!root.classList.contains('intro-lock')) return;
 
-    // Connect Lenis scroll events to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-
-    // Bind Lenis updates to the GSAP Ticker for frame-perfect scroll rendering sync
-    const updateLenis = (time: number) => {
-      // Prevent scrolling while loader is active (body overflow hidden)
-      const isPageLoading = document.body.style.overflow === 'hidden';
-      if (isPageLoading) {
-        lenis.stop();
-      } else {
-        lenis.start();
-        lenis.raf(time * 1000);
-      }
+    lenis.stop();
+    const release = () => {
+      lenis.start();
+      ScrollTrigger.refresh();
     };
-    gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
+    const timer = window.setTimeout(release, 1700);
+    return () => window.clearTimeout(timer);
+  }, [lenis]);
 
-    // Update ScrollTrigger on refresh
-    ScrollTrigger.defaults({
-      markers: false,
+  useEffect(() => {
+    // Fonts swap in after first paint; re-measure every trigger once they land.
+    if (!('fonts' in document)) return;
+    let cancelled = false;
+    document.fonts.ready.then(() => {
+      if (!cancelled) ScrollTrigger.refresh();
     });
-
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove(updateLenis);
+      cancelled = true;
     };
   }, []);
 
-  return <>{children}</>;
+  return null;
+}
+
+export default function SmoothScroll({ children }: { children: ReactNode }) {
+  const lenisRef = useRef<LenisRef>(null);
+
+  useEffect(() => {
+    const update = (time: number) => {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    };
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+    return () => gsap.ticker.remove(update);
+  }, []);
+
+  return (
+    <ReactLenis
+      root
+      ref={lenisRef}
+      options={{
+        autoRaf: false,
+        lerp: 0.08,
+        duration: 1.2,
+        smoothWheel: true,
+        anchors: { offset: -16 },
+      }}
+    >
+      <LenisGsapBridge />
+      <MotionConfig reducedMotion="user">
+        {children}
+        <LanguageSync />
+      </MotionConfig>
+    </ReactLenis>
+  );
 }

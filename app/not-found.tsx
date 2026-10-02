@@ -1,9 +1,10 @@
+// Hello World
 "use client"
 
 import React from "react"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import { useTranslation } from "@/lib/i18n"
+import { LanguageSync, useTranslation } from "@/lib/i18n"
 
 export default function NotFound() {
   const { language } = useTranslation();
@@ -55,6 +56,7 @@ export default function NotFound() {
           {language === 'en' ? 'Back to Home' : language === 'es' ? 'Volver al Inicio' : 'Voltar ao Início'}
         </Link>
       </div>
+      <LanguageSync />
     </section>
   )
 }

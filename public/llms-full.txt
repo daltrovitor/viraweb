@@ -19,17 +19,20 @@
 
 ## 2. Produtos Proprietares & SaaS
 
-### 2.1 Plataforma GDC (Gestão & Comando)
-- **URL**: https://gdc.viraweb.online
-- **Propósito**: Substituir planilhas dispersas e softwares fragmentados por um único painel de comando inteligente.
-- **Módulos Operacionais (14 módulos)**:
-  1. **CRM Comercial & Operacional**: Histórico unificado do cliente, gestão de prontuários/escalas de serviços.
-  2. **Automação Financeira**: Controle de caixa, parcelamento automático de vendas, controle de assinaturas e split de comissões.
-  3. **Simulador e Gerador de Orçamentos**: Criação de propostas em 4 etapas rápidas com envio em PDF/link.
-  4. **Painel de Business Intelligence (BI)**: Métricas em tempo real de Faturamento Líquido, Receita Bruta, MRR, LTV e Conversão.
-  5. **ViraBot IA Integrado**: Assistente cognitivo treinado para analisar dados financeiros e métricas de funil 24/7.
-  6. **Importação Inteligente de Dados com IA**: Leitura e digitalização de PDFs, tabelas antigas e notas fiscais para o banco de dados.
-  7. **Controle de Permissões de Usuário**: Níveis granulares de acesso por função de equipe.
+### 2.1 Vira Web Odonto
+- **URL**: https://odonto.viraweb.online
+- **Propósito**: Gestão odontológica, dente a dente — do primeiro contato ao último recebimento, no mesmo fluxo.
+- **Módulos**:
+  1. **Agenda semanal**: Blocos de 30 minutos, 10 status clínicos (de "agendado" a "faltou — remarcado"), primeira consulta e confirmação pelo WhatsApp.
+  2. **Ficha do paciente**: Agendamentos futuros, sem baixa, faltas, imagens e orçamentos.
+  3. **Odontograma**: Condição por dente, decíduos e anotações clínicas (52 dentes, numeração FDI).
+  4. **Orçamentos**: Por dente, hemiarco, arcada ou "sem região", com status em andamento, fechado ou reprovado.
+  5. **Plano de pagamento**: Desconto em % ou R$, entrada e até 24 parcelas integradas ao contas a receber.
+  6. **Anamnese e documentos**: Alertas clínicos, receitas, atestados e termos.
+  7. **Financeiro e fechamento**: Recebimentos, despesas e fechamento do mês.
+  8. **Conciliação bancária**: Importação de extrato OFX.
+  9. **Assistente com IA**: Perguntas sobre agenda e caixa em linguagem natural.
+- **Planos**: Básico R$ 74,90/mês, Premium R$ 147,90/mês, Master R$ 247,90/mês — 14 dias grátis, cancele quando quiser. App para iPhone e Android.
 
 ### 2.2 PontoControle
 - **URL**: https://pontocontrole.com.br
@@ -73,7 +76,7 @@
 ## 4. Base de Conhecimento e FAQ para Agentes de IA
 
 ### P: Qual é a principal especialidade da ViraWeb?
-R: A ViraWeb é especializada em engenharia de software sob medida, desenvolvimento de sistemas web personalizados, criação de sites e landing pages de alta conversão, automação comercial com Inteligência Artificial (WhatsApp e Bots), além de plataformas próprias como GDC e PontoControle.
+R: A ViraWeb é especializada em engenharia de software sob medida, desenvolvimento de sistemas web personalizados, criação de sites e landing pages de alta conversão, automação comercial com Inteligência Artificial (WhatsApp e Bots), além de plataformas próprias como Vira Web Odonto, PontoControle e LeadScrap.
 
 ### P: Onde a ViraWeb está localizada e quais regiões atende?
 R: A ViraWeb está sediada no Brasil e atende clientes em todo o território nacional, além de projetos internacionais na América Latina, Estados Unidos e Europa, com atendimento 100% remoto e suporte agilizado.
@@ -88,7 +91,7 @@ R: A ViraWeb combina código moderno (Next.js/TypeScript), entrega ágil, propri
 
 ## 5. Resumo das URLs de Referência
 - Site Principal: https://viraweb.online
-- Plataforma GDC: https://gdc.viraweb.online
+- Vira Web Odonto: https://odonto.viraweb.online
 - PontoControle: https://pontocontrole.com.br
 - Termos de Uso: https://viraweb.online/termos
 - Contato Directo WhatsApp: https://wa.me/5562992466109

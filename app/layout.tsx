@@ -1,17 +1,58 @@
+// Hello World
 import type React from "react"
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
+import type { Metadata, Viewport } from "next"
+import { Geist, Geist_Mono, Instrument_Serif, Montserrat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
+const ODONTO_URL = "https://odonto.viraweb.online"
+
+// Only the primary text face is preloaded; the accent faces swap in when used,
+// keeping the bytes ahead of the first paint (and LCP) to a minimum.
+const sans = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+  display: "swap",
+})
+
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+  preload: false,
+})
+
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-instrument-serif",
+  display: "swap",
+  preload: false,
+})
+
+// Brand typeface (ViraWeb wordmark + Vira Web Odonto section).
+const brand = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  preload: false,
+})
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff",
+}
 
 export const metadata: Metadata = {
   title: "ViraWeb — Engenharia de Software, Sistemas Personalizados & IA",
   description:
-    "Empresa de engenharia de software especializada em sistemas personalizados sob medida, criação de sites premium, automação comercial com IA (ViraBot) e softwares proprietários (GDC, PontoControle e LeadScrap).",
+    "Empresa de engenharia de software especializada em sistemas personalizados sob medida, criação de sites premium, automação comercial com IA (ViraBot) e softwares proprietários (Vira Web Odonto, PontoControle e LeadScrap).",
   metadataBase: new URL(SITE_URL),
   keywords: [
     "criação de sites",
@@ -20,7 +61,9 @@ export const metadata: Metadata = {
     "desenvolvimento de software sob medida",
     "automação whatsapp ia",
     "empresa de desenvolvimento de sistemas",
-    "plataforma gdc",
+    "software odontológico",
+    "sistema para clínica odontológica",
+    "vira web odonto",
     "pontocontrole biometria facial",
     "sistema de ponto portaria 671 mte",
     "leadscrap prospecção",
@@ -28,7 +71,7 @@ export const metadata: Metadata = {
     "desenvolvimento de bots",
     "inteligência artificial para empresas",
     "gestão google meu negócio",
-    "tráfego pago alta conversão"
+    "tráfego pago alta conversão",
   ],
   authors: [{ name: "ViraWeb", url: SITE_URL }],
   creator: "ViraWeb",
@@ -70,8 +113,15 @@ export const metadata: Metadata = {
     icon: [{ url: "/favicon.png" }],
     apple: [{ url: "/favicon.png" }],
   },
-  manifest: `${SITE_URL}/site.webmanifest`,
+  manifest: "/site.webmanifest",
 }
+
+/**
+ * Runs before first paint. Decides whether the home intro plays (first visit of
+ * the session, real browser, motion allowed) and locks scrolling while it runs.
+ * Everything else about the intro is pure CSS, so it never waits on hydration.
+ */
+const INTRO_SCRIPT = `(function(){try{var d=document.documentElement;if(location.pathname!=='/')return;var ua=navigator.userAgent.toLowerCase();var bot=/lighthouse|googlebot|bingbot|baiduspider|yandex|duckduckbot|slurp|headless/.test(ua);var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var seen=false;try{seen=sessionStorage.getItem('vw-intro')==='1'}catch(e){}if(bot||reduce||seen||location.hash){d.setAttribute('data-intro','skip');return}try{sessionStorage.setItem('vw-intro','1')}catch(e){}d.setAttribute('data-intro','play');d.classList.add('intro-lock');setTimeout(function(){d.classList.remove('intro-lock')},1700)}catch(e){}})();`
 
 export default function RootLayout({
   children,
@@ -102,7 +152,7 @@ export default function RootLayout({
         areaServed: ["BR", "US", "ES", "PT", "Worldwide"],
         priceRange: "$$$",
         sameAs: [
-          "https://gdc.viraweb.online",
+          ODONTO_URL,
           "https://pontocontrole.com.br",
           "https://instagram.com/viraweb.online",
           "https://wa.me/5562992466109",
@@ -111,13 +161,14 @@ export default function RootLayout({
           "Desenvolvimento de Software",
           "Sistemas Personalizados",
           "Inteligência Artificial",
+          "Software Odontológico",
           "Ponto Eletrônico Biométrico",
           "Portaria 671 MTE",
           "Automação WhatsApp",
           "Next.js",
           "React",
           "CRM & ERP Customizados",
-          "Gestão de Tráfego Pago"
+          "Gestão de Tráfego Pago",
         ],
       },
       {
@@ -129,24 +180,22 @@ export default function RootLayout({
           "@id": `${SITE_URL}/#organization`,
         },
         inLanguage: "pt-BR",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${SITE_URL}/?s={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
       },
       {
         "@type": "SoftwareApplication",
-        "@id": "https://gdc.viraweb.online/#software",
-        name: "Plataforma GDC (Gestão & Comando)",
-        operatingSystem: "Web",
-        applicationCategory: "BusinessApplication",
+        "@id": `${ODONTO_URL}/#software`,
+        name: "Vira Web Odonto",
+        url: ODONTO_URL,
+        operatingSystem: "Web, iOS, Android",
+        applicationCategory: "HealthApplication",
         description:
-          "Central de comando proprietária unificando CRM comercial e operacional, automação financeira, painéis de BI e o assistente cognitivo ViraBot IA.",
+          "Software odontológico para clínicas e consultórios: agenda semanal com status clínicos, ficha do paciente, orçamento direto no odontograma, plano de pagamento em até 24 parcelas, financeiro, conciliação bancária e assistente com IA.",
         offers: {
-          "@type": "Offer",
-          price: "0",
+          "@type": "AggregateOffer",
+          lowPrice: "74.90",
+          highPrice: "247.90",
           priceCurrency: "BRL",
+          offerCount: 3,
           availability: "https://schema.org/InStock",
         },
         provider: {
@@ -221,10 +270,10 @@ export default function RootLayout({
           },
           {
             "@type": "Question",
-            name: "O que é a plataforma GDC exclusiva?",
+            name: "O que é o Vira Web Odonto?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O GDC é nosso centro de comando proprietário. Em vez de contratar múltiplos softwares caros (CRM, financeiro, chatbot), nós integramos tudo em um único ecossistema personalizado para rodar sua empresa sem planilhas.",
+              text: "É o nosso software odontológico para clínicas e consultórios. Agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo — com financeiro, conciliação bancária e assistente com IA. Você testa grátis por 14 dias e cancela quando quiser.",
             },
           },
           {
@@ -273,17 +322,16 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="pt-BR" className="bg-white text-slate-900 selection:text-[#0B67FF] selection:bg-[#0B67FF]/10">
+    <html
+      lang="pt-BR"
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable} ${serif.variable} ${brand.variable}`}
+    >
       <head>
-        <link rel="icon" href="/favicon.png" sizes="any" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="canonical" href={SITE_URL} />
-        <meta name="theme-color" content="#FFFFFF" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <script id="vw-intro" dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
       </head>
-      <body className={`font-sans ${GeistSans.className} antialiased bg-white text-foreground`}>
+      <body suppressHydrationWarning className="font-sans antialiased bg-white text-ink">
         <script
-          key="ld-json"
           id="ld-json"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

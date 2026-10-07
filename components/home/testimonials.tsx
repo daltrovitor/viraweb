@@ -11,8 +11,8 @@ import type { Copy } from '@/lib/site';
 
 const LABEL: Copy<string> = { pt: 'Depoimentos', en: 'Testimonials', es: 'Testimonios' };
 
-// The GDC platform is no longer offered, so reviews about it are left out.
-const REVIEWS = allReviews.filter((review) => !/\bGDC\b/.test(review.body));
+// The odonto platform is no longer offered, so reviews about it are left out.
+const REVIEWS = allReviews.filter((review) => !/\bodonto\b/.test(review.body));
 const PER_ROW = 10;
 const ROWS: Review[][] = [
   REVIEWS.filter((_, i) => i % 2 === 0).slice(0, PER_ROW),

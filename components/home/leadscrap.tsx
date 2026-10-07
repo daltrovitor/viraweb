@@ -197,7 +197,7 @@ export function LeadScrap() {
 
   return (
     <section id="leadscrap" aria-labelledby="leadscrap-title" className="border-t border-line bg-white">
-      <ChapterBar label={copy.chapter} href={SITE.leadScrapUrl} host="ls.viraweb.online" />
+      <ChapterBar label={copy.chapter} href={SITE.leadScrapUrl} host="ls.viraweb.dev.br" />
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 items-center gap-x-4 gap-y-14 px-4 py-20 sm:px-8 sm:py-28 lg:gap-x-10 lg:px-12">
         <div className="order-2 col-span-12 lg:order-1 lg:col-span-7">
           <Reveal y={40}>

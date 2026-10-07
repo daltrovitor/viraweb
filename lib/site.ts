@@ -7,12 +7,12 @@ export type Copy<T> = Record<Language, T>;
 export const SITE = {
   whatsappNumber: '5562984638578',
   whatsappDisplay: '(62) 9 8463-8578',
-  email: 'suporte@viraweb.online',
-  instagramUrl: 'https://instagram.com/viraweb.online',
-  instagramHandle: '@viraweb.online',
-  odontoUrl: 'https://odonto.viraweb.online',
+  email: 'suporte@viraweb.dev.br',
+  instagramUrl: 'https://instagram.com/viraweb.dev.br',
+  instagramHandle: '@viraweb.dev.br',
+  odontoUrl: 'https://odonto.viraweb.dev.br',
   pontoControleUrl: 'https://pontocontrole.com.br',
-  leadScrapUrl: 'https://ls.viraweb.online',
+  leadScrapUrl: 'https://ls.viraweb.dev.br',
 } as const;
 
 export function whatsappLink(message?: string): string {

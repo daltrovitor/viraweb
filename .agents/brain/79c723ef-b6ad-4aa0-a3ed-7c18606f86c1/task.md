@@ -9,7 +9,7 @@
 - `[ ]` Reconstruir componente `Stats` (`components/stats.tsx`)
 - `[ ]` Reconstruir componente `StackViraWeb` (`components/stack-viraweb.tsx`) em formato de **Bento Grid**
 - `[ ]` Reconstruir componente `WhyUs` (`components/why-us.tsx`)
-- `[ ]` Reconstruir componente `HeroGDC` (`components/hero-gdc.tsx`) com mockup de navegador claro
+- `[ ]` Reconstruir componente `Heroodonto` (`components/hero-odonto.tsx`) com mockup de navegador claro
 - `[ ]` Reconstruir componente `Services` (`components/services.tsx`)
 - `[ ]` Reconstruir componente `CTA` (`components/cta.tsx`) com banner translúcido azul
 - `[ ]` Reconstruir componente `Footer` (`components/footer.tsx`) em tema claro técnico

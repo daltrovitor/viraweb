@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.dev.br"
 
 export default function Head() {
   const url = `${SITE_URL}/termos`

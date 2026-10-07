@@ -7,8 +7,8 @@ import { Suspense } from "react"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
-const ODONTO_URL = "https://odonto.viraweb.online"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.dev.br"
+const ODONTO_URL = "https://odonto.viraweb.dev.br"
 
 // Only the primary text face is preloaded; the accent faces swap in when used,
 // keeping the bytes ahead of the first paint (and LCP) to a minimum.
@@ -143,7 +143,7 @@ export default function RootLayout({
         description:
           "Empresa brasileira de engenharia de software sob medida, desenvolvimento de sistemas personalizados, inteligência artificial integrada, automação comercial e tráfego pago de alta performance.",
         telephone: "+55-62-99246-6109",
-        email: "suporte@viraweb.online",
+        email: "suporte@viraweb.dev.br",
         address: {
           "@type": "PostalAddress",
           addressCountry: "BR",
@@ -154,7 +154,7 @@ export default function RootLayout({
         sameAs: [
           ODONTO_URL,
           "https://pontocontrole.com.br",
-          "https://instagram.com/viraweb.online",
+          "https://instagram.com/viraweb.dev.br",
           "https://wa.me/5562992466109",
         ],
         knowsAbout: [

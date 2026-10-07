@@ -10,7 +10,7 @@ export const RevealLinks = () => {
       <FlipLink href="#">Twitter</FlipLink>
       <FlipLink href="#">Linkedin</FlipLink>
       <FlipLink href="#">Facebook</FlipLink>
-      <FlipLink href="https://instagram.com/viraweb.online">Instagram</FlipLink>
+      <FlipLink href="https://instagram.com/viraweb.dev.br">Instagram</FlipLink>
     </section>
   );
 };

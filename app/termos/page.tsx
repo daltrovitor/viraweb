@@ -147,8 +147,8 @@ export default function Termos() {
               In case of questions, support, or requests, the client can contact us through the following channels:
             </p>
             <ul className="list-none pl-0 space-y-2 font-semibold text-slate-800">
-              <li>📧 Email: suporte@viraweb.online</li>
-              <li>🌐 Website: viraweb.online</li>
+              <li>📧 Email: suporte@viraweb.dev.br</li>
+              <li>🌐 Website: viraweb.dev.br</li>
               <li>📱 WhatsApp: (62) 9 9246-6109</li>
             </ul>
 
@@ -301,8 +301,8 @@ export default function Termos() {
               En caso de dudas, soporte o solicitudes, el cliente puede ponerse en contacto por los siguientes canales:
             </p>
             <ul className="list-none pl-0 space-y-2 font-semibold text-slate-800">
-              <li>📧 Correo electrónico: suporte@viraweb.online</li>
-              <li>🌐 Sitio web: viraweb.online</li>
+              <li>📧 Correo electrónico: suporte@viraweb.dev.br</li>
+              <li>🌐 Sitio web: viraweb.dev.br</li>
               <li>📱 WhatsApp: (62) 9 9246-6109</li>
             </ul>
 
@@ -455,8 +455,8 @@ export default function Termos() {
             Em caso de dúvidas, suporte ou solicitações, o cliente pode entrar em contato pelos seguintes canais:
           </p>
           <ul className="list-none pl-0 space-y-2 font-semibold text-slate-800">
-            <li>📧 E-mail: suporte@viraweb.online</li>
-            <li>🌐 Site: viraweb.online</li>
+            <li>📧 E-mail: suporte@viraweb.dev.br</li>
+            <li>🌐 Site: viraweb.dev.br</li>
             <li>📱 WhatsApp: (62) 9 9246-6109</li>
           </ul>
 

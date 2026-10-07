@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.viraweb.online',
+        hostname: '**.viraweb.dev.br',
       },
       {
         // Testimonial avatars
@@ -27,16 +27,36 @@ const nextConfig = {
     },
   },
   async redirects() {
+    // Legacy Odonto checkout redirects apply to the main site only; the Factory
+    // and Operations hosts own their own /checkout paths.
+    const mainOnly = [
+      { type: "host", value: "(?!factory\\.|ops\\.).*" },
+    ]
     return [
       {
         source: "/checkout/:path*",
-        destination: "https://gds.viraweb.online/checkout/:path*",
+        has: mainOnly,
+        destination: "https://odonto.viraweb.dev.br/checkout/:path*",
         permanent: true,
       },
       {
         source: "/:locale/checkout/:path*",
-        destination: "https://gds.viraweb.online/:locale/checkout/:path*",
+        has: mainOnly,
+        destination: "https://odonto.viraweb.dev.br/:locale/checkout/:path*",
         permanent: true,
+      },
+    ]
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "ops\\..*" }],
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "same-origin" },
+        ],
       },
     ]
   },

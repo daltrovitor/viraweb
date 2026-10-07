@@ -17,8 +17,8 @@ import { OdontogramBuilder } from '@/components/odonto/odontogram-builder';
 import { FlowStory } from '@/components/odonto/flow-story';
 
 /**
- * Vira Web Odonto — replaces the former GDC spotlight. Mirrors the product
- * site (odonto.viraweb.online): Montserrat headings, sky-700 accent, 2px radii.
+ * Vira Web Odonto — replaces the former odonto spotlight. Mirrors the product
+ * site (odonto.viraweb.dev.br): Montserrat headings, sky-700 accent, 2px radii.
  */
 export function OdontoSection() {
   const { language } = useTranslation();
@@ -28,7 +28,7 @@ export function OdontoSection() {
 
   return (
     <section id="odonto" aria-labelledby="odonto-title" className="relative border-t border-line bg-white">
-      <ChapterBar label={copy.chapter} href={appUrl} host="odonto.viraweb.online" accent="odonto" />
+      <ChapterBar label={copy.chapter} href={appUrl} host="odonto.viraweb.dev.br" accent="odonto" />
 
       {/* Intro + interactive odontogram */}
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 items-center gap-x-4 gap-y-14 px-4 py-20 sm:px-8 sm:py-28 lg:gap-x-10 lg:px-12">

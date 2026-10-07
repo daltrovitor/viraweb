@@ -10,7 +10,7 @@ export interface Review {
 }
 
 const col1: Review[] = [
-  { name: 'Dr. Marcelo Ramos', username: '@dr.marcelo', body: 'A integração do GDC com WhatsApp e prontuários mudou nossa rotina. Economizamos 15h semanais.', img: 'https://randomuser.me/api/portraits/men/32.jpg', country: '🇧🇷 Brasil' },
+  { name: 'Dr. Marcelo Ramos', username: '@dr.marcelo', body: 'A integração do odonto com WhatsApp e prontuários mudou nossa rotina. Economizamos 15h semanais.', img: 'https://randomuser.me/api/portraits/men/32.jpg', country: '🇧🇷 Brasil' },
   { name: 'Beatriz Lopes', username: '@bialopes', body: 'A landing page que fizeram para o lançamento do nosso curso converteu 3x mais do que a anterior. Absurdo.', img: 'https://randomuser.me/api/portraits/women/44.jpg', country: '🇧🇷 Brasil' },
   { name: 'Thiago Neves', username: '@thiago.nv', body: 'O dashboard de métricas em tempo real nos deu visibilidade total sobre o funil de vendas. Indispensável.', img: 'https://randomuser.me/api/portraits/men/75.jpg', country: '🇧🇷 Brasil' },
   { name: 'Camila Ferreira', username: '@camilaf', body: 'Entregaram o MVP em duas semanas. A qualidade do código e do design superou nossas expectativas.', img: 'https://randomuser.me/api/portraits/women/63.jpg', country: '🇧🇷 Brasil' },
@@ -45,7 +45,7 @@ const col5: Review[] = [
   { name: 'Julia Silva', username: '@julia.studios', body: 'Nosso faturamento aumentou muito após a implementação das automações de funil. Retorno garantido.', img: 'https://randomuser.me/api/portraits/women/33.jpg', country: '🇧🇷 Brasil' },
   { name: 'André Barros', username: '@andrebarros', body: 'A velocidade do site no PageSpeed passou de 38 para 99. Os clientes comentam como tudo carrega rápido.', img: 'https://randomuser.me/api/portraits/men/18.jpg', country: '🇧🇷 Brasil' },
   { name: 'Carla Mendonça', username: '@carlam', body: 'O ponto eletrônico com reconhecimento facial acabou com as fraudes de registro. Economia real.', img: 'https://randomuser.me/api/portraits/women/15.jpg', country: '🇧🇷 Brasil' },
-  { name: 'Felipe Rocha', username: '@felipinho.nv', body: 'Os orçamentos do GDC pouparam dias de trabalho manual do nosso setor comercial. Ferramenta essencial.', img: 'https://randomuser.me/api/portraits/men/85.jpg', country: '🇧🇷 Brasil' },
+  { name: 'Felipe Rocha', username: '@felipinho.nv', body: 'Os orçamentos do odonto pouparam dias de trabalho manual do nosso setor comercial. Ferramenta essencial.', img: 'https://randomuser.me/api/portraits/men/85.jpg', country: '🇧🇷 Brasil' },
   { name: 'Larissa Duarte', username: '@lariduarte', body: 'O sistema de controle de ponto é muito intuitivo e bonito. As colaboradoras adoraram usar no dia a dia.', img: 'https://randomuser.me/api/portraits/women/45.jpg', country: '🇧🇷 Brasil' },
 ];
 
@@ -76,8 +76,8 @@ const col8: Review[] = [
 
 export const reviewTranslations: Record<string, { en: string; es: string }> = {
   '@dr.marcelo': {
-    en: 'Integrating GDC with WhatsApp and electronic records changed our routine. We save 15h weekly.',
-    es: 'La integración del GDC con WhatsApp y expedientes médicos cambió nuestra rutina. Ahorramos 15h semanales.'
+    en: 'Integrating odonto with WhatsApp and electronic records changed our routine. We save 15h weekly.',
+    es: 'La integración del odonto con WhatsApp y expedientes médicos cambió nuestra rutina. Ahorramos 15h semanales.'
   },
   '@bialopes': {
     en: 'The landing page they made for our course launch converted 3x more than the previous one. Absurd.',
@@ -168,8 +168,8 @@ export const reviewTranslations: Record<string, { en: string; es: string }> = {
     es: 'El control de asistencia digital con reconocimiento facial acabó con los fraudes de registro. Ahorro real.'
   },
   '@felipinho.nv': {
-    en: 'GDC budgets saved days of manual work for our sales department. Essential tool.',
-    es: 'Los presupuestos del GDC ahorraron días de trabajo manual a nuestro departamento de ventas. Herramienta esencial.'
+    en: 'odonto budgets saved days of manual work for our sales department. Essential tool.',
+    es: 'Los presupuestos del odonto ahorraron días de trabajo manual a nuestro departamento de ventas. Herramienta esencial.'
   },
   '@lariduarte': {
     en: 'The time control system is very intuitive and beautiful. The employees loved using it daily.',

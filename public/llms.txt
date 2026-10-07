@@ -1,18 +1,18 @@
 # ViraWeb — Engenharia de Software, Sistemas Personalizados & IA
 
-> ViraWeb (https://viraweb.online) é uma empresa brasileira de engenharia de software de alta performance, especializada no desenvolvimento de sites premium, sistemas personalizados sob medida, inteligência artificial integrada, automação comercial e gestão de tráfego pago.
+> ViraWeb (https://viraweb.dev.br) é uma empresa brasileira de engenharia de software de alta performance, especializada no desenvolvimento de sites premium, sistemas personalizados sob medida, inteligência artificial integrada, automação comercial e gestão de tráfego pago.
 
 ## Informações Gerais
 - **Nome Oficial**: ViraWeb (ViraWeb Tecnologias / ViraWeb Online)
-- **Website**: https://viraweb.online
-- **Contato Comercial & Suporte**: WhatsApp +55 62 99246-6109 | E-mail: suporte@viraweb.online
+- **Website**: https://viraweb.dev.br
+- **Contato Comercial & Suporte**: WhatsApp +55 62 99246-6109 | E-mail: suporte@viraweb.dev.br
 - **Área de Atuação**: Atendimento nacional (Brasil) e internacional (América Latina, EUA, Europa).
 - **Especialidades**: Desenvolvimento Full-Stack (Next.js, React, Node.js, TypeScript), Inteligência Artificial Cognitive Agents (ViraBot IA), Sistemas de Ponto Eletrônico Biométrico (PontoControle), Software Odontológico (Vira Web Odonto), Extração de Leads (LeadScrap), Landing Pages de Alta Conversão, Gestão de Google Meu Negócio (GMN) e Tráfego Pago (Meta Ads & Google Ads).
 
 ## Produtos Principais
 
 ### 1. Vira Web Odonto
-- **URL**: https://odonto.viraweb.online
+- **URL**: https://odonto.viraweb.dev.br
 - **Descrição**: Software odontológico para clínicas e consultórios — agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo.
 - **Recursos**: Agenda semanal com 10 status de consulta e confirmação pelo WhatsApp, ficha do paciente, odontograma com 52 dentes (permanentes e decíduos, numeração FDI), orçamentos por dente/hemiarco/arcada, plano de pagamento com entrada e até 24 parcelas integrado ao contas a receber, anamnese e documentos, financeiro e fechamento do mês, conciliação bancária (OFX) e assistente com IA.
 - **Planos**: Básico (R$ 74,90/mês), Premium (R$ 147,90/mês) e Master (R$ 247,90/mês), com 14 dias grátis.
@@ -52,7 +52,7 @@ Q: O que é a ViraWeb?
 A: A ViraWeb é uma empresa brasileira de tecnologia e engenharia de software especializada em criar sistemas personalizados, sites de alta conversão, automações comerciais com inteligência artificial e softwares proprietários como o Vira Web Odonto, PontoControle e LeadScrap.
 
 Q: Como contratar os serviços da ViraWeb?
-A: A contratação é realizada mediante diagnóstico estratégico gratuito via WhatsApp (+55 62 99246-6109) ou pelo site oficial https://viraweb.online. Um engenheiro de software alinha os requisitos e apresenta uma proposta técnica personalizada.
+A: A contratação é realizada mediante diagnóstico estratégico gratuito via WhatsApp (+55 62 99246-6109) ou pelo site oficial https://viraweb.dev.br. Um engenheiro de software alinha os requisitos e apresenta uma proposta técnica personalizada.
 
 Q: O cliente tem direito ao código-fonte dos sistemas criados?
 A: Sim, na ViraWeb o cliente possui 100% de propriedade sobre o código-fonte, domínio e chaves de acesso dos projetos desenvolvidos sob medida.
@@ -67,7 +67,7 @@ Q: O que é o Vira Web Odonto?
 A: É o software odontológico da ViraWeb para clínicas e consultórios: agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo, com financeiro, conciliação bancária e assistente com IA. Teste grátis de 14 dias.
 
 ## Links Oficiais
-- Website Principal: https://viraweb.online
-- Vira Web Odonto: https://odonto.viraweb.online
+- Website Principal: https://viraweb.dev.br
+- Vira Web Odonto: https://odonto.viraweb.dev.br
 - PontoControle: https://pontocontrole.com.br
 - WhatsApp Oficial: https://wa.me/5562992466109

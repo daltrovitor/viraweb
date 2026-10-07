@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.online"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.dev.br"
 const DEFAULT_IMAGE = `${SITE_URL}/favicon.png`
 
 export function buildMetadata({

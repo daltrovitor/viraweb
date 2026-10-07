@@ -43,7 +43,7 @@ export function HeroShowcase() {
 
           <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1 text-[11px] font-mono font-medium text-slate-500 shadow-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>viraweb.online/sua-empresa</span>
+            <span>viraweb.dev.br/sua-empresa</span>
           </div>
 
           <div className="flex items-center gap-1 text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md">

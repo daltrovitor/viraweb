@@ -1,5 +1,5 @@
 // Hello World
-// Copy for the Vira Web Odonto section, mirrored from odonto.viraweb.online.
+// Copy for the Vira Web Odonto section, mirrored from odonto.viraweb.dev.br.
 import type { Copy } from '@/lib/site';
 
 export type AppointmentStatus =

@@ -4,15 +4,14 @@
 import { useActionState, useId, useState } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-import { sendMagicLink, signIn, signUp, type AuthState } from '@/app/sites/factory/login/actions';
+import { signIn, signUp, type AuthState } from '@/app/sites/factory/login/actions';
 import { Field, FormMessage, SubmitButton, inputClass } from '@/components/factory/ui/form';
 
-type Mode = 'signin' | 'signup' | 'magic';
+type Mode = 'signin' | 'signup';
 
 const MODES: Array<{ id: Mode; label: string }> = [
   { id: 'signin', label: 'Entrar' },
   { id: 'signup', label: 'Criar conta' },
-  { id: 'magic', label: 'Link por e-mail' },
 ];
 
 const INITIAL: AuthState = {};
@@ -23,10 +22,9 @@ export function AuthForm({ next, initialMode = 'signin' }: { next: string; initi
   const uid = useId();
   const [signInState, signInAction] = useActionState(signIn, INITIAL);
   const [signUpState, signUpAction] = useActionState(signUp, INITIAL);
-  const [magicState, magicAction] = useActionState(sendMagicLink, INITIAL);
 
-  const state = mode === 'signin' ? signInState : mode === 'signup' ? signUpState : magicState;
-  const action = mode === 'signin' ? signInAction : mode === 'signup' ? signUpAction : magicAction;
+  const state = mode === 'signin' ? signInState : signUpState;
+  const action = mode === 'signin' ? signInAction : signUpAction;
 
   return (
     <div>
@@ -58,25 +56,23 @@ export function AuthForm({ next, initialMode = 'signin' }: { next: string; initi
         <Field id={`${uid}-email`} label="E-mail" required>
           <input id={`${uid}-email`} name="email" type="email" autoComplete="email" required className={inputClass} />
         </Field>
-        {mode !== 'magic' ? (
-          <Field id={`${uid}-password`} label="Senha" required help={mode === 'signup' ? 'Mínimo de 8 caracteres.' : undefined}>
-            <input
-              id={`${uid}-password`}
-              name="password"
-              type="password"
-              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-              required
-              minLength={mode === 'signup' ? 8 : undefined}
-              className={inputClass}
-            />
-          </Field>
-        ) : null}
+        <Field id={`${uid}-password`} label="Senha" required help={mode === 'signup' ? 'Mínimo de 8 caracteres.' : undefined}>
+          <input
+            id={`${uid}-password`}
+            name="password"
+            type="password"
+            autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+            required
+            minLength={mode === 'signup' ? 8 : undefined}
+            className={inputClass}
+          />
+        </Field>
 
         {state.error ? <FormMessage>{state.error}</FormMessage> : null}
         {state.message ? <FormMessage tone="success">{state.message}</FormMessage> : null}
 
         <SubmitButton
-          label={mode === 'signin' ? 'Entrar' : mode === 'signup' ? 'Criar conta e continuar' : 'Enviar link de acesso'}
+          label={mode === 'signin' ? 'Entrar' : 'Criar conta e continuar'}
           pendingLabel="Aguarde…"
           className="w-full"
         />

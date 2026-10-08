@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { isStripeConfigured, isSupabaseConfigured } from '@/lib/env';
 import { requireUser } from '@/lib/auth/guards';
-import { getMyOrder, nextCharge } from '@/lib/factory/customer';
+import { getMyOrder, nextCharge, reconcilePendingPayments } from '@/lib/factory/customer';
 import { formatBRL, formatDate, formatDateTime, TIER_LABEL } from '@/lib/factory/format';
 import { STATUS_HINT, STATUS_LABEL, STATUS_TONE, SUBSCRIPTION_LABEL } from '@/lib/factory/workflow';
 import { EXTERNAL_LINK_PROPS } from '@/lib/site';
@@ -30,7 +30,8 @@ export default async function CustomerOrderPage({ params, searchParams }: Props)
   if (!isSupabaseConfigured()) notFound();
   const [{ id }, query] = await Promise.all([params, searchParams]);
   const user = await requireUser(`/login?next=/dashboard/orders/${encodeURIComponent(id)}`);
-  const order = await getMyOrder(user.id, id);
+  let order = await getMyOrder(user.id, id);
+  if (order && (await reconcilePendingPayments(user.id, [order]))) order = await getMyOrder(user.id, id);
   if (!order) notFound();
 
   const step = TRACK.indexOf(order.status as (typeof TRACK)[number]);

@@ -7,6 +7,7 @@ import { isSupabaseConfigured } from '@/lib/env';
 import { createClient } from '@/lib/supabase/server';
 import { isOpsRole, type Role } from '@/lib/auth/roles';
 import { getSessionUser } from '@/lib/auth/guards';
+import { signInWithPassword } from '@/lib/auth/password';
 import { rateLimit } from '@/lib/rate-limit';
 import { logAudit } from '@/lib/audit';
 import { clientIp } from '@/lib/factory/request';
@@ -26,18 +27,19 @@ export async function signInOps(_prev: OpsLoginState, form: FormData): Promise<O
     .safeParse(Object.fromEntries(form));
   if (!parsed.success) return { error: 'Informe e-mail e senha.' };
 
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
-  if (error || !data.user) return { error: 'Credenciais inválidas.' };
+  const login = await signInWithPassword(parsed.data.email, parsed.data.password);
+  if (!login.ok) return { error: login.reason === 'error' ? 'Não foi possível entrar agora.' : 'Credenciais inválidas.' };
 
-  const { data: profile } = await supabase.from('users').select('role').eq('id', data.user.id).single();
+  // Same client that holds the fresh session.
+  const supabase = login.client;
+  const { data: profile } = await supabase.from('users').select('role').eq('id', login.userId).single();
   if (!isOpsRole((profile?.role as Role | undefined) ?? null)) {
     await supabase.auth.signOut();
-    await logAudit({ userId: data.user.id, action: 'login', entity: 'ops', metadata: { denied: true, ip } });
+    await logAudit({ userId: login.userId, action: 'login', entity: 'ops', metadata: { denied: true, ip } });
     return { error: 'Esta conta não tem acesso ao Operations.' };
   }
 
-  await logAudit({ userId: data.user.id, action: 'login', entity: 'ops', metadata: { ip } });
+  await logAudit({ userId: login.userId, action: 'login', entity: 'ops', metadata: { ip } });
   redirect(safeNextPath(form.get('next'), '/'));
 }
 

@@ -8,7 +8,7 @@ import { requirePermission, requireRole, type SessionUser } from '@/lib/auth/gua
 import { can, ROLES } from '@/lib/auth/roles';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { isStripeConfigured } from '@/lib/env';
-import { getStripe } from '@/lib/stripe';
+import { describeStripeError, getStripe } from '@/lib/stripe';
 import { logAudit } from '@/lib/audit';
 import { calcDeadline } from '@/lib/sla';
 import { loadHolidays } from '@/lib/factory/repo';
@@ -426,6 +426,19 @@ export async function setUserRole(_prev: OpsFormState, form: FormData): Promise<
   });
   refresh();
   return { message: `Papel atualizado para ${parsed.data.role}.` };
+}
+
+/** Live check of the Stripe key (Operations → Configurações). Never returns secrets. */
+export async function testStripeConnection(_prev: OpsFormState, _form: FormData): Promise<OpsFormState> {
+  await requirePermission('settings:write');
+  if (!isStripeConfigured()) return { error: 'STRIPE_SECRET_KEY ausente ou em formato inválido (deve começar com sk_test_ ou sk_live_).' };
+  try {
+    const balance = await getStripe().balance.retrieve();
+    const currencies = [...new Set([...balance.available, ...balance.pending].map((b) => b.currency.toUpperCase()))];
+    return { message: `Conexão OK · modo ${balance.livemode ? 'produção' : 'teste'} · moedas: ${currencies.join(', ') || '—'}` };
+  } catch (error) {
+    return { error: `Stripe recusou a chave (${describeStripeError(error) ?? 'erro desconhecido'}).` };
+  }
 }
 
 export async function markOpsNotificationsRead(): Promise<void> {

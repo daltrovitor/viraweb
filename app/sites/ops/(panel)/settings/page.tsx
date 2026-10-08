@@ -4,11 +4,11 @@ import { requirePermission } from '@/lib/auth/guards';
 import { createClient } from '@/lib/supabase/server';
 import { listOperators } from '@/lib/ops/queries';
 import { formatDate } from '@/lib/factory/format';
-import { isStripeConfigured } from '@/lib/env';
+import { envReport } from '@/lib/env';
 import { FACTORY_HOST, OPS_HOST } from '@/lib/hosts';
 import { OpsActionButton, OpsForm } from '@/components/ops/forms';
 import { DefinitionList, PageHeader, Panel, opsInput } from '@/components/ops/ui';
-import { addHoliday, removeHoliday, setUserRole } from '../actions';
+import { addHoliday, removeHoliday, setUserRole, testStripeConnection } from '../actions';
 
 export const metadata: Metadata = { title: 'Configurações' };
 export const dynamic = 'force-dynamic';
@@ -17,6 +17,7 @@ const ROLE = { admin: 'Admin', production: 'Produção', support: 'Suporte', cus
 
 export default async function SettingsPage() {
   await requirePermission('settings:write');
+  const env = envReport();
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
   const [{ data: holidays }, operators] = await Promise.all([
@@ -75,15 +76,20 @@ export default async function SettingsPage() {
             </OpsForm>
           </Panel>
 
-          <Panel title="Integrações">
+          <Panel title="Integrações e diagnóstico">
             <DefinitionList
               items={[
                 ['Factory', FACTORY_HOST],
                 ['Operations', OPS_HOST],
-                ['Stripe', isStripeConfigured() ? 'Configurado (webhook em /api/stripe/webhook)' : 'Não configurado'],
+                ['Supabase', env.supabaseUrl && env.supabaseAnon ? 'URL e anon key ok' : 'NEXT_PUBLIC_SUPABASE_URL / ANON_KEY ausentes'],
+                ['Service role', env.supabaseServiceRole ? 'ok' : 'SUPABASE_SERVICE_ROLE_KEY ausente (pedidos não são criados)'],
+                ['Stripe (checkout)', env.stripeSecret ? `ok · modo ${env.stripeMode === 'live' ? 'produção' : 'teste'}` : env.stripeSecretPresentButInvalid ? 'STRIPE_SECRET_KEY em formato inválido' : 'STRIPE_SECRET_KEY ausente'],
+                ['Stripe (webhook)', env.stripeWebhook ? 'ok · /api/stripe/webhook' : 'STRIPE_WEBHOOK_SECRET ausente — pagamentos são confirmados no retorno do checkout; renovações e falhas dependem do webhook'],
                 ['Fuso do SLA', 'America/Sao_Paulo'],
               ]}
             />
+            <OpsForm action={testStripeConnection} submit="Testar conexão com o Stripe" variant="secondary" className="mt-4" />
+            <p className="mt-2 text-xs text-mute">Variáveis alteradas na Vercel só valem após um novo deploy.</p>
           </Panel>
         </div>
       </div>

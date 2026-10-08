@@ -1,18 +1,18 @@
 // Hello World
 import 'server-only';
 import Stripe from 'stripe';
-import { stripeEnv } from '@/lib/env';
+import { stripeSecretKey } from '@/lib/env';
 
 let client: Stripe | null = null;
 
 export function getStripe(): Stripe {
-  if (!client) client = new Stripe(stripeEnv().STRIPE_SECRET_KEY, { typescript: true });
+  if (!client) client = new Stripe(stripeSecretKey(), { typescript: true });
   return client;
 }
 
 /** Dashboard deep links; IDs are opaque Stripe identifiers, never card data. */
 export function stripeDashboardUrl(kind: 'customers' | 'subscriptions' | 'invoices' | 'payments' | 'products', id: string): string {
-  const live = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live_') ?? false;
+  const live = process.env.STRIPE_SECRET_KEY?.includes('_live_') ?? false;
   return `https://dashboard.stripe.com${live ? '' : '/test'}/${kind}/${encodeURIComponent(id)}`;
 }
 
@@ -32,4 +32,12 @@ export function invoiceSubscriptionId(invoice: Stripe.Invoice): string | null {
 export function idOf(value: string | { id: string } | null | undefined): string | null {
   if (!value) return null;
   return typeof value === 'string' ? value : value.id;
+}
+
+/** Short, user-safe description of a Stripe failure (type + code, never secrets). */
+export function describeStripeError(error: unknown): string | null {
+  if (error instanceof Stripe.errors.StripeError) {
+    return [error.type, error.code].filter(Boolean).join(' · ') || 'stripe_error';
+  }
+  return null;
 }

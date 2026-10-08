@@ -1,19 +1,21 @@
 // Hello World
 import type { Metadata } from 'next';
-import { isStripeConfigured, isSupabaseConfigured } from '@/lib/env';
+import { isServiceRoleConfigured, isStripeConfigured, isSupabaseConfigured } from '@/lib/env';
 import { getSessionUser } from '@/lib/auth/guards';
-import { getStripe } from '@/lib/stripe';
+import { reconcileCheckoutSession } from '@/lib/factory/stripe-webhook';
 import { ActionNavLink } from '@/components/factory/action-nav-link';
 
 export const metadata: Metadata = { title: 'Pedido confirmado', robots: { index: false, follow: false } };
+export const dynamic = 'force-dynamic';
 
 interface Props {
   searchParams: Promise<{ session_id?: string }>;
 }
 
 /**
- * Return page from Stripe Checkout. It only reads the session to show a receipt;
- * the order is confirmed exclusively by the webhook.
+ * Return page from Stripe Checkout. The session is verified server-side against
+ * Stripe's API (and the webhook does the same), so the order is confirmed even
+ * if the webhook is delayed — never on the browser's word alone.
  */
 export default async function OrderSuccessPage({ searchParams }: Props) {
   const { session_id: sessionId } = await searchParams;
@@ -21,17 +23,15 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
   let code: string | null = null;
   let paid = false;
 
-  if (sessionId && /^cs_[A-Za-z0-9_]+$/.test(sessionId) && isStripeConfigured() && isSupabaseConfigured()) {
+  const ready = isStripeConfigured() && isSupabaseConfigured() && isServiceRoleConfigured();
+  if (sessionId && /^cs_(test|live)_[A-Za-z0-9]+$/.test(sessionId) && ready) {
     const user = await getSessionUser();
-    try {
-      const session = await getStripe().checkout.sessions.retrieve(sessionId);
-      if (user && session.metadata?.user_id === user.id) {
-        orderId = session.metadata.order_id ?? null;
-        code = session.metadata.order_code ?? null;
-        paid = session.payment_status === 'paid' || session.payment_status === 'no_payment_required';
+    if (user) {
+      try {
+        ({ orderId, code, paid } = await reconcileCheckoutSession(sessionId, user.id));
+      } catch (error) {
+        console.error('checkout_reconcile_failed', error instanceof Error ? error.message : error);
       }
-    } catch {
-      // Unknown or foreign session: show the generic confirmation.
     }
   }
 
@@ -46,7 +46,7 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
         </h1>
         <p className="mt-8 max-w-[52ch] text-lg text-ink-soft">
           {paid
-            ? 'Recebemos seu pagamento e seu briefing. O prazo de entrega aparece na sua área assim que o pedido entra na fila de produção.'
+            ? 'Recebemos seu pagamento e seu briefing. O prazo de entrega já aparece na sua área.'
             : 'Assim que o Stripe confirmar o pagamento, seu pedido entra automaticamente na fila de produção.'}
         </p>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">

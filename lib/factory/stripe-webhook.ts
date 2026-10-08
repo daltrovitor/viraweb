@@ -74,7 +74,8 @@ async function confirmPayment(admin: Admin, order: OrderRow, session: Stripe.Che
   const days = order.delivery_days ?? (order.tier === 'standard' ? 2 : null);
   const deadline = briefingDone && days ? calcDeadline(now, days, await loadHolidays()).toISOString() : null;
 
-  await admin
+  // Conditional update = lock: when the webhook and the return page race, only one wins.
+  const { data: claimed } = await admin
     .from('orders')
     .update({
       payment_status: 'paid',
@@ -82,7 +83,10 @@ async function confirmPayment(admin: Admin, order: OrderRow, session: Stripe.Che
       status: briefingDone ? 'received' : 'briefing_pending',
       deadline,
     })
-    .eq('id', order.id);
+    .eq('id', order.id)
+    .neq('payment_status', 'paid')
+    .select('id');
+  if (!claimed?.length) return;
 
   const customerId = idOf(session.customer);
   if (customerId) {
@@ -102,6 +106,18 @@ async function confirmPayment(admin: Admin, order: OrderRow, session: Stripe.Che
 
   const subscriptionId = idOf(session.subscription);
   if (subscriptionId) await syncSubscription(admin, await getStripe().subscriptions.retrieve(subscriptionId), order);
+
+  // First invoice (setup + first month) — also recorded by invoice.paid; upsert keeps one row.
+  const invoiceId = session.mode === 'subscription' ? idOf(session.invoice) : null;
+  if (invoiceId) {
+    const invoice = await getStripe().invoices.retrieve(invoiceId);
+    if (invoice.status === 'paid') {
+      await admin.from('payments').upsert(
+        { order_id: order.id, stripe_invoice_id: invoice.id, amount: invoice.amount_paid, currency: invoice.currency, status: 'paid' },
+        { onConflict: 'stripe_invoice_id' },
+      );
+    }
+  }
 
   const product = order.products?.name ?? 'Produto';
   await notify(admin, [
@@ -163,6 +179,24 @@ async function subscriptionChanged(admin: Admin, subscription: Stripe.Subscripti
     entityId: subscription.id,
     metadata: { order: order.code, status, orderStatus: next ?? order.status },
   });
+}
+
+/**
+ * Server-side reconciliation used by the return page and the customer area:
+ * the session is fetched from Stripe's API (never trusted from the browser),
+ * must belong to the signed-in user and be paid. Idempotent with the webhook.
+ */
+export async function reconcileCheckoutSession(sessionId: string, userId: string): Promise<{ orderId: string | null; code: string | null; paid: boolean }> {
+  const session = await getStripe().checkout.sessions.retrieve(sessionId);
+  const orderId = session.metadata?.order_id ?? session.client_reference_id ?? null;
+  if (session.metadata?.user_id !== userId || !orderId) return { orderId: null, code: null, paid: false };
+  const paid = session.status === 'complete' && (session.payment_status === 'paid' || session.payment_status === 'no_payment_required');
+  if (paid) {
+    const admin = createAdminClient();
+    const order = await loadOrder(admin, orderId);
+    if (order && order.user_id === userId) await confirmPayment(admin, order, session);
+  }
+  return { orderId, code: session.metadata?.order_code ?? null, paid };
 }
 
 /**

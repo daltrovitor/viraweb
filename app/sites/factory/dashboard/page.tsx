@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { isSupabaseConfigured } from '@/lib/env';
 import { requireUser } from '@/lib/auth/guards';
-import { listMyOrders, myNotifications, nextCharge } from '@/lib/factory/customer';
+import { listMyOrders, myNotifications, nextCharge, reconcilePendingPayments } from '@/lib/factory/customer';
 import { formatBRL, formatDate } from '@/lib/factory/format';
 import { STATUS_LABEL, STATUS_TONE } from '@/lib/factory/workflow';
 import { EXTERNAL_LINK_PROPS } from '@/lib/site';
@@ -33,7 +33,10 @@ export default async function DashboardPage() {
   }
 
   const user = await requireUser('/login?next=/dashboard');
-  const [orders, notifications] = await Promise.all([listMyOrders(user.id), myNotifications(user.id)]);
+  let [orders, notifications] = await Promise.all([listMyOrders(user.id), myNotifications(user.id)]);
+  if (await reconcilePendingPayments(user.id, orders)) {
+    [orders, notifications] = await Promise.all([listMyOrders(user.id), myNotifications(user.id)]);
+  }
   const unread = notifications.filter((n) => !n.read);
   const ready = orders.filter((o) => o.status === 'ready' && o.delivery_url);
 

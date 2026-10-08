@@ -17,7 +17,7 @@ Copie `.env.example` e preencha na Vercel (Production e Preview). Sem Supabase, 
 ## 2. Supabase
 
 1. Rode, em ordem, `supabase/migrations/0001_factory_schema.sql` e `0002_factory_pages.sql` (SQL Editor ou `supabase db push`).
-2. Authentication → URL Configuration: adicione `https://factory.viraweb.dev.br/auth/callback` e `https://ops.viraweb.dev.br/**` em Redirect URLs.
+2. Contas são criadas já confirmadas pelo servidor (service role), sem e-mail de confirmação e sem link mágico. Contas antigas não confirmadas são confirmadas no primeiro login com a senha correta.
 3. Database → Replication: confirme a tabela `notifications` na publicação `supabase_realtime` (a migration 0002 tenta adicionar).
 4. Primeiro admin: crie a conta pela Factory (`/login`) e rode
    `update users set role = 'admin' where email = 'voce@exemplo.com';`
@@ -31,7 +31,9 @@ Copie `.env.example` e preencha na Vercel (Production e Preview). Sem Supabase, 
 2. Billing → Customer portal: ative o portal (usado em “Gerenciar assinatura”).
 3. Local: `stripe listen --forward-to localhost:3000/api/stripe/webhook`.
 
-O pagamento só é confirmado pelo webhook (assinatura verificada + idempotência em `stripe_events`). O checkout usa preços calculados no servidor; “Criar Prices no Stripe” em Ops → Produtos é opcional.
+Só `STRIPE_SECRET_KEY` é obrigatória para o checkout funcionar. O pagamento é confirmado no servidor de duas formas idempotentes: ao voltar do checkout (a sessão é consultada na API do Stripe, nunca confiando no navegador) e pelo webhook (assinatura verificada + `stripe_events`). Sem `STRIPE_WEBHOOK_SECRET`, renovações, falhas de cobrança e cancelamentos não são sincronizados — configure o webhook para produção.
+
+Diagnóstico: Ops → Configurações mostra quais variáveis estão presentes e tem o botão “Testar conexão com o Stripe”. Variáveis alteradas na Vercel exigem novo deploy.
 
 ## 4. DNS / Vercel
 

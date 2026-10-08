@@ -2,7 +2,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { isStripeConfigured, isSupabaseConfigured } from '@/lib/env';
+import { isServiceRoleConfigured, isStripeConfigured, isSupabaseConfigured } from '@/lib/env';
+import { describeStripeError } from '@/lib/stripe';
 import { getSessionUser } from '@/lib/auth/guards';
 import { rateLimit } from '@/lib/rate-limit';
 import { briefingFieldsFor, buildBriefingSchema } from '@/lib/factory/briefing';
@@ -22,7 +23,10 @@ export async function submitOrder(slug: string, _prev: OrderFormState, form: For
     [...form.entries()].filter((entry): entry is [string, string] => typeof entry[1] === 'string'),
   );
 
-  if (!isSupabaseConfigured()) return { error: 'Pedidos online ainda não estão disponíveis.', values };
+  if (!isSupabaseConfigured() || !isServiceRoleConfigured()) {
+    console.error('order_unavailable', { supabase: isSupabaseConfigured(), serviceRole: isServiceRoleConfigured() });
+    return { error: 'Pedidos online ainda não estão disponíveis.', values };
+  }
   const user = await getSessionUser();
   if (!user) return { error: 'Sua sessão expirou. Entre novamente para continuar.', values };
   if (!rateLimit(`order:${user.id}`, 6, 10 * 60_000).ok) {
@@ -49,19 +53,27 @@ export async function submitOrder(slug: string, _prev: OrderFormState, form: For
   const customize = values.customize === 'on';
   const tier: Tier = product.tier === 'standard' && !customize ? 'standard' : product.tier === 'enterprise' ? 'enterprise' : 'custom';
   if (tier === 'standard' && !isStripeConfigured()) {
+    console.error('checkout_unavailable: STRIPE_SECRET_KEY ausente ou inválida');
     return { error: 'O pagamento online está temporariamente indisponível. Tente novamente em breve.', values };
   }
 
-  let destination: string;
+  let order: { id: string; code: string };
   try {
-    const order = await createOrderWithBriefing({ user, product, tier, briefing: parsed.data });
-    destination =
-      tier === 'standard'
-        ? await createCheckoutForOrder(order.id, user.id, await requestOrigin())
-        : `/dashboard/orders/${order.id}?enviado=1`;
+    order = await createOrderWithBriefing({ user, product, tier, briefing: parsed.data });
   } catch (error) {
     console.error('order_submit_failed', error instanceof Error ? error.message : error);
     return { error: 'Não conseguimos registrar o pedido agora. Tente novamente em instantes.', values };
   }
-  redirect(destination);
+  if (tier !== 'standard') redirect(`/dashboard/orders/${order.id}?enviado=1`);
+
+  let checkoutUrl: string;
+  try {
+    checkoutUrl = await createCheckoutForOrder(order.id, user.id, await requestOrigin());
+  } catch (error) {
+    const stripeCode = describeStripeError(error);
+    console.error('checkout_create_failed', stripeCode ?? '', error instanceof Error ? error.message : error);
+    // The order is kept (awaiting payment) so the customer can retry from their area.
+    redirect(`/dashboard/orders/${order.id}?checkout=erro`);
+  }
+  redirect(checkoutUrl);
 }

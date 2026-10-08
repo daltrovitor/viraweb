@@ -1,6 +1,8 @@
 // Hello World
 import 'server-only';
 import { createClient } from '@/lib/supabase/server';
+import { isServiceRoleConfigured, isStripeConfigured } from '@/lib/env';
+import { reconcileCheckoutSession } from './stripe-webhook';
 import type { OrderStatus, PaymentStatus, PreviewKind, SubscriptionStatus, Tier } from './types';
 
 export interface CustomerOrder {
@@ -14,6 +16,7 @@ export interface CustomerOrder {
   delivery_url: string | null;
   deadline: string | null;
   created_at: string;
+  stripe_checkout_session_id: string | null;
   products: { name: string; slug: string; preview: PreviewKind } | null;
   subscriptions: Array<{ status: SubscriptionStatus; current_period_end: string | null }>;
 }
@@ -35,7 +38,7 @@ export interface CustomerNotification {
 }
 
 const ORDER_FIELDS =
-  'id, code, status, payment_status, tier, setup_price, monthly_price, delivery_url, deadline, created_at, products(name, slug, preview), subscriptions(status, current_period_end)';
+  'id, code, status, payment_status, tier, setup_price, monthly_price, delivery_url, deadline, created_at, stripe_checkout_session_id, products(name, slug, preview), subscriptions(status, current_period_end)';
 
 /** RLS limits every query here to the signed-in customer's own rows. */
 export async function listMyOrders(userId: string): Promise<CustomerOrder[]> {
@@ -78,4 +81,25 @@ export function nextCharge(order: CustomerOrder): string | null {
   const live = order.subscriptions.filter((s) => s.status === 'active' || s.status === 'trialing' || s.status === 'past_due');
   const dates = live.map((s) => s.current_period_end).filter((d): d is string => !!d).sort();
   return dates[0] ?? null;
+}
+
+/**
+ * Orders still marked "awaiting payment" whose Checkout already completed (webhook
+ * late or not configured) are confirmed against Stripe's API. Returns true if any changed.
+ */
+export async function reconcilePendingPayments(userId: string, orders: Array<Pick<CustomerOrder, 'status' | 'payment_status' | 'stripe_checkout_session_id'>>): Promise<boolean> {
+  if (!isStripeConfigured() || !isServiceRoleConfigured()) return false;
+  const pending = orders
+    .filter((o) => o.status === 'awaiting_payment' && o.payment_status !== 'paid' && o.stripe_checkout_session_id)
+    .slice(0, 3);
+  let changed = false;
+  for (const order of pending) {
+    try {
+      const result = await reconcileCheckoutSession(order.stripe_checkout_session_id as string, userId);
+      changed ||= result.paid;
+    } catch (error) {
+      console.error('reconcile_pending_failed', error instanceof Error ? error.message : error);
+    }
+  }
+  return changed;
 }

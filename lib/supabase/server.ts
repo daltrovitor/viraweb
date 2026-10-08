@@ -6,8 +6,9 @@ import { publicSupabaseEnv } from '@/lib/env';
 
 /** Session-bound client (anon key + user JWT): RLS applies. */
 export async function createClient() {
-  const env = publicSupabaseEnv();
+  // Reading cookies first opts the route into dynamic rendering before any env checks.
   const cookieStore = await cookies();
+  const env = publicSupabaseEnv();
   return createServerClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
     cookies: {
       getAll: () => cookieStore.getAll(),

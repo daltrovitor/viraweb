@@ -1,6 +1,8 @@
 // Hello World
 import 'server-only';
 import { notFound, redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { isSupabaseConfigured } from '@/lib/env';
 import { createClient } from '@/lib/supabase/server';
 import { can, isOpsRole, type Permission, type Role } from '@/lib/auth/roles';
 
@@ -13,6 +15,8 @@ export interface SessionUser {
 
 /** Resolves the verified user (getUser hits Supabase Auth, never trusts the cookie alone). */
 export async function getSessionUser(): Promise<SessionUser | null> {
+  await cookies();
+  if (!isSupabaseConfigured()) return null;
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) return null;

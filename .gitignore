@@ -25,3 +25,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# env template is versioned
+!.env.example
+
+# browser automation artifacts
+.playwright-mcp/

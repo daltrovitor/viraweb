@@ -75,6 +75,7 @@ const COPY: Copy<FooterCopy> = {
 };
 
 const PRODUCTS = [
+  { label: 'ViraWeb Factory', href: SITE.factoryUrl },
   { label: 'Vira Web Odonto', href: SITE.odontoUrl },
   { label: 'PontoControle', href: SITE.pontoControleUrl },
   { label: 'LeadScrap', href: SITE.leadScrapUrl },

@@ -4,7 +4,8 @@ import { createAdminClient } from '@/lib/supabase/admin';
 
 export type AuditAction =
   | 'login' | 'logout' | 'order.create' | 'order.update' | 'order.status'
-  | 'price.update' | 'product.update' | 'delivery.send' | 'order.cancel' | 'subscription.update';
+  | 'price.update' | 'product.update' | 'delivery.send' | 'order.cancel' | 'subscription.update'
+  | 'revision.update' | 'settings.update' | 'user.role';
 
 export interface AuditEntry {
   userId: string | null;

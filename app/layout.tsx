@@ -121,7 +121,7 @@ export const metadata: Metadata = {
  * the session, real browser, motion allowed) and locks scrolling while it runs.
  * Everything else about the intro is pure CSS, so it never waits on hydration.
  */
-const INTRO_SCRIPT = `(function(){try{var d=document.documentElement;if(location.pathname!=='/')return;var ua=navigator.userAgent.toLowerCase();var bot=/lighthouse|googlebot|bingbot|baiduspider|yandex|duckduckbot|slurp|headless/.test(ua);var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var seen=false;try{seen=sessionStorage.getItem('vw-intro')==='1'}catch(e){}if(bot||reduce||seen||location.hash){d.setAttribute('data-intro','skip');return}try{sessionStorage.setItem('vw-intro','1')}catch(e){}d.setAttribute('data-intro','play');d.classList.add('intro-lock');setTimeout(function(){d.classList.remove('intro-lock')},1700)}catch(e){}})();`
+const INTRO_SCRIPT = `(function(){try{var d=document.documentElement;if(location.pathname!=='/'||/^(factory|ops)\\./.test(location.hostname))return;var ua=navigator.userAgent.toLowerCase();var bot=/lighthouse|googlebot|bingbot|baiduspider|yandex|duckduckbot|slurp|headless/.test(ua);var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var seen=false;try{seen=sessionStorage.getItem('vw-intro')==='1'}catch(e){}if(bot||reduce||seen||location.hash){d.setAttribute('data-intro','skip');return}try{sessionStorage.setItem('vw-intro','1')}catch(e){}d.setAttribute('data-intro','play');d.classList.add('intro-lock');setTimeout(function(){d.classList.remove('intro-lock')},1700)}catch(e){}})();`
 
 export default function RootLayout({
   children,

@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/
 import { useLenis } from 'lenis/react';
 import { useTranslation, type Language } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
-import { EXTERNAL_LINK_PROPS, whatsappLink, type Copy } from '@/lib/site';
+import { EXTERNAL_LINK_PROPS, SITE, whatsappLink, type Copy } from '@/lib/site';
 import { Wordmark } from '@/components/brand/brand-mark';
 import { RollText } from '@/components/motion/roll-text';
 import { ActionLink } from '@/components/ui/action-link';
@@ -32,6 +32,7 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Fechar menu',
     language: 'Idioma',
     links: [
+      { label: 'Factory', href: SITE.factoryUrl },
       { label: 'Soluções', href: '/#services' },
       { label: 'Odonto', href: '/#odonto' },
       { label: 'PontoControle', href: '/#pontocontrole' },
@@ -50,6 +51,7 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Close menu',
     language: 'Language',
     links: [
+      { label: 'Factory', href: SITE.factoryUrl },
       { label: 'Solutions', href: '/#services' },
       { label: 'Odonto', href: '/#odonto' },
       { label: 'PontoControle', href: '/#pontocontrole' },
@@ -68,6 +70,7 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Cerrar menú',
     language: 'Idioma',
     links: [
+      { label: 'Factory', href: SITE.factoryUrl },
       { label: 'Soluciones', href: '/#services' },
       { label: 'Odonto', href: '/#odonto' },
       { label: 'PontoControle', href: '/#pontocontrole' },

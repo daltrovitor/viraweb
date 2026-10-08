@@ -13,6 +13,7 @@ export const SITE = {
   odontoUrl: 'https://odonto.viraweb.dev.br',
   pontoControleUrl: 'https://pontocontrole.com.br',
   leadScrapUrl: 'https://ls.viraweb.dev.br',
+  factoryUrl: process.env.NEXT_PUBLIC_FACTORY_URL ?? 'https://factory.viraweb.dev.br',
 } as const;
 
 export function whatsappLink(message?: string): string {

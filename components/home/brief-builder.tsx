@@ -1,0 +1,144 @@
+// Hello World
+'use client';
+
+import { useId, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Check } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
+import { EXTERNAL_LINK_PROPS, whatsappLink, type Copy } from '@/lib/site';
+import { briefMessage, getServices, type ServiceKey } from '@/lib/home/services';
+import { trackContact, type ContactLocation } from '@/lib/analytics';
+import { ActionLink } from '@/components/ui/action-link';
+
+interface BriefCopy {
+  legend: string;
+  preview: string;
+  send: string;
+  note: string;
+}
+
+const COPY: Copy<BriefCopy> = {
+  pt: {
+    legend: 'O que você precisa?',
+    preview: 'Sua mensagem',
+    send: 'Enviar no WhatsApp',
+    note: 'Diagnóstico gratuito de 15 minutos com um engenheiro.',
+  },
+  en: {
+    legend: 'What do you need?',
+    preview: 'Your message',
+    send: 'Send on WhatsApp',
+    note: 'Free 15-minute assessment with an engineer.',
+  },
+  es: {
+    legend: '¿Qué necesita?',
+    preview: 'Su mensaje',
+    send: 'Enviar por WhatsApp',
+    note: 'Diagnóstico gratuito de 15 minutos con un ingeniero.',
+  },
+};
+
+const TAP = { type: 'spring', stiffness: 450, damping: 32, mass: 0.6 } as const;
+
+interface BriefBuilderProps {
+  /** Reported with the click so each placement can be measured on its own. */
+  location: ContactLocation;
+  className?: string;
+}
+
+/**
+ * The page's conversion anchor: the visitor marks what they need and the
+ * WhatsApp message writes itself. One tap sends a brief an engineer can act on,
+ * so nobody has to face an empty chat box.
+ */
+export function BriefBuilder({ location, className }: BriefBuilderProps) {
+  const { language } = useTranslation();
+  const copy = COPY[language];
+  const services = getServices(language);
+  const legendId = useId();
+  const [selected, setSelected] = useState<ServiceKey[]>([]);
+  const message = briefMessage(language, selected);
+
+  const toggle = (key: ServiceKey) =>
+    setSelected((current) => (current.includes(key) ? current.filter((item) => item !== key) : [...current, key]));
+
+  return (
+    <div
+      role="group"
+      aria-labelledby={legendId}
+      className={cn(
+        'rounded-sm border border-line-strong bg-white p-5 shadow-[0_40px_90px_-55px_rgba(15,31,51,0.5)] sm:p-6',
+        className,
+      )}
+    >
+      <p id={legendId} className="text-lg font-semibold tracking-[-0.02em] text-ink">
+        {copy.legend}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {services.map((service) => {
+          const active = selected.includes(service.key);
+          return (
+            <motion.button
+              key={service.key}
+              type="button"
+              aria-pressed={active}
+              onClick={() => toggle(service.key)}
+              whileTap={{ scale: 0.96 }}
+              transition={TAP}
+              className={cn(
+                'inline-flex min-h-12 cursor-pointer items-center gap-2.5 rounded-sm border px-4 text-[0.92rem] font-medium transition-colors duration-300',
+                active ? 'border-ink bg-ink text-white' : 'border-line-strong bg-white text-ink hover:border-ink',
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'grid size-4 shrink-0 place-items-center rounded-[2px] border transition-colors duration-300',
+                  active ? 'border-white bg-white text-ink' : 'border-line-strong',
+                )}
+              >
+                {active ? (
+                  <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={TAP}>
+                    <Check className="size-3" strokeWidth={3} />
+                  </motion.span>
+                ) : null}
+              </span>
+              {service.chip}
+            </motion.button>
+          );
+        })}
+      </div>
+
+      <div className="mt-5 rounded-sm bg-surface p-4">
+        <p className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-mute">{copy.preview}</p>
+        <div className="mt-2 min-h-[4.75rem]" aria-live="polite">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.p
+              key={message}
+              className="text-[0.95rem] leading-relaxed text-ink"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {message}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
+        <ActionLink
+          href={whatsappLink(message)}
+          {...EXTERNAL_LINK_PROPS}
+          label={copy.send}
+          onClick={() => trackContact(location, selected.length > 0 ? selected.join('+') : 'none')}
+          className="w-full sm:w-auto"
+        />
+        <p className="text-[0.82rem] leading-snug text-mute sm:max-w-[24ch] sm:text-right">{copy.note}</p>
+      </div>
+    </div>
+  );
+}

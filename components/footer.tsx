@@ -26,10 +26,10 @@ interface FooterCopy {
 const COPY: Copy<FooterCopy> = {
   pt: {
     navigation: 'Navegação',
-    products: 'Produtos',
+    products: 'Produto',
     contact: 'Contato',
     links: [
-      { label: 'Soluções', href: '/#services' },
+      { label: 'Serviços', href: '/#services' },
       { label: 'Pacote ViraWeb', href: '/propostas' },
       { label: 'FAQ', href: '/#faq' },
       { label: 'Contato', href: '/#contato' },
@@ -42,7 +42,7 @@ const COPY: Copy<FooterCopy> = {
   },
   en: {
     navigation: 'Navigation',
-    products: 'Products',
+    products: 'Product',
     contact: 'Contact',
     links: [
       { label: 'Solutions', href: '/#services' },
@@ -58,7 +58,7 @@ const COPY: Copy<FooterCopy> = {
   },
   es: {
     navigation: 'Navegación',
-    products: 'Productos',
+    products: 'Producto',
     contact: 'Contacto',
     links: [
       { label: 'Soluciones', href: '/#services' },
@@ -75,10 +75,7 @@ const COPY: Copy<FooterCopy> = {
 };
 
 const PRODUCTS = [
-  { label: 'ViraWeb Factory', href: SITE.factoryUrl },
-  { label: 'Vira Web Odonto', href: SITE.odontoUrl },
   { label: 'PontoControle', href: SITE.pontoControleUrl },
-  { label: 'LeadScrap', href: SITE.leadScrapUrl },
 ];
 
 const TIME_FORMAT = new Intl.DateTimeFormat('pt-BR', {

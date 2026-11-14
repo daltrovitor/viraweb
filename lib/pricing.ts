@@ -1,6 +1,8 @@
 import type { Language } from "./i18n"
+import { SITE } from "./site"
 
-export const WHATSAPP_E164 = "5562992466109"
+/** Same number as every other contact button on the site (see lib/site.ts). */
+export const WHATSAPP_E164 = SITE.whatsappNumber
 
 export type ServiceId = "website" | "gmn" | "ads" | "virabot"
 

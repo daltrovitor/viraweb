@@ -1,13 +1,16 @@
+// Hello World
+import { SITE, absoluteUrl } from '@/lib/site';
+
 export const siteMetadata = ({
-  title = 'Vira Web - Criação de Sites',
-  description = 'Especialistas em sistemas personalizados, criação de sites, criação de bots e gestão de Google Meu Negócio. Transforme sua presença digital.',
-  url = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://viraweb.dev.br',
-  image = `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://viraweb.dev.br'}/favicon.png`,
-  keywords = ['sistemas personalizados', 'criação de sites', 'criação de bots'],
+  title = 'ViraWeb — Sites, sistemas sob medida, automação com IA e marketing',
+  description = 'Criamos sites, sistemas sob medida, automações com IA no WhatsApp e campanhas de tráfego pago. Diagnóstico gratuito pelo WhatsApp.',
+  url = SITE.url,
+  image = absoluteUrl('/favicon.png'),
+  keywords = ['sistemas sob medida', 'criação de sites', 'automação whatsapp', 'tráfego pago'],
 } = {}) => ({
   title,
   description,
   url,
   image,
   keywords,
-})
+});

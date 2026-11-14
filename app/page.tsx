@@ -1,39 +1,36 @@
 // Hello World
+import type { Metadata } from 'next';
 import SmoothScroll from '@/components/smooth-scroll';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
-import { IntroOverlay } from '@/components/home/intro-overlay';
 import { Hero } from '@/components/home/hero';
-import { VelocityMarquee } from '@/components/home/velocity-marquee';
-import { FactorySection } from '@/components/home/factory-section';
-import { Manifesto } from '@/components/home/manifesto';
-import { ServicesStack } from '@/components/home/services-stack';
-import { PackageStrip } from '@/components/home/package-strip';
-import { ProductsChapter } from '@/components/home/products-chapter';
-import { OdontoSection } from '@/components/odonto/odonto-section';
+import { ProofStrip } from '@/components/home/proof-strip';
+import { Services } from '@/components/home/services';
+import { PackageBand } from '@/components/home/package-band';
 import { PontoControle } from '@/components/home/pontocontrole';
-import { LeadScrap } from '@/components/home/leadscrap';
 import { Process } from '@/components/home/process';
 import { Testimonials } from '@/components/home/testimonials';
 import { Faq } from '@/components/home/faq';
 import { Contact } from '@/components/home/contact';
+import { SITE } from '@/lib/site';
+import { homeJsonLd, serializeJsonLd } from '@/lib/structured-data';
+
+export const metadata: Metadata = {
+  alternates: { canonical: SITE.url },
+  openGraph: { url: SITE.url },
+};
 
 export default function Home() {
   return (
     <SmoothScroll>
-      <IntroOverlay />
+      <script id="ld-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(homeJsonLd()) }} />
       <Navbar />
       <main id="conteudo" className="relative z-10 bg-white">
         <Hero />
-        <VelocityMarquee />
-        <FactorySection />
-        <Manifesto />
-        <ServicesStack />
-        <PackageStrip />
-        <ProductsChapter />
-        <OdontoSection />
+        <ProofStrip />
+        <Services />
+        <PackageBand />
         <PontoControle />
-        <LeadScrap />
         <Process />
         <Testimonials />
         <Faq />

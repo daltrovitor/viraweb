@@ -2,127 +2,137 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useTranslation } from '@/lib/i18n';
-import { whatsappLink, EXTERNAL_LINK_PROPS, type Copy } from '@/lib/site';
-import { ActionLink } from '@/components/ui/action-link';
+import type { Copy } from '@/lib/site';
+import { getServices } from '@/lib/home/services';
 import { RollText } from '@/components/motion/roll-text';
-import { InteractiveMark } from '@/components/home/interactive-mark';
+import { BriefBuilder } from '@/components/home/brief-builder';
 
 interface HeroCopy {
   line1: string;
-  line2: { lead: string; em: string };
-  line3: string;
+  lead: string;
+  em: string;
+  tail: string;
   lede: string;
-  primary: string;
+  steps: string;
   secondary: string;
-  whatsapp: string;
-  disciplines: string[];
-  location: string;
 }
 
 const COPY: Copy<HeroCopy> = {
   pt: {
-    line1: 'Código',
-    line2: { lead: 'que', em: 'vira' },
-    line3: 'resultado.',
-    lede: 'Desenvolvimento de softwares exclusivos, inteligência artificial integrada, tráfego qualificado de alta escala e sistemas sob medida para a sua operação.',
-    primary: 'Agendar diagnóstico gratuito',
-    secondary: 'Ver soluções',
-    whatsapp: 'Olá ViraWeb! Quero agendar um diagnóstico estratégico gratuito para minha empresa.',
-    disciplines: ['Sites premium', 'Sistemas sob medida', 'IA no WhatsApp', 'SEO local'],
-    location: 'Goiânia — GO, Brasil',
+    line1: 'Sites, sistemas e automações',
+    lead: 'que',
+    em: 'viram',
+    tail: 'clientes.',
+    lede: 'A ViraWeb projeta, desenvolve e divulga a sua operação digital: site, sistema sob medida, IA no WhatsApp e tráfego pago. O código-fonte é 100% seu.',
+    steps: 'Serviços',
+    secondary: 'Ver os serviços',
   },
   en: {
-    line1: 'Code',
-    line2: { lead: 'that', em: 'turns' },
-    line3: 'into revenue.',
-    lede: 'Development of exclusive software, integrated artificial intelligence, high-scale qualified traffic, and tailor-made systems for your operation.',
-    primary: 'Schedule a free assessment',
-    secondary: 'Explore solutions',
-    whatsapp: 'Hello ViraWeb! I want to schedule a free digital strategic assessment.',
-    disciplines: ['Premium websites', 'Custom systems', 'WhatsApp AI', 'Local SEO'],
-    location: 'Goiânia — GO, Brazil',
+    line1: 'Websites, systems and automations',
+    lead: 'that',
+    em: 'turn into',
+    tail: 'customers.',
+    lede: 'ViraWeb designs, builds and promotes your digital operation: website, custom system, AI on WhatsApp and paid traffic. The source code is 100% yours.',
+    steps: 'Services',
+    secondary: 'See the services',
   },
   es: {
-    line1: 'Código',
-    line2: { lead: 'que', em: 'genera' },
-    line3: 'resultados.',
-    lede: 'Desarrollo de software exclusivo, inteligencia artificial integrada, tráfico calificado a gran escala y sistemas a la medida para su operación.',
-    primary: 'Agendar diagnóstico gratuito',
-    secondary: 'Ver soluciones',
-    whatsapp: '¡Hola ViraWeb! Quiero agendar un diagnóstico estratégico gratuito.',
-    disciplines: ['Sitios premium', 'Sistemas a medida', 'IA en WhatsApp', 'SEO local'],
-    location: 'Goiânia — GO, Brasil',
+    line1: 'Sitios, sistemas y automatizaciones',
+    lead: 'que',
+    em: 'generan',
+    tail: 'clientes.',
+    lede: 'ViraWeb diseña, desarrolla y promueve su operación digital: sitio, sistema a medida, IA en WhatsApp y tráfico pago. El código fuente es 100% suyo.',
+    steps: 'Servicios',
+    secondary: 'Ver los servicios',
   },
 };
 
-const line = (i: number) => ({ '--i': i }) as CSSProperties;
+const vars = (values: Record<string, string | number>) => values as CSSProperties;
 
+/**
+ * Z-pattern hero. The eye enters at the brand (top left), crosses to the contact
+ * button (top right), slides down the diagonal past the four services, lands on
+ * the headline and ends at the conversion anchor in the bottom right corner.
+ */
 export function Hero() {
   const { language } = useTranslation();
   const copy = COPY[language];
-  const reduceMotion = useReducedMotion();
-
-  const { scrollY } = useScroll();
-  const headlineY = useTransform(scrollY, [0, 900], [0, reduceMotion ? 0 : -140]);
-  const headlineOpacity = useTransform(scrollY, [0, 700], [1, reduceMotion ? 1 : 0.15]);
+  const services = getServices(language);
 
   return (
-    <section
-      id="top"
-      aria-labelledby="hero-title"
-      className="relative flex min-h-[100svh] flex-col overflow-x-clip bg-white pt-[calc(var(--nav-h)+2.5rem)] pb-8 sm:pb-10"
-    >
-      <div className="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-12 gap-x-4 px-4 sm:px-8 lg:px-12">
-        {/* Interactive mark — floats top-right on mobile, owns the right third on desktop */}
-        <div className="pointer-events-auto absolute right-4 top-[calc(var(--nav-h)+1.25rem)] w-[30vw] max-w-[150px] sm:right-8 lg:static lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:mt-6 lg:w-full lg:max-w-[420px] lg:justify-self-end lg:self-start">
-          <InteractiveMark />
+    <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip bg-white pt-[var(--nav-h)]">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
+        {/* Top stroke of the Z: from the brand to the contact button */}
+        <div aria-hidden="true" className="z-rule hidden h-px bg-line-strong lg:block" />
+
+        {/* Diagonal stroke with the four services as steps (large screens only) */}
+        <div className="relative hidden h-[clamp(9rem,26svh,17rem)] lg:block">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="z-diagonal absolute inset-0 size-full"
+          >
+            <line x1="100" y1="0" x2="0" y2="100" stroke="var(--line-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+          </svg>
+
+          <nav aria-label={copy.steps}>
+            <ol>
+              {services.map((service, index) => {
+                // Each step ends exactly on the diagonal, like a stair resting on it.
+                const x = 26 + index * 20;
+                return (
+                  <li
+                    key={service.key}
+                    className="z-step absolute"
+                    style={vars({ right: `${100 - x}%`, bottom: `${x}%`, '--order': services.length - 1 - index })}
+                  >
+                    <a
+                      href={`/#${service.anchor}`}
+                      className="roll-trigger group relative flex min-h-12 items-center gap-3 pb-1 pr-4 text-[0.95rem] font-medium text-ink-soft transition-colors duration-300 hover:text-ink"
+                    >
+                      <span className="font-mono text-[0.72rem] font-normal text-mute">0{index + 1}</span>
+                      <RollText text={service.chip} />
+                      <span
+                        aria-hidden="true"
+                        className="absolute bottom-0 right-0 size-[7px] translate-x-1/2 translate-y-1/2 bg-ink transition-[transform,background-color] duration-500 ease-out-expo group-hover:scale-[1.8] group-hover:bg-brand group-focus-visible:scale-[1.8] group-focus-visible:bg-brand"
+                      />
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </nav>
         </div>
 
-        <motion.div
-          style={{ y: headlineY, opacity: headlineOpacity }}
-          className="col-span-12 col-start-1 row-start-1 self-end pt-28 sm:pt-32 lg:col-span-9 lg:col-start-1 lg:pt-0"
+        <h1
+          id="hero-title"
+          className="pt-10 text-[clamp(2.125rem,10vw,3.5rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-ink [overflow-wrap:anywhere] lg:pt-2 lg:text-[clamp(3.5rem,5.9vw,6.25rem)] lg:leading-[0.94]"
         >
-          <h1
-            id="hero-title"
-            className="text-[clamp(2.75rem,14.5vw,4.5rem)] font-semibold sm:text-[clamp(3rem,9vw,10.5rem)] leading-[0.88] tracking-[-0.055em] text-ink"
-          >
-            <span className="mask-line">
-              <span className="mask-inner" style={line(0)}>
-                {copy.line1}
-              </span>
+          <span className="mask-line">
+            <span className="mask-inner" style={vars({ '--i': 0 })}>
+              {copy.line1}
             </span>
-            <span className="mask-line pl-[0.9em]">
-              <span className="mask-inner" style={line(1)}>
-                {copy.line2.lead}{' '}
-                <em className="font-serif font-normal italic tracking-[-0.02em] text-brand">{copy.line2.em}</em>
-              </span>
+          </span>
+          <span className="mask-line">
+            <span className="mask-inner" style={vars({ '--i': 1 })}>
+              {copy.lead}{' '}
+              <em className="font-serif font-normal italic tracking-[-0.02em] text-brand">{copy.em}</em> {copy.tail}
             </span>
-            <span className="mask-line">
-              <span className="mask-inner" style={line(2)}>
-                {copy.line3}
-              </span>
-            </span>
-          </h1>
-        </motion.div>
-      </div>
+          </span>
+        </h1>
 
-      <div className="mx-auto mt-10 grid w-full max-w-[1440px] grid-cols-12 items-end gap-x-4 gap-y-10 px-4 sm:mt-14 sm:px-8 lg:px-12">
-        <div className="col-span-12 md:col-span-7 lg:col-span-5">
-          <p className="fade-up max-w-[46ch] text-base leading-relaxed text-ink-soft sm:text-lg" style={line(0)}>
-            {copy.lede}
-          </p>
-          <div className="fade-up mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6" style={line(1)}>
-            <ActionLink
-              href={whatsappLink(copy.whatsapp)}
-              {...EXTERNAL_LINK_PROPS}
-              label={copy.primary}
-              className="w-full sm:w-auto"
-            />
+        {/* Base stroke of the Z: leads the eye to the conversion anchor */}
+        <div aria-hidden="true" className="z-rule mt-8 h-px bg-ink lg:mt-10" style={vars({ '--delay': '0.85s' })} />
+
+        <div className="grid grid-cols-12 gap-x-4 gap-y-10 pb-14 pt-8 sm:pb-20 lg:gap-x-10 lg:pt-10">
+          <div className="fade-up col-span-12 lg:col-span-5" style={vars({ '--i': 0 })}>
+            <p className="max-w-[46ch] text-base leading-relaxed text-ink-soft sm:text-lg">{copy.lede}</p>
             <a
               href="/#services"
-              className="roll-trigger group inline-flex min-h-12 items-center justify-center gap-2 text-[0.95rem] font-medium text-ink sm:justify-start"
+              className="roll-trigger group mt-6 inline-flex min-h-12 items-center gap-2 text-[0.95rem] font-medium text-ink"
             >
               <span className="relative">
                 <RollText text={copy.secondary} />
@@ -133,27 +143,10 @@ export function Hero() {
               </span>
             </a>
           </div>
-        </div>
 
-        <div
-          className="fade-up col-span-12 grid grid-cols-1 gap-x-4 gap-y-4 border-t sm:grid-cols-2 sm:gap-y-6 border-line pt-6 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-mute md:col-span-5 md:col-start-8 xl:col-span-4 xl:col-start-9"
-          style={line(2)}
-        >
-          <ul className="space-y-1.5">
-            {copy.disciplines.map((discipline, i) => (
-              <li key={discipline} className="flex gap-3">
-                <span className="text-mute" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <span className="text-ink-soft">{discipline}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="leading-relaxed sm:self-end sm:text-right">
-            {copy.location}
-            <br />
-            <span className="text-ink-soft">Next.js · TypeScript · IA</span>
-          </p>
+          <div className="fade-up col-span-12 lg:col-span-6 lg:col-start-7" style={vars({ '--i': 1 })}>
+            <BriefBuilder location="hero" />
+          </div>
         </div>
       </div>
     </section>

@@ -1,8 +1,10 @@
+// Hello World
 import type { Metadata } from "next"
+import { SITE, absoluteUrl } from "@/lib/site"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://viraweb.dev.br"
-const DEFAULT_IMAGE = `${SITE_URL}/favicon.png`
+const DEFAULT_IMAGE = absoluteUrl("/favicon.png")
 
+/** Page metadata with a self-referencing canonical, so no page inherits another page's URL. */
 export function buildMetadata({
   title,
   description,
@@ -16,24 +18,20 @@ export function buildMetadata({
   keywords?: string[]
   image?: string
 }): Metadata {
-  const url = new URL(path, SITE_URL).toString()
+  const url = absoluteUrl(path)
 
   return {
     title,
     description,
     keywords,
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL(SITE.url),
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,
       url,
-      siteName: "Vira Web",
-      images: [
-        {
-          url: image,
-          alt: "Vira Web",
-        },
-      ],
+      siteName: SITE.name,
+      images: [{ url: image, alt: SITE.name }],
       locale: "pt_BR",
       type: "website",
     },
@@ -41,6 +39,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title,
       description,
+      images: [image],
     },
   }
 }

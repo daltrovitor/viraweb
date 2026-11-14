@@ -1,34 +1,14 @@
+// Hello World
 import type { MetadataRoute } from 'next'
+import { absoluteUrl } from '@/lib/site'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://viraweb.dev.br'
+/** Date of the last real content change. Update it when the pages change — not on every build. */
+const CONTENT_UPDATED = new Date('2026-11-13T00:00:00-03:00')
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const currentDate = new Date()
-
   return [
-    {
-      url: SITE_URL,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    {
-      url: `${SITE_URL}/propostas`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/links`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/termos`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
+    { url: absoluteUrl('/'), lastModified: CONTENT_UPDATED, changeFrequency: 'weekly', priority: 1 },
+    { url: absoluteUrl('/propostas'), lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: absoluteUrl('/termos'), lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
   ]
 }

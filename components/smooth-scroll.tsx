@@ -10,23 +10,9 @@ import { LanguageSync } from '@/lib/i18n';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Keeps ScrollTrigger in lockstep with Lenis and honours the CSS intro lock. */
+/** Keeps ScrollTrigger in lockstep with Lenis. */
 function LenisGsapBridge() {
-  const lenis = useLenis(ScrollTrigger.update);
-
-  useEffect(() => {
-    if (!lenis) return;
-    const root = document.documentElement;
-    if (!root.classList.contains('intro-lock')) return;
-
-    lenis.stop();
-    const release = () => {
-      lenis.start();
-      ScrollTrigger.refresh();
-    };
-    const timer = window.setTimeout(release, 1700);
-    return () => window.clearTimeout(timer);
-  }, [lenis]);
+  useLenis(ScrollTrigger.update);
 
   useEffect(() => {
     // Fonts swap in after first paint; re-measure every trigger once they land.

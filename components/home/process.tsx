@@ -19,7 +19,7 @@ export function Process() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
 
   return (
-    <section aria-labelledby="process-title" className="border-t border-line bg-white py-24 sm:py-36">
+    <section id="metodo" aria-labelledby="process-title" className="scroll-mt-4border-t border-line bg-white py-24 sm:py-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-8 px-4 sm:px-8 lg:px-12">
         <p className="col-span-12 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-mute lg:col-span-2 lg:pt-4">
           ({LABEL[language]})

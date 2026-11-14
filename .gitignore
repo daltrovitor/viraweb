@@ -30,3 +30,8 @@ next-env.d.ts
 
 # browser automation artifacts
 .playwright-mcp/
+
+# local knowledge graph and research working files
+graphify-out/
+research_notes/
+reports/

@@ -8,10 +8,11 @@ import { Check, ScanFace } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { EXTERNAL_LINK_PROPS, SITE, whatsappLink, type Copy } from '@/lib/site';
+import { getPontoControle, PONTO_PLANS, brl } from '@/lib/home/products';
+import { trackContact } from '@/lib/analytics';
 import { SplitWords } from '@/components/motion/split-words';
 import { Reveal } from '@/components/motion/reveal';
 import { ActionLink } from '@/components/ui/action-link';
-import { ChapterBar } from '@/components/home/chapter-bar';
 
 type Presence = 'present' | 'break';
 type Role = 'housekeeper' | 'driver' | 'caregiver' | 'team';
@@ -27,15 +28,20 @@ interface Punch {
 }
 
 interface PontoCopy {
-  chapter: string;
   titleA: string;
   titleEm: string;
   titleB: string;
-  lede: string;
   primary: string;
   secondary: string;
   whatsapp: string;
+  trial: string;
   features: Array<{ title: string; body: string }>;
+  audienceTitle: string;
+  audiences: Array<{ title: string; body: string }>;
+  plansTitle: string;
+  perMonth: string;
+  onRequest: string;
+  law: string;
   sim: {
     title: string;
     idle: string;
@@ -49,24 +55,33 @@ interface PontoCopy {
   };
 }
 
+// Features, audiences, plans and legal references mirror pontocontrole.com.br.
 const COPY: Copy<PontoCopy> = {
   pt: {
-    chapter: 'Produto 02',
-    titleA: 'Tecnologia que',
-    titleEm: 'simplifica',
-    titleB: 'o controle de ponto.',
-    lede: 'Ponto eletrônico com biometria facial, geolocalização por GPS e conformidade com a Portaria 671 do MTE — construído com o que há de mais moderno para garantir precisão e facilidade no dia a dia.',
-    primary: 'Conhecer o PontoControle',
+    titleA: 'Controle de ponto pelo celular, com',
+    titleEm: 'reconhecimento facial',
+    titleB: 'e GPS.',
+    primary: 'Testar grátis por 14 dias',
     secondary: 'Falar no WhatsApp',
-    whatsapp: 'Olá ViraWeb! Estou interessado no PontoControle para controle de ponto e banco de horas.',
+    whatsapp: 'Olá ViraWeb! Tenho interesse no PontoControle para controle de ponto e banco de horas.',
+    trial: '14 dias grátis com todos os recursos. Sem cartão de crédito, sem taxa de adesão e sem fidelidade.',
     features: [
-      { title: 'Reconhecimento facial', body: 'Biometria facial que valida a identidade em cada registro de ponto com alta precisão.' },
-      { title: 'Geolocalização', body: 'Captura automática da localização GPS em cada batida de ponto.' },
-      { title: 'Segurança total', body: 'Criptografia de dados, auditoria completa e conformidade com a LGPD.' },
-      { title: 'Gestão para o lar', body: 'Ideal para funcionários domésticos, cuidadores e pequenas equipes.' },
-      { title: 'Relatórios em PDF', body: 'Frequência, horas trabalhadas e atrasos exportáveis em PDF.' },
-      { title: 'Gestão de equipe', body: 'Painel com horários e status de todos os funcionários em tempo real.' },
+      { title: 'Reconhecimento facial', body: 'Cada batida confere o rosto do funcionário. Ninguém bate o ponto pelo colega.' },
+      { title: 'GPS em cada marcação', body: 'Veja onde o ponto foi registrado: na empresa, na casa ou no cliente.' },
+      { title: 'Painel em tempo real', body: 'Horários e status de todos os funcionários, no momento em que acontecem.' },
+      { title: 'Horas extras e banco de horas', body: 'Atrasos, faltas, extras e saldo calculados automaticamente a partir da jornada.' },
+      { title: 'Espelho de ponto em PDF', body: 'Relatório mensal por funcionário em 1 clique, pronto para a contabilidade e o eSocial.' },
+      { title: 'Funciona sem internet', body: 'Sem sinal, a marcação fica salva no celular e sincroniza quando a conexão volta.' },
     ],
+    audienceTitle: 'Para quem é',
+    audiences: [
+      { title: 'Pequenas empresas', body: 'Comércios, clínicas, escritórios, restaurantes, salões e equipes externas.' },
+      { title: 'Empregador doméstico', body: 'Empregada doméstica, babá, cuidador de idosos, caseiro ou motorista.' },
+    ],
+    plansTitle: 'Planos',
+    perMonth: '/mês',
+    onRequest: 'Sob consulta',
+    law: 'Para empregados domésticos, o registro do horário é obrigatório (Lei Complementar 150/2015, art. 12). Para empresas, é obrigatório nos estabelecimentos com mais de 20 trabalhadores (CLT, art. 74, § 2º).',
     sim: {
       title: 'Registro de ponto',
       idle: 'Posicione o rosto no quadro',
@@ -80,22 +95,30 @@ const COPY: Copy<PontoCopy> = {
     },
   },
   en: {
-    chapter: 'Product 02',
-    titleA: 'Technology that',
-    titleEm: 'simplifies',
-    titleB: 'time tracking.',
-    lede: 'Digital time clock with facial biometrics, GPS geolocation and compliance with Brazil’s MTE Ordinance 671 — built with modern tools for accuracy and ease every day.',
-    primary: 'Discover PontoControle',
+    titleA: 'Time tracking on the phone, with',
+    titleEm: 'facial recognition',
+    titleB: 'and GPS.',
+    primary: 'Try it free for 14 days',
     secondary: 'Talk on WhatsApp',
-    whatsapp: 'Hello ViraWeb! I am interested in PontoControle for employee attendance.',
+    whatsapp: 'Hello ViraWeb! I am interested in PontoControle for employee time tracking.',
+    trial: '14 days free with every feature. No credit card, no setup fee and no lock-in.',
     features: [
-      { title: 'Facial recognition', body: 'Facial biometrics that validates identity on every clock-in with high precision.' },
-      { title: 'Geolocation', body: 'Automatic GPS capture with every clock-in.' },
-      { title: 'Total security', body: 'Data encryption, full audit trail and LGPD compliance.' },
-      { title: 'Household management', body: 'Ideal for domestic workers, caregivers and small teams.' },
-      { title: 'PDF reports', body: 'Attendance, hours worked and late arrivals exportable to PDF.' },
-      { title: 'Team management', body: 'Live panel with every employee’s schedule and status.' },
+      { title: 'Facial recognition', body: 'Every clock-in checks the employee’s face. Nobody clocks in for a colleague.' },
+      { title: 'GPS on every record', body: 'See where the clock-in happened: at the company, at home or at the client.' },
+      { title: 'Real-time panel', body: 'Schedules and status of every employee, as they happen.' },
+      { title: 'Overtime and hour bank', body: 'Late arrivals, absences, overtime and balance calculated automatically from the schedule.' },
+      { title: 'Timesheet in PDF', body: 'Monthly report per employee in one click, ready for accounting and eSocial.' },
+      { title: 'Works offline', body: 'With no signal, the record is saved on the phone and syncs when the connection returns.' },
     ],
+    audienceTitle: 'Who it is for',
+    audiences: [
+      { title: 'Small businesses', body: 'Shops, clinics, offices, restaurants, salons and field teams.' },
+      { title: 'Household employers', body: 'Housekeeper, nanny, elderly caregiver, caretaker or driver.' },
+    ],
+    plansTitle: 'Plans',
+    perMonth: '/month',
+    onRequest: 'On request',
+    law: 'For household employees in Brazil, recording working hours is mandatory (Complementary Law 150/2015, article 12). For companies, it is mandatory in establishments with more than 20 workers (CLT, article 74, paragraph 2).',
     sim: {
       title: 'Clock-in',
       idle: 'Place your face in the frame',
@@ -109,22 +132,30 @@ const COPY: Copy<PontoCopy> = {
     },
   },
   es: {
-    chapter: 'Producto 02',
-    titleA: 'Tecnología que',
-    titleEm: 'simplifica',
-    titleB: 'el control de asistencia.',
-    lede: 'Reloj de asistencia digital con biometría facial, geolocalización GPS y cumplimiento de la Portaria 671 del MTE — construido con lo más moderno para garantizar precisión y facilidad en el día a día.',
-    primary: 'Conocer PontoControle',
+    titleA: 'Control de asistencia en el celular, con',
+    titleEm: 'reconocimiento facial',
+    titleB: 'y GPS.',
+    primary: 'Probar gratis por 14 días',
     secondary: 'Hablar por WhatsApp',
-    whatsapp: '¡Hola ViraWeb! Estoy interesado en la herramienta PontoControle.',
+    whatsapp: '¡Hola ViraWeb! Tengo interés en PontoControle para control de asistencia.',
+    trial: '14 días gratis con todas las funciones. Sin tarjeta de crédito, sin costo de alta y sin permanencia.',
     features: [
-      { title: 'Reconocimiento facial', body: 'Biometría facial que valida la identidad en cada registro con alta precisión.' },
-      { title: 'Geolocalización', body: 'Captura automática de la ubicación GPS en cada registro.' },
-      { title: 'Seguridad total', body: 'Cifrado de datos, auditoría completa y cumplimiento de la LGPD.' },
-      { title: 'Gestión del hogar', body: 'Ideal para empleados domésticos, cuidadores y pequeños equipos.' },
-      { title: 'Reportes en PDF', body: 'Asistencia, horas trabajadas y atrasos exportables en PDF.' },
-      { title: 'Gestión de equipos', body: 'Panel con horarios y estado de todos los empleados en tiempo real.' },
+      { title: 'Reconocimiento facial', body: 'Cada registro verifica el rostro del empleado. Nadie registra por un compañero.' },
+      { title: 'GPS en cada registro', body: 'Vea dónde se hizo el registro: en la empresa, en la casa o con el cliente.' },
+      { title: 'Panel en tiempo real', body: 'Horarios y estado de todos los empleados, en el momento en que ocurren.' },
+      { title: 'Horas extra y banco de horas', body: 'Atrasos, faltas, extras y saldo calculados automáticamente a partir de la jornada.' },
+      { title: 'Planilla en PDF', body: 'Reporte mensual por empleado en 1 clic, listo para la contabilidad y el eSocial.' },
+      { title: 'Funciona sin internet', body: 'Sin señal, el registro queda guardado en el celular y se sincroniza al volver la conexión.' },
     ],
+    audienceTitle: 'Para quién es',
+    audiences: [
+      { title: 'Pequeñas empresas', body: 'Comercios, clínicas, oficinas, restaurantes, salones y equipos externos.' },
+      { title: 'Empleador doméstico', body: 'Empleada doméstica, niñera, cuidador de adultos mayores, casero o chofer.' },
+    ],
+    plansTitle: 'Planes',
+    perMonth: '/mes',
+    onRequest: 'Bajo consulta',
+    law: 'Para empleados domésticos en Brasil, registrar el horario es obligatorio (Ley Complementaria 150/2015, art. 12). Para empresas, es obligatorio en establecimientos con más de 20 trabajadores (CLT, art. 74, § 2).',
     sim: {
       title: 'Registro de asistencia',
       idle: 'Ubique el rostro en el cuadro',
@@ -147,6 +178,7 @@ const INITIAL_PUNCHES: Punch[] = [
 
 type ScanState = 'idle' | 'scanning' | 'success';
 
+/** Interactive demo: scan a face, watch the clock-in land in the live log. */
 function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
   const [state, setState] = useState<ScanState>('idle');
   const [punches, setPunches] = useState<Punch[]>(INITIAL_PUNCHES);
@@ -177,7 +209,7 @@ function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
 
   return (
     <div className="grid grid-cols-1 overflow-hidden rounded-sm border border-line bg-white shadow-[0_40px_90px_-55px_rgba(15,31,51,0.5)] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <div className="flex flex-col border-b border-line p-5 md:border-r md:border-b-0 sm:p-6">
+      <div className="flex flex-col border-b border-line p-5 sm:p-6 md:border-b-0 md:border-r">
         <p className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-mute">{copy.title}</p>
         <div className="relative mx-auto mt-5 aspect-square w-full max-w-[260px] overflow-hidden rounded-sm bg-surface">
           {/* Corner brackets */}
@@ -286,18 +318,20 @@ function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
 export function PontoControle() {
   const { language } = useTranslation();
   const copy = COPY[language];
+  const plans = PONTO_PLANS[language];
+  const definition = getPontoControle(language).definition;
 
   return (
-    <section id="pontocontrole" aria-labelledby="pontocontrole-title" className="border-t border-line bg-white">
-      <ChapterBar label={copy.chapter} href={SITE.pontoControleUrl} host="pontocontrole.com.br" />
+    <section id="pontocontrole" aria-labelledby="pontocontrole-title" className="scroll-mt-4 border-t border-line bg-white">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-14 px-4 py-20 sm:px-8 sm:py-28 lg:gap-x-10 lg:px-12">
-        <div className="col-span-12 lg:col-span-5">
+        {/* Copy — right column on large screens, so this chapter mirrors the previous one */}
+        <div className="col-span-12 lg:order-2 lg:col-span-5 lg:col-start-8">
           <Reveal y={16}>
             <Image src="/logo.png" alt="PontoControle" width={2195} height={514} sizes="200px" className="h-9 w-auto sm:h-10" />
           </Reveal>
           <SplitWords
             id="pontocontrole-title"
-            className="mt-10 text-[clamp(2.3rem,4.4vw,4.4rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-ink"
+            className="mt-10 text-[clamp(2.1rem,3.8vw,3.75rem)] font-semibold leading-[1] tracking-[-0.045em] text-ink"
             parts={[
               copy.titleA,
               { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' },
@@ -305,31 +339,80 @@ export function PontoControle() {
             ]}
           />
           <Reveal delay={0.1}>
-            <p className="mt-6 max-w-[50ch] text-base leading-relaxed text-ink-soft sm:text-lg">{copy.lede}</p>
+            <p className="mt-6 max-w-[50ch] text-base leading-relaxed text-ink-soft sm:text-lg">{definition}</p>
           </Reveal>
-          <Reveal delay={0.16} className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <Reveal delay={0.16} className="mt-9 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
             <ActionLink href={SITE.pontoControleUrl} {...EXTERNAL_LINK_PROPS} label={copy.primary} />
-            <ActionLink href={whatsappLink(copy.whatsapp)} {...EXTERNAL_LINK_PROPS} label={copy.secondary} variant="outline" />
+            <ActionLink
+              href={whatsappLink(copy.whatsapp)}
+              {...EXTERNAL_LINK_PROPS}
+              label={copy.secondary}
+              variant="outline"
+              onClick={() => trackContact('product', 'pontocontrole')}
+            />
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-4 max-w-[50ch] text-sm leading-relaxed text-mute">{copy.trial}</p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <h3 className="mt-12 font-mono text-[0.72rem] font-normal uppercase tracking-[0.14em] text-mute">{copy.audienceTitle}</h3>
+            <dl className="mt-3 border-t border-line">
+              {copy.audiences.map((audience) => (
+                <div key={audience.title} className="grid grid-cols-1 gap-1 border-b border-line py-4 sm:grid-cols-[11rem_1fr] sm:gap-4">
+                  <dt className="text-[0.95rem] font-semibold text-ink">{audience.title}</dt>
+                  <dd className="text-[0.92rem] leading-relaxed text-ink-soft">{audience.body}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <h3 className="mt-10 font-mono text-[0.72rem] font-normal uppercase tracking-[0.14em] text-mute">{copy.plansTitle}</h3>
+            <ul className="mt-3 border-t border-line">
+              {plans.map((plan) => (
+                <li key={plan.name} className="flex items-baseline justify-between gap-4 border-b border-line py-4">
+                  <span>
+                    <span className="block text-[0.95rem] font-semibold text-ink">{plan.name}</span>
+                    <span className="block text-[0.85rem] text-mute">{plan.limit}</span>
+                  </span>
+                  <span className="shrink-0 text-right text-[0.95rem] font-semibold tabular-nums text-ink">
+                    {plan.price === null ? (
+                      copy.onRequest
+                    ) : (
+                      <>
+                        {brl(plan.price)}
+                        <span className="font-normal text-mute">{copy.perMonth}</span>
+                      </>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 max-w-[56ch] text-[0.85rem] leading-relaxed text-mute">{copy.law}</p>
           </Reveal>
         </div>
 
-        <div className="col-span-12 lg:col-span-7">
-          <Reveal y={40}>
-            <FaceScanSimulator copy={copy.sim} />
-          </Reveal>
-          <ol className="mt-10 grid grid-cols-1 border-t border-line sm:grid-cols-2">
-            {copy.features.map((feature, i) => (
-              <li key={feature.title} className="border-b border-line py-5 sm:odd:pr-6 sm:even:border-l sm:even:pl-6">
-                <Reveal y={14} delay={(i % 2) * 0.06}>
-                  <h3 className="flex items-baseline gap-3 text-base font-semibold tracking-[-0.01em] text-ink">
-                    <span className="font-mono text-[0.72rem] font-normal text-mute">{String(i + 1).padStart(2, '0')}</span>
-                    {feature.title}
-                  </h3>
-                  <p className="mt-1.5 pl-8 text-[0.92rem] leading-relaxed text-ink-soft">{feature.body}</p>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
+        {/* Demo and features — left column on large screens */}
+        <div className="col-span-12 lg:order-1 lg:col-span-6 lg:col-start-1">
+          <div className="lg:sticky lg:top-[calc(var(--nav-h)+1.5rem)]">
+            <Reveal y={40}>
+              <FaceScanSimulator copy={copy.sim} />
+            </Reveal>
+            <ol className="mt-10 grid grid-cols-1 border-t border-line sm:grid-cols-2">
+              {copy.features.map((feature, i) => (
+                <li key={feature.title} className="border-b border-line py-5 sm:odd:pr-6 sm:even:border-l sm:even:pl-6">
+                  <Reveal y={14} delay={(i % 2) * 0.06}>
+                    <h3 className="flex items-baseline gap-3 text-base font-semibold tracking-[-0.01em] text-ink">
+                      <span className="font-mono text-[0.72rem] font-normal text-mute">{String(i + 1).padStart(2, '0')}</span>
+                      {feature.title}
+                    </h3>
+                    <p className="mt-1.5 pl-8 text-[0.92rem] leading-relaxed text-ink-soft">{feature.body}</p>
+                  </Reveal>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>

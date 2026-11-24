@@ -3,12 +3,8 @@ import type { Metadata } from 'next';
 import SmoothScroll from '@/components/smooth-scroll';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import { CaseShowcase } from '@/components/home/case-showcase';
 import { Hero } from '@/components/home/hero';
-import { ProofStrip } from '@/components/home/proof-strip';
-import { Services } from '@/components/home/services';
-import { PackageBand } from '@/components/home/package-band';
-import { PontoControle } from '@/components/home/pontocontrole';
-import { PrxCase } from '@/components/home/prx-case';
 import { Process } from '@/components/home/process';
 import { Testimonials } from '@/components/home/testimonials';
 import { Faq } from '@/components/home/faq';
@@ -28,11 +24,7 @@ export default function Home() {
       <Navbar />
       <main id="conteudo" className="relative z-10 bg-white">
         <Hero />
-        <ProofStrip />
-        <PrxCase />
-        <Services />
-        <PontoControle />
-        <PackageBand />
+        <CaseShowcase />
         <Process />
         <Testimonials />
         <Faq />

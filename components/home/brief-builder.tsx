@@ -7,15 +7,19 @@ import { Check } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { EXTERNAL_LINK_PROPS, whatsappLink, type Copy } from '@/lib/site';
-import { briefMessage, getServices, type ServiceKey } from '@/lib/home/services';
 import { trackContact, type ContactLocation } from '@/lib/analytics';
 import { ActionLink } from '@/components/ui/action-link';
+
+type Need = 'platform' | 'product' | 'automation' | 'integration';
 
 interface BriefCopy {
   legend: string;
   preview: string;
   send: string;
   note: string;
+  greeting: string;
+  request: string;
+  options: Record<Need, string>;
 }
 
 const COPY: Copy<BriefCopy> = {
@@ -24,18 +28,27 @@ const COPY: Copy<BriefCopy> = {
     preview: 'Sua mensagem',
     send: 'Enviar no WhatsApp',
     note: 'Diagnóstico gratuito de 15 minutos com um engenheiro.',
+    greeting: 'Olá ViraWeb! Quero um diagnóstico para meu projeto.',
+    request: 'Tenho interesse em',
+    options: { platform: 'Sistema interno ou portal', product: 'Produto digital por assinatura', automation: 'Automação de processos', integration: 'Integração de ferramentas' },
   },
   en: {
     legend: 'What do you need?',
     preview: 'Your message',
     send: 'Send on WhatsApp',
     note: 'Free 15-minute assessment with an engineer.',
+    greeting: 'Hello ViraWeb! I would like an assessment for my project.',
+    request: 'I am interested in',
+    options: { platform: 'Internal system or portal', product: 'Subscription product', automation: 'Process automation', integration: 'Connecting tools' },
   },
   es: {
     legend: '¿Qué necesita?',
     preview: 'Su mensaje',
     send: 'Enviar por WhatsApp',
     note: 'Diagnóstico gratuito de 15 minutos con un ingeniero.',
+    greeting: '¡Hola ViraWeb! Quisiera un diagnóstico para mi proyecto.',
+    request: 'Me interesa',
+    options: { platform: 'Sistema interno o portal', product: 'Producto por suscripción', automation: 'Automatización de procesos', integration: 'Integración de herramientas' },
   },
 };
 
@@ -55,12 +68,13 @@ interface BriefBuilderProps {
 export function BriefBuilder({ location, className }: BriefBuilderProps) {
   const { language } = useTranslation();
   const copy = COPY[language];
-  const services = getServices(language);
   const legendId = useId();
-  const [selected, setSelected] = useState<ServiceKey[]>([]);
-  const message = briefMessage(language, selected);
+  const [selected, setSelected] = useState<Need[]>([]);
+  const interests = selected.map((need) => copy.options[need]);
+  const message = interests.length ? `${copy.greeting}
+${copy.request}: ${interests.join(', ')}.` : copy.greeting;
 
-  const toggle = (key: ServiceKey) =>
+  const toggle = (key: Need) =>
     setSelected((current) => (current.includes(key) ? current.filter((item) => item !== key) : [...current, key]));
 
   return (
@@ -77,14 +91,14 @@ export function BriefBuilder({ location, className }: BriefBuilderProps) {
       </p>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {services.map((service) => {
-          const active = selected.includes(service.key);
+        {(Object.keys(copy.options) as Need[]).map((need) => {
+          const active = selected.includes(need);
           return (
             <motion.button
-              key={service.key}
+              key={need}
               type="button"
               aria-pressed={active}
-              onClick={() => toggle(service.key)}
+              onClick={() => toggle(need)}
               whileTap={{ scale: 0.96 }}
               transition={TAP}
               className={cn(
@@ -105,7 +119,7 @@ export function BriefBuilder({ location, className }: BriefBuilderProps) {
                   </motion.span>
                 ) : null}
               </span>
-              {service.chip}
+              {copy.options[need]}
             </motion.button>
           );
         })}

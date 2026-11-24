@@ -1,6 +1,7 @@
 // Hello World
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useLenis } from 'lenis/react';
@@ -33,13 +34,11 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Fechar menu',
     language: 'Idioma',
     links: [
-      { label: 'Trabalhos', href: '/#trabalhos' },
-      { label: 'Serviços', href: '/#services' },
-      { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Pacote', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
+      { label: 'Cases', href: '/#trabalhos' },
+      { label: 'Sistemas sob medida', href: '/desenvolvimento-de-software' },
+      { label: 'Método', href: '/#metodo' },
     ],
-    cta: 'Falar com a ViraWeb',
+    cta: 'Falar com um especialista',
     whatsapp: 'Olá ViraWeb! Gostaria de agendar um diagnóstico digital gratuito para a minha empresa.',
   },
   en: {
@@ -50,13 +49,11 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Close menu',
     language: 'Language',
     links: [
-      { label: 'Work', href: '/#trabalhos' },
-      { label: 'Services', href: '/#services' },
-      { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Package', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
+      { label: 'Case studies', href: '/#trabalhos' },
+      { label: 'Custom systems', href: '/desenvolvimento-de-software' },
+      { label: 'Method', href: '/#metodo' },
     ],
-    cta: 'Talk to ViraWeb',
+    cta: 'Talk to a specialist',
     whatsapp: 'Hello ViraWeb! I would like to schedule a digital assessment for my business.',
   },
   es: {
@@ -67,13 +64,11 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Cerrar menú',
     language: 'Idioma',
     links: [
-      { label: 'Trabajos', href: '/#trabalhos' },
-      { label: 'Servicios', href: '/#services' },
-      { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Paquete', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
+      { label: 'Casos', href: '/#trabalhos' },
+      { label: 'Sistemas a medida', href: '/desenvolvimento-de-software' },
+      { label: 'Método', href: '/#metodo' },
     ],
-    cta: 'Hablar con ViraWeb',
+    cta: 'Hablar con un especialista',
     whatsapp: '¡Hola ViraWeb! Me gustaría agendar un diagnóstico digital para mi empresa.',
   },
 };
@@ -179,9 +174,9 @@ export default function Navbar() {
               : 'bg-transparent',
           )}
         >
-          <a href="/" aria-label={copy.home} className="inline-flex min-h-12 shrink-0 items-center" onClick={() => setOpen(false)}>
+          <Link href="/" aria-label={copy.home} className="inline-flex min-h-12 shrink-0 items-center" onClick={() => setOpen(false)}>
             <Wordmark />
-          </a>
+          </Link>
 
           <nav aria-label={copy.primaryNav} className="hidden lg:block">
             <ul className="flex items-center gap-6 xl:gap-8">

@@ -1,6 +1,7 @@
 // Hello World
 // Server-rendered topic page: every word is in the HTML that crawlers and AI
 // assistants fetch, with no client-side language switch for the copy.
+import Link from 'next/link';
 import { ArrowUpRight, Plus } from 'lucide-react';
 import SmoothScroll from '@/components/smooth-scroll';
 import Navbar from '@/components/navbar';
@@ -45,9 +46,9 @@ export function TopicView({ page }: { page: TopicPage }) {
             <nav aria-label="Trilha de navegação" className="text-sm text-mute">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
-                  <a href="/" className="transition-colors hover:text-ink">
+                  <Link href="/" className="transition-colors hover:text-ink">
                     Início
-                  </a>
+                  </Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li aria-current="page" className="text-ink-soft">
@@ -70,7 +71,7 @@ export function TopicView({ page }: { page: TopicPage }) {
                 <p className="mt-5 max-w-[60ch] text-base leading-relaxed text-ink-soft sm:text-lg">{page.lede}</p>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <ActionLink href={wa} {...EXTERNAL_LINK_PROPS} label={page.cta.label} className="w-full sm:w-auto" />
-                  <ActionLink href="/#trabalhos" label="Ver trabalhos" variant="outline" className="w-full sm:w-auto" />
+                  <ActionLink href="/#trabalhos" label="Explorar cases" variant="outline" className="w-full sm:w-auto" />
                 </div>
               </div>
 
@@ -141,9 +142,9 @@ export function TopicView({ page }: { page: TopicPage }) {
         </section>
 
         {/* Proof */}
-        <Section id="provas" eyebrow="Trabalhos" title="Feito pelo mesmo time que construiu um banco digital.">
+        <Section id="provas" eyebrow="Trabalhos" title="Plataformas desenvolvidas pela ViraWeb">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <a href="/#trabalhos" className="group bezel bezel-lg block">
+            <Link href="/cases/prx" className="group bezel bezel-lg block">
               <div className="bezel-core relative h-full bg-prx-ink p-7 text-white sm:p-10">
                 <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(60%_80%_at_100%_0%,rgba(118,7,253,0.45),transparent_70%),radial-gradient(50%_60%_at_0%_100%,rgba(11,217,253,0.25),transparent_70%)]" />
                 <div className="relative">
@@ -156,10 +157,10 @@ export function TopicView({ page }: { page: TopicPage }) {
                   </span>
                 </div>
               </div>
-            </a>
-            <a href="/#pontocontrole" className="group bezel bezel-lg block">
+            </Link>
+            <Link href="/cases/pontocontrole" className="group bezel bezel-lg block">
               <div className="bezel-core h-full p-7 sm:p-10">
-                <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-mute">Produto próprio · SaaS</p>
+                <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-mute">Produto próprio · Controle de jornada</p>
                 <p className="mt-6 text-5xl font-bold tracking-[-0.06em] text-ink">{ponto.name}</p>
                 <p className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-brand">{ponto.category}</p>
                 <p className="mt-4 max-w-[48ch] text-[0.95rem] leading-relaxed text-ink-soft">{ponto.definition}</p>
@@ -167,7 +168,7 @@ export function TopicView({ page }: { page: TopicPage }) {
                   Conhecer o PontoControle <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.6} />
                 </span>
               </div>
-            </a>
+            </Link>
           </div>
           <p className="mt-6 text-[0.75rem] leading-relaxed text-mute">{prx.disclaimer}</p>
         </Section>

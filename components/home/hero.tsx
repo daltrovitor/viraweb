@@ -12,7 +12,6 @@ import { ActionLink } from '@/components/ui/action-link';
 interface HeroCopy {
   eyebrow: string;
   line1: string;
-  lead: string;
   em: string;
   tail: string;
   lede: string;
@@ -29,55 +28,52 @@ interface HeroCopy {
 
 const COPY: Copy<HeroCopy> = {
   pt: {
-    eyebrow: 'Estúdio de design e engenharia · Goiânia',
-    line1: 'Design e engenharia',
-    lead: 'que',
-    em: 'viram',
-    tail: 'clientes.',
-    lede: 'Sites, sistemas sob medida, IA no WhatsApp e tráfego pago, com o mesmo nível de produto que colocamos na PRX e no PontoControle. O código-fonte é 100% seu.',
-    primary: 'Agendar diagnóstico grátis',
-    secondary: 'Ver trabalhos',
+    eyebrow: 'Desenvolvimento de software · Brasil',
+    line1: 'Sistemas',
+    em: 'sob',
+    tail: 'medida.',
+    lede: 'Criamos plataformas web, produtos por assinatura e automações que conectam suas ferramentas, reduzem o trabalho manual e acompanham o crescimento da sua operação.',
+    primary: 'Solicitar diagnóstico do projeto',
+    secondary: 'Explorar cases',
     whatsapp: 'Olá ViraWeb! Vi o site e quero agendar um diagnóstico gratuito para a minha empresa.',
     stageLabel: 'Produtos construídos pela ViraWeb',
     prxTag: 'O banco da Geração Z',
     pontoTitle: 'Ponto registrado',
     pontoMeta: '08:00 · GPS confirmado',
-    speed: 'PageSpeed 90+',
-    ticker: ['Sites e landing pages', 'Sistemas sob medida', 'IA no WhatsApp', 'Tráfego pago', 'Produtos digitais'],
+    speed: 'Uso fluido no celular',
+    ticker: ['Plataformas web', 'Produtos por assinatura', 'Automações de processos', 'Integrações', 'Sistemas internos'],
   },
   en: {
-    eyebrow: 'Design and engineering studio · Brazil',
-    line1: 'Design and engineering',
-    lead: 'that',
-    em: 'turn into',
-    tail: 'customers.',
-    lede: 'Websites, custom systems, AI on WhatsApp and paid traffic, built to the same product standard we put into PRX and PontoControle. The source code is 100% yours.',
-    primary: 'Book a free assessment',
-    secondary: 'See our work',
+    eyebrow: 'Software development · Brazil',
+    line1: 'Custom',
+    em: 'software',
+    tail: 'systems.',
+    lede: 'We build web platforms, subscription products and automations that connect your tools, reduce manual work and grow with your business.',
+    primary: 'Request a project assessment',
+    secondary: 'Explore case studies',
     whatsapp: 'Hello ViraWeb! I saw the website and would like to book a free assessment for my business.',
     stageLabel: 'Products built by ViraWeb',
     prxTag: 'The Gen Z bank',
     pontoTitle: 'Clock-in recorded',
     pontoMeta: '08:00 · GPS confirmed',
-    speed: 'PageSpeed 90+',
-    ticker: ['Websites and landing pages', 'Custom systems', 'AI on WhatsApp', 'Paid traffic', 'Digital products'],
+    speed: 'Smooth mobile experience',
+    ticker: ['Web platforms', 'Subscription products', 'Process automation', 'Connected tools', 'Internal systems'],
   },
   es: {
-    eyebrow: 'Estudio de diseño e ingeniería · Brasil',
-    line1: 'Diseño e ingeniería',
-    lead: 'que',
-    em: 'generan',
-    tail: 'clientes.',
-    lede: 'Sitios, sistemas a medida, IA en WhatsApp y tráfico pago, con el mismo nivel de producto que pusimos en PRX y PontoControle. El código fuente es 100% suyo.',
-    primary: 'Agendar diagnóstico gratis',
-    secondary: 'Ver trabajos',
+    eyebrow: 'Desarrollo de software · Brasil',
+    line1: 'Sistemas',
+    em: 'a',
+    tail: 'medida.',
+    lede: 'Creamos plataformas web, productos por suscripción y automatizaciones que conectan sus herramientas, reducen el trabajo manual y acompañan el crecimiento de su operación.',
+    primary: 'Solicitar diagnóstico del proyecto',
+    secondary: 'Explorar casos',
     whatsapp: '¡Hola ViraWeb! Vi el sitio y quiero agendar un diagnóstico gratuito para mi empresa.',
     stageLabel: 'Productos construidos por ViraWeb',
     prxTag: 'El banco de la Generación Z',
     pontoTitle: 'Registro confirmado',
     pontoMeta: '08:00 · GPS confirmado',
-    speed: 'PageSpeed 90+',
-    ticker: ['Sitios y landing pages', 'Sistemas a medida', 'IA en WhatsApp', 'Tráfico pago', 'Productos digitales'],
+    speed: 'Experiencia móvil fluida',
+    ticker: ['Plataformas web', 'Productos por suscripción', 'Automatización de procesos', 'Integraciones', 'Sistemas internos'],
   },
 };
 
@@ -198,7 +194,7 @@ export function Hero() {
   const ticker = [...copy.ticker, ...copy.ticker];
 
   return (
-    <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip bg-white pt-[calc(var(--nav-h)+1.5rem)]">
+    <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip hero-atmosphere pt-[calc(var(--nav-h)+1.5rem)]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[44rem] bg-[radial-gradient(40%_50%_at_85%_10%,rgba(25,88,165,0.08),transparent_70%),radial-gradient(30%_40%_at_10%_0%,rgba(242,191,18,0.07),transparent_70%)]"
@@ -221,7 +217,6 @@ export function Hero() {
             </span>{' '}
             <span className="mask-line">
               <span className="mask-inner" style={vars({ '--i': 1 })}>
-                {copy.lead}{' '}
                 <em className="font-serif font-normal italic tracking-[-0.02em] text-brand">{copy.em}</em>{' '}
                 <span className="relative inline-block">
                   {copy.tail}
@@ -235,7 +230,7 @@ export function Hero() {
             {copy.lede}
           </p>
 
-          <div className="fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style={vars({ '--i': 1 })}>
+          <div className="fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center" style={vars({ '--i': 1 })}>
             <ActionLink
               href={whatsappLink(copy.whatsapp)}
               {...EXTERNAL_LINK_PROPS}

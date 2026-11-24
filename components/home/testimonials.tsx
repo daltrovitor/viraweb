@@ -11,8 +11,12 @@ import type { Copy } from '@/lib/site';
 
 const LABEL: Copy<string> = { pt: 'Depoimentos', en: 'Testimonials', es: 'Testimonios' };
 
-// Reviews about products that are no longer offered here are left out.
-const REVIEWS = allReviews.filter((review) => !/odonto|leadscrap/i.test(review.body));
+const FEATURED_REVIEWS = new Set([
+  '@thiago.nv', '@rafaborges', '@lucas.oli', '@gustavolima', '@patsouza',
+  '@roberto.m', '@renatadias', '@lariduarte', '@patyrib', '@nelsonm',
+  '@sandra.l', '@carla.b', '@marina.f',
+]);
+const REVIEWS = allReviews.filter((review) => FEATURED_REVIEWS.has(review.username));
 const PER_ROW = 10;
 const ROWS: Review[][] = [
   REVIEWS.filter((_, i) => i % 2 === 0).slice(0, PER_ROW),

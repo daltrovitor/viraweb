@@ -25,6 +25,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/pacote", destination: "/propostas", permanent: true },
+      { source: "/proposta", destination: "/propostas", permanent: true },
+      { source: "/criacao-de-sites", destination: "/cases/pagina-de-lancamento", permanent: true },
+      { source: "/chatbot-whatsapp", destination: "/cases/virabot", permanent: true },
+      { source: "/marketing-digital", destination: "/cases/painel-de-aquisicao", permanent: true },
       { source: "/checkout/:path*", destination: "https://odonto.viraweb.dev.br/checkout/:path*", permanent: true },
       { source: "/:locale/checkout/:path*", destination: "https://odonto.viraweb.dev.br/:locale/checkout/:path*", permanent: true },
     ]

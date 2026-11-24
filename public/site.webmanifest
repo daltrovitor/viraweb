@@ -1,7 +1,7 @@
 {
   "name": "ViraWeb",
   "short_name": "ViraWeb",
-  "description": "Especialistas em criação de sites e tráfego pago.",
+  "description": "Especialistas no desenvolvimento de sistemas sob medida.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f1923",

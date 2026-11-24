@@ -346,7 +346,7 @@ function PhoneScreen({ module, s }: { module: PrxModuleKey; s: CaseCopy['screen'
 function Phone({ active, onSelect, copy }: { active: number; onSelect: (i: number) => void; copy: CaseCopy }) {
   const { language } = useTranslation();
   const prx = getPrx(language);
-  const module = prx.modules[active];
+  const activeModule = prx.modules[active];
   const reduceMotion = useReducedMotion();
 
   return (
@@ -359,20 +359,20 @@ function Phone({ active, onSelect, copy }: { active: number; onSelect: (i: numbe
           <div className="relative flex h-full flex-col px-4 pb-3 pt-11">
             <div className="flex items-center justify-between">
               <span className={cn('text-lg font-bold tracking-[-0.05em]', GRADIENT_TEXT)}>PRX</span>
-              <span className="rounded-full bg-white/10 px-2 py-0.5 text-[0.56rem] font-semibold tracking-[0.14em] text-white/80">{module.name}</span>
+              <span className="rounded-full bg-white/10 px-2 py-0.5 text-[0.56rem] font-semibold tracking-[0.14em] text-white/80">{activeModule.name}</span>
             </div>
 
             <div className="relative mt-4 min-h-0 flex-1">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div
-                  key={module.key}
+                  key={activeModule.key}
                   className="absolute inset-0"
                   initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, filter: 'blur(6px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -18, filter: 'blur(6px)' }}
                   transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
                 >
-                  <PhoneScreen module={module.key} s={copy.screen} />
+                  <PhoneScreen module={activeModule.key} s={copy.screen} />
                 </motion.div>
               </AnimatePresence>
             </div>

@@ -33,14 +33,14 @@ export default function Termos() {
               1. About ViraWeb
             </h2>
             <p>
-              ViraWeb is a company specialized in website creation, automation bot development, graphic bots creation, custom systems development, and Google Business Profile (GBP) optimization. Our goal is to provide custom digital solutions to boost our clients' online presence and results.
+              ViraWeb is a company specialized in website creation, automation bot development, graphic bots creation, custom systems development, and Google Business Profile (GBP) optimization. Our goal is to provide custom digital solutions to boost our clients&apos; online presence and results.
             </p>
 
             <h2 className="text-lg font-bold text-slate-900 pt-4 border-t border-slate-100">
               2. Acceptance of Terms
             </h2>
             <p>
-              By using ViraWeb's website or hiring our services, the client declares that they have read, understood, and fully agree to these Terms of Service, as well as the Privacy Policy. If you do not agree with any clause described here, you must immediately stop using the website and services.
+              By using ViraWeb&apos;s website or hiring our services, the client declares that they have read, understood, and fully agree to these Terms of Service, as well as the Privacy Policy. If you do not agree with any clause described here, you must immediately stop using the website and services.
             </p>
 
             <h2 className="text-lg font-bold text-slate-900 pt-4 border-t border-slate-100">
@@ -80,7 +80,7 @@ export default function Termos() {
               <li>Provide true, complete, and updated information;</li>
               <li>Make available the necessary content (texts, images, logos, etc.) that was agreed upon;</li>
               <li>Respect payment deadlines and contractual conditions;</li>
-              <li>Not use ViraWeb's services for illegal, offensive, discriminatory purposes or purposes that infringe the rights of third parties.</li>
+              <li>Not use ViraWeb&apos;s services for illegal, offensive, discriminatory purposes or purposes that infringe the rights of third parties.</li>
             </ul>
 
             <h2 className="text-lg font-bold text-slate-900 pt-4 border-t border-slate-100">

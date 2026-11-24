@@ -1,6 +1,7 @@
 // Hello World
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { useLenis } from 'lenis/react';
@@ -30,12 +31,9 @@ const COPY: Copy<FooterCopy> = {
     contact: 'Contato',
     links: [
       { label: 'Desenvolvimento de software', href: '/desenvolvimento-de-software' },
-      { label: 'Criação de sites', href: '/criacao-de-sites' },
-      { label: 'Chatbot com IA no WhatsApp', href: '/chatbot-whatsapp' },
-      { label: 'Marketing digital', href: '/marketing-digital' },
       { label: 'O que é a ViraWeb', href: '/sobre' },
       { label: 'Empresa de software em Goiânia', href: '/empresa-de-software-goiania' },
-      { label: 'Pacote ViraWeb', href: '/propostas' },
+      { label: 'Cases e produtos', href: '/#trabalhos' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'Todos os direitos reservados.',
@@ -49,11 +47,8 @@ const COPY: Copy<FooterCopy> = {
     contact: 'Contact',
     links: [
       { label: 'Software development', href: '/desenvolvimento-de-software' },
-      { label: 'Websites', href: '/criacao-de-sites' },
-      { label: 'AI chatbot on WhatsApp', href: '/chatbot-whatsapp' },
-      { label: 'Digital marketing', href: '/marketing-digital' },
       { label: 'About ViraWeb', href: '/sobre' },
-      { label: 'ViraWeb Package', href: '/propostas' },
+      { label: 'Case studies and products', href: '/#trabalhos' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'All rights reserved.',
@@ -67,11 +62,8 @@ const COPY: Copy<FooterCopy> = {
     contact: 'Contacto',
     links: [
       { label: 'Desarrollo de software', href: '/desenvolvimento-de-software' },
-      { label: 'Creación de sitios', href: '/criacao-de-sites' },
-      { label: 'Chatbot con IA en WhatsApp', href: '/chatbot-whatsapp' },
-      { label: 'Marketing digital', href: '/marketing-digital' },
       { label: 'Sobre ViraWeb', href: '/sobre' },
-      { label: 'Paquete ViraWeb', href: '/propostas' },
+      { label: 'Casos y productos', href: '/#trabalhos' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'Todos los derechos reservados.',
@@ -82,8 +74,8 @@ const COPY: Copy<FooterCopy> = {
 };
 
 const PRODUCTS = [
-  { label: 'PontoControle', href: SITE.pontoControleUrl },
-  { label: 'PRX', href: SITE.prxUrl },
+  { label: 'PontoControle', href: '/cases/pontocontrole' },
+  { label: 'PRX', href: '/cases/prx' },
 ];
 
 const TIME_FORMAT = new Intl.DateTimeFormat('pt-BR', {
@@ -94,14 +86,17 @@ const TIME_FORMAT = new Intl.DateTimeFormat('pt-BR', {
 
 /** Goiânia wall clock — rendered client-side only to keep SSR deterministic. */
 function useLocalTime() {
-  const [time, setTime] = useState('--:--');
+  const [clock, setClock] = useState({ time: '--:--', year: null as number | null });
   useEffect(() => {
-    const tick = () => setTime(TIME_FORMAT.format(new Date()));
+    const tick = () => {
+      const now = new Date();
+      setClock({ time: TIME_FORMAT.format(now), year: now.getFullYear() });
+    };
     tick();
     const id = window.setInterval(tick, 20_000);
     return () => window.clearInterval(id);
   }, []);
-  return time;
+  return clock;
 }
 
 const linkClass = 'roll-trigger inline-flex min-h-10 items-center text-[0.95rem] text-white/85 transition-colors hover:text-white';
@@ -111,9 +106,7 @@ export function Footer() {
   const { t, language } = useTranslation();
   const copy = COPY[language];
   const lenis = useLenis();
-  const time = useLocalTime();
-  const [year, setYear] = useState(2026);
-  useEffect(() => setYear(new Date().getFullYear()), []);
+  const { time, year } = useLocalTime();
 
   const scrollTop = () => {
     if (lenis) lenis.scrollTo(0, { duration: 1.6 });
@@ -145,15 +138,15 @@ export function Footer() {
             <ul className="mt-4 space-y-1">
               {copy.links.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className={linkClass}>
+                  <Link href={link.href} className={linkClass}>
                     <RollText text={link.label} />
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
-                <a href="/termos" className={linkClass}>
+                <Link href="/termos" className={linkClass}>
                   <RollText text={copy.terms} />
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -163,9 +156,9 @@ export function Footer() {
             <ul className="mt-4 space-y-1">
               {PRODUCTS.map((product) => (
                 <li key={product.href}>
-                  <a href={product.href} {...EXTERNAL_LINK_PROPS} className={linkClass}>
+                  <Link href={product.href} className={linkClass}>
                     <RollText text={product.label} />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -38,7 +38,7 @@ const COPY: Copy<ContactCopy> = {
 };
 
 /** Closing conversion anchor: the brief builder again, plus every direct channel. */
-export function Contact() {
+export function Contact({ heading = 'h2' }: { heading?: 'h1' | 'h2' }) {
   const { language } = useTranslation();
   const copy = COPY[language];
 
@@ -53,6 +53,7 @@ export function Contact() {
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-10 px-4 sm:px-8 lg:gap-x-10 lg:px-12">
         <div className="col-span-12 lg:col-span-5">
           <SplitWords
+            as={heading}
             id="contact-title"
             className="text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-ink"
             parts={[copy.titleA, { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' }]}

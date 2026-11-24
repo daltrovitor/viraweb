@@ -34,10 +34,10 @@ export default function OpengraphImage() {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1, letterSpacing: -3 }}>Design e engenharia</div>
-          <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.05, letterSpacing: -3, color: '#1958a5' }}>que viram clientes.</div>
+          <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1, letterSpacing: -3 }}>Desenvolvimento de</div>
+          <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.05, letterSpacing: -3, color: '#1958a5' }}>sistemas sob medida</div>
           <div style={{ marginTop: 32, fontSize: 30, color: '#33415a' }}>
-            Desenvolvimento de software · Sites · Chatbot com IA · Marketing digital
+            Plataformas web · Produtos digitais · Automação de processos
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24, color: '#5a6577' }}>

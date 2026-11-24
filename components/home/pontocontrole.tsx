@@ -8,7 +8,7 @@ import { Check, ScanFace } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { EXTERNAL_LINK_PROPS, SITE, whatsappLink, type Copy } from '@/lib/site';
-import { getPontoControle, PONTO_PLANS, brl } from '@/lib/home/products';
+import { getPontoControle } from '@/lib/home/products';
 import { trackContact } from '@/lib/analytics';
 import { SplitWords } from '@/components/motion/split-words';
 import { Reveal } from '@/components/motion/reveal';
@@ -39,9 +39,6 @@ interface PontoCopy {
   features: Array<{ title: string; body: string }>;
   audienceTitle: string;
   audiences: Array<{ title: string; body: string }>;
-  plansTitle: string;
-  perMonth: string;
-  onRequest: string;
   law: string;
   sim: {
     title: string;
@@ -80,9 +77,6 @@ const COPY: Copy<PontoCopy> = {
       { title: 'Pequenas empresas', body: 'Comércios, clínicas, escritórios, restaurantes, salões e equipes externas.' },
       { title: 'Empregador doméstico', body: 'Empregada doméstica, babá, cuidador de idosos, caseiro ou motorista.' },
     ],
-    plansTitle: 'Planos',
-    perMonth: '/mês',
-    onRequest: 'Sob consulta',
     law: 'Para empregados domésticos, o registro do horário é obrigatório (Lei Complementar 150/2015, art. 12). Para empresas, é obrigatório nos estabelecimentos com mais de 20 trabalhadores (CLT, art. 74, § 2º).',
     sim: {
       title: 'Registro de ponto',
@@ -118,9 +112,6 @@ const COPY: Copy<PontoCopy> = {
       { title: 'Small businesses', body: 'Shops, clinics, offices, restaurants, salons and field teams.' },
       { title: 'Household employers', body: 'Housekeeper, nanny, elderly caregiver, caretaker or driver.' },
     ],
-    plansTitle: 'Plans',
-    perMonth: '/month',
-    onRequest: 'On request',
     law: 'For household employees in Brazil, recording working hours is mandatory (Complementary Law 150/2015, article 12). For companies, it is mandatory in establishments with more than 20 workers (CLT, article 74, paragraph 2).',
     sim: {
       title: 'Clock-in',
@@ -156,9 +147,6 @@ const COPY: Copy<PontoCopy> = {
       { title: 'Pequeñas empresas', body: 'Comercios, clínicas, oficinas, restaurantes, salones y equipos externos.' },
       { title: 'Empleador doméstico', body: 'Empleada doméstica, niñera, cuidador de adultos mayores, casero o chofer.' },
     ],
-    plansTitle: 'Planes',
-    perMonth: '/mes',
-    onRequest: 'Bajo consulta',
     law: 'Para empleados domésticos en Brasil, registrar el horario es obligatorio (Ley Complementaria 150/2015, art. 12). Para empresas, es obligatorio en establecimientos con más de 20 trabajadores (CLT, art. 74, § 2).',
     sim: {
       title: 'Registro de asistencia',
@@ -324,7 +312,6 @@ function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
 export function PontoControle() {
   const { language } = useTranslation();
   const copy = COPY[language];
-  const plans = PONTO_PLANS[language];
   const definition = getPontoControle(language).definition;
 
   return (
@@ -377,28 +364,7 @@ export function PontoControle() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h3 className="mt-10 font-mono text-[0.72rem] font-normal uppercase tracking-[0.14em] text-mute">{copy.plansTitle}</h3>
-            <ul className="mt-3 border-t border-line">
-              {plans.map((plan) => (
-                <li key={plan.name} className="flex items-baseline justify-between gap-4 border-b border-line py-4">
-                  <span>
-                    <span className="block text-[0.95rem] font-semibold text-ink">{plan.name}</span>
-                    <span className="block text-[0.85rem] text-mute">{plan.limit}</span>
-                  </span>
-                  <span className="shrink-0 text-right text-[0.95rem] font-semibold tabular-nums text-ink">
-                    {plan.price === null ? (
-                      copy.onRequest
-                    ) : (
-                      <>
-                        {brl(plan.price)}
-                        <span className="font-normal text-mute">{copy.perMonth}</span>
-                      </>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-5 max-w-[56ch] text-[0.85rem] leading-relaxed text-mute">{copy.law}</p>
+            <p className="max-w-[56ch] text-[0.85rem] leading-relaxed text-mute">{copy.law}</p>
           </Reveal>
         </div>
 

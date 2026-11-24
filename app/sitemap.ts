@@ -1,5 +1,6 @@
 // Hello World
 import type { MetadataRoute } from 'next'
+import { cases } from '@/lib/home/cases'
 import { absoluteUrl } from '@/lib/site'
 import { getTopicPages } from '@/lib/seo/pages'
 
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: page.kind === 'service' ? 0.9 : 0.8,
     })),
+    ...cases.map(({ slug }) => ({ url: absoluteUrl(`/cases/${slug}`), lastModified: CONTENT_UPDATED, changeFrequency: 'monthly' as const })),
     { url: absoluteUrl('/propostas'), lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
     { url: absoluteUrl('/termos'), lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
   ]

@@ -448,3 +448,52 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
 }
+
+.hero-atmosphere {
+  background:
+    radial-gradient(ellipse at 88% 25%, #cfe4ff 0%, transparent 45%),
+    radial-gradient(ellipse at 8% 0%, #eee5ff 0%, transparent 34%),
+    linear-gradient(150deg, #f8faff, #fff 70%);
+}
+
+.case-atmosphere {
+  background:
+    radial-gradient(ellipse at 90% 8%, #292158 0%, transparent 54%),
+    radial-gradient(ellipse at 5% 88%, #103850 0%, transparent 52%),
+    #0c162b;
+}
+
+.case-card {
+  background:
+    radial-gradient(ellipse at 10% 8%, color-mix(in srgb, var(--case-accent) 15%, transparent), transparent 66%),
+    linear-gradient(145deg, rgb(255 255 255 / 8%), rgb(255 255 255 / 3%));
+  transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+}
+
+.case-icon {
+  color: var(--case-accent);
+  border-color: color-mix(in srgb, var(--case-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--case-accent) 13%, transparent);
+}
+
+.case-card:is(:hover, :focus-visible) {
+  border-color: color-mix(in srgb, var(--case-accent) 60%, transparent);
+  box-shadow: 0 18px 55px -22px color-mix(in srgb, var(--case-accent) 50%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .case-card:is(:hover, :focus-visible) {
+    transform: translateY(-4px);
+  }
+}
+
+#metodo {
+  background: linear-gradient(180deg, #eef4ff 0%, #fff 65%);
+}
+
+#contato {
+  background:
+    radial-gradient(ellipse at 92% 48%, #d9ebff 0%, transparent 52%),
+    radial-gradient(ellipse at 5% 92%, #eee5ff 0%, transparent 44%),
+    #f7f9ff;
+}

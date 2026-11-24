@@ -41,9 +41,9 @@ const brand = Montserrat({
   preload: false,
 })
 
-const TITLE = "ViraWeb — Desenvolvimento de software, sites, chatbot com IA e marketing digital"
+const TITLE = "ViraWeb — Desenvolvimento de Sistemas Sob Medida"
 const DESCRIPTION =
-  "A ViraWeb é uma empresa de software de Goiânia (GO): desenvolvimento de software sob medida, criação de sites, chatbot com IA no WhatsApp e marketing digital para empresas de todo o Brasil."
+  "A ViraWeb desenvolve sistemas sob medida, plataformas web, produtos digitais e automações para empresas de todo o Brasil."
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -61,14 +61,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   applicationName: SITE.name,
   keywords: [
-    "criação de sites",
-    "landing page",
     "sistemas sob medida",
     "desenvolvimento de software",
-    "automação whatsapp com ia",
-    "tráfego pago",
-    "google meu negócio",
-    "controle de ponto",
+    "plataformas web",
+    "automação de processos",
     "viraweb",
   ],
   authors: [{ name: SITE.name, url: SITE.url }],

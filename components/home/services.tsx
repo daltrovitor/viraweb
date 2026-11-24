@@ -16,6 +16,8 @@ import { Reveal } from '@/components/motion/reveal';
 import { ActionLink } from '@/components/ui/action-link';
 import { ProductPreview } from '@/components/home/previews';
 import { MapVisual } from '@/components/home/service-visuals';
+import { RollText } from '@/components/motion/roll-text';
+import { SERVICE_PAGE } from '@/lib/seo/pages';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -46,6 +48,8 @@ const COPY: Copy<ServicesCopy> = {
     lede: 'Cuatro servicios que funcionan solos y rinden más juntos. En todos, usted habla directo con quien construye.',
   },
 };
+
+const MORE: Copy<string> = { pt: 'Saiba mais', en: 'Learn more', es: 'Saber más' };
 
 const STAGE_TONE: Record<ServiceKey, string> = {
   sites: 'bg-surface',
@@ -124,14 +128,25 @@ function ServiceRow({ service, index, language }: { service: ServiceInfo; index:
               </div>
             ))}
           </dl>
-          <ActionLink
-            href={whatsappLink(service.message)}
-            {...EXTERNAL_LINK_PROPS}
-            label={service.cta}
-            size="md"
-            onClick={() => trackContact('service', service.key)}
-            className="mt-8 w-full sm:w-auto"
-          />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <ActionLink
+              href={whatsappLink(service.message)}
+              {...EXTERNAL_LINK_PROPS}
+              label={service.cta}
+              size="md"
+              onClick={() => trackContact('service', service.key)}
+              className="w-full sm:w-auto"
+            />
+            <a
+              href={`/${SERVICE_PAGE[service.key]}`}
+              className="roll-trigger group inline-flex min-h-12 items-center justify-center gap-2 text-sm font-medium text-ink sm:justify-start"
+            >
+              <span className="relative">
+                <RollText text={MORE[language]} />
+                <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full origin-left bg-ink transition-transform duration-500 ease-out-expo group-hover:scale-x-0" />
+              </span>
+            </a>
+          </div>
         </Reveal>
       </div>
 

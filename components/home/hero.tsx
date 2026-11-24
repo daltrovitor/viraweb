@@ -218,7 +218,7 @@ export function Hero() {
               <span className="mask-inner" style={vars({ '--i': 0 })}>
                 {copy.line1}
               </span>
-            </span>
+            </span>{' '}
             <span className="mask-line">
               <span className="mask-inner" style={vars({ '--i': 1 })}>
                 {copy.lead}{' '}

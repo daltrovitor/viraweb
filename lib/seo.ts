@@ -2,7 +2,7 @@
 import type { Metadata } from "next"
 import { SITE, absoluteUrl } from "@/lib/site"
 
-const DEFAULT_IMAGE = absoluteUrl("/favicon.png")
+const DEFAULT_IMAGE = absoluteUrl("/opengraph-image")
 
 /** Page metadata with a self-referencing canonical, so no page inherits another page's URL. */
 export function buildMetadata({

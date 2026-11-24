@@ -6,6 +6,7 @@ import { SITE, absoluteUrl } from '@/lib/site';
 import { getPackageOffer, getServices } from '@/lib/home/services';
 import { getPontoControle, getPrx, PONTO_PLANS, PONTO_TRIAL_DAYS, brl } from '@/lib/home/products';
 import { getFaq } from '@/lib/home/faq';
+import { getTopicPages } from '@/lib/seo/pages';
 
 const SUMMARY =
   'ViraWeb é uma empresa de engenharia de software de Goiânia (GO), Brasil. Cria sites e landing pages, sistemas sob medida, automações com IA no WhatsApp e campanhas de tráfego pago, e mantém o PontoControle, sistema de controle de ponto pelo celular com reconhecimento facial e GPS.';
@@ -28,6 +29,7 @@ export function buildLlmsTxt(): string {
     '## Páginas principais',
     '',
     `- [Página inicial](${SITE.url}): serviços, produtos, preços e perguntas frequentes`,
+    ...getTopicPages().map((page) => `- [${page.label}](${absoluteUrl(`/${page.slug}`)}): ${page.definition}`),
     `- [Simulador de proposta](${absoluteUrl('/propostas')}): monta o Pacote ViraWeb com preço calculado na hora`,
     `- [Termos de uso](${absoluteUrl('/termos')})`,
     '',
@@ -127,6 +129,12 @@ export function buildLlmsFullTxt(): string {
     `- ${prx.disclaimer}`,
     '',
   );
+
+  lines.push('## Páginas por assunto', '');
+  for (const page of getTopicPages()) {
+    lines.push(`### ${page.label}`, '', `${page.definition} ${absoluteUrl(`/${page.slug}`)}`, '');
+    lines.push(...page.faq.map((item) => `- **${item.question}** ${item.answer}`), '');
+  }
 
   lines.push('## Perguntas frequentes', '');
   for (const item of faq) lines.push(`### ${item.question}`, '', item.answer, '');

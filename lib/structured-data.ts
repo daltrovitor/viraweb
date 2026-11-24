@@ -7,7 +7,8 @@
 import { SITE, absoluteUrl } from '@/lib/site';
 import { SERVICES_CONFIG, type ServiceId } from '@/lib/pricing';
 import { getServices, type ServiceKey } from '@/lib/home/services';
-import { getPontoControle, PONTO_PLANS } from '@/lib/home/products';
+import { getPontoControle, getPrx, PONTO_PLANS } from '@/lib/home/products';
+import type { TopicPage } from '@/lib/seo/pages';
 import { getFaq } from '@/lib/home/faq';
 
 export const ORGANIZATION_ID = `${SITE.url}/#organization`;
@@ -33,7 +34,8 @@ export function organizationJsonLd(): JsonLd {
         '@id': ORGANIZATION_ID,
         name: SITE.name,
         legalName: SITE.legalName,
-        alternateName: 'Vira Web',
+        alternateName: ['Vira Web', 'Viraweb', 'ViraWeb Tecnologias', 'viraweb.dev.br'],
+        slogan: 'Design e engenharia que viram clientes.',
         url: SITE.url,
         logo: { '@type': 'ImageObject', url: absoluteUrl('/favicon.png') },
         image: absoluteUrl('/favicon.png'),
@@ -46,7 +48,11 @@ export function organizationJsonLd(): JsonLd {
           addressRegion: SITE.region,
           addressCountry: SITE.country,
         },
-        areaServed: { '@type': 'Country', name: 'Brasil' },
+        areaServed: [
+          { '@type': 'Country', name: 'Brasil' },
+          { '@type': 'State', name: 'Goiás' },
+          { '@type': 'City', name: 'Goiânia' },
+        ],
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
@@ -57,12 +63,22 @@ export function organizationJsonLd(): JsonLd {
         },
         sameAs: [SITE.instagramUrl],
         knowsAbout: [
-          'Desenvolvimento de sites',
+          'Desenvolvimento de software',
+          'Software sob medida',
+          'Criação de sites',
+          'Landing pages',
           'Sistemas sob medida',
-          'Automação com IA no WhatsApp',
+          'ERP e CRM',
+          'Chatbot para WhatsApp',
+          'Inteligência artificial',
+          'Automação de processos',
+          'Marketing digital',
           'Tráfego pago',
           'Google Meu Negócio',
           'Controle de ponto eletrônico',
+        ],
+        owns: [
+          { '@type': 'SoftwareApplication', name: 'PontoControle', url: SITE.pontoControleUrl },
         ],
       },
       {
@@ -154,6 +170,76 @@ export function homeJsonLd(): JsonLd {
         '@type': 'FAQPage',
         '@id': `${SITE.url}/#faq`,
         mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      },
+    ],
+  };
+}
+
+/** Topic pages (services, about, local): main entity + FAQ + breadcrumbs. */
+export function topicJsonLd(page: TopicPage): JsonLd {
+  const url = absoluteUrl(`/${page.slug}`);
+  const prx = getPrx('pt');
+
+  const mainEntity: JsonLd =
+    page.kind === 'service'
+      ? {
+          '@type': 'Service',
+          '@id': `${url}#service`,
+          name: page.label,
+          serviceType: page.topics[0],
+          description: page.definition,
+          url,
+          provider: { '@id': ORGANIZATION_ID },
+          areaServed: { '@type': 'Country', name: 'Brasil' },
+          availableChannel: {
+            '@type': 'ServiceChannel',
+            serviceUrl: `https://wa.me/${SITE.whatsappNumber}`,
+            availableLanguage: ['pt-BR', 'en', 'es'],
+          },
+          ...(page.service ? { offers: serviceOffers(page.service) } : {}),
+        }
+      : {
+          '@type': 'CreativeWork',
+          '@id': `${url}#prx`,
+          name: prx.name,
+          url: prx.url,
+          description: prx.definition,
+          creator: { '@id': ORGANIZATION_ID },
+        };
+
+  const pageType = page.kind === 'about' ? 'AboutPage' : 'WebPage';
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': pageType,
+        '@id': `${url}#webpage`,
+        url,
+        name: page.title,
+        description: page.description,
+        inLanguage: 'pt-BR',
+        isPartOf: { '@id': WEBSITE_ID },
+        about: page.kind === 'service' ? { '@id': `${url}#service` } : { '@id': ORGANIZATION_ID },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+      },
+      mainEntity,
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Início', item: SITE.url },
+          { '@type': 'ListItem', position: 2, name: page.label, item: url },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${url}#faq`,
+        mainEntity: page.faq.map((item) => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: { '@type': 'Answer', text: item.answer },

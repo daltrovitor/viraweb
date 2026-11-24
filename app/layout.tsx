@@ -41,9 +41,9 @@ const brand = Montserrat({
   preload: false,
 })
 
-const TITLE = "ViraWeb — Sites, sistemas sob medida, automação e marketing"
+const TITLE = "ViraWeb — Desenvolvimento de software, sites, chatbot com IA e marketing digital"
 const DESCRIPTION =
-  "A ViraWeb cria sites, sistemas sob medida, automações com IA no WhatsApp e campanhas de tráfego pago. Diagnóstico gratuito pelo WhatsApp."
+  "A ViraWeb é uma empresa de software de Goiânia (GO): desenvolvimento de software sob medida, criação de sites, chatbot com IA no WhatsApp e marketing digital para empresas de todo o Brasil."
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     siteName: SITE.name,
-    images: [{ url: absoluteUrl("/favicon.png"), alt: "ViraWeb" }],
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "ViraWeb" }],
     locale: "pt_BR",
     type: "website",
   },
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [absoluteUrl("/favicon.png")],
+    images: [absoluteUrl("/opengraph-image")],
   },
   icons: {
     icon: [{ url: "/favicon.png" }],

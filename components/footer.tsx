@@ -29,10 +29,13 @@ const COPY: Copy<FooterCopy> = {
     products: 'Produto e trabalhos',
     contact: 'Contato',
     links: [
-      { label: 'Serviços', href: '/#services' },
+      { label: 'Desenvolvimento de software', href: '/desenvolvimento-de-software' },
+      { label: 'Criação de sites', href: '/criacao-de-sites' },
+      { label: 'Chatbot com IA no WhatsApp', href: '/chatbot-whatsapp' },
+      { label: 'Marketing digital', href: '/marketing-digital' },
+      { label: 'O que é a ViraWeb', href: '/sobre' },
+      { label: 'Empresa de software em Goiânia', href: '/empresa-de-software-goiania' },
       { label: 'Pacote ViraWeb', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
-      { label: 'Contato', href: '/#contato' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'Todos os direitos reservados.',
@@ -45,10 +48,12 @@ const COPY: Copy<FooterCopy> = {
     products: 'Product and work',
     contact: 'Contact',
     links: [
-      { label: 'Solutions', href: '/#services' },
+      { label: 'Software development', href: '/desenvolvimento-de-software' },
+      { label: 'Websites', href: '/criacao-de-sites' },
+      { label: 'AI chatbot on WhatsApp', href: '/chatbot-whatsapp' },
+      { label: 'Digital marketing', href: '/marketing-digital' },
+      { label: 'About ViraWeb', href: '/sobre' },
       { label: 'ViraWeb Package', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
-      { label: 'Contact', href: '/#contato' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'All rights reserved.',
@@ -61,10 +66,12 @@ const COPY: Copy<FooterCopy> = {
     products: 'Producto y trabajos',
     contact: 'Contacto',
     links: [
-      { label: 'Soluciones', href: '/#services' },
+      { label: 'Desarrollo de software', href: '/desenvolvimento-de-software' },
+      { label: 'Creación de sitios', href: '/criacao-de-sites' },
+      { label: 'Chatbot con IA en WhatsApp', href: '/chatbot-whatsapp' },
+      { label: 'Marketing digital', href: '/marketing-digital' },
+      { label: 'Sobre ViraWeb', href: '/sobre' },
       { label: 'Paquete ViraWeb', href: '/propostas' },
-      { label: 'FAQ', href: '/#faq' },
-      { label: 'Contacto', href: '/#contato' },
     ],
     localTime: 'Goiânia, BR',
     rights: 'Todos los derechos reservados.',
@@ -133,7 +140,7 @@ export function Footer() {
             />
           </div>
 
-          <nav aria-label={copy.navigation} className="col-span-6 sm:col-span-4 lg:col-span-2 lg:col-start-7">
+          <nav aria-label={copy.navigation} className="col-span-6 sm:col-span-4 lg:col-span-3 lg:col-start-6">
             <p className={headingClass}>{copy.navigation}</p>
             <ul className="mt-4 space-y-1">
               {copy.links.map((link) => (

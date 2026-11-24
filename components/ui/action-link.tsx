@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { RollText } from '@/components/motion/roll-text';
 import { cn } from '@/lib/utils';
 
-export type ActionVariant = 'primary' | 'outline' | 'light' | 'odonto' | 'odonto-outline';
+export type ActionVariant = 'primary' | 'outline' | 'light';
 export type ActionSize = 'md' | 'lg';
 
 interface ActionLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -15,90 +15,87 @@ interface ActionLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const BASE: Record<ActionVariant, string> = {
-  primary: 'bg-ink text-white',
-  outline: 'border border-line-strong bg-white text-ink',
-  light: 'bg-white text-ink',
-  odonto: 'bg-odonto text-white',
-  'odonto-outline': 'border border-line-strong bg-white text-ink',
+  primary: 'bg-ink text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_10px_30px_-12px_rgba(15,31,51,0.55)]',
+  outline: 'bg-white text-ink shadow-[inset_0_0_0_1px_var(--line-strong)]',
+  light: 'bg-white text-ink shadow-[0_10px_30px_-14px_rgba(15,31,51,0.4)]',
 };
 
 const FILL: Record<ActionVariant, string> = {
   primary: 'bg-brand',
   outline: 'bg-ink',
   light: 'bg-brand-tint',
-  odonto: 'bg-odonto-strong',
-  'odonto-outline': 'bg-odonto-tint',
 };
 
 const HOVER_TEXT: Record<ActionVariant, string> = {
   primary: '',
   outline: 'group-hover:text-white',
   light: '',
-  odonto: '',
-  'odonto-outline': 'group-hover:text-odonto-strong',
+};
+
+/** The trailing arrow lives in its own island, flush with the pill's right padding. */
+const ISLAND: Record<ActionVariant, string> = {
+  primary: 'bg-white/12 text-white',
+  outline: 'bg-ink/[0.06] text-ink group-hover:bg-white/15 group-hover:text-white',
+  light: 'bg-ink/[0.06] text-ink',
 };
 
 /** Shared classes so links, Next links and buttons render the same call-to-action. */
 export function actionClassName(variant: ActionVariant = 'primary', size: ActionSize = 'lg', className?: string) {
   return cn(
-    'roll-trigger group relative isolate inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-sm font-medium tracking-[-0.01em] transition-[transform,color] duration-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60',
-    size === 'lg' ? 'min-h-14 px-6 text-[0.95rem]' : 'min-h-12 px-5 text-sm',
+    'roll-trigger group relative isolate inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-full font-medium tracking-[-0.01em] transition-[transform,color,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60',
+    size === 'lg' ? 'min-h-14 pl-6 pr-2 text-[0.95rem]' : 'min-h-12 pl-5 pr-1.5 text-sm',
     BASE[variant],
     className,
   );
 }
 
-/** Inner content: wipe-up fill, rolling label and a nudging arrow. */
+/** Inner content: wipe-up fill, rolling label and an arrow nested in its own circle. */
 export function ActionInner({
   label,
   variant = 'primary',
   icon = true,
   iconNode,
+  size = 'lg',
 }: {
   label: string;
   variant?: ActionVariant;
   icon?: boolean;
   iconNode?: ReactNode;
+  size?: ActionSize;
 }) {
   return (
     <>
       <span
         aria-hidden="true"
         className={cn(
-          'absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-500 ease-out-expo group-hover:scale-y-100 group-disabled:scale-y-0',
+          'absolute inset-0 -z-10 origin-bottom scale-y-0 rounded-full transition-transform duration-500 ease-out-expo group-hover:scale-y-100 group-disabled:scale-y-0',
           FILL[variant],
         )}
       />
-      <span className={cn('transition-colors duration-300', HOVER_TEXT[variant])}>
+      <span className={cn('transition-colors duration-300', HOVER_TEXT[variant], !icon && 'pr-3.5')}>
         <RollText text={label} />
       </span>
-      {icon
-        ? (iconNode ?? (
-            <ArrowUpRight
-              aria-hidden="true"
-              className={cn(
-                'size-4 shrink-0 transition-[transform,color] duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5',
-                HOVER_TEXT[variant],
-              )}
-            />
-          ))
-        : null}
+      {icon ? (
+        <span
+          aria-hidden="true"
+          className={cn(
+            'grid shrink-0 place-items-center rounded-full transition-[transform,background-color,color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-0.5 group-hover:scale-105',
+            size === 'lg' ? 'size-10' : 'size-9',
+            ISLAND[variant],
+          )}
+        >
+          {iconNode ?? <ArrowUpRight className="size-4" strokeWidth={1.6} />}
+        </span>
+      ) : null}
     </>
   );
 }
 
-/** Primary call-to-action link: wipe-up fill, rolling label and a nudging arrow. */
-export function ActionLink({
-  label,
-  variant = 'primary',
-  size = 'lg',
-  icon = true,
-  className,
-  ...props
-}: ActionLinkProps) {
+/** Primary call-to-action link: pill, wipe-up fill, rolling label and an arrow island. */
+export function ActionLink({ label, variant = 'primary', size = 'lg', icon = true, className, ...props }: ActionLinkProps) {
   return (
     <a {...props} className={actionClassName(variant, size, className)}>
-      <ActionInner label={label} variant={variant} icon={icon} />
+      <ActionInner label={label} variant={variant} icon={icon} size={size} />
     </a>
   );
 }
@@ -113,7 +110,7 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function ActionButton({ label, variant = 'primary', size = 'lg', icon = true, className, type = 'button', ...props }: ActionButtonProps) {
   return (
     <button {...props} type={type} className={actionClassName(variant, size, className)}>
-      <ActionInner label={label} variant={variant} icon={icon} />
+      <ActionInner label={label} variant={variant} icon={icon} size={size} />
     </button>
   );
 }

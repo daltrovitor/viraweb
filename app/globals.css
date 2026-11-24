@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 /* Desktop viewports tall enough for the fixed "curtain" footer reveal */
 @custom-variant reveal (@media (min-width: 1024px) and (min-height: 780px));
+/* Desktop viewports tall enough for pinned, scroll-driven case studies */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 860px));
 
 /* ==========================================================================
    ViraWeb design tokens — white canvas, single cobalt accent, crisp radii
@@ -24,16 +26,25 @@
   --brand-strong: #134785;
   --brand-tint: #eaf1fa;
 
-  /* Product accent — Vira Web Odonto */
-  --odonto: #0369a1;
-  --odonto-strong: #075985;
-  --odonto-tint: #e8f3fa;
+  /* Secondary accent — the sun shards of the ViraWeb mark */
+  --sun: #f2bf12;
+  --sun-strong: #e39907;
+  --sun-tint: #fdf6dc;
+
+  /* Case accents — PRX (violet to cyan) */
+  --prx-ink: #050508;
+  --prx-violet: #7607fd;
+  --prx-cyan: #0bd9fd;
+
+  /* Diffused ambient shadows (soft structuralism) */
+  --shadow-soft: 0 1px 1px rgba(15, 31, 51, 0.03), 0 8px 24px -12px rgba(15, 31, 51, 0.08), 0 32px 64px -32px rgba(15, 31, 51, 0.12);
+  --shadow-float: 0 2px 4px rgba(15, 31, 51, 0.04), 0 24px 48px -20px rgba(15, 31, 51, 0.18), 0 64px 96px -48px rgba(25, 88, 165, 0.22);
 
   /* Legacy aliases still consumed by /propostas and /termos */
   --foreground: var(--ink);
   --border: var(--line);
   --ring: var(--brand);
-  --radius: 0.25rem;
+  --radius: 0.875rem;
 
   --nav-h: 4.5rem;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,9 +69,12 @@
   --color-brand: var(--brand);
   --color-brand-strong: var(--brand-strong);
   --color-brand-tint: var(--brand-tint);
-  --color-odonto: var(--odonto);
-  --color-odonto-strong: var(--odonto-strong);
-  --color-odonto-tint: var(--odonto-tint);
+  --color-sun: var(--sun);
+  --color-sun-strong: var(--sun-strong);
+  --color-sun-tint: var(--sun-tint);
+  --color-prx-ink: var(--prx-ink);
+  --color-prx-violet: var(--prx-violet);
+  --color-prx-cyan: var(--prx-cyan);
 
   --color-card: #ffffff;
   --color-card-foreground: var(--ink);
@@ -76,6 +90,7 @@
   --radius-2xl: calc(var(--radius) + 16px);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -129,6 +144,117 @@
   ::-webkit-scrollbar-thumb {
     background: var(--line-strong);
     border-radius: 2px;
+  }
+}
+
+
+/* ==========================================================================
+   Machined surfaces — "double bezel": an outer tray holding an inner plate,
+   with concentric radii and diffused ambient shadows instead of hard borders.
+   ========================================================================== */
+@layer components {
+  .bezel {
+    border-radius: 2rem;
+    padding: 0.375rem;
+    background: rgba(15, 31, 51, 0.035);
+    box-shadow: inset 0 0 0 1px rgba(15, 31, 51, 0.06);
+  }
+  .bezel-core {
+    border-radius: calc(2rem - 0.375rem);
+    background: #ffffff;
+    box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+  }
+  .bezel-lg {
+    border-radius: 2.5rem;
+    padding: 0.5rem;
+  }
+  .bezel-lg > .bezel-core {
+    border-radius: calc(2.5rem - 0.5rem);
+  }
+  @media (max-width: 639px) {
+    .bezel,
+    .bezel-lg {
+      border-radius: 1.5rem;
+      padding: 0.3rem;
+    }
+    .bezel > .bezel-core,
+    .bezel-lg > .bezel-core {
+      border-radius: calc(1.5rem - 0.3rem);
+    }
+  }
+
+  /* Microscopic pill that sits above every major heading */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.375rem 0.85rem 0.375rem 0.6rem;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px var(--line), 0 1px 2px rgba(15, 31, 51, 0.04);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: var(--brand);
+    box-shadow: 0 0 0 3px var(--brand-tint);
+  }
+
+  /* Hairline dotted grid, used behind stages (static, never on a scroller) */
+  .dot-grid {
+    background-image: radial-gradient(rgba(15, 31, 51, 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+/* Hero mark: every shard of the "V" flies in from its own direction (CSS only). */
+.shard {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot, 0deg)) scale(0.6);
+  animation: shard-in 1.4s var(--ease-out-expo) forwards;
+  animation-delay: calc(0.35s + var(--i, 0) * 55ms);
+}
+@keyframes shard-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.float-y {
+  animation: float-y 7s ease-in-out infinite;
+}
+.float-y-slow {
+  animation: float-y 9s ease-in-out infinite reverse;
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+.pop-in {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  animation: pop-in 1s var(--ease-out-expo) forwards;
+  animation-delay: var(--delay, 0.9s);
+}
+@keyframes pop-in {
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

@@ -8,6 +8,7 @@ import { ProofStrip } from '@/components/home/proof-strip';
 import { Services } from '@/components/home/services';
 import { PackageBand } from '@/components/home/package-band';
 import { PontoControle } from '@/components/home/pontocontrole';
+import { PrxCase } from '@/components/home/prx-case';
 import { Process } from '@/components/home/process';
 import { Testimonials } from '@/components/home/testimonials';
 import { Faq } from '@/components/home/faq';
@@ -28,9 +29,10 @@ export default function Home() {
       <main id="conteudo" className="relative z-10 bg-white">
         <Hero />
         <ProofStrip />
+        <PrxCase />
         <Services />
-        <PackageBand />
         <PontoControle />
+        <PackageBand />
         <Process />
         <Testimonials />
         <Faq />

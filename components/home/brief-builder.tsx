@@ -68,7 +68,7 @@ export function BriefBuilder({ location, className }: BriefBuilderProps) {
       role="group"
       aria-labelledby={legendId}
       className={cn(
-        'rounded-sm border border-line-strong bg-white p-5 shadow-[0_40px_90px_-55px_rgba(15,31,51,0.5)] sm:p-6',
+        'rounded-[1.75rem] bg-white p-5 shadow-[var(--shadow-float)] ring-1 ring-black/[0.06] sm:p-7',
         className,
       )}
     >

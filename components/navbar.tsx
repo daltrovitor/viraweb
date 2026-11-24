@@ -33,9 +33,9 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Fechar menu',
     language: 'Idioma',
     links: [
+      { label: 'Trabalhos', href: '/#trabalhos' },
       { label: 'Serviços', href: '/#services' },
       { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Método', href: '/#metodo' },
       { label: 'Pacote', href: '/propostas' },
       { label: 'FAQ', href: '/#faq' },
     ],
@@ -50,9 +50,9 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Close menu',
     language: 'Language',
     links: [
+      { label: 'Work', href: '/#trabalhos' },
       { label: 'Services', href: '/#services' },
       { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Method', href: '/#metodo' },
       { label: 'Package', href: '/propostas' },
       { label: 'FAQ', href: '/#faq' },
     ],
@@ -67,9 +67,9 @@ const COPY: Copy<NavCopy> = {
     menuClose: 'Cerrar menú',
     language: 'Idioma',
     links: [
+      { label: 'Trabajos', href: '/#trabalhos' },
       { label: 'Servicios', href: '/#services' },
       { label: 'PontoControle', href: '/#pontocontrole' },
-      { label: 'Método', href: '/#metodo' },
       { label: 'Paquete', href: '/propostas' },
       { label: 'FAQ', href: '/#faq' },
     ],
@@ -85,7 +85,7 @@ function LanguageSwitch({ label, size = 'sm' }: { label: string; size?: 'sm' | '
   const pillId = useId();
 
   return (
-    <div role="group" aria-label={label} className="flex items-center rounded-sm border border-line bg-white p-0.5">
+    <div role="group" aria-label={label} className="flex items-center rounded-full bg-ink/[0.05] p-1">
       {LANGUAGES.map((code) => {
         const active = language === code;
         return (
@@ -97,14 +97,14 @@ function LanguageSwitch({ label, size = 'sm' }: { label: string; size?: 'sm' | '
             lang={code}
             className={cn(
               'relative cursor-pointer font-mono font-medium uppercase transition-colors duration-300',
-              size === 'sm' ? 'h-9 min-w-10 px-2 text-[0.7rem]' : 'h-12 min-w-14 px-3 text-sm',
+              size === 'sm' ? 'h-8 min-w-9 px-2 text-[0.68rem]' : 'h-11 min-w-14 px-3 text-sm',
               active ? 'text-white' : 'text-ink-soft hover:text-ink',
             )}
           >
             {active ? (
               <motion.span
                 layoutId={pillId}
-                className="absolute inset-0 rounded-[2px] bg-ink"
+                className="absolute inset-0 rounded-full bg-ink"
                 transition={{ type: 'spring', stiffness: 300, damping: 28 }}
               />
             ) : null}
@@ -160,7 +160,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <a
         href="#conteudo"
-        className="sr-only rounded-sm bg-ink px-4 py-3 text-sm text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
+        className="sr-only rounded-full bg-ink px-4 py-3 text-sm text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
       >
         {copy.skip}
       </a>
@@ -169,18 +169,22 @@ export default function Navbar() {
         initial={false}
         animate={{ y: hidden && !open ? '-100%' : '0%' }}
         transition={{ type: 'spring', stiffness: 300, damping: 34 }}
-        className={cn(
-          'border-b transition-colors duration-500',
-          scrolled || open ? 'border-line bg-white/90 backdrop-blur-md' : 'border-transparent bg-transparent',
-        )}
+        className="px-3 pt-3 sm:px-6 lg:px-10"
       >
-        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-6 px-4 sm:px-8 lg:px-12">
+        <div
+          className={cn(
+            'mx-auto flex h-[calc(var(--nav-h)-0.75rem)] max-w-[1360px] items-center justify-between gap-6 rounded-full pl-4 pr-2 transition-[background-color,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] sm:pl-6',
+            scrolled || open
+              ? 'bg-white/80 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_0_0_1px_rgba(15,31,51,0.06),0_12px_32px_-16px_rgba(15,31,51,0.18)] backdrop-blur-xl'
+              : 'bg-transparent',
+          )}
+        >
           <a href="/" aria-label={copy.home} className="inline-flex min-h-12 shrink-0 items-center" onClick={() => setOpen(false)}>
             <Wordmark />
           </a>
 
           <nav aria-label={copy.primaryNav} className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-6 xl:gap-8">
               {copy.links.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="roll-trigger inline-flex min-h-12 items-center text-[0.9rem] font-medium text-ink-soft transition-colors hover:text-ink">
@@ -211,7 +215,7 @@ export default function Navbar() {
               aria-controls={menuId}
               aria-label={open ? copy.menuClose : copy.menuOpen}
               onClick={() => setOpen((value) => !value)}
-              className="relative grid size-12 cursor-pointer place-items-center rounded-sm border border-line bg-white lg:hidden"
+              className="relative grid size-11 cursor-pointer place-items-center rounded-full bg-ink/[0.05] lg:hidden"
             >
               <span aria-hidden="true" className="relative block h-3 w-5">
                 <motion.span

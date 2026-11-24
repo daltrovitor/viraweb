@@ -19,11 +19,11 @@ export function Process() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
 
   return (
-    <section id="metodo" aria-labelledby="process-title" className="scroll-mt-4border-t border-line bg-white py-24 sm:py-36">
+    <section id="metodo" aria-labelledby="process-title" className="scroll-mt-4 bg-white py-24 sm:py-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-8 px-4 sm:px-8 lg:px-12">
-        <p className="col-span-12 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-mute lg:col-span-2 lg:pt-4">
-          ({LABEL[language]})
-        </p>
+        <div className="col-span-12 lg:col-span-2 lg:pt-3">
+          <p className="eyebrow">{LABEL[language]}</p>
+        </div>
         <SplitWords
           id="process-title"
           className="col-span-12 text-[clamp(2.2rem,5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-ink lg:col-span-7"
@@ -48,12 +48,15 @@ export function Process() {
             className="absolute left-0 top-0 h-full w-px origin-top bg-ink md:hidden"
             style={{ scaleY: scaleX }}
           />
-          <ol className="grid grid-cols-1 gap-y-12 md:grid-cols-4 md:gap-x-8">
+          <ol className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4">
           {STEPS.map((step, i) => (
             <li key={step} className="relative">
-              <Reveal delay={i * 0.08} y={20}>
-                <p className="font-mono text-[0.72rem] text-mute">{t(`process.step${step}.num`)}</p>
-                <h3 className="mt-4 text-[clamp(1.4rem,2vw,1.85rem)] font-semibold leading-tight tracking-[-0.03em] text-ink">
+              <Reveal delay={i * 0.08} y={20} className="h-full rounded-[1.75rem] bg-white p-6 shadow-[var(--shadow-soft)] ring-1 ring-black/[0.05] sm:p-7">
+                <p className="flex items-center justify-between">
+                  <span className="text-[2.75rem] font-semibold leading-none tracking-[-0.06em] text-ink/10">{t(`process.step${step}.num`)}</span>
+                  <span aria-hidden="true" className="size-2 rotate-45 bg-sun" />
+                </p>
+                <h3 className="mt-8 text-[clamp(1.4rem,2vw,1.85rem)] font-semibold leading-tight tracking-[-0.03em] text-ink">
                   {t(`process.step${step}.title`)}
                 </h3>
                 <p className="mt-3 max-w-[36ch] text-[0.95rem] leading-relaxed text-ink-soft">{t(`process.step${step}.desc`)}</p>

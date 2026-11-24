@@ -76,50 +76,55 @@ export function PackageBand() {
   ];
 
   return (
-    <section aria-labelledby="package-title" className="border-y border-ink bg-white">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-12 items-end gap-x-4 gap-y-10 px-4 py-16 sm:px-8 sm:py-24 lg:gap-x-10 lg:px-12">
+    <section aria-labelledby="package-title" className="bg-white px-4 py-10 sm:px-8 sm:py-16 lg:px-12">
+      <Reveal y={40} className="bezel bezel-lg mx-auto max-w-[1440px]">
+      <div className="bezel-core relative bg-ink text-white">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_70%_at_90%_10%,rgba(25,88,165,0.55),transparent_70%),radial-gradient(35%_60%_at_0%_100%,rgba(242,191,18,0.16),transparent_70%)]" />
+      <div className="relative grid grid-cols-12 items-end gap-x-4 gap-y-10 px-5 py-12 sm:px-10 sm:py-16 lg:gap-x-10 lg:px-14 lg:py-20">
         <div className="col-span-12 lg:col-span-6">
           <SplitWords
             id="package-title"
-            className="text-[clamp(2.1rem,4.8vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-ink"
+            className="text-[clamp(2.1rem,4.8vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-white"
             parts={[
               copy.titleA,
               { br: true },
-              { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' },
+              { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-sun' },
             ]}
           />
           <Reveal delay={0.08}>
-            <p className="mt-6 max-w-[48ch] text-base leading-relaxed text-ink-soft sm:text-lg">
+            <p className="mt-6 max-w-[48ch] text-base leading-relaxed text-white/70 sm:text-lg">
               {copy.lede(offer.setupDiscountPercent, offer.monthlyDiscountPercent)}
             </p>
           </Reveal>
         </div>
 
-        <div className="col-span-12 lg:col-span-5 lg:col-start-8">
-          <dl className="grid grid-cols-1 border-t border-line sm:grid-cols-2">
+        <div className="col-span-12 lg:col-span-6 lg:col-start-7 xl:col-span-5 xl:col-start-8">
+          <dl className="grid grid-cols-1 border-t border-white/15 sm:grid-cols-2">
             {prices.map((price, i) => (
               <Reveal
                 key={price.label}
                 delay={i * 0.08}
                 y={18}
-                className="flex flex-col border-b border-line py-5 sm:pr-6 sm:odd:border-r sm:even:pl-6"
+                className="flex flex-col border-b border-white/15 py-5 sm:pr-6 sm:odd:border-r sm:even:pl-6"
               >
-                <dt className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-mute">{price.label}</dt>
+                <dt className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-white/50">{price.label}</dt>
                 <dd className="mt-2">
-                  <span className="block text-[clamp(1.9rem,3.2vw,2.75rem)] font-semibold leading-none tracking-[-0.04em] text-ink">
+                  <span className="block whitespace-nowrap text-[clamp(1.9rem,2.7vw,2.6rem)] font-semibold leading-none tracking-[-0.04em] text-white">
                     <Counter value={price.value} prefix={affix.prefix} suffix={affix.suffix} separator={affix.separator} />
-                    {price.unit ? <span className="text-base font-medium tracking-normal text-mute">{price.unit}</span> : null}
+                    {price.unit ? <span className="text-base font-medium tracking-normal text-white/50">{price.unit}</span> : null}
                   </span>
-                  <span className="mt-2 block text-sm text-mute">{copy.instead(price.gross)}</span>
+                  <span className="mt-2 block text-sm text-white/50">{copy.instead(price.gross)}</span>
                 </dd>
               </Reveal>
             ))}
           </dl>
           <Reveal delay={0.16}>
-            <ActionLink href="/propostas" label={copy.cta} className="mt-8 w-full sm:w-auto" />
+            <ActionLink href="/propostas" label={copy.cta} variant="light" className="mt-8 w-full sm:w-auto" />
           </Reveal>
         </div>
       </div>
+      </div>
+      </Reveal>
     </section>
   );
 }

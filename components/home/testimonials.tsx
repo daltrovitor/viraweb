@@ -26,7 +26,7 @@ function ReviewCard({ review, language, hidden }: { review: Review; language: La
   return (
     <figure
       aria-hidden={hidden || undefined}
-      className="mr-4 flex w-[300px] shrink-0 flex-col justify-between rounded-sm border border-line bg-white p-6 sm:w-[360px]"
+      className="mr-4 flex w-[300px] shrink-0 flex-col justify-between rounded-[1.5rem] bg-white p-6 shadow-[var(--shadow-soft)] ring-1 ring-black/[0.05] sm:w-[360px]"
     >
       <blockquote className="text-[0.95rem] leading-relaxed text-ink">“{localized(review, language)}”</blockquote>
       <figcaption className="mt-6 flex items-center gap-3">
@@ -51,11 +51,11 @@ export function Testimonials() {
   const { t, language } = useTranslation();
 
   return (
-    <section id="testimonials" aria-labelledby="testimonials-title" className="overflow-hidden border-t border-line bg-surface py-24 sm:py-36">
+    <section id="testimonials" aria-labelledby="testimonials-title" className="overflow-hidden bg-white py-24 sm:py-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-8 px-4 sm:px-8 lg:px-12">
-        <p className="col-span-12 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-mute lg:col-span-2 lg:pt-4">
-          ({LABEL[language]})
-        </p>
+        <div className="col-span-12 lg:col-span-2 lg:pt-3">
+          <p className="eyebrow">{LABEL[language]}</p>
+        </div>
         <SplitWords
           id="testimonials-title"
           className="col-span-12 text-[clamp(2.2rem,5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-ink lg:col-span-7"
@@ -66,7 +66,7 @@ export function Testimonials() {
         </Reveal>
       </div>
 
-      <div className="mt-16 space-y-4">
+      <div className="mt-16 space-y-4 py-6">
         {ROWS.map((row, rowIndex) => (
           <div
             key={rowIndex}

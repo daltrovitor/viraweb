@@ -19,7 +19,6 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Soluções",
     "nav.package": "Pacote ViraWeb",
-    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Fale Conosco",
     "nav.button": "Acelerar Negócio",
 
@@ -162,8 +161,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Sim, 100% seu. Após o desenvolvimento, você tem propriedade total sobre o domínio, o código-fonte e as chaves de acesso. ",
     "faq.q2": "Como funciona o desenvolvimento de sistemas personalizados?",
     "faq.a2": "Mapeamos os processos manuais da sua empresa e criamos um software sob medida (como ERP, CRM ou ferramenta interna) totalmente integrado às APIs e bancos de dados que você já utiliza, eliminando erros operacionais.",
-    "faq.q3": "O que é o Vira Web Odonto?",
-    "faq.a3": "É o nosso software odontológico para clínicas e consultórios. Agenda, ficha do paciente, orçamento no odontograma e plano de pagamento no mesmo fluxo — com financeiro, conciliação bancária e assistente com IA. Você testa grátis por 14 dias e cancela quando quiser.",
     "faq.q4": "Qual o tempo médio de desenvolvimento de um site premium?",
     "faq.a4": "Depende da complexidade, mas landing pages de elite costumam ser entregues em 10 a 15 dias úteis, e portais mais complexos/institucionais entre 20 a 30 dias úteis, com acompanhamento ativo.",
     "faq.q5": "Como funciona a automação do WhatsApp no comercial?",
@@ -185,7 +182,6 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Solutions",
     "nav.package": "ViraWeb Package",
-    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Contact Us",
     "nav.button": "Accelerate Business",
 
@@ -328,8 +324,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Yes, 100% yours. After development, you have full ownership of the domain, source code, and access keys. Plus, we create intuitive CMS panels so you can edit text without relying on us.",
     "faq.q2": "How does custom systems development work?",
     "faq.a2": "We map your business's manual processes and create tailor-made software (such as an ERP, CRM, or internal tool) fully integrated with the APIs and databases you already use, eliminating operational errors.",
-    "faq.q3": "What is Vira Web Odonto?",
-    "faq.a3": "It is our dental practice software for clinics and offices. Scheduling, patient records, odontogram-based quotes and payment plans in one flow — with finance, bank reconciliation and an AI assistant. Try it free for 14 days and cancel anytime.",
     "faq.q4": "What is the average development time for a premium site?",
     "faq.a4": "It depends on complexity, but elite landing pages are usually delivered in 10 to 15 business days, and more complex corporate portals in 20 to 30 business days, with active support.",
     "faq.q5": "How does WhatsApp automation work for sales?",
@@ -351,7 +345,6 @@ export const translations: Record<Language, Record<string, string>> = {
     // Navigation
     "nav.services": "Soluciones",
     "nav.package": "Paquete ViraWeb",
-    "nav.odonto": "Vira Web Odonto",
     "nav.contact": "Contacto",
     "nav.button": "Acelerar Negocio",
 
@@ -494,8 +487,6 @@ export const translations: Record<Language, Record<string, string>> = {
     "faq.a1": "Sí, 100% suyo. Tras el desarrollo, tiene propiedad total sobre el dominio, el código fuente y las claves de acceso. Además, creamos paneles CMS intuitivos para que modifique textos sin depender de nosotros.",
     "faq.q2": "¿Cómo funciona el desarrollo de sistemas personalizados?",
     "faq.a2": "Mapeamos los processos manuales de su empresa y creamos un software a la medida (como ERP, CRM o herramienta interna) totalmente integrado con las APIs y bases de dados que ya utiliza, eliminando errores operativos.",
-    "faq.q3": "¿Qué es Vira Web Odonto?",
-    "faq.a3": "Es nuestro software odontológico para clínicas y consultorios. Agenda, ficha del paciente, presupuesto en el odontograma y plan de pago en el mismo flujo — con finanzas, conciliación bancaria y asistente con IA. Pruébelo gratis durante 14 días y cancele cuando quiera.",
     "faq.q4": "¿Cuál es el tiempo medio de desarrollo de un sitio premium?",
     "faq.a4": "Depende de la complejidad, pero las landing pages de élite suelen entregarse en 10 a 15 días hábiles, y los portales corporativos más complejos entre 20 a 30 días hábiles, con seguimiento activo.",
     "faq.q5": "¿Cómo funciona la automatización de WhatsApp en el área comercial?",

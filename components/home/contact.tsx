@@ -49,7 +49,7 @@ export function Contact() {
   ];
 
   return (
-    <section id="contato" aria-labelledby="contact-title" className="scroll-mt-4 border-t border-line bg-white py-20 sm:py-28">
+    <section id="contato" aria-labelledby="contact-title" className="scroll-mt-4 bg-white py-24 sm:py-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-10 px-4 sm:px-8 lg:gap-x-10 lg:px-12">
         <div className="col-span-12 lg:col-span-5">
           <SplitWords

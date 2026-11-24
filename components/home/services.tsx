@@ -20,6 +20,7 @@ import { MapVisual } from '@/components/home/service-visuals';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface ServicesCopy {
+  eyebrow: string;
   titleA: string;
   titleEm: string;
   lede: string;
@@ -27,16 +28,19 @@ interface ServicesCopy {
 
 const COPY: Copy<ServicesCopy> = {
   pt: {
+    eyebrow: 'Serviços',
     titleA: 'Um time só para site, sistema, automação e',
     titleEm: 'marketing.',
     lede: 'Quatro serviços que funcionam sozinhos e rendem mais juntos. Em todos, você fala direto com quem constrói.',
   },
   en: {
+    eyebrow: 'Services',
     titleA: 'One team for your website, system, automation and',
     titleEm: 'marketing.',
     lede: 'Four services that work on their own and deliver more together. In all of them you talk straight to the people who build.',
   },
   es: {
+    eyebrow: 'Servicios',
     titleA: 'Un solo equipo para sitio, sistema, automatización y',
     titleEm: 'marketing.',
     lede: 'Cuatro servicios que funcionan solos y rinden más juntos. En todos, usted habla directo con quien construye.',
@@ -71,10 +75,12 @@ function Stage({ service, language }: { service: ServiceInfo; language: Language
   const y = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [22, -22]);
 
   return (
-    <div ref={ref} className={cn('aspect-[4/3] w-full overflow-hidden rounded-sm p-5 sm:p-8', STAGE_TONE[service.key])}>
-      <motion.div style={{ y }} className="h-full w-full">
-        {visualFor(service.key, language)}
-      </motion.div>
+    <div ref={ref} className="bezel bezel-lg">
+      <div className={cn('bezel-core aspect-[4/3] w-full p-5 sm:p-8', STAGE_TONE[service.key])}>
+        <motion.div style={{ y }} className="h-full w-full">
+          {visualFor(service.key, language)}
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -187,13 +193,18 @@ export function Services() {
   );
 
   return (
-    <section id="services" aria-labelledby="services-title" className="scroll-mt-4 bg-white pb-16 pt-20 sm:pb-24 sm:pt-28">
+    <section id="services" aria-labelledby="services-title" className="scroll-mt-4 bg-white pb-16 pt-24 sm:pb-24 sm:pt-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-8 px-4 sm:px-8 lg:gap-x-10 lg:px-12">
-        <SplitWords
-          id="services-title"
-          className="col-span-12 text-[clamp(2.1rem,4.8vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-ink lg:col-span-8"
-          parts={[copy.titleA, { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' }]}
-        />
+        <div className="col-span-12 lg:col-span-8">
+          <Reveal y={14}>
+            <p className="eyebrow">{copy.eyebrow}</p>
+          </Reveal>
+          <SplitWords
+            id="services-title"
+            className="mt-6 text-[clamp(2.1rem,4.8vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-ink"
+            parts={[copy.titleA, { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' }]}
+          />
+        </div>
         <Reveal className="col-span-12 self-end md:col-span-7 lg:col-span-4">
           <p className="text-base leading-relaxed text-ink-soft sm:text-lg">{copy.lede}</p>
         </Reveal>

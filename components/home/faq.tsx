@@ -44,7 +44,7 @@ export function Faq() {
   const [open, setOpen] = useState<string | null>(items[0]?.id ?? null);
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-4 border-t border-line bg-white py-20 sm:py-28">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-4 bg-white py-24 sm:py-36">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-12 px-4 sm:px-8 lg:gap-x-10 lg:px-12">
         <div className="col-span-12 lg:col-span-5">
           <div className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)]">

@@ -4,7 +4,7 @@
 // reads exactly the facts, prices and answers a visitor sees — nothing more.
 import { SITE, absoluteUrl } from '@/lib/site';
 import { getPackageOffer, getServices } from '@/lib/home/services';
-import { getPontoControle, PONTO_PLANS, PONTO_TRIAL_DAYS, brl } from '@/lib/home/products';
+import { getPontoControle, getPrx, PONTO_PLANS, PONTO_TRIAL_DAYS, brl } from '@/lib/home/products';
 import { getFaq } from '@/lib/home/faq';
 
 const SUMMARY =
@@ -16,6 +16,7 @@ const CONTACT = `Contato comercial: WhatsApp ${SITE.whatsappDisplay} (https://wa
 export function buildLlmsTxt(): string {
   const services = getServices('pt');
   const ponto = getPontoControle('pt');
+  const prx = getPrx('pt');
 
   return [
     `# ${SITE.name}`,
@@ -43,6 +44,10 @@ export function buildLlmsTxt(): string {
     '',
     `- [${ponto.name}](${ponto.url}): ${ponto.definition} ${ponto.priceLine}.`,
     '',
+    '## Trabalhos',
+    '',
+    `- [${prx.name}](${prx.url}): ${prx.tagline}, projetado e desenvolvido pela ViraWeb. ${prx.definition} ${prx.disclaimer}`,
+    '',
     '## Optional',
     '',
     `- [Versão completa](${absoluteUrl('/llms-full.txt')}): todos os fatos, preços e perguntas frequentes em um único arquivo`,
@@ -57,6 +62,7 @@ export function buildLlmsFullTxt(): string {
   const offer = getPackageOffer('pt');
   const faq = getFaq('pt');
   const pontoPlans = PONTO_PLANS.pt;
+  const prx = getPrx('pt');
 
   const lines: string[] = [
     `# ${SITE.name}`,
@@ -108,6 +114,19 @@ export function buildLlmsFullTxt(): string {
       '',
     );
   }
+
+  lines.push(
+    '## Trabalhos',
+    '',
+    `### ${prx.name} — ${prx.tagline}`,
+    '',
+    `Projetado e desenvolvido pela ViraWeb. ${prx.definition}`,
+    '',
+    `- Site: ${prx.url}`,
+    ...prx.modules.map((module) => `- ${module.name}: ${module.body}`),
+    `- ${prx.disclaimer}`,
+    '',
+  );
 
   lines.push('## Perguntas frequentes', '');
   for (const item of faq) lines.push(`### ${item.question}`, '', item.answer, '');

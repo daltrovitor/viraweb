@@ -26,7 +26,7 @@ interface FooterCopy {
 const COPY: Copy<FooterCopy> = {
   pt: {
     navigation: 'Navegação',
-    products: 'Produto',
+    products: 'Produto e trabalhos',
     contact: 'Contato',
     links: [
       { label: 'Serviços', href: '/#services' },
@@ -42,7 +42,7 @@ const COPY: Copy<FooterCopy> = {
   },
   en: {
     navigation: 'Navigation',
-    products: 'Product',
+    products: 'Product and work',
     contact: 'Contact',
     links: [
       { label: 'Solutions', href: '/#services' },
@@ -58,7 +58,7 @@ const COPY: Copy<FooterCopy> = {
   },
   es: {
     navigation: 'Navegación',
-    products: 'Producto',
+    products: 'Producto y trabajos',
     contact: 'Contacto',
     links: [
       { label: 'Soluciones', href: '/#services' },
@@ -76,6 +76,7 @@ const COPY: Copy<FooterCopy> = {
 
 const PRODUCTS = [
   { label: 'PontoControle', href: SITE.pontoControleUrl },
+  { label: 'PRX', href: SITE.prxUrl },
 ];
 
 const TIME_FORMAT = new Intl.DateTimeFormat('pt-BR', {

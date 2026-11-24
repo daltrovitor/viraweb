@@ -49,6 +49,8 @@ export const SITE = {
   instagramUrl: 'https://instagram.com/viraweb.dev.br',
   instagramHandle: '@viraweb.dev.br',
   pontoControleUrl: 'https://www.pontocontrole.com.br',
+  /** PRX — the Gen Z digital account ViraWeb designed and built. */
+  prxUrl: 'https://www.prx.app.br',
 } as const;
 
 /** Absolute URL on the main site for a root-relative path. */

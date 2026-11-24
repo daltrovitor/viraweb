@@ -28,6 +28,7 @@ interface Punch {
 }
 
 interface PontoCopy {
+  eyebrow: string;
   titleA: string;
   titleEm: string;
   titleB: string;
@@ -58,6 +59,7 @@ interface PontoCopy {
 // Features, audiences, plans and legal references mirror pontocontrole.com.br.
 const COPY: Copy<PontoCopy> = {
   pt: {
+    eyebrow: 'Produto próprio · SaaS',
     titleA: 'Controle de ponto pelo celular, com',
     titleEm: 'reconhecimento facial',
     titleB: 'e GPS.',
@@ -95,6 +97,7 @@ const COPY: Copy<PontoCopy> = {
     },
   },
   en: {
+    eyebrow: 'Our own product · SaaS',
     titleA: 'Time tracking on the phone, with',
     titleEm: 'facial recognition',
     titleB: 'and GPS.',
@@ -132,6 +135,7 @@ const COPY: Copy<PontoCopy> = {
     },
   },
   es: {
+    eyebrow: 'Producto propio · SaaS',
     titleA: 'Control de asistencia en el celular, con',
     titleEm: 'reconocimiento facial',
     titleB: 'y GPS.',
@@ -208,7 +212,8 @@ function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
   const status = state === 'idle' ? copy.idle : state === 'scanning' ? copy.scanning : copy.success;
 
   return (
-    <div className="grid grid-cols-1 overflow-hidden rounded-sm border border-line bg-white shadow-[0_40px_90px_-55px_rgba(15,31,51,0.5)] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+    <div className="bezel bezel-lg">
+    <div className="bezel-core grid grid-cols-1 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
       <div className="flex flex-col border-b border-line p-5 sm:p-6 md:border-b-0 md:border-r">
         <p className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-mute">{copy.title}</p>
         <div className="relative mx-auto mt-5 aspect-square w-full max-w-[260px] overflow-hidden rounded-sm bg-surface">
@@ -312,6 +317,7 @@ function FaceScanSimulator({ copy }: { copy: PontoCopy['sim'] }) {
         </ul>
       </div>
     </div>
+    </div>
   );
 }
 
@@ -322,16 +328,19 @@ export function PontoControle() {
   const definition = getPontoControle(language).definition;
 
   return (
-    <section id="pontocontrole" aria-labelledby="pontocontrole-title" className="scroll-mt-4 border-t border-line bg-white">
+    <section id="pontocontrole" aria-labelledby="pontocontrole-title" className="scroll-mt-4 bg-white">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-4 gap-y-14 px-4 py-20 sm:px-8 sm:py-28 lg:gap-x-10 lg:px-12">
         {/* Copy — right column on large screens, so this chapter mirrors the previous one */}
         <div className="col-span-12 lg:order-2 lg:col-span-5 lg:col-start-8">
-          <Reveal y={16}>
+          <Reveal y={14}>
+            <p className="eyebrow">{copy.eyebrow}</p>
+          </Reveal>
+          <Reveal y={16} className="mt-8">
             <Image src="/logo.png" alt="PontoControle" width={2195} height={514} sizes="200px" className="h-9 w-auto sm:h-10" />
           </Reveal>
           <SplitWords
             id="pontocontrole-title"
-            className="mt-10 text-[clamp(2.1rem,3.8vw,3.75rem)] font-semibold leading-[1] tracking-[-0.045em] text-ink"
+            className="mt-8 text-[clamp(2.1rem,3.8vw,3.75rem)] font-semibold leading-[1] tracking-[-0.045em] text-ink"
             parts={[
               copy.titleA,
               { text: copy.titleEm, className: 'font-serif font-normal italic tracking-[-0.02em] text-brand' },

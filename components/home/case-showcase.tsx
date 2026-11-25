@@ -31,22 +31,22 @@ export function CaseShowcase() {
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
         <SplitWords id="cases-title" parts={[text.title]} className="max-w-[20ch] text-[clamp(2.2rem,5.2vw,5.25rem)] font-semibold leading-[1] tracking-[-0.055em]" />
         <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">{text.intro}</p>
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        <ul className="project-index mt-10">
           {cases.map((project, index) => {
             const { icon: Icon, color } = appearance[project.slug];
             const details = project.copy[language];
             return (
-              <li id={project.slug} key={project.slug} className={index < 2 ? 'scroll-mt-24 lg:col-span-3' : 'scroll-mt-24 lg:col-span-2'}>
+              <li id={project.slug} key={project.slug} className="scroll-mt-24">
                 <Reveal y={20} delay={index * 0.055} className="h-full">
-                  <Link href={`/cases/${project.slug}`} className="case-card group flex h-full flex-col rounded-[1.75rem] border border-white/15 p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:p-7" style={{ '--case-accent': color } as CSSProperties}>
-                    <div className="flex items-start justify-between gap-4">
+                  <Link href={`/cases/${project.slug}`} className="project-row group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white" style={{ '--case-accent': color } as CSSProperties}>
+                    <div className="project-symbol">
                       <span className="case-icon grid size-12 place-items-center rounded-xl border"><Icon aria-hidden="true" className="size-5" /></span>
-                      <ArrowUpRight aria-hidden="true" className="size-5 text-slate-300 transition-transform motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1" />
+                      <ArrowUpRight aria-hidden="true" className="project-arrow size-5 text-slate-300 transition-transform motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1" />
                     </div>
-                    <p className="mt-8 text-sm font-medium text-[var(--case-accent)]">{details.category}</p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight">{project.name[language]}</h3>
-                    <p className="mb-5 mt-3 flex-1 text-sm leading-relaxed text-slate-300">{details.summary}</p>
-                    <span className="text-sm font-medium">{text.open}</span>
+                    <p className="project-category text-sm font-medium text-[var(--case-accent)]">{details.category}</p>
+                    <h3 className="project-name text-2xl font-semibold tracking-tight">{project.name[language]}</h3>
+                    <p className="project-summary text-sm leading-relaxed text-slate-300">{details.summary}</p>
+                    <span className="sr-only">{text.open}</span>
                   </Link>
                 </Reveal>
               </li>

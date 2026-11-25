@@ -40,11 +40,12 @@ fn pigment(color: vec3f, opacity: f32) -> vec4f {
     return pigment(mix(blue, gold, step(0.72, seed)), opacity);
   }
 
+  // A soft, angled reflection follows the pointer over the PRX artwork.
   let pixels = (uv - signal.origin) * signal.size;
-  let glow = exp(-length(pixels / vec2f(185.0, 105.0)) * 2.0);
-  let grid = fract(uv * signal.size / 20.0) - 0.5;
-  let trace = 1.0 - smoothstep(0.025, 0.075, min(abs(grid.x), abs(grid.y)));
-  let node = 1.0 - smoothstep(0.05, 0.15, length(grid));
-  let sweep = exp(-abs(pixels.y - 12.0 * sin(signal.time * 3.0)) / 5.0);
-  return pigment(mix(blue, gold, node * 0.78), signal.strength * glow * (0.21 + 0.32 * trace + 0.35 * node + sweep * 0.20));
+  let glow = exp(-length(pixels / vec2f(142.0, 98.0)) * 1.6);
+  let grain = hash(floor(uv * signal.size));
+  let angle = pixels.x * 0.55 - pixels.y;
+  let sheen = exp(-abs(angle) / 22.0);
+  let tint = mix(vec3f(0.68, 0.52, 1.0), vec3f(0.93, 0.87, 1.0), sheen);
+  return pigment(tint, signal.strength * glow * (0.14 + sheen * 0.34 + grain * 0.035));
 }

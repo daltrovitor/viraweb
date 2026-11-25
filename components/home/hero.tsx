@@ -7,7 +7,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { useTranslation } from '@/lib/i18n';
 import { EXTERNAL_LINK_PROPS, whatsappLink, type Copy } from '@/lib/site';
 import { trackContact } from '@/lib/analytics';
-import { MARK_POLYGONS, Wordmark } from '@/components/brand/brand-mark';
+import { BrandMark, MARK_POLYGONS, MARK_VECTORS } from '@/components/brand/brand-mark';
+import { SignalCanvas } from '@/components/motion/signal-canvas';
 import { ActionLink } from '@/components/ui/action-link';
 
 interface HeroCopy {
@@ -79,14 +80,23 @@ function HeroStage() {
 
   return (
     <div ref={stage} aria-hidden="true" className="sculpture-stage">
+      <SignalCanvas mode="assembly" />
       <motion.div className="sculpture-object" style={reduced ? undefined : { rotate, y }}>
         <svg viewBox="-45 -40 900 756" className="block w-full overflow-visible">
-          {facets.map(({ points, fill, edges }, index) => (
-            <g key={points} className="sculpture-facet" style={vars({ '--i': index })}>
-              {edges.map((edge) => <polygon key={edge} points={edge} fill={fill} style={{ filter: 'brightness(.59)' }} />)}
-              <polygon points={points} fill={fill} stroke={fill} strokeWidth="1.4" />
-            </g>
-          ))}
+          {facets.map(({ points, fill, edges }, index) => {
+            const vector = MARK_VECTORS[index];
+            return (
+              <g key={points} className="sculpture-facet" style={vars({
+                '--i': index,
+                '--facet-x': `${vector.x * 125}px`,
+                '--facet-y': `${vector.y * 125}px`,
+                '--facet-rotation': `${index % 2 === 0 ? -22 : 22}deg`,
+              })}>
+                {edges.map((edge) => <polygon key={edge} points={edge} fill={fill} style={{ filter: 'brightness(.59)' }} />)}
+                <polygon points={points} fill={fill} stroke={fill} strokeWidth="1.4" />
+              </g>
+            );
+          })}
         </svg>
       </motion.div>
     </div>
@@ -100,7 +110,11 @@ export function Hero() {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip hero-atmosphere pt-[calc(var(--nav-h)+1.5rem)]">
-      <div className="brand-curtain" aria-hidden="true"><Wordmark tone="light" /></div>
+      <div className="brand-curtain" aria-hidden="true">
+        <div className="brand-curtain-mark">
+          <BrandMark className="w-full" />
+        </div>
+      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[44rem] bg-[radial-gradient(40%_50%_at_85%_10%,rgba(25,88,165,0.08),transparent_70%),radial-gradient(30%_40%_at_10%_0%,rgba(242,191,18,0.07),transparent_70%)]"

@@ -36,19 +36,13 @@ export const MARK_VECTORS = MARK_POLYGONS.map(({ points }) => {
   return { x: dx / length, y: dy / length, distance: length };
 });
 
-// On dark grounds the two navy shards would vanish; they flip to light tones.
-const INVERSE_FILL: Record<string, string> = {
-  '#132a46': '#ffffff',
-  '#113f73': '#c9d8ea',
-};
 
 interface BrandMarkProps {
   className?: string;
   title?: string;
-  inverse?: boolean;
 }
 
-export function BrandMark({ className, title, inverse = false }: BrandMarkProps) {
+export function BrandMark({ className, title }: BrandMarkProps) {
   return (
     <svg
       viewBox={`0 0 ${MARK_VIEWBOX.width} ${MARK_VIEWBOX.height}`}
@@ -60,7 +54,7 @@ export function BrandMark({ className, title, inverse = false }: BrandMarkProps)
       focusable="false"
     >
       {MARK_POLYGONS.map((polygon) => {
-        const fill = inverse ? (INVERSE_FILL[polygon.fill] ?? polygon.fill) : polygon.fill;
+        const { fill } = polygon;
         return (
           <polygon
             key={polygon.points}
@@ -87,7 +81,7 @@ interface WordmarkProps {
 export function Wordmark({ className, product, tone = 'ink' }: WordmarkProps) {
   return (
     <span className={cn('inline-flex items-center gap-2.5 font-brand', className)}>
-      <BrandMark className="w-8 sm:w-9" inverse={tone === 'light'} />
+      <BrandMark className="w-8 sm:w-9" />
       <span className="flex flex-col leading-none">
         <span
           className={cn(

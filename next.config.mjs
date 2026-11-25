@@ -1,5 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    rules: {
+      '*.wgsl': {
+        loaders: ['@vgpu/wgsl/loader-webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  webpack(config) {
+    config.module.rules.push({ test: /\.wgsl$/, use: '@vgpu/wgsl/loader-webpack' });
+    return config;
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

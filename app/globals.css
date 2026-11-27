@@ -541,7 +541,7 @@ html.lenis body {
     pointer-events: none;
     position: fixed;
     inset: 0;
-    z-index: 45;
+    z-index: 100;
     background: radial-gradient(ellipse at center, #fdfbf3 8%, #edf3f8 66%, #dae8f2);
     animation: curtain-lift 1.32s cubic-bezier(.74,0,.2,1) both;
   }
@@ -565,7 +565,7 @@ html.lenis body {
     transform: rotate(12deg);
     animation-delay: 90ms;
   }
-  .hero-atmosphere:has(:focus-visible) .brand-curtain { opacity: 0; }
+  body:has(:focus-visible) .brand-curtain { opacity: 0; }
   .hero-atmosphere .mask-inner { animation-delay: calc(.66s + var(--i) * 95ms); }
   .sculpture-stage > .signal-canvas { animation: stage-light-in .4s .63s both; }
   @keyframes stage-light-in { from { opacity: 0; } }

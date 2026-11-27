@@ -96,114 +96,32 @@
   overflow: hidden;
   user-select: none;
 }
-.case-art--prx {
-  background: radial-gradient(ellipse at 72% 82%, #6034b9, transparent 58%),
-    linear-gradient(132deg, #29204b, #140f2b 72%);
-  color: #fff;
-}
+.case-art--prx { background: #080810; }
 .case-art--prx > .signal-canvas {
   z-index: 2;
   mix-blend-mode: screen;
 }
-.case-prx-phone {
-  position: absolute;
-  bottom: -15%;
-  left: 23%;
-  display: grid;
-  align-content: start;
-  gap: .48rem;
-  width: 34%;
-  height: 100%;
-  padding: 6% 3.4%;
-  border: 3px solid #cfc1ec80;
-  border-radius: clamp(1rem, 5cqi, 2.4rem);
-  background: #151121;
-  box-shadow: 0 20px 40px #08050f80;
-  transform: rotate(-14deg);
-}
-.case-prx-phone > b {
-  font-size: clamp(1.5rem, 7cqi, 3.7rem);
-  line-height: .93;
-  letter-spacing: -.095em;
-}
-.case-prx-phone > span { color: #dacbfa; font-size: clamp(.6rem, 2.5cqi, .91rem); }
-.case-prx-app-row {
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .32rem .37rem;
-  background: #ffffff12;
-  font-size: clamp(.55rem, 2.1cqi, .8rem);
-}
-.case-prx-app-row i {
-  width: .48rem;
-  height: .48rem;
-  border-radius: 100%;
-  background: #b5a0f5;
-}
+.case-prx-crystal,
 .case-prx-card {
   position: absolute;
-  top: 36%;
-  left: 46%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 43%;
-  aspect-ratio: 1.6;
-  padding: 4%;
-  border: 1px solid #e3d6ff8a;
-  border-radius: clamp(.55rem, 2cqi, 1rem);
-  background: repeating-linear-gradient(124deg, transparent 0 6px, #f1ebff24 7px, transparent 8px 12px),
-    linear-gradient(115deg, #b75ded, #683bdd 55%, #281c88);
-  box-shadow: 0 20px 35px #10082480;
-  transform: rotate(13deg);
+  inset-block: 0;
+  width: 57%;
 }
-.case-prx-card b { font-size: clamp(1.45rem, 9cqi, 4.2rem); line-height: .9; letter-spacing: -.095em; }
-.case-prx-card span { font-size: clamp(.55rem, 2cqi, .8rem); letter-spacing: .12em; }
-.case-art--ponto { background: #d1ebdf; color: #123a30; }
-.case-art--ponto::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(#236c5533 1px, transparent 1px);
-  background-size: 15px 15px;
+.case-prx-crystal { left: 0; }
+.case-prx-crystal img {
+  object-fit: cover;
+  object-position: center 47%;
 }
-.case-ponto-sheet,
-.case-ponto-record {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 4%;
-  box-shadow: 0 12px 22px #123a3027;
+.case-prx-card {
+  right: 0;
+  mask-image: linear-gradient(to right, transparent, #000 20%);
 }
-.case-ponto-sheet {
-  top: 13%;
-  left: 15%;
-  gap: .45rem;
-  width: 43%;
-  min-height: 57%;
-  background: #f9f8ef;
-  transform: rotate(-11deg);
+.case-prx-card img {
+  object-fit: cover;
+  object-position: center 55%;
 }
-.case-ponto-sheet i { width: 84%; height: 1px; background: #acc9bf; }
-.case-ponto-sheet i:last-child { width: 58%; }
-.case-ponto-record {
-  top: 37%;
-  left: 42%;
-  justify-content: center;
-  width: 49%;
-  min-height: 49%;
-  background: #115340;
-  color: #f7fff9;
-  transform: rotate(7deg);
-}
-.case-ponto-sheet span,
-.case-ponto-record span,
-.case-ponto-record small { font-size: clamp(.57rem, 2.45cqi, .88rem); }
-.case-ponto-sheet strong { font-size: clamp(1.15rem, 5cqi, 1.8rem); line-height: 1; }
-.case-ponto-record strong { font-size: clamp(1.25rem, 9cqi, 3.4rem); line-height: 1.08; letter-spacing: -.055em; }
-.case-ponto-record small { margin-top: .2rem; color: #c1efdb; }
+.case-art--ponto { background: #fff; }
+.case-art--ponto img { object-fit: contain; }
 .case-art--launch { background: #d8ab82; }
 .case-launch-page {
   position: absolute;
@@ -297,8 +215,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .case-art > div,
   .case-funnel-plot i { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
-  .case-entry-link:is(:hover, :focus-visible) .case-prx-card { transform: translate(.3rem, -.5rem) rotate(8deg); }
-  .case-entry-link:is(:hover, :focus-visible) .case-ponto-record { transform: translate(.25rem, -.4rem) rotate(3deg); }
   .case-entry-link:is(:hover, :focus-visible) .case-launch-page { transform: translateY(-.4rem) rotate(-3deg); }
   .case-entry-link:is(:hover, :focus-visible) .case-bot-chat { transform: translateY(-.28rem); }
   .case-entry-link:is(:hover, :focus-visible) .case-funnel-plot i { transform: scaleX(.93); }

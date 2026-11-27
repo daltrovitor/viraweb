@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { useTranslation } from '@/lib/i18n';
 import { EXTERNAL_LINK_PROPS, whatsappLink, type Copy } from '@/lib/site';
 import { trackContact } from '@/lib/analytics';
-import { BrandMark, MARK_POLYGONS, MARK_VECTORS } from '@/components/brand/brand-mark';
+import { MARK_POLYGONS, MARK_VECTORS } from '@/components/brand/brand-mark';
 import { SignalCanvas } from '@/components/motion/signal-canvas';
 import { ActionLink } from '@/components/ui/action-link';
 
@@ -110,11 +110,6 @@ export function Hero() {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip hero-atmosphere pt-[calc(var(--nav-h)+1.5rem)]">
-      <div className="brand-curtain" aria-hidden="true">
-        <div className="brand-curtain-mark">
-          <BrandMark className="w-full" />
-        </div>
-      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[44rem] bg-[radial-gradient(40%_50%_at_85%_10%,rgba(25,88,165,0.08),transparent_70%),radial-gradient(30%_40%_at_10%_0%,rgba(242,191,18,0.07),transparent_70%)]"

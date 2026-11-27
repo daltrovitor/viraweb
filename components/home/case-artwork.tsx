@@ -1,15 +1,10 @@
+import Image from 'next/image';
 import type { CaseSlug } from '@/lib/home/cases';
 import type { Copy } from '@/lib/site';
 import { SignalCanvas } from '@/components/motion/signal-canvas';
 
 const labels = {
   pt: {
-    account: 'Conta digital',
-    perks: 'Benefícios',
-    events: 'Eventos',
-    clockIn: 'Entrada registrada',
-    gps: 'Localização confirmada',
-    monthly: 'Espelho mensal',
     coursePage: 'Página do curso',
     course: 'Conhecer o curso',
     question: 'Tem horário amanhã?',
@@ -18,12 +13,6 @@ const labels = {
     stages: ['Contatos', 'Propostas', 'Vendas'],
   },
   en: {
-    account: 'Digital account',
-    perks: 'Perks',
-    events: 'Events',
-    clockIn: 'Clock-in recorded',
-    gps: 'Location confirmed',
-    monthly: 'Monthly timesheet',
     coursePage: 'Course page',
     course: 'Explore the course',
     question: 'Any openings tomorrow?',
@@ -32,12 +21,6 @@ const labels = {
     stages: ['Contacts', 'Proposals', 'Sales'],
   },
   es: {
-    account: 'Cuenta digital',
-    perks: 'Beneficios',
-    events: 'Eventos',
-    clockIn: 'Entrada registrada',
-    gps: 'Ubicación confirmada',
-    monthly: 'Planilla mensual',
     coursePage: 'Página del curso',
     course: 'Conocer el curso',
     question: '¿Hay horario mañana?',
@@ -54,29 +37,26 @@ export function CaseArtwork({ slug, language }: { slug: CaseSlug; language: keyo
     case 'prx':
       return (
         <div className="case-art case-art--prx" aria-hidden="true">
-          <div className="case-prx-phone">
-            <b>PRX</b>
-            <span>{text.account}</span>
-            <div className="case-prx-app-row"><i />{text.perks}</div>
-            <div className="case-prx-app-row"><i />{text.events}</div>
+          {/* Artwork from the homepage at https://www.prx.app.br/ */}
+          <div className="case-prx-crystal">
+            <Image src="/cases/prx-crystal.webp" fill sizes="(min-width: 1000px) 34vw, 55vw" alt="" />
           </div>
-          <div className="case-prx-card"><b>PRX</b><span>PRX BANK</span></div>
+          <div className="case-prx-card">
+            <Image src="/cases/prx-bank-card.webp" fill sizes="(min-width: 1000px) 34vw, 55vw" alt="" />
+          </div>
           <SignalCanvas mode="spotlight" />
         </div>
       );
     case 'pontocontrole':
       return (
         <div className="case-art case-art--ponto" aria-hidden="true">
-          <div className="case-ponto-sheet">
-            <span>{text.monthly}</span>
-            <strong>PDF</strong>
-            <i /><i /><i />
-          </div>
-          <div className="case-ponto-record">
-            <span>{text.clockIn}</span>
-            <strong>08:00</strong>
-            <small>{text.gps}</small>
-          </div>
+          {/* Captured from the public demo at https://www.pontocontrole.com.br/ */}
+          <Image
+            src="/cases/pontocontrole-demo.webp"
+            fill
+            sizes="(min-width: 1000px) 32vw, (min-width: 640px) 48vw, 95vw"
+            alt=""
+          />
         </div>
       );
     case 'pagina-de-lancamento':
